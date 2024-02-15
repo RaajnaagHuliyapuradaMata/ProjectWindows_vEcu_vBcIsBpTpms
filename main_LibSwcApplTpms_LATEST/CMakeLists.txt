@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.25.3)
 
 project(
-   pEcuReSim_LibSWCs_LATEST
+   vEcu_vBcIsBpTpms_LibSwcApplTpms_LATEST
    VERSION 0.1
 )
 
@@ -22,10 +22,9 @@ add_definitions(
 add_executable(
    ${PROJECT_NAME}
 
-   ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSbak/HMI_handler.c
+   ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsHmiHandler/SwcApplTpmsHmiHandler.c
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSdia
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr
-#  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSroe
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSwnh
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSwpa
 #  ${PROJECT_SOURCE_DIR}/source/CtCdHufTPMSohds
@@ -36,7 +35,7 @@ add_executable(
 target_include_directories(
    ${PROJECT_NAME} PUBLIC
 
-   "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSbak"
+   "${PROJECT_SOURCE_DIR}/source/SwcApplTpmsHmiHandler"
    "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSdia"
    "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr/Datamanager"
    "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr/DevMsg"
@@ -44,7 +43,6 @@ target_include_directories(
    "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr/FDmanager"
    "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr/Interfaces"
    "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr/Statemanager"
-   "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSroe"
    "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSwnh/WarnHler"
    "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSwpa/Walloc"
    "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSwpa/CtCdHufTPMSohds"

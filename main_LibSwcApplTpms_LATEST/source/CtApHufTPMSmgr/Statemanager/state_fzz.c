@@ -52,10 +52,10 @@
  * ==============================
  *
  * MISRA-C:2004 Rule 12.4: Msg(4:3415) The right hand operand of '&&' or '||' has side effects.
- *                         Da der Zugriff auf globale Bitstrukturen über Funktionen gekapselt ist, kann diese
+ *                         Da der Zugriff auf globale Bitstrukturen ï¿½ber Funktionen gekapselt ist, kann diese
  *                         Regelverletzung ohne Gefahr hingenommen werden.
- *                         Die Beseitigung dieser Regelverletzung hätte eine Erhöhung der zyklomatischen
- *                         Komplexität zur Folge.
+ *                         Die Beseitigung dieser Regelverletzung hï¿½tte eine Erhï¿½hung der zyklomatischen
+ *                         Komplexitï¿½t zur Folge.
  * MISRA-C:2004 Rule 3.1: REFERENCE - ISO-5.2.1 Character Sets
  *                        Msg(4:0288) [I] Source file '%s' has comments containing characters which are not
  *                        members of the basic source character set.
@@ -118,8 +118,7 @@
 /************************************************************************************************************
  *                                    data (Modulglobal) - RAM
  ************************************************************************************************************/
- extern uint8 ucWakeUpRsn; // set wakeup reason 
- extern uint8	bAwakeIgnOn; // awake reason
+extern uint8	bAwakeIgnOn; // awake reason
 
 
 /************************************************************************************************************
@@ -245,8 +244,8 @@ void InitFZZ( void )
  *
  * ----------------------------------------------------------------------------------------------------------
  *
- *\Purpose            Setzt Bit in Fahrzeugzustand anhand übergebener Bitmaske.
- *                    Setzen mehrerer Bits möglich, durch Übergabe "verODERter" Bitmasken.
+ *\Purpose            Setzt Bit in Fahrzeugzustand anhand ï¿½bergebener Bitmaske.
+ *                    Setzen mehrerer Bits mï¿½glich, durch ï¿½bergabe "verODERter" Bitmasken.
  *                    z.B. setBitFahrzeugzustand(cBIT1 | cBIT2 | cBIT3);
  *
  * ----------------------------------------------------------------------------------------------------------
@@ -278,8 +277,8 @@ void SetBitFahrzeugzustandFZZ( uint16 ushBitMask )
  *
  * ----------------------------------------------------------------------------------------------------------
  *
- *\Purpose            Löscht Bit in Fahrzeugzustand anhand übergebener Bitmaske.
- *                    Löschen mehrerer Bits möglich, durch Übergabe "verODERter" Bitmasken.
+ *\Purpose            Lï¿½scht Bit in Fahrzeugzustand anhand ï¿½bergebener Bitmaske.
+ *                    Lï¿½schen mehrerer Bits mï¿½glich, durch ï¿½bergabe "verODERter" Bitmasken.
  *                    z.B. clearBitFahrzeugzustand(cBIT1 | cBIT2 | cBIT3);
  *
  * ----------------------------------------------------------------------------------------------------------
@@ -288,7 +287,7 @@ void SetBitFahrzeugzustandFZZ( uint16 ushBitMask )
  *
  * ----------------------------------------------------------------------------------------------------------
  *
- *\Parameter          usBitMask - Bitmaske zu löschender Bits
+ *\Parameter          usBitMask - Bitmaske zu lï¿½schender Bits
  *
  *\Input              none
  *
@@ -312,7 +311,7 @@ void ClearBitFahrzeugzustandFZZ( uint16 ushBitMask )
  *
  * ----------------------------------------------------------------------------------------------------------
  *
- *\Purpose            Liefert Bitzustand des anhand der übergebenen Bitmaske selektierten Bit
+ *\Purpose            Liefert Bitzustand des anhand der ï¿½bergebenen Bitmaske selektierten Bit
  *                    in Fahrzeugzustand.
  *
  * ----------------------------------------------------------------------------------------------------------
@@ -352,7 +351,7 @@ uint16 ushGetFahrzeugzustandFZZ( uint16 ushBitMask )
  *
  * ----------------------------------------------------------------------------------------------------------
  *
- *\Purpose            Auf dem Fahrzeugbus wurde Klemme 15 ein übertragen
+ *\Purpose            Auf dem Fahrzeugbus wurde Klemme 15 ein ï¿½bertragen
  *
  *
  * ----------------------------------------------------------------------------------------------------------
@@ -394,7 +393,7 @@ void EvTerminal15OnFZZ( void )
  *
  * ----------------------------------------------------------------------------------------------------------
  *
- *\Purpose            Auf dem Fahrzeugbus wurde Klemme 15 aus übertragen
+ *\Purpose            Auf dem Fahrzeugbus wurde Klemme 15 aus ï¿½bertragen
  *
  *
  * ----------------------------------------------------------------------------------------------------------
@@ -422,7 +421,7 @@ void EvTerminal15OffFZZ( void )
     InitAfterKl15OffSM();
 		ClearBitBetriebszustandBZ(cCAL_AFD_PLAUSI_ERROR | cCAL_MFD_PLAUSI_ERROR);/*CRS_1211_130_097 calibration: second reset condition 5.5.5 */
 		//ClearBitBetriebszustandBZ(cCAL_AFD_PLAUSI_ERROR);/*CRS_1211_130_324 AFD: second reset condition 5.5.5 */
-		//CRS_1211_130_221 Kein Rücksetzen! MUSS über einen LKlemmenzykus gehalten werden!!!!!!!!!ClearBitBetriebszustandBZ(cCAL_REQUEST);
+		//CRS_1211_130_221 Kein Rï¿½cksetzen! MUSS ï¿½ber einen LKlemmenzykus gehalten werden!!!!!!!!!ClearBitBetriebszustandBZ(cCAL_REQUEST);
     //CRS_1211_130_249 PUTucCalRequestState2Nvm(); /* CRS_1211_130_170 CalRequestState into Nvm*/
 		//CRS_1211_130_249 PUTucCalNotAckState2Nvm(); /*CRS_1211_130_240*/
 
@@ -439,7 +438,7 @@ void EvTerminal15OffFZZ( void )
  *
  * ----------------------------------------------------------------------------------------------------------
  *
- *\Purpose            Geschwindigkeitsschwelle zur Erkennung "Fahrzeug fährt" überschritten
+ *\Purpose            Geschwindigkeitsschwelle zur Erkennung "Fahrzeug fï¿½hrt" ï¿½berschritten
  *
  *
  * ----------------------------------------------------------------------------------------------------------
@@ -471,7 +470,7 @@ void EvVehicleRollingFZZ( void )
  *
  * ----------------------------------------------------------------------------------------------------------
  *
- *\Purpose            Erkennung der Geschwindigkeitsschwelle v>20kmh als Vorbedingung für das Einsammeln der RE Drücke
+ *\Purpose            Erkennung der Geschwindigkeitsschwelle v>20kmh als Vorbedingung fï¿½r das Einsammeln der RE Drï¿½cke
  *                    bei Manuelle Kalibrierung
  *
  *
@@ -507,7 +506,7 @@ void EvVehicleSpeed4CalFZZ( void )
  *
  * ----------------------------------------------------------------------------------------------------------
  *
- *\Purpose            Geschwindigkeitsschwelle zur Erkennung "Fahrzeug fährt" unterschritten
+ *\Purpose            Geschwindigkeitsschwelle zur Erkennung "Fahrzeug fï¿½hrt" unterschritten
  *
  *
  * ----------------------------------------------------------------------------------------------------------
@@ -541,8 +540,8 @@ void EvVehicleStandsStillFZZ( void )
  *
  * ----------------------------------------------------------------------------------------------------------
  *
- *\Purpose            Erkennung der Geschwindigkeitsschwelle v<17kmh als Vorbedingung für das 
- *\                   NICHT-Einsammeln der RE Drücke bei Manuelle Kalibrierung
+ *\Purpose            Erkennung der Geschwindigkeitsschwelle v<17kmh als Vorbedingung fï¿½r das 
+ *\                   NICHT-Einsammeln der RE Drï¿½cke bei Manuelle Kalibrierung
  *
  * ----------------------------------------------------------------------------------------------------------
  *
@@ -575,7 +574,7 @@ void EvVehicleNoSpeed4CalFZZ( void )
  *
  * ----------------------------------------------------------------------------------------------------------
  *
- *\Purpose            Geschwindigkeitsschwelle zur Freischaltung der RE-Diagnose überschritten
+ *\Purpose            Geschwindigkeitsschwelle zur Freischaltung der RE-Diagnose ï¿½berschritten
  *
  *
  * ----------------------------------------------------------------------------------------------------------
@@ -754,7 +753,7 @@ void EvEngineStartingFZZ(void)
  *
  * ----------------------------------------------------------------------------------------------------------
  *
- *\Purpose            Vorwärtsfahrt
+ *\Purpose            Vorwï¿½rtsfahrt
  *
  *
  * ----------------------------------------------------------------------------------------------------------
@@ -786,7 +785,7 @@ void EvDriveDirectionForwardFZZ( void )
  *
  * ----------------------------------------------------------------------------------------------------------
  *
- *\Purpose            Rückwärtsfahrt
+ *\Purpose            Rï¿½ckwï¿½rtsfahrt
  *
  *
  * ----------------------------------------------------------------------------------------------------------
@@ -959,7 +958,7 @@ void EvKl30DiagNoUeberSpgFZZ( void )
  *
  * ----------------------------------------------------------------------------------------------------------
  *
- *\Purpose            Klemm30 Bordnetzspannungs Diagnose: Erkennung von Üerspannung  
+ *\Purpose            Klemm30 Bordnetzspannungs Diagnose: Erkennung von ï¿½erspannung  
  *\                   
  *
  * ----------------------------------------------------------------------------------------------------------
@@ -992,7 +991,7 @@ void EvKl30DiagUeberSpgFZZ( void )
  *
  * ----------------------------------------------------------------------------------------------------------
  *
- *\Purpose            Klemm30 Bordnetzspannungs Diagnose: war in der Vergangenheit Üerspannung gesetzt!  
+ *\Purpose            Klemm30 Bordnetzspannungs Diagnose: war in der Vergangenheit ï¿½erspannung gesetzt!  
  *\                   
  *
  * ----------------------------------------------------------------------------------------------------------
@@ -1154,7 +1153,7 @@ uint32 GETulKilometersFZZ( void )
  *
  * ----------------------------------------------------------------------------------------------------------
  *
- *\Purpose            Außentemperatur abrufen
+ *\Purpose            Auï¿½entemperatur abrufen
  *
  *
  * ----------------------------------------------------------------------------------------------------------
@@ -1279,9 +1278,9 @@ void InitAfterKl15OffSM(void){
 	 //Com_IpduGroupStop(Com_PduGrp_TxMess_TPM_HMI);
      //Com_IpduGroupStop(Com_PduGrp_TxNorm_TPM_HMI);
      //Nm_DisableCommunication(0);
-	//ClearPlausiFailureFD(); /*KeinLöschen!CRS_1211_130_329 CRS_1211_130_191*/
-	//ClearAbortReasonFD(); /*KeinLöschen!CRS_1211_130_329 CRS_1211_130_191*/
-	//ClearFillingDetectionStateFD(); /*KeinLöschen!CRS_1211_130_329 CRS_1211_130_191*/
+	//ClearPlausiFailureFD(); /*KeinLï¿½schen!CRS_1211_130_329 CRS_1211_130_191*/
+	//ClearAbortReasonFD(); /*KeinLï¿½schen!CRS_1211_130_329 CRS_1211_130_191*/
+	//ClearFillingDetectionStateFD(); /*KeinLï¿½schen!CRS_1211_130_329 CRS_1211_130_191*/
 	SetFzzState4MM(FALSE);		/*CRS_1211_130_377*/
 	KL15OffWarnInit(GETpucStartAdrWPorPWP ());
 	InitHMIAfterKL15Off(); // Init HMI signals after KL15 Off
@@ -1349,7 +1348,7 @@ void InitFDAfterKl15On(void)
   {
 		PUTucPfillFront(InvalidValue_c08_kPa_0_632d5_2d5);/*6,38bar CRS_1211_130_270*/
 		PUTucPfillRear(InvalidValue_c08_kPa_0_632d5_2d5);/*6,38bar CRS_1211_130_270*/
-		PUTscTfill(127); /*c08_degC_m50_204_1_UpperLimit= -1°C ????CRS_1211_130_270*/
+		PUTscTfill(127); /*c08_degC_m50_204_1_UpperLimit= -1ï¿½C ????CRS_1211_130_270*/
 	}
 }
 
@@ -2151,7 +2150,7 @@ uint8  bGetKl30HighDTCActive(void)
 {
   uint8 ucEventStatus0; 
 
-	Dem_GetEventStatus(Dem_DTC_0xa10e00, &ucEventStatus0); /*0xa10e00 Kl.30 Überspannung!*/
+	Dem_GetEventStatus(Dem_DTC_0xa10e00, &ucEventStatus0); /*0xa10e00 Kl.30 ï¿½berspannung!*/
   
   if (ucEventStatus0 == DEM_EVENT_STATUS_PASSED) 
   {
@@ -2172,7 +2171,7 @@ uint8  bGetKl30HighDTCActive(void)
  * \param [out] DTC state 
  *
  * \return	TRUE: DTC activ, FALSE; DTC Passed
- * ßDem_DTC_0xa10d00 Kl30 lowvoltage CRS_1211_050_050
+ * ï¿½Dem_DTC_0xa10d00 Kl30 lowvoltage CRS_1211_050_050
  *------------------------------------------------------------------------------------------------
  */
 uint8  bGetKl30LowDTCActive(void)
@@ -2208,7 +2207,7 @@ uint8  bGetPN14SupbatHighDTCActive(void)
 {
   uint8 ucEventStatus0; 
 
-	Dem_GetEventStatus(Dem_DTC_0xa10b00, &ucEventStatus0); /*0xa10b00 CAN Botschaft: Überspannung */
+	Dem_GetEventStatus(Dem_DTC_0xa10b00, &ucEventStatus0); /*0xa10b00 CAN Botschaft: ï¿½berspannung */
   
   if (ucEventStatus0 == DEM_EVENT_STATUS_PASSED) 
   {

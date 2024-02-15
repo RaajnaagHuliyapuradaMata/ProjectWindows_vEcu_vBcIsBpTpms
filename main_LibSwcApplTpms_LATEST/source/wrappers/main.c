@@ -2,6 +2,7 @@
 
 #include "infRteSwcApplTpms_HmiHandler.hpp"
 
+/*
 extern void                                             UpdateTxBusMsg                   (void);
 extern void                                             InitTxBusMsg                     (void);
 extern void                                             setTireStatMsgDispRestart        (void);
@@ -22,9 +23,9 @@ extern REC_Tire_Stat_V2*                                pGetTireStat            
 extern REC_Tire_Temp_V2*                                pGetTireTemp                     (void);
 extern REC_RefPress*                                    pGetHmiRefPress                  (void);
 extern uint8                                            ucGetHMIWakeUpRsn                (void);
-extern uint8                                            bGetHMIAwakeDiagActv             (void);
-extern uint8                                            bGetHMIAwakeIgnitionOn           (void);
-extern uint8                                            bGetHMIAwakeNwSt                 (void);
+extern boolean                                          bGetHMIAwakeDiagActv             (void);
+extern boolean                                          bGetHMIAwakeIgnitionOn           (void);
+extern boolean                                          bGetHMIAwakeNwSt                 (void);
 extern uint8                                            bGetHMIAwakeWarnActv             (void);
 extern void                                             InitHMIAfterKL15On               (void);
 extern void                                             InitHMIAfterKL15Off              (void);
@@ -33,8 +34,10 @@ extern void                                             ClearTPM_StatNoSensors  
 extern void                                             ClearTPM_StatSensorsMissing      (void);
 extern void                                             ClearTPM_MsgDispRqSensorsMissing (void);
 extern void                                             ClearTPM_MsgDispRqNoSensors      (void);
+*/
 
 int main(void){
+/*
    UpdateTxBusMsg                   ();
    InitTxBusMsg                     ();
    setTireStatMsgDispRestart        ();
@@ -42,23 +45,23 @@ int main(void){
    bHoldOffWarningEnabled           ();
    updateHoldOff4Pmin               ();
    updateHoldOffWarning             ();
-   ucGetHMITPMMsgDisp               ();
-   ucGetHMITPMStat                  ();
-   ucGetHMITPMWarnDisp              ();
-   bGetHMITPMIndLmpOn               ();
-   bGetHMITPMMalfLmpOn              ();
-   bGetHMITirePressAvlBit           ();
-   ucGetHMITireTempWarnDisp         ();
-   pGetTpmLmpOnRq                   ();
-   pGetTpmLmpOnRqOld                ();
-   pGetTireStat                     ();
-   pGetTireTemp                     ();
-   pGetHmiRefPress                  ();
-   ucGetHMIWakeUpRsn                ();
-   bGetHMIAwakeDiagActv             ();
-   bGetHMIAwakeIgnitionOn           ();
-   bGetHMIAwakeNwSt                 ();
-   bGetHMIAwakeWarnActv             ();
+   (void)ucGetHMITPMMsgDisp         ();
+   (void)ucGetHMITPMStat            ();
+   (void)ucGetHMITPMWarnDisp        ();
+   (void)bGetHMITPMIndLmpOn         ();
+   (void)bGetHMITPMMalfLmpOn        ();
+   (void)bGetHMITirePressAvlBit     ();
+   (void)ucGetHMITireTempWarnDisp   ();
+   (void)pGetTpmLmpOnRq             ();
+   (void)pGetTpmLmpOnRqOld          ();
+   (void)pGetTireStat               ();
+   (void)pGetTireTemp               ();
+   (void)pGetHmiRefPress            ();
+   (void)ucGetHMIWakeUpRsn          ();
+   (void)bGetHMIAwakeDiagActv       ();
+   (void)bGetHMIAwakeIgnitionOn     ();
+   (void)bGetHMIAwakeNwSt           ();
+   (void)bGetHMIAwakeWarnActv       ();
    InitHMIAfterKL15On               ();
    InitHMIAfterKL15Off              ();
    InitHMIAfterSetIDsOverDiag       ();
@@ -66,6 +69,7 @@ int main(void){
    ClearTPM_StatSensorsMissing      ();
    ClearTPM_MsgDispRqSensorsMissing ();
    ClearTPM_MsgDispRqNoSensors      ();
+*/
    return 0;
 }
 

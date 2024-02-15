@@ -1,5 +1,5 @@
 /******************************************************************************/
-/* File        : HMI_handler.c                                                */
+/* File        : SwcApplTpmsHmiHandler.c                                      */
 /* Author      : Nagaraja HULIYAPURADA MATA                                   */
 /*                                                                            */
 /* This source code is property of - Huf Baolong Electronics GmbH             */
@@ -18,22 +18,6 @@
 #include "Std_Types.h"
 
 #include "infRteSwcApplTpms_HmiHandler.hpp"
-//#include "HMI_handler.h"
-//#include "HMI_handlerX.h"
-//#include "state_bzX.h"
-//#include "state_fzzX.h"
-//#include "WallocX.h"
-//#include "USWarnX.h"
-//#include "Rte_CtApHufTPMSmgr.h"
-//#include "tel_statisticX.h"
-//#include "internal_clockX.h"
-//#include "Appl_Dcm.h"
-//#include "filling_detection.h"
-//#include "Dem_Cfg.h"
-//#include "Dem_Types.h"
-//#include "Dem_Lcfg.h"
-//#include "Nm.h"
-//#include "EcuM_Generated_Types.h"
 
 /******************************************************************************/
 /* #DEFINES                                                                   */
@@ -64,8 +48,6 @@ static REC_TPM_Lmp_On_Rq_old                           tTpmLmpOnRqOld;
 static REC_Tire_Stat_V2                                tTireStat;
 static REC_Tire_Temp_V2                                tTireTemp;
 static c08_WakeupRsn_TPM                               ucWakeUpRsn;
-static DC_BOOL                                         bAwakeDiagActiv;
-static DC_BOOL                                         bAwakeNwSt;
 static DC_BOOL                                         bAwakeIgnOn;
 static DC_BOOL                                         bAwakeWarnActiv;
 static DC_BOOL                                         bTireStatMsgDispRestartFlag;
@@ -142,8 +124,6 @@ void InitTxBusMsg(void){
    tTireTemp.Tire_Temp_Stat_RR     = I_C02_TIRE_TEMP_NORMAL;
    tTireTemp.Tire_Temp_WarnDisp_Rq = I_C03_TIRE_TEMP_WARNDISP_NO_MESS;
    ucWakeUpRsn                     = I_C08_WAKEUPRSN_TPM_NETWORK;
-   bAwakeDiagActiv                 = FALSE;
-   bAwakeNwSt                      = TRUE;
    bAwakeIgnOn                     = FALSE;
    bAwakeWarnActiv                 = FALSE;
    bTireStatMsgDispRestartFlag     = FALSE;
@@ -536,43 +516,39 @@ uint8 ucGetHMIWakeUpRsn(void){
    return ucWakeUpRsn;
 }
 
-uint8 bGetHMIAwakeDiagActv(void){
+boolean bGetHMIAwakeDiagActv(void){
    Dcm_SesCtrlType CurSession;
    Dcm_GetSesCtrlType(&CurSession);
+   return((boolean)(DCM_EXTENDED_DIAGNOSTIC_SESSION == CurSession));
+}
 
-   if(CurSession == DCM_EXTENDED_DIAGNOSTIC_SESSION){
-      bAwakeDiagActiv = TRUE;
-   }
-   else{
-      bAwakeDiagActiv = FALSE;
-   }
-   return bAwakeDiagActiv;
-   }
-
-uint8 bGetHMIAwakeIgnitionOn(void){
+boolean bGetHMIAwakeIgnitionOn(void){
    return bAwakeIgnOn;
 }
 
-uint8 bGetHMIAwakeNwSt(void){
+boolean bGetHMIAwakeNwSt(void){
    Nm_StateType  NmState;
    Nm_ModeType   NmMode;
 
-   Nm_GetState(0u, &NmState, &NmMode);
+   Nm_GetState(
+         0u
+      ,  &NmState
+      ,  &NmMode
+   );
 
-   if((NmState == NM_STATE_REPEAT_MESSAGE) || (NmState == NM_STATE_BUS_SLEEP)){
-      bAwakeNwSt = TRUE;
-   }
-   else{
-      bAwakeNwSt = FALSE;
-   }
-   return bAwakeNwSt;
+   return(
+      (boolean)(
+            (NM_STATE_REPEAT_MESSAGE == NmState)
+         || (NM_STATE_BUS_SLEEP      == NmState)
+      )
+   );
 }
 
 uint8 bGetHMIAwakeWarnActv(void){
    return bAwakeWarnActiv;
 }
 
-void  InitHMIAfterKL15On(void){
+void InitHMIAfterKL15On(void){
    tTireStat.TPM_MsgDisp_Rq = I_C04_TPM_MSGDISP_RQ_NO_MESS;
    ucWakeUpRsn              = I_C08_WAKEUPRSN_TPM_NETWORK;
    bAwakeIgnOn              = TRUE;
