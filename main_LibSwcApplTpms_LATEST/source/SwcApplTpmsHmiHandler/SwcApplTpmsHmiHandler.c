@@ -1,23 +1,15 @@
 /******************************************************************************/
-/* File        : SwcApplTpmsHmiHandler.c                                      */
-/* Author      : Nagaraja HULIYAPURADA MATA                                   */
-/*                                                                            */
-/* This source code is property of - Huf Baolong Electronics GmbH             */
-/*                                                                            */
-/* All rights reserved.                                                       */
-/* Copyright (c)2024 Huf Baolong Electronics GmbH / Abteilung TPD-SW          */
-/*                                                                            */
-/* Always refer latest software version from:                                 */
-/* https://NagarajaHuliyapuradaMata@bitbucket.org/bhsens/ineos_grenadiere_steuergerate.git */
-/*                                                                            */
+/* File              : SwcApplTpmsHmiHandler.c                                */
+/* Author            : Nagaraja HULIYAPURADA MATA                             */
+/* Copyright (c)2024 : All rights reserved.                                   */
 /******************************************************************************/
 
 /******************************************************************************/
 /* #INCLUDES                                                                  */
 /******************************************************************************/
-#include "Std_Types.h"
+#include "Std_Types.hpp"
 
-#include "infRteSwcApplTpms_HmiHandler.hpp"
+#include "infRteSwcApplTpmsHmiHandler.hpp"
 
 /******************************************************************************/
 /* #DEFINES                                                                   */

@@ -1,11 +1,11 @@
 /**************************************************************************************************
    Project Name: Operating Hours Distribution Service (OHDS) - CAN Slave
-      File Name: _OHDSCanSlave_Compiler_Cfg.h
+      File Name: _OHDSCanSlave_MemMap.h
 
-    Description: Compiler abstraction for OHDS CAN slave component. This file must be included in
-                 or the content must be copied to the Compiler_Cfg.h
+    Description: Memory abstraction for OHDS CAN slave component. This file must be included in
+                 or the content must be copied to the MemMap.h
                  This file must be adapted by the integrator to the project specific environment
-
+ 
   -------------------------------------------------------------------------------------------------
        C O P Y R I G H T
   -------------------------------------------------------------------------------------------------
@@ -33,35 +33,102 @@
    ----------   -------  ------  ------------------------------------------------------------------
    2013-12-09   1.0.0    vislki  Creation
    2014-02-07   1.0.1    vislki	 Removed unnecessary defines
-   2014-03-05   1.0.2    vislki  Renamed Compiler_Cfg defines
+   2014-03-05   1.0.2    vislki  Renamed MemMap defines
    2014-03-11            viseml  Code Inspection
    2014-07-25   2.0.0    visart  Added ZERO_INIT for internal state
    2014-07-29            viseml  Code Inspection
 **************************************************************************************************/
-#ifndef OHDSCANSLAVE_COMPILER_CFG_H
-#define OHDSCANSLAVE_COMPILER_CFG_H
+
 
 /**************************************************************************************************
 * Global defines
 **************************************************************************************************/
 
-/* Package Merger: Start Section CompilerCfgModuleList */
+/* Package Merger: Start Section MemMapModuleList */
 
 /**********************************************************************************************************************
  *  OHDSCANSLAVE START 
  *********************************************************************************************************************/
 
-#define OHDS_CODE
-#define OHDS_CONST
-#define OHDS_VAR_NOINIT
-#define OHDS_VAR_ZERO_INIT
-#define OHDS_APPL_VAR
+/*******  CODE sections **********************************************************************************************/
+
+#ifdef OHDS_START_SEC_CODE
+# undef OHDS_START_SEC_CODE
+# define START_SEC_CODE                            /* mapped to default code section */
+#endif
+#ifdef OHDS_STOP_SEC_CODE
+# undef OHDS_STOP_SEC_CODE
+# define STOP_SEC_CODE                             /* default code stop section */
+#endif
+
+/*******  CONST sections  ********************************************************************************************/
+
+/* CONST sections */
+#ifdef OHDS_START_SEC_CONST_UNSPECIFIED
+# undef OHDS_START_SEC_CONST_UNSPECIFIED
+# define START_SEC_CONST_UNSPECIFIED
+#endif
+#ifdef OHDS_STOP_SEC_CONST_UNSPECIFIED
+# undef OHDS_STOP_SEC_CONST_UNSPECIFIED
+# define STOP_SEC_CONST
+#endif
+
+
+/*******  VAR sections  **********************************************************************************************/
+
+/* VAR NOINIT sections */
+#ifdef OHDS_START_SEC_VAR_NOINIT_8BIT
+# undef OHDS_START_SEC_VAR_NOINIT_8BIT
+# define START_SEC_VAR_NOINIT_8BIT
+#endif
+#ifdef OHDS_STOP_SEC_VAR_NOINIT_8BIT
+# undef OHDS_STOP_SEC_VAR_NOINIT_8BIT
+# define STOP_SEC_VAR
+#endif
+
+#ifdef OHDS_START_SEC_VAR_NOINIT_16BIT
+# undef OHDS_START_SEC_VAR_NOINIT_16BIT
+# define START_SEC_VAR_NOINIT_16BIT
+#endif
+#ifdef OHDS_STOP_SEC_VAR_NOINIT_16BIT
+# undef OHDS_STOP_SEC_VAR_NOINIT_16BIT
+# define STOP_SEC_VAR
+#endif
+
+#ifdef OHDS_START_SEC_VAR_NOINIT_32BIT
+# undef OHDS_START_SEC_VAR_NOINIT_32BIT
+# define START_SEC_VAR_NOINIT_32BIT
+#endif
+#ifdef OHDS_STOP_SEC_VAR_NOINIT_32BIT
+# undef OHDS_STOP_SEC_VAR_NOINIT_32BIT
+# define STOP_SEC_VAR
+#endif
+
+#ifdef OHDS_START_SEC_VAR_NOINIT_UNSPECIFIED
+# undef OHDS_START_SEC_VAR_NOINIT_UNSPECIFIED
+# define START_SEC_VAR_NOINIT_UNSPECIFIED
+#endif
+#ifdef OHDS_STOP_SEC_VAR_NOINIT_UNSPECIFIED
+# undef OHDS_STOP_SEC_VAR_NOINIT_UNSPECIFIED
+# define STOP_SEC_VAR
+#endif
+
+/* VAR ZERO_INIT sections */
+#ifdef OHDS_START_SEC_VAR_ZERO_INIT_8BIT
+# undef OHDS_START_SEC_VAR_ZERO_INIT_8BIT
+# define START_SEC_VAR_ZERO_INIT_8BIT
+#endif
+#ifdef OHDS_STOP_SEC_VAR_ZERO_INIT_8BIT
+# undef OHDS_STOP_SEC_VAR_ZERO_INIT_8BIT
+# define STOP_SEC_VAR
+#endif
+
 
 /**********************************************************************************************************************
- *  OHDSCANSLAVE END 
+ *  OHDSCANSLAVE END
  *********************************************************************************************************************/
 
-/* Package Merger: Stop Section CompilerCfgModuleList */
+/* Package Merger: Stop Section MemMapModuleList */
 
 /***** end of header file ************************************************************************/
-#endif /* ifndef OHDSCANSLAVE_COMPILER_CFG_H */
+

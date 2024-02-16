@@ -1,38 +1,10 @@
-/**********************************************************************************************************************
- *  COPYRIGHT
- *  -------------------------------------------------------------------------------------------------------------------
- *  Copyright (c) 2006-2015 by Vector Informatik GmbH.                                             All rights reserved.
- *
- *                This software is copyright protected and proprietary to Vector Informatik GmbH.
- *                Vector Informatik GmbH grants to you only those rights as set out in the license conditions.
- *                All other rights remain with Vector Informatik GmbH.
- *  -------------------------------------------------------------------------------------------------------------------
- *  FILE DESCRIPTION
- *  -------------------------------------------------------------------------------------------------------------------
- *          File:  Rte_Compiler_Cfg.h
- *     Workspace:  C:/_TSS/DAG/MFA2/Target/Config/Developer/HufTPMS_G6_F1L.dev
- *   ECU-Project:  TPM
- *  Generated at:  Fri Dec 15 13:11:50 2017
- *
- *     Generator:  MICROSAR RTE Generator Version 2.27.0
- *                 RTE Core Version 1.6.0
- *       License:  License CBD1500122 valid for Huf Electronics Bretten GmbH Package: MSR Daimler SLP10 Micro: R7F7010133AFP Compiler: Green Hills 6.1.4
- *
- *   Description:  RTE Compiler Abstraction header file
- *********************************************************************************************************************/
-
-/**********************************************************************************************************************
- * DO NOT CHANGE THIS COMMENT!           << Start of version logging area >>                DO NOT CHANGE THIS COMMENT!
- *********************************************************************************************************************/
-
-
-/**********************************************************************************************************************
- * DO NOT CHANGE THIS COMMENT!           << End of version logging area >>                  DO NOT CHANGE THIS COMMENT!
- *********************************************************************************************************************/
-
-/* double include prevention */
+/******************************************************************************/
+/* File              : Rte_Compiler_Cfg.h                                     */
+/* Author            : Nagaraja HULIYAPURADA MATA                             */
+/* Copyright (c)2024 : All rights reserved.                                   */
+/******************************************************************************/
 #ifndef _RTE_COMPILER_CFG_H
-# define _RTE_COMPILER_CFG_H
+#define _RTE_COMPILER_CFG_H
 
 /**********************************************************************************************************************
  * DO NOT CHANGE THIS COMMENT!           << Start of include and declaration area >>        DO NOT CHANGE THIS COMMENT!

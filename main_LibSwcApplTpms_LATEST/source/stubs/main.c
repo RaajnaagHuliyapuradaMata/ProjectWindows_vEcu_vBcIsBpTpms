@@ -1,6 +1,6 @@
 #include "Std_Types.h"
 
-#include "infRteSwcApplTpms_HmiHandler.hpp"
+#include "infRteSwcApplTpmsHmiHandler.hpp"
 
 /*
 extern void                                             UpdateTxBusMsg                   (void);
@@ -73,28 +73,28 @@ int main(void){
    return 0;
 }
 
-boolean       bGetBitBetriebszustandBZ   (uint16 ushBitMask)        {ushBitMask = ushBitMask; return 0;}
-boolean       bGetBitFahrzeugzustandFZZ  (uint16 ushBitMask)        {ushBitMask = ushBitMask; return 0;}
-boolean       bGetSensorStateMissing     (uint8  ucColOfID)         {ucColOfID  = ucColOfID;  return 0;}
-uint8         ucGetLastReceivedPress     (uint32 ulTelID)           {ulTelID    = ulTelID;    return 0;}
-uint8         ucGetLastReceivedTemp      (uint32 ulTelID)           {ulTelID    = ulTelID;    return 0;}
-unsigned char USEui8PWPofHistCol         (unsigned char ui8HistCol) {ui8HistCol = ui8HistCol; return 0;}
-unsigned long ulGetID                    (unsigned char ucIx)       {ucIx       = ucIx;       return 0;}
-unsigned char ucGetColOfWP               (unsigned char ucIx)       {ucIx       = ucIx;       return 0;}
-unsigned char ucGetWPOfCol               (unsigned char ucIx)       {ucIx       = ucIx;       return 0;}
-uint8         GETucPrefFront             (void)                     {return 0;}
-uint8         GETucPrefRear              (void)                     {return 0;}
-uint8         ucGetFailureState          (void)                     {return 0;}
-boolean       bCheckHistIDReception1     (void)                     {return 0;}
-uint8         ui8GetALState              (void)                     {return 0;}
-unsigned char GetucTPM_WarnDisp_Rq       (void)                     {return 0;}
-unsigned char ucGetHistoryState          (void)                     {return 0;}
-uint8         ui8OvrHeatWrnIsActive      (void)                     {return 0;}
-uint8         ui8GetTempColeurWP_FL      (void)                     {return 0;}
-uint8         ui8GetTempColeurWP_FR      (void)                     {return 0;}
-uint8         ui8GetTempColeurWP_RL      (void)                     {return 0;}
-uint8         ui8GetTempColeurWP_RR      (void)                     {return 0;}
-uint8         GETucMinWarnThresholdOfRam (void)                     {return 0;}
+boolean bGetBitBetriebszustandBZ   (uint16 ushBitMask) {ushBitMask = ushBitMask; return 0;}
+boolean bGetBitFahrzeugzustandFZZ  (uint16 ushBitMask) {ushBitMask = ushBitMask; return 0;}
+boolean bGetSensorStateMissing     (uint8  ucColOfID)  {ucColOfID  = ucColOfID;  return 0;}
+uint8   ucGetLastReceivedPress     (uint32 ulTelID)    {ulTelID    = ulTelID;    return 0;}
+uint8   ucGetLastReceivedTemp      (uint32 ulTelID)    {ulTelID    = ulTelID;    return 0;}
+uint8   USEui8PWPofHistCol         (uint8 ui8HistCol)  {ui8HistCol = ui8HistCol; return 0;}
+uint32  ulGetID                    (uint8 ucIx)        {ucIx       = ucIx;       return 0;}
+uint8   ucGetColOfWP               (uint8 ucIx)        {ucIx       = ucIx;       return 0;}
+uint8   ucGetWPOfCol               (uint8 ucIx)        {ucIx       = ucIx;       return 0;}
+uint8   GETucPrefFront             (void)              {return 0;}
+uint8   GETucPrefRear              (void)              {return 0;}
+uint8   ucGetFailureState          (void)              {return 0;}
+boolean bCheckHistIDReception1     (void)              {return 0;}
+uint8   ui8GetALState              (void)              {return 0;}
+uint8   GetucTPM_WarnDisp_Rq       (void)              {return 0;}
+uint8   ucGetHistoryState          (void)              {return 0;}
+uint8   ui8OvrHeatWrnIsActive      (void)              {return 0;}
+uint8   ui8GetTempColeurWP_FL      (void)              {return 0;}
+uint8   ui8GetTempColeurWP_FR      (void)              {return 0;}
+uint8   ui8GetTempColeurWP_RL      (void)              {return 0;}
+uint8   ui8GetTempColeurWP_RR      (void)              {return 0;}
+uint8   GETucMinWarnThresholdOfRam (void)              {return 0;}
 
 FUNC(Std_ReturnType, DCM_CODE) Dcm_GetSesCtrlType(
    P2VAR(Dcm_SesCtrlType, AUTOMATIC, DCM_APPL_DATA) SessionCtrlType

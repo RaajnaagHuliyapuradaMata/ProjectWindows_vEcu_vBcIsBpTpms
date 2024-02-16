@@ -1,29 +1,14 @@
 #pragma once
 /******************************************************************************/
-/* File   : infRteSwcApplTpms_HmiHandler.hpp                                  */
-/*                                                                            */
-/* Author : Raajnaag HULIYAPURADA MATA                                        */
-/*                                                                            */
-/* License / Warranty / Terms and Conditions                                  */
-/*                                                                            */
-/* Everyone is permitted to copy and distribute verbatim copies of this lice- */
-/* nse document, but changing it is not allowed. This is a free, copyright l- */
-/* icense for software and other kinds of works. By contrast, this license is */
-/* intended to guarantee your freedom to share and change all versions of a   */
-/* program, to make sure it remains free software for all its users. You have */
-/* certain responsibilities, if you distribute copies of the software, or if  */
-/* you modify it: responsibilities to respect the freedom of others.          */
-/*                                                                            */
-/* All rights reserved. Copyright © 1982 Raajnaag HULIYAPURADA MATA           */
-/*                                                                            */
-/* Always refer latest software version from:                                 */
-/* https://github.com/RaajnaagHuliyapuradaMata?tab=repositories               */
-/*                                                                            */
+/* File              : infRteSwcApplTpms_HmiHandler.hpp                       */
+/* Author            : Nagaraja HULIYAPURADA MATA                             */
+/* Copyright (c)2024 : All rights reserved.                                   */
 /******************************************************************************/
 
 /******************************************************************************/
 /* #INCLUDES                                                                  */
 /******************************************************************************/
+#include "infSwcApplTpmsSMRte.hpp"
 
 /******************************************************************************/
 /* #DEFINES                                                                   */
@@ -63,9 +48,6 @@ extern boolean bCheckHistIDReception1 (void);
 extern boolean bGetSensorStateMissing (uint8  ucColOfID);
 extern uint8   ucGetLastReceivedPress (uint32 ulTelID);
 extern uint8   ucGetLastReceivedTemp  (uint32 ulTelID);
-
-/* WallocX.h */
-#define cMaxLR 4
 
 #define cHiStateTZG ((unsigned char) 0x04)
 #define cHiStateZG  ((unsigned char) 0x02)
