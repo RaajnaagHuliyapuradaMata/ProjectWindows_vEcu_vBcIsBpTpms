@@ -1,29 +1,6 @@
-/*
-(c)  Electronics GmbH     BEE1     11/2015
-================================================================================================
-
-file name:     DAG_TVWarn.c
-
-file status:   fine
-
-------------------------------------------------------------------------------------------------
-
-author:        Peter Brand                 Electronics GmbH
-
-intials:       pb
-
-Purpose:
-used interfaces all combined in one - and be aware used means used by warnlogic itself nothing else
-THIS IS NOT A PROVIDED INTERFACE - THIS IS NOT A PROVIDED INTERFACE - THIS IS NOT A PROVIDED INTERFACE
 
 
-*/
-
-
-/************************************************************************************************************
- *                                             include
- ************************************************************************************************************/
-#include "Platform_Types.h" /*BSW types.h*/ 
+#include "Platform_Types.h"
 #include "global.h"
 #include "uswarn_ifx.h"
 #include "HMI_handlerX.h"
@@ -32,71 +9,17 @@ THIS IS NOT A PROVIDED INTERFACE - THIS IS NOT A PROVIDED INTERFACE - THIS IS NO
 #include "filling_detection.h"
 #include "state_fdX.h"
 
-/************************************************************************************************************
- *                                             define
- ************************************************************************************************************/
-
-
-
-/************************************************************************************************************
- *                                            typedef
- ************************************************************************************************************/
-
-
-
-/************************************************************************************************************
- *                                    data (Modulglobal) - ROM
- ************************************************************************************************************/
-
-
-/************************************************************************************************************
- *                                    data (Modulglobal) - RAM
- ************************************************************************************************************/
-
-
-
-/************************************************************************************************************
- *                                       data (global) - ROM
- ************************************************************************************************************/
-
-
-
-/************************************************************************************************************
- *                                       data (global) - RAM
- ************************************************************************************************************/
-
-
-
-/***********************************************************************************************************
- *                                     prototype (private function)
- ***********************************************************************************************************/
-
-
-
-/************************************************************************************************************
- *                                     prototype (public function)
- ************************************************************************************************************/
-
-
-
-/************************************************************************************************************
- *                                             macro
- ************************************************************************************************************/
-
-
 void UpdateDAGsOldOff(void)
 {
-	updateHoldOff4Pmin(); /*CRS_1211_010_020*/
-	updateHoldOffWarning();
+   updateHoldOff4Pmin();
+   updateHoldOffWarning();
 }
 
-// GetRatValOfId purpose:
-// provides rated pressure/temperature and quotient of both from a sensor in history column[0..3] to p2RatVal
-void GetRatValOfId(uint8 uiHistCol, struct SollDat * p2RatVal)
+ void GetRatValOfId(uint8 uiHistCol, struct SollDat * p2RatVal)
 {
   uint8 ui8WP,ui8PFA,ui8PRA;
   sint8 i8TFA,i8TRA;
-  
+
   ui8WP = GETucWPorPWPofHistCol(uiHistCol);
 
   ui8PFA = GETucPrefFront();
@@ -133,10 +56,10 @@ const uint8 * GETpui82SysWP(void)
 uint8 Getui8PrefMinOfId(uint8 histCol)
 {
   uint8 wp, pRefMinRelFA, pRefMinRelRA, pRefMinRel;
-    
+
   wp = GETucWPorPWPofHistCol(histCol);
-  pRefMinRelFA = GETucPcalMinVaRelativCodOfRam(); /*CRS_1211_130_268 relativ pressure always*/
-  pRefMinRelRA = GETucPcalMinHaRelativCodOfRam(); /*CRS_1211_130_268 relativ pressure always*/
+  pRefMinRelFA = GETucPcalMinVaRelativCodOfRam();
+  pRefMinRelRA = GETucPcalMinHaRelativCodOfRam();
   pRefMinRel = 0;
 
   switch (wp)
@@ -153,14 +76,11 @@ uint8 Getui8PrefMinOfId(uint8 histCol)
     pRefMinRel = (pRefMinRelFA < pRefMinRelRA) ? pRefMinRelFA:pRefMinRelRA;
     break;
   }
- 
+
  return (pRefMinRel);
 }
 
-// Getui8AtmosphericP purpose:
-// return current atmospheric pressure (default = 1Bar)
-// for future use
-uint8 Getui8AtmosphericP(void)
+ uint8 Getui8AtmosphericP(void)
 {
   return (uc1Barc );
 }

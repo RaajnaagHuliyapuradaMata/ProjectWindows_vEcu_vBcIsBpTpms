@@ -1,86 +1,59 @@
-/**
- * \file
- *
- * \brief AUTOSAR SCrc
- *
- * This file contains the implementation of the AUTOSAR
- * module SCrc.
- *
- * \author Elektrobit Automotive GmbH, 91058 Erlangen, Germany
- *
- * Copyright 2005 - 2013 Elektrobit Automotive GmbH
- * All rights exclusively reserved for Elektrobit Automotive GmbH,
- * unless expressly agreed to otherwise.
- */
 
-/*
- * Misra-C:2004 Deviations:
- *
- * MISRA-1) Deviated Rule: 19.6 (required)
- * #undef shall not be used
- *
- * Reason:
- * The macro names used for memory mapping are different between
- * AUTOSAR 3.x and AUTOSAR 4.x. For sake of compatibility between
- * these worlds, both macros are defined.
- * Since only one of them will be undefined within the MemMap.h file,
- * all macros are undefined after the memory section ends.
- * This avoids possible redundant macro definitions.
- */
 
-/*==================[inclusions]============================================*/
 
-#include <SCrc.h>              /* Module public API      */
-#include <SCrc_CRC8.h>         /* public API for CRC8 calculation     */
-#include <SCrc_CRC8H2F.h>         /* public API for CRC8H2F calculation     */
 
-/*==================[macros]================================================*/
 
-#if (defined SCRC_CRC8_INITIALVALUE) /* to prevent double declaration */
+
+#include <SCrc.h>              
+#include <SCrc_CRC8.h>         
+#include <SCrc_CRC8H2F.h>         
+
+
+
+#if (defined SCRC_CRC8_INITIALVALUE) 
 #error SCRC_CRC8_INITIALVALUE is already defined
-#endif /* #if (defined SCRC_CRC8_INITIALVALUE) */
+#endif 
 
-/** \brief Initial value used for Crc calculation with polynomial 0x11D (SAE-J1850) */
+
 #define SCRC_CRC8_INITIALVALUE 0xFFU
 
-#if (defined SCRC_CRC8_XORVALUE) /* to prevent double declaration */
+#if (defined SCRC_CRC8_XORVALUE) 
 #error SCRC_CRC8_XORVALUE is already defined
-#endif /* #if (defined SCRC_CRC8_XORVALUE) */
+#endif 
 
-/** \brief Xor-value for Crc calculation with polynomial 0x11D */
+
 #define SCRC_CRC8_XORVALUE 0xFFU
 
-#if (defined SCRC_CRC8H2F_INITIALVALUE) /* to prevent double declaration */
+#if (defined SCRC_CRC8H2F_INITIALVALUE) 
 #error SCRC_CRC8H2F_INITIALVALUE is already defined
-#endif /* #if (defined SCRC_CRC8H2F_INITIALVALUE) */
+#endif 
 
-/** \brief Initial value used for Crc calculation with polynomial 0x12F */
+
 #define SCRC_CRC8H2F_INITIALVALUE 0xFFU
 
-#if (defined SCRC_CRC8H2F_XORVALUE) /* to prevent double declaration */
+#if (defined SCRC_CRC8H2F_XORVALUE) 
 #error SCRC_CRC8H2F_XORVALUE is already defined
-#endif /* #if (defined SCRC_CRC8H2F_XORVALUE) */
+#endif 
 
-/** \brief Xor-value for Crc calculation with polynomial 0x12F */
+
 #define SCRC_CRC8H2F_XORVALUE 0xFFU
 
 
-/*==================[type definitions]======================================*/
+
 
 #if !((SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) || \
      (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON))
 
-/** \brief Dummy type definition in case SCrc.c contains no source code */
+
 typedef void SCrcPreventEmptyTranslationUnit;
 
-#endif /* !((SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) || \
-     (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON)) */
+#endif 
 
-/*==================[internal function declarations]========================*/
 
-/*==================[external constants]====================================*/
 
-/*==================[internal constants]====================================*/
+
+
+
 
 #if ((SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) || \
      (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON))
@@ -89,12 +62,11 @@ typedef void SCrcPreventEmptyTranslationUnit;
 #define SCRC_START_SEC_CONST_8
 #include <MemMap.h>
 
-#endif /* ((SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) || \
-     (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON)) */
+#endif 
 
 #if (SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON)
 
-/* Table of pre-computed values for CRC8 */
+
 static CONST(uint8, SCRC_CONST) SCrc_Table8[256] =
 {
     0x00U, 0x1DU, 0x3AU, 0x27U, 0x74U, 0x69U, 0x4EU, 0x53U, 0xE8U, 0xF5U, 0xD2U,
@@ -123,11 +95,11 @@ static CONST(uint8, SCRC_CONST) SCrc_Table8[256] =
     0x2CU, 0x97U, 0x8AU, 0xADU, 0xB0U, 0xE3U, 0xFEU, 0xD9U, 0xC4U
 };
 
-#endif /* SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON */
+#endif 
 
 #if (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON)
 
-/* Table of pre-computed values for CRC8H2F */
+
 static CONST(uint8, SCRC_CONST) SCrc_Table8H2F[256] =
 {
     0x00U, 0x2FU, 0x5EU, 0x71U, 0xBCU, 0x93U, 0xE2U, 0xCDU, 0x57U, 0x78U, 0x09U,
@@ -156,7 +128,7 @@ static CONST(uint8, SCRC_CONST) SCrc_Table8H2F[256] =
     0x15U, 0x8FU, 0xA0U, 0xD1U, 0xFEU, 0x33U, 0x1CU, 0x6DU, 0x42U,
 };
 
-#endif /* SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON */
+#endif 
 
 #if ((SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) || \
      (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON))
@@ -164,20 +136,19 @@ static CONST(uint8, SCRC_CONST) SCrc_Table8H2F[256] =
 #define SCRC_STOP_SEC_CONST_8BIT
 #define SCRC_STOP_SEC_CONST_8
 #include <MemMap.h>
-/* Deviation MISRA-1 <+4> */
+
 #undef SCRC_START_SEC_CONST_8BIT
 #undef SCRC_START_SEC_CONST_8
 #undef SCRC_STOP_SEC_CONST_8BIT
 #undef SCRC_STOP_SEC_CONST_8
 
-#endif /* #if ((SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) || \
-     (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON)) */
+#endif 
 
-/*==================[external data]=========================================*/
 
-/*==================[internal data]=========================================*/
 
-/*==================[external function definitions]=========================*/
+
+
+
 
 #if ((SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) || \
      (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON))
@@ -185,8 +156,7 @@ static CONST(uint8, SCRC_CONST) SCrc_Table8H2F[256] =
 #define SCRC_START_SEC_CODE
 #include <MemMap.h>
 
-#endif /* #if ((SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) || \
-     (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON)) */
+#endif 
 
 #if (SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON)
 
@@ -200,10 +170,7 @@ FUNC(uint8, SCRC_CODE) SCrc_CalculateCRC8
 {
     uint32 i;
 
-    /* Check if this is the first call in a sequence or individual CRC calculation.
-     * If so, then use the defined initial value. Otherwise, the start value
-     * is interpreted as the return value of the previous function call.
-     */
+    
     if (FALSE == SCrc_IsFirstCall)
     {
         SCrc_StartValue8 = (uint8)(SCrc_StartValue8 ^ SCRC_CRC8_XORVALUE);
@@ -211,17 +178,17 @@ FUNC(uint8, SCRC_CODE) SCrc_CalculateCRC8
         SCrc_StartValue8 = SCRC_CRC8_INITIALVALUE;
     }
 
-    /* Process all data (byte wise) */
+    
     for (i=0U; i<SCrc_Length; ++i)
     {
         SCrc_StartValue8 = SCrc_Table8[(uint8)(SCrc_StartValue8 ^ SCrc_DataPtr[i])];
     }
 
-    /* Apply xor-value of 0xFF as specified in ASR R4.0 CRC SWS. */
+    
     return (uint8)(SCrc_StartValue8 ^ SCRC_CRC8_XORVALUE);
 }
 
-#endif /* (SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) */
+#endif 
 
 #if (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON)
 
@@ -235,10 +202,7 @@ FUNC(uint8, SCRC_CODE) SCrc_CalculateCRC8H2F
 {
     uint32 i;
 
-    /* Check if this is the first call in a sequence or individual CRC calculation.
-     * If so, then use the defined initial value. Otherwise, the start value
-     * is interpreted as the return value of the previous function call.
-     */
+    
     if (FALSE == SCrc_IsFirstCall)
     {
         SCrc_StartValue8H2F = (uint8)(SCrc_StartValue8H2F ^ SCRC_CRC8H2F_XORVALUE);
@@ -246,17 +210,17 @@ FUNC(uint8, SCRC_CODE) SCrc_CalculateCRC8H2F
         SCrc_StartValue8H2F = SCRC_CRC8H2F_INITIALVALUE;
     }
 
-    /* Process all data (byte wise) */
+    
     for (i=0U; i<SCrc_Length; ++i)
     {
         SCrc_StartValue8H2F = SCrc_Table8H2F[(uint8)(SCrc_StartValue8H2F ^ SCrc_DataPtr[i])];
     }
 
-    /* Apply xor-value of 0xFF as specified in ASR R4.0 CRC SWS. */
+    
     return (uint8)(SCrc_StartValue8H2F ^ SCRC_CRC8H2F_XORVALUE);
 }
 
-#endif /* (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON) */
+#endif 
 
 #if ((SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) || \
      (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON))
@@ -264,9 +228,8 @@ FUNC(uint8, SCRC_CODE) SCrc_CalculateCRC8H2F
 #define SCRC_STOP_SEC_CODE
 #include <MemMap.h>
 
-#endif /* #if ((SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) || \
-     (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON)) */
+#endif 
 
-/*==================[internal function definitions]=========================*/
 
-/*==================[end of file]===========================================*/
+
+

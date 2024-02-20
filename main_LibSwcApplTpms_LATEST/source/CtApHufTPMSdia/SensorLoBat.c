@@ -1,83 +1,32 @@
-/*
-(c)  Electronics GmbH     BEE1     08/2016
-================================================================================================
-
-file name:     SensorLoBat.c
-
-file status:   fine
-
-------------------------------------------------------------------------------------------------
-
-author:        Peter Brand                 Electronics GmbH
-
-intials:       pb
-
-Purpose:
-sensor low battery diagnostice logic  according to TPMS Logic  PAL2 V1.5
 
 
-*/
-/*******************************************************************************
-Declaration
-*/
-
-/*******************************************************************************
-Include
-*/
 #include "SensorLoBat.h"
 #include "WallocX.h"
 #include "state_fdX.h"
 #include "Rte_Type.h"
-#include "Dem.h"  // 4 error entries....
-#include "Rte_CtApHufTPMSdia.h"
+#include "Dem.h"
+ #include "Rte_CtApHufTPMSdia.h"
 #include "tel_statisticX.h"
 
-/*******************************************************************************
-Macros
-*/
 #define LB_LIMIT (uint8) 15
 #define cLoBatRxInCurCycle (uint8) 0xFF
 #define cMaxRxOkEvents (uint8) 10
+ #define cNOK ((uint8) 1)
+#define cOK ((uint8) 0x80)
+#define cDtcWasCleared ((uint8) 0)
 
-//#define cOK ((uint8) 0)
-#define cNOK ((uint8) 1)
-//#define cDtcWasCleared ((uint8) 0x80)
+ uint8 ui8SensorBatCtrl[cMAXWU4BATINFO];
 
-#define cOK ((uint8) 0x80) /* CRS_1211_030_008 */
-#define cDtcWasCleared ((uint8) 0) /* CRS_1211_030_008 status wird im EEprom gespeichert, bei EEpromResetControl wird dieser Wert "0", deshalb wird der Charakter getauscht!*/
+extern DT_tEnvData tEnvDataToSend;
+ extern uint8 GETui8LastSensorTemperature(uint8 idx);
+ extern uint32 GETulKmStand4AutoCAL(void);
 
-
-/*******************************************************************************
-Data
-*/
-//#pragma pack(1)
-//BaType tBat[4];
-//#pragma pack()
-
-uint8 ui8SensorBatCtrl[cMAXWU4BATINFO];
-
-extern DT_tEnvData tEnvDataToSend;  // BAD style but there is no header to include
-extern uint8 GETui8LastSensorTemperature(uint8 idx);  // BAD style but there is no header to include
-extern uint32 GETulKmStand4AutoCAL(void); /*mgr*/
-
-/*******************************************************************************
-prototipicos locale
-*/
 static void ClearBatInfo(BaType * pt2BatInfo);
 static uint16 GETui16Odometer(void);
 static uint8 GETui8AmbienTemp(void);
 static uint8 ui8Check4AllSensorCounts0(void);
 static void PUTtSensorBatInfo2NVM(void);
 static uint8 ui8All4SensorsOK(uint8 idx);
-
-
-/*******************************************************************************
-Implementation
-*/
-
-/*******************************************************************************
-private functions
-*/
 
 static void ClearBatInfo(BaType * pt2BatInfo)
 {
@@ -95,10 +44,10 @@ static uint16 GETui16Odometer(void)
     uint16 ui16RetVal = 0;
     uint8 * p2RetVal = (uint8 *) &ui16RetVal;
 
-    ui32OdoVal = GETulKmStand4AutoCAL() >> 4; // value should not be bigger than 65535
-     
+    ui32OdoVal = GETulKmStand4AutoCAL() >> 4;
+
     p2RetVal[0] = (uint8)(ui32OdoVal>>8);
-		p2RetVal[1] = ((uint8)ui32OdoVal);
+      p2RetVal[1] = ((uint8)ui32OdoVal);
 
     return (ui16RetVal );
 }
@@ -108,9 +57,7 @@ static uint8 GETui8AmbienTemp(void)
   return (tEnvDataToSend .ucTempOut + 50u);
 }
 
-// ui8Check4AllSensorCounts0 purpose:
-// returns 0xff if all 4 counts for LoBat = 0, otherwise 0
-static uint8 ui8Check4AllSensorCounts0(void)
+ static uint8 ui8Check4AllSensorCounts0(void)
 {
   uint8 i;
   BaType tbatinfo;
@@ -134,9 +81,7 @@ static uint8 ui8Check4AllSensorCounts0(void)
   }
 }
 
-// ui8Check4AllSensorCounts0 purpose:
-// returns 0xff if all 4 counts for LoBat = 0, otherwise 0
-static uint8 ui8All4SensorsOK(uint8 idx)
+ static uint8 ui8All4SensorsOK(uint8 idx)
 {
   uint8 i;
   BaType tbatinfo;
@@ -164,11 +109,7 @@ static uint8 ui8All4SensorsOK(uint8 idx)
     return ((uint8) 0);
   }
 }
-/*******************************************************************************
-public functions
-*/
-// NVM interface functions :GETtSensorBatInfOfRam, PUTtSensorBatInfo2Ram, PUTtSensorBatInfo2NVM
-BaType GETtSensorBatInfOfRam(uint8 idx)
+ BaType GETtSensorBatInfOfRam(uint8 idx)
 {
   BaType tLocalBatInfo;
 
@@ -196,18 +137,14 @@ static void PUTtSensorBatInfo2NVM(void)
 {
   NvM_RequestResultType ErrorStatus;
 
-  Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock2_GetErrorStatus(&ErrorStatus); /* to avoid multi requests */
+  Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock2_GetErrorStatus(&ErrorStatus);
   if (ErrorStatus  != NVM_REQ_PENDING)
   {
     Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock2_SetRamBlockStatus(TRUE);
   }
 }
 
-// CheckSensorLoBat purpose: sensor low battery logic implementaion 
-// in- and decremets LowBattery counters in dependency of current Battery status for 4 different sensor IDs
-// detects new sensor / ID as well
-// supports also DTC entry
-void CheckSensorLoBat(uint8 idx, uint8 ui8BatteryStatus, boolean bForceInit)
+  void CheckSensorLoBat(uint8 idx, uint8 ui8BatteryStatus, boolean bForceInit)
 {
   BaType tLocalBatInfo;
   uint8 ui8Update;
@@ -216,15 +153,15 @@ void CheckSensorLoBat(uint8 idx, uint8 ui8BatteryStatus, boolean bForceInit)
   ui8Update = FALSE ;
   bStoreAmbientVal = FALSE ;
 
-  if (( cMaxLR > idx ) && !(((uint8) 0 == ui8BatteryStatus) || ((uint8) 11 < ui8BatteryStatus)))  // ignore invalid battery status values (oil #2419)
-  {
+  if (( cMaxLR > idx ) && !(((uint8) 0 == ui8BatteryStatus) || ((uint8) 11 < ui8BatteryStatus)))
+   {
     tLocalBatInfo = GETtSensorBatInfOfRam (idx);
-    
+
     if ( (ulGetID(idx) != tLocalBatInfo .ui32ID) || bForceInit )
     {
       tLocalBatInfo .ui8Count = (uint8) 0;
       tLocalBatInfo .ui32ID =  ulGetID(idx);
-      
+
       tLocalBatInfo .ui16Odometer = 0xFFFF;
       tLocalBatInfo. ui8SensorTemp = 0xFF;
       tLocalBatInfo. ui8AmbienTemp = 0xFF;
@@ -232,33 +169,32 @@ void CheckSensorLoBat(uint8 idx, uint8 ui8BatteryStatus, boolean bForceInit)
       ui8Update = TRUE ;
     }
 
-    if (ui8BatteryStatus > 1)  // OIL #1125 in the WBT we trust... && ( ui8BatteryStatus < 12)) // count
-    {
+    if (ui8BatteryStatus > 1)
+      {
       if ((tLocalBatInfo .ui8LifeInPercent != ui8BatteryStatus) && !((11 == ui8BatteryStatus) && (10 == tLocalBatInfo .ui8LifeInPercent)))
       {
         ui8Update = TRUE ;
         tLocalBatInfo .ui8LifeInPercent = ( ui8BatteryStatus < 11) ? ui8BatteryStatus:10;
       }
-      if ((cDtcWasCleared == tLocalBatInfo .ui8Status) && (!bForceInit))/* OIL1257 cDtcWasCleared=0x80  tLocalBatInfo .ui8Status=0x00  bForceInit=0 */
+      if ((cDtcWasCleared == tLocalBatInfo .ui8Status) && (!bForceInit))
       {
         ui8Update = TRUE ;
         tLocalBatInfo .ui8Status = cOK;
         if (ui8All4SensorsOK (idx) > ((uint8) 0))
         {
-				/*I.O.:  1.Fehler mit Diag. eintragen-> sincelastclear=false i.O., 2.FS löschen:sincelastclear=true i.O. 3. RE sendet Bat>10%  sincelastclear=false mit  Dem_DTC_0x559916, DEM_EVENT_STATUS_PASSED i.O*/
-				/*N.I.O OIL1257: 1.Fehler mit Diag. eintragen-> sincelastclear=false i.O., 2.FS löschen:sincelastclear=true i.O. 3.ResetEEPROMControlStart 4. RE sendet Bat>10%  sincelastclear=true!!! NIO*/
-          Dem_SetEventStatus( Dem_DTC_0x559916, DEM_EVENT_STATUS_PASSED); 
+
+          Dem_SetEventStatus( Dem_DTC_0x559916, DEM_EVENT_STATUS_PASSED);
         }
       }
       else
       {
-				if (bForceInit)/* CRS_1211_030_008  bForceInit=TRUE ??? */
-				{
-					if (ui8All4SensorsOK (idx) > ((uint8) 0))
-					{
-						Dem_SetEventStatus( Dem_DTC_0x559916, DEM_EVENT_STATUS_PASSED);/* CRS_1211_030_008*/ 
-					}
-				}
+            if (bForceInit)
+            {
+               if (ui8All4SensorsOK (idx) > ((uint8) 0))
+               {
+                  Dem_SetEventStatus( Dem_DTC_0x559916, DEM_EVENT_STATUS_PASSED);
+               }
+            }
         tLocalBatInfo .ui8Status = cOK;
       }
 
@@ -275,10 +211,10 @@ void CheckSensorLoBat(uint8 idx, uint8 ui8BatteryStatus, boolean bForceInit)
               tLocalBatInfo .ui8Count--;
               if ((uint8) 0 == tLocalBatInfo .ui8Count)
               {
-                PUTtSensorBatInfo2Ram ( &tLocalBatInfo , idx);  // ui8Check4AllSensorCounts0 needs updated Ct'er val
-                if (ui8Check4AllSensorCounts0 () > 0)
+                PUTtSensorBatInfo2Ram ( &tLocalBatInfo , idx);
+                 if (ui8Check4AllSensorCounts0 () > 0)
                 {
-                  Dem_SetEventStatus( Dem_DTC_0x559916, DEM_EVENT_STATUS_PASSED); 
+                  Dem_SetEventStatus( Dem_DTC_0x559916, DEM_EVENT_STATUS_PASSED);
                 }
               }
             }
@@ -291,8 +227,8 @@ void CheckSensorLoBat(uint8 idx, uint8 ui8BatteryStatus, boolean bForceInit)
       if (cLoBatRxInCurCycle != ui8SensorBatCtrl [idx]  )
       {
         ui8SensorBatCtrl [idx] = cLoBatRxInCurCycle;
-        tLocalBatInfo .ui8Status = cNOK; // NOK
-        tLocalBatInfo .ui8LifeInPercent = (uint8) 1;
+        tLocalBatInfo .ui8Status = cNOK;
+         tLocalBatInfo .ui8LifeInPercent = (uint8) 1;
         ui8Update = TRUE;
         if (tLocalBatInfo .ui8Count < LB_LIMIT )
         {
@@ -306,24 +242,24 @@ void CheckSensorLoBat(uint8 idx, uint8 ui8BatteryStatus, boolean bForceInit)
       }
       if ((uint8) 1 != tLocalBatInfo .ui8LifeInPercent )
       {
-        tLocalBatInfo .ui8Status = cNOK; // NOK
-        tLocalBatInfo .ui8LifeInPercent = (uint8) 1;
+        tLocalBatInfo .ui8Status = cNOK;
+         tLocalBatInfo .ui8LifeInPercent = (uint8) 1;
         ui8Update = TRUE;
       }
     }
 
-    if (TRUE == ui8Update )  // any changes ?
-    {
-      /* check and make, if RoE necessary */
+    if (TRUE == ui8Update )
+     {
+
       MakeRoeObsMsg( GETtSensorBatInfOfRam(idx).ui8LifeInPercent, tLocalBatInfo.ui8LifeInPercent, idx);
-      
+
       if (bStoreAmbientVal)
       {
         tLocalBatInfo .ui16Odometer = GETui16Odometer();
         tLocalBatInfo. ui8SensorTemp = GETui8LastSensorTemperature(idx);
         tLocalBatInfo. ui8AmbienTemp = GETui8AmbienTemp();
       }
-      
+
       PUTtSensorBatInfo2Ram ( &tLocalBatInfo , idx);
       PUTtSensorBatInfo2NVM();
     }
@@ -338,8 +274,6 @@ void InitSensorLoBat(void)
   ui8SensorBatCtrl [3] = 0;
 }
 
-
-
 void ClearAllBatStatCounts(void)
 {
   uint8 i;
@@ -352,7 +286,7 @@ void ClearAllBatStatCounts(void)
     tbatinfo .ui8Count = 0;
     PUTtSensorBatInfo2Ram ( &tbatinfo , i);
   }
-  
+
   PUTtSensorBatInfo2NVM ();
 }
 
@@ -365,12 +299,12 @@ void PrepareLoBat4Obsolescence(uint8 * p2dat)
   for ( i = 0; i < 4; i++)
   {
     tbatinfo = GETtSensorBatInfOfRam (i);
-    if ((unsigned long) 4 < tbatinfo .ui32ID  ) // sensor present ?
-    {
+    if ((unsigned long) 4 < tbatinfo .ui32ID  )
+     {
       if(ucGetSensorState(i) == SENSOR_STATE_MISSING)
       {
-        p2dat[1] = 0x00;  // Change status from yellow to red is if the sensor is detected as missing. ECU responds with the value invalid/error (0x00)
-      }
+        p2dat[1] = 0x00;
+       }
       else
       {
         p2dat[1] = tbatinfo.ui8LifeInPercent;
@@ -378,8 +312,8 @@ void PrepareLoBat4Obsolescence(uint8 * p2dat)
     }
     else
     {
-      p2dat[1] = 0x0F;  // SNA
-    }
+      p2dat[1] = 0x0F;
+     }
 
     p2dat[0] = 0;
     p2dat[3] = 1;
@@ -406,7 +340,6 @@ void ClearAllParaApartId(void)
     tbatinfo.ui8LifeInPercent = 0;
     PUTtSensorBatInfo2Ram ( &tbatinfo , i);
   }
-  
+
   PUTtSensorBatInfo2NVM ();
 }
-/******************************************************************************/

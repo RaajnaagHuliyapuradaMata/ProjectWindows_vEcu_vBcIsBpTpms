@@ -1,36 +1,9 @@
-/**********************************************************************************************************************
- *  COPYRIGHT
- *  -------------------------------------------------------------------------------------------------------------------
- *  Copyright (c) 2006-2015 by Vector Informatik GmbH.                                             All rights reserved.
- *
- *                This software is copyright protected and proprietary to Vector Informatik GmbH.
- *                Vector Informatik GmbH grants to you only those rights as set out in the license conditions.
- *                All other rights remain with Vector Informatik GmbH.
- *  -------------------------------------------------------------------------------------------------------------------
- *  FILE DESCRIPTION
- *  -------------------------------------------------------------------------------------------------------------------
- *          File:  Rte_Type.h
- *     Workspace:  C:/_TSS/DAG/MFA2/Target/Config/Developer/HufTPMS_G6_F1L.dev
- *   ECU-Project:  TPM
- *  Generated at:  Fri Dec 15 13:11:50 2017
- *
- *     Generator:  MICROSAR RTE Generator Version 2.27.0
- *                 RTE Core Version 1.6.0
- *       License:  License CBD1500122 valid for Huf Electronics Bretten GmbH Package: MSR Daimler SLP10 Micro: R7F7010133AFP Compiler: Green Hills 6.1.4
- *
- *   Description:  Header file containing user defined AUTOSAR types and RTE structures
- *********************************************************************************************************************/
 
-/* double include prevention */
+
 #ifndef _RTE_TYPE_H
 # define _RTE_TYPE_H
 
 # include "Rte.h"
-
-
-/**********************************************************************************************************************
- * Data type definitions
- *********************************************************************************************************************/
 
 # define Rte_TypeDef_Boolean
 typedef boolean Boolean;
@@ -1225,11 +1198,7 @@ typedef struct
   DT_tNvMReservedBytes tWarnReserved;
 } DT_tWarnHdlrNvMBlock;
 
-
 # ifndef RTE_SUPPRESS_UNUSED_DATATYPES
-/**********************************************************************************************************************
- * Unused Data type definitions
- *********************************************************************************************************************/
 
 #  define Rte_TypeDef_DT_ucId
 typedef uint8 DT_ucId;
@@ -2698,152 +2667,113 @@ typedef struct
 
 # endif
 
-
-/**********************************************************************************************************************
- * Per-Instance Memory User Types
- *********************************************************************************************************************/
-
-
-/**********************************************************************************************************************
- * Constant value definitions
- *********************************************************************************************************************/
-
 # define RTE_START_SEC_CONST_UNSPECIFIED
-# include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
+# include "MemMap.h"
 
-extern CONST(ARR_08_UInt_noSNA_8, RTE_CONST) Rte_XDIS_bzm3suyimc3lnij4fzlwpgwm4; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern CONST(ARR_08_UInt_noSNA_8, RTE_CONST) Rte_XDIS_bzm3suyimc3lnij4fzlwpgwm4;
 
-extern CONST(DT_auRfStruct, RTE_CONST) Rte_C_aucRfStruct; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern CONST(DT_auRfStruct, RTE_CONST) Rte_C_aucRfStruct;
 
-extern CONST(DT_tEnvData, RTE_CONST) Rte_C_tEnvData; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern CONST(DT_tEnvData, RTE_CONST) Rte_C_tEnvData;
 
-extern CONST(REC_DateTm_AR2_f0ifkphxunpp94u3ro8qn5tdm, RTE_CONST) Rte_XDIS_8oeobqbbrmj8fyiongo6ax1xv; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern CONST(REC_DateTm_AR2_f0ifkphxunpp94u3ro8qn5tdm, RTE_CONST) Rte_XDIS_8oeobqbbrmj8fyiongo6ax1xv;
 
-extern CONST(REC_EVC_CfgBit_01_32_Pr2_d23bad5cnts3f65mtgoqoxmrz, RTE_CONST) Rte_XDIS_9rt50469dx6jveycvwiekru9s; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern CONST(REC_EVC_CfgBit_01_32_Pr2_d23bad5cnts3f65mtgoqoxmrz, RTE_CONST) Rte_XDIS_9rt50469dx6jveycvwiekru9s;
 
-extern CONST(REC_EVC_CfgList_01_0C_Pr2_ah3rxaqpfvlnju8848jpspm9p, RTE_CONST) Rte_XDIS_69nqj71u0pbksk5hjvodygwvd; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern CONST(REC_EVC_CfgList_01_0C_Pr2_ah3rxaqpfvlnju8848jpspm9p, RTE_CONST) Rte_XDIS_69nqj71u0pbksk5hjvodygwvd;
 
-extern CONST(REC_Eng_Rs_EngCtrl_Pr2_1j00gxu3p5exa8awg915k1zy, RTE_CONST) Rte_XDIS_b1gz9poycm6ddxgidqfjet2pv; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern CONST(REC_Eng_Rs_EngCtrl_Pr2_1j00gxu3p5exa8awg915k1zy, RTE_CONST) Rte_XDIS_b1gz9poycm6ddxgidqfjet2pv;
 
-extern CONST(REC_Ign_Stat_Pr2_71njeubj9ico1p8v4pmslfcno, RTE_CONST) Rte_XDIS_a24im2m55sztow8orofz1re4l; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern CONST(REC_Ign_Stat_Pr2_71njeubj9ico1p8v4pmslfcno, RTE_CONST) Rte_XDIS_a24im2m55sztow8orofz1re4l;
 
-extern CONST(REC_Ign_Stat_Pr2_b0ko81o0x5jgvwtduf99gvzi0, RTE_CONST) Rte_XDIS_9d6x34bvkzvn1spi8e3620s3f; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern CONST(REC_Ign_Stat_Pr2_b0ko81o0x5jgvwtduf99gvzi0, RTE_CONST) Rte_XDIS_9d6x34bvkzvn1spi8e3620s3f;
 
-extern CONST(REC_PN14_SupBat_Stat_2is6fi0meeac78nkn35zc5ui3, RTE_CONST) Rte_XDIS_63893tj3bpxgywawhjj46oa1d; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern CONST(REC_PN14_SupBat_Stat_2is6fi0meeac78nkn35zc5ui3, RTE_CONST) Rte_XDIS_63893tj3bpxgywawhjj46oa1d;
 
-extern CONST(REC_ROE_XX, RTE_CONST) Rte_XDIS_cduaikm94dzygis49e7i8n2vd; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern CONST(REC_ROE_XX, RTE_CONST) Rte_XDIS_cduaikm94dzygis49e7i8n2vd;
 
-extern CONST(REC_RefPress, RTE_CONST) Rte_XDIS_5lnq4pgpv2f92y9v99h1532rc; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern CONST(REC_RefPress, RTE_CONST) Rte_XDIS_5lnq4pgpv2f92y9v99h1532rc;
 
-extern CONST(REC_TPM_Lmp_On_Rq_Pr2_cp6wyrd9cg7ec7y2w3khz1gyt, RTE_CONST) Rte_XDIS_agb15wb9uilg0ni8bte2ez7oc; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern CONST(REC_TPM_Lmp_On_Rq_Pr2_cp6wyrd9cg7ec7y2w3khz1gyt, RTE_CONST) Rte_XDIS_agb15wb9uilg0ni8bte2ez7oc;
 
-extern CONST(REC_TPM_Lmp_On_Rq_old, RTE_CONST) Rte_XDIS_1d7ph8epnzfwmb1z8ubz5caiq; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern CONST(REC_TPM_Lmp_On_Rq_old, RTE_CONST) Rte_XDIS_1d7ph8epnzfwmb1z8ubz5caiq;
 
-extern CONST(REC_Tire_Stat_V2, RTE_CONST) Rte_XDIS_c887fxti3dvrcxpco5w1om6lw; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern CONST(REC_Tire_Stat_V2, RTE_CONST) Rte_XDIS_c887fxti3dvrcxpco5w1om6lw;
 
-extern CONST(REC_Tire_Temp_V2, RTE_CONST) Rte_XDIS_17gsj8drc9emz51ybjnyn4din; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern CONST(REC_Tire_Temp_V2, RTE_CONST) Rte_XDIS_17gsj8drc9emz51ybjnyn4din;
 
-extern CONST(REC_WhlPlsCnt_TPM_Pr2_5hishd08ma5z1luev78umdwvx, RTE_CONST) Rte_XDIS_3bcpjgb37kcc1t679g9053jt5; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern CONST(REC_WhlPlsCnt_TPM_Pr2_5hishd08ma5z1luev78umdwvx, RTE_CONST) Rte_XDIS_3bcpjgb37kcc1t679g9053jt5;
 
 # define RTE_STOP_SEC_CONST_UNSPECIFIED
-# include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
+# include "MemMap.h"
 
 # ifdef RTE_MICROSAR_PIM_EXPORT
 
-
-/**********************************************************************************************************************
- * Calibration component and SW-C local calibration parameters
- *********************************************************************************************************************/
-
 #  define RTE_START_SEC_CONST_DEFAULT_RTE_CDATA_GROUP_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
+#  include "MemMap.h"
 
-extern CONST(DT_tDiagNvMBlock0, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSdia_Cal_tDiagNvMBlock0_DefaultValue; /* PRQA S 0850 */ /* MD_MSR_19.8 */
-extern CONST(DT_tDiagNvMBlock1, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSdia_Cal_tDiagNvMBlock1_DefaultValue; /* PRQA S 0850 */ /* MD_MSR_19.8 */
-extern CONST(DT_tDiagNvMBlock2, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSdia_Cal_tDiagNvMBlock2_DefaultValue; /* PRQA S 0850 */ /* MD_MSR_19.8 */
-extern CONST(DT_tDiagNvMBlock3, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSdia_Cal_tDiagNvMBlock3_DefaultValue; /* PRQA S 0850 */ /* MD_MSR_19.8 */
-extern CONST(DT_tCalNvMBlock, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSmgr_Cal_tCalNvMBlock_DefaultValue; /* PRQA S 0850 */ /* MD_MSR_19.8 */
-extern CONST(DT_tCodNvMBlock, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSmgr_Cal_tCodNvMBlock_DefaultValue; /* PRQA S 0850 */ /* MD_MSR_19.8 */
-extern CONST(DT_tWarnHdlrNvMBlock, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSwnh_Cal_tWarnHdlrNvMBlock_DefaultValue; /* PRQA S 0850 */ /* MD_MSR_19.8 */
-extern CONST(DT_tWallocNvMBlock, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSwpa_Cal_tWallocNvMBlock_DefaultValue; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern CONST(DT_tDiagNvMBlock0, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSdia_Cal_tDiagNvMBlock0_DefaultValue;
+extern CONST(DT_tDiagNvMBlock1, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSdia_Cal_tDiagNvMBlock1_DefaultValue;
+extern CONST(DT_tDiagNvMBlock2, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSdia_Cal_tDiagNvMBlock2_DefaultValue;
+extern CONST(DT_tDiagNvMBlock3, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSdia_Cal_tDiagNvMBlock3_DefaultValue;
+extern CONST(DT_tCalNvMBlock, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSmgr_Cal_tCalNvMBlock_DefaultValue;
+extern CONST(DT_tCodNvMBlock, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSmgr_Cal_tCodNvMBlock_DefaultValue;
+extern CONST(DT_tWarnHdlrNvMBlock, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSwnh_Cal_tWarnHdlrNvMBlock_DefaultValue;
+extern CONST(DT_tWallocNvMBlock, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSwpa_Cal_tWallocNvMBlock_DefaultValue;
 
 #  define RTE_STOP_SEC_CONST_DEFAULT_RTE_CDATA_GROUP_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
-
-/**********************************************************************************************************************
- * Rte_Pim (Per-Instance Memory)
- *********************************************************************************************************************/
+#  include "MemMap.h"
 
 #  define RTE_START_SEC_VAR_DEFAULT_RTE_PIM_GROUP_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
+#  include "MemMap.h"
 
-extern VAR(DT_tDiagNvMBlock0, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSdia_Pim_tDiagNvMBlock0; /* PRQA S 0850 */ /* MD_MSR_19.8 */
-extern VAR(DT_tDiagNvMBlock1, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSdia_Pim_tDiagNvMBlock1; /* PRQA S 0850 */ /* MD_MSR_19.8 */
-extern VAR(DT_tDiagNvMBlock2, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSdia_Pim_tDiagNvMBlock2; /* PRQA S 0850 */ /* MD_MSR_19.8 */
-extern VAR(DT_tDiagNvMBlock3, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSdia_Pim_tDiagNvMBlock3; /* PRQA S 0850 */ /* MD_MSR_19.8 */
-extern VAR(DT_tCalNvMBlock, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSmgr_Pim_tCalNvMBlock; /* PRQA S 0850 */ /* MD_MSR_19.8 */
-extern VAR(DT_tCodNvMBlock, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSmgr_Pim_tCodNvMBlock; /* PRQA S 0850 */ /* MD_MSR_19.8 */
-extern VAR(DT_tWarnHdlrNvMBlock, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSwnh_Pim_tWarnHdlrNvMBlock; /* PRQA S 0850 */ /* MD_MSR_19.8 */
-extern VAR(DT_tWallocNvMBlock, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSwpa_Pim_tWallocNvMBlock; /* PRQA S 0850 */ /* MD_MSR_19.8 */
+extern VAR(DT_tDiagNvMBlock0, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSdia_Pim_tDiagNvMBlock0;
+extern VAR(DT_tDiagNvMBlock1, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSdia_Pim_tDiagNvMBlock1;
+extern VAR(DT_tDiagNvMBlock2, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSdia_Pim_tDiagNvMBlock2;
+extern VAR(DT_tDiagNvMBlock3, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSdia_Pim_tDiagNvMBlock3;
+extern VAR(DT_tCalNvMBlock, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSmgr_Pim_tCalNvMBlock;
+extern VAR(DT_tCodNvMBlock, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSmgr_Pim_tCodNvMBlock;
+extern VAR(DT_tWarnHdlrNvMBlock, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSwnh_Pim_tWarnHdlrNvMBlock;
+extern VAR(DT_tWallocNvMBlock, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSwpa_Pim_tWallocNvMBlock;
 
 #  define RTE_STOP_SEC_VAR_DEFAULT_RTE_PIM_GROUP_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
-
+#  include "MemMap.h"
 
 # endif
 
-/**********************************************************************************************************************
- *  LOCAL DATA TYPES AND STRUCTURES
- **********************************************************************************************************************/
-
 typedef unsigned int Rte_BitType;
-/**********************************************************************************************************************
- * type and extern declarations of RTE internal variables
- *********************************************************************************************************************/
-
-/**********************************************************************************************************************
- * Rte Init State Variable
- *********************************************************************************************************************/
 
 # define RTE_STATE_UNINIT    (0U)
 # define RTE_STATE_INIT      (1U)
 
 # ifdef RTE_CORE
 
-/**********************************************************************************************************************
- * Calibration Parameters (SW-C local and calibration component calibration parameters)
- *********************************************************************************************************************/
-
 #  define RTE_START_SEC_CONST_DEFAULT_RTE_CDATA_GROUP_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
+#  include "MemMap.h"
 
-extern CONST(DT_tDiagNvMBlock0, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSdia_Cal_tDiagNvMBlock0_DefaultValue; /* PRQA S 0850, 3408 */ /* MD_MSR_19.8, MD_Rte_3408 */
-extern CONST(DT_tDiagNvMBlock1, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSdia_Cal_tDiagNvMBlock1_DefaultValue; /* PRQA S 0850, 3408 */ /* MD_MSR_19.8, MD_Rte_3408 */
-extern CONST(DT_tDiagNvMBlock2, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSdia_Cal_tDiagNvMBlock2_DefaultValue; /* PRQA S 0850, 3408 */ /* MD_MSR_19.8, MD_Rte_3408 */
-extern CONST(DT_tDiagNvMBlock3, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSdia_Cal_tDiagNvMBlock3_DefaultValue; /* PRQA S 0850, 3408 */ /* MD_MSR_19.8, MD_Rte_3408 */
-extern CONST(DT_tCalNvMBlock, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSmgr_Cal_tCalNvMBlock_DefaultValue; /* PRQA S 0850, 3408 */ /* MD_MSR_19.8, MD_Rte_3408 */
-extern CONST(DT_tCodNvMBlock, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSmgr_Cal_tCodNvMBlock_DefaultValue; /* PRQA S 0850, 3408 */ /* MD_MSR_19.8, MD_Rte_3408 */
-extern CONST(DT_tWarnHdlrNvMBlock, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSwnh_Cal_tWarnHdlrNvMBlock_DefaultValue; /* PRQA S 0850, 3408 */ /* MD_MSR_19.8, MD_Rte_3408 */
-extern CONST(DT_tWallocNvMBlock, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSwpa_Cal_tWallocNvMBlock_DefaultValue; /* PRQA S 0850, 3408 */ /* MD_MSR_19.8, MD_Rte_3408 */
+extern CONST(DT_tDiagNvMBlock0, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSdia_Cal_tDiagNvMBlock0_DefaultValue;
+extern CONST(DT_tDiagNvMBlock1, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSdia_Cal_tDiagNvMBlock1_DefaultValue;
+extern CONST(DT_tDiagNvMBlock2, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSdia_Cal_tDiagNvMBlock2_DefaultValue;
+extern CONST(DT_tDiagNvMBlock3, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSdia_Cal_tDiagNvMBlock3_DefaultValue;
+extern CONST(DT_tCalNvMBlock, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSmgr_Cal_tCalNvMBlock_DefaultValue;
+extern CONST(DT_tCodNvMBlock, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSmgr_Cal_tCodNvMBlock_DefaultValue;
+extern CONST(DT_tWarnHdlrNvMBlock, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSwnh_Cal_tWarnHdlrNvMBlock_DefaultValue;
+extern CONST(DT_tWallocNvMBlock, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSwpa_Cal_tWallocNvMBlock_DefaultValue;
 
 #  define RTE_STOP_SEC_CONST_DEFAULT_RTE_CDATA_GROUP_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
-
-/**********************************************************************************************************************
- * Buffers for unqueued S/R
- *********************************************************************************************************************/
+#  include "MemMap.h"
 
 #  define RTE_START_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
+#  include "MemMap.h"
 
-extern VAR(DT_tEnvData, RTE_VAR_NOINIT) Rte_CpApHufTPMSmgr_PP_EnvData_DE_tEnvData; /* PRQA S 0850, 3408, 1504 */ /* MD_MSR_19.8, MD_Rte_3408, MD_MSR_8.10 */
-extern VAR(DT_auRfStruct, RTE_VAR_NOINIT) Rte_CpApHufTPMSmgr_PP_RfStructOut_DE_auRfStruct; /* PRQA S 0850, 3408, 1504 */ /* MD_MSR_19.8, MD_Rte_3408, MD_MSR_8.10 */
-extern VAR(DT_ushWarnOut, RTE_VAR_NOINIT) Rte_CpApHufTPMSwnh_PP_WarnOut_DE_ushWarnOut; /* PRQA S 0850, 3408, 1504 */ /* MD_MSR_19.8, MD_Rte_3408, MD_MSR_8.10 */
-extern VAR(DT_ushWAState, RTE_VAR_NOINIT) Rte_CpApHufTPMSwpa_PP_WAState_DE_ushWAState; /* PRQA S 0850, 3408, 1504 */ /* MD_MSR_19.8, MD_Rte_3408, MD_MSR_8.10 */
-extern VAR(DT_auRfStruct, RTE_VAR_NOINIT) Rte_CpCdHufTPMSrfd_PP_RfStruct_DE_auRfStruct; /* PRQA S 0850, 3408, 1504 */ /* MD_MSR_19.8, MD_Rte_3408, MD_MSR_8.10 */
+extern VAR(DT_tEnvData, RTE_VAR_NOINIT) Rte_CpApHufTPMSmgr_PP_EnvData_DE_tEnvData;
+extern VAR(DT_auRfStruct, RTE_VAR_NOINIT) Rte_CpApHufTPMSmgr_PP_RfStructOut_DE_auRfStruct;
+extern VAR(DT_ushWarnOut, RTE_VAR_NOINIT) Rte_CpApHufTPMSwnh_PP_WarnOut_DE_ushWarnOut;
+extern VAR(DT_ushWAState, RTE_VAR_NOINIT) Rte_CpApHufTPMSwpa_PP_WAState_DE_ushWAState;
+extern VAR(DT_auRfStruct, RTE_VAR_NOINIT) Rte_CpCdHufTPMSrfd_PP_RfStruct_DE_auRfStruct;
 
 #  define RTE_STOP_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
+#  include "MemMap.h"
 
 typedef struct
 {
@@ -2863,108 +2793,80 @@ typedef struct
 } Rte_RxTimeoutFlagsType;
 
 #  define RTE_START_SEC_VAR_ZERO_INIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
+#  include "MemMap.h"
 
 extern VAR(Rte_RxTimeoutFlagsType, RTE_VAR_ZERO_INIT) Rte_RxTimeoutFlags;
 
 #  define RTE_STOP_SEC_VAR_ZERO_INIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
-
-
-/**********************************************************************************************************************
- * Buffer for inter-runnable variables
- *********************************************************************************************************************/
-#  define RTE_START_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
-
-
-#  define RTE_STOP_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
+#  include "MemMap.h"
 
 #  define RTE_START_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
-
+#  include "MemMap.h"
 
 #  define RTE_STOP_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
+#  include "MemMap.h"
 
 #  define RTE_START_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
-
-extern VAR(Boolean, RTE_VAR_NOINIT) Rte_Irv_CpApHufTPMSmgr_IRV_TpmActvRq_TpmMsgDispRq; /* PRQA S 0850, 3408, 1504 */ /* MD_MSR_19.8, MD_Rte_3408, MD_MSR_8.10 */
+#  include "MemMap.h"
 
 #  define RTE_STOP_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
+#  include "MemMap.h"
 
 #  define RTE_START_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
+#  include "MemMap.h"
 
+extern VAR(Boolean, RTE_VAR_NOINIT) Rte_Irv_CpApHufTPMSmgr_IRV_TpmActvRq_TpmMsgDispRq;
 
 #  define RTE_STOP_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
+#  include "MemMap.h"
 
 #  define RTE_START_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
-
+#  include "MemMap.h"
 
 #  define RTE_STOP_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
+#  include "MemMap.h"
 
 #  define RTE_START_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
-
+#  include "MemMap.h"
 
 #  define RTE_STOP_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
+#  include "MemMap.h"
 
 #  define RTE_START_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
-
+#  include "MemMap.h"
 
 #  define RTE_STOP_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
+#  include "MemMap.h"
 
 #  define RTE_START_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
-
+#  include "MemMap.h"
 
 #  define RTE_STOP_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
+#  include "MemMap.h"
 
 #  define RTE_START_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
-
+#  include "MemMap.h"
 
 #  define RTE_STOP_SEC_VAR_NOINIT_UNSPECIFIED
-#  include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
+#  include "MemMap.h"
 
+#  define RTE_START_SEC_VAR_NOINIT_UNSPECIFIED
+#  include "MemMap.h"
 
+#  define RTE_STOP_SEC_VAR_NOINIT_UNSPECIFIED
+#  include "MemMap.h"
 
-# endif /* defined(RTE_CORE) */
+# endif
 
-/* begin Fileversion check */
-# ifndef SKIP_MAGIC_NUMBER /* PRQA S 0828 */ /* MD_MSR_1.1_828 */
+# ifndef SKIP_MAGIC_NUMBER
 #  ifdef RTE_MAGIC_NUMBER
 #   if RTE_MAGIC_NUMBER != 1513305418
 #    error "The magic number of the generated file <C:/_TSS/DAG/MFA2/Target/Appl/GenData/Rte/Rte_Type.h> is different. Please check time and date of the generated RTE files!"
 #   endif
 #  else
 #   define RTE_MAGIC_NUMBER 1513305418
-#  endif  /* RTE_MAGIC_NUMBER */
-# endif  /* SKIP_MAGIC_NUMBER */
-/* end Fileversion check */
+#  endif
+# endif
 
-#endif /* _RTE_TYPE_H */
+#endif
 
-/**********************************************************************************************************************
- MISRA 2004 violations and justifications
- *********************************************************************************************************************/
-
-/* module specific MISRA deviations:
-   MD_Rte_3408:  MISRA rule: 8.8
-     Reason:     For the purpose of monitoring during calibration or debugging it is necessary to use non-static declarations.
-                 This is covered in the MISRA C compliance section of the Rte specification.
-     Risk:       No functional risk.
-     Prevention: Not required.
-
-*/

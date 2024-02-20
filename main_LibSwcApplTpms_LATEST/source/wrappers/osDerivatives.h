@@ -1,25 +1,6 @@
-/* Kernbauer Version: 2.16 Konfiguration: RH850 Erzeugungsgangnummer: 145 Zweig: 1 */
 
-/*****************************************************************************
-| Project Name: Autosar OS 4.0.3
-|    File Name: osDerivatives.h
-|
-|  Module version: $vv$=1.01
-|
-|  Description: File for including the necessary derivative dependent headers
-|  Platform:    Renesas RH850
-|
-|-----------------------------------------------------------------------------
-|               C O P Y R I G H T
-|-----------------------------------------------------------------------------
-| Copyright (c) 2014 Vector Informatik GmbH               All rights reserved.
-|****************************************************************************/
 
-/* MISRA RULE 19.15 VIOLATION: The QAC-Tool states a violation of rule 19.15 with 
- * message 0883 below. Anyhow, there is a double include prevention and therefore,
- * the message is considered to be wrong. */
-/* double include preventer */
-#ifndef _OSDERIVATIVES_H  /* PRQA S 0883 EOF */ /* see MISRA comment above */
+#ifndef _OSDERIVATIVES_H
 #define _OSDERIVATIVES_H
 
 #if defined __cplusplus
@@ -27,17 +8,15 @@ extern "C"
 {
 #endif
 
-/* Vector release management */
 #if defined USE_QUOTE_INCLUDES
  #include "vrm.h"
 #else
  #include <vrm.h>
 #endif
-/* KB begin vrmReleaseNumber (overwritten) */
-/* Source release number */
+
 #define osdVrmMajRelNum 1
 #define osdVrmMinRelNum 1
-/* KB end vrmReleaseNumber */
+
 #if defined USE_QUOTE_INCLUDES
  #include "vrm.h"
 #else
@@ -115,9 +94,8 @@ extern "C"
 #endif
 
 #if defined __cplusplus
-} /* ENDOF extern "C" */
+}
 #endif
 
-#endif /* _OSDERIVATIVES_H, double include preventer */
+#endif
 
-/* END OF HEADER osDerivatives.h */

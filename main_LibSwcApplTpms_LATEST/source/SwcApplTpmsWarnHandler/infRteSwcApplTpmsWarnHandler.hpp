@@ -1,24 +1,8 @@
 #pragma once
 /******************************************************************************/
-/* File   : infRteSwcApplTpmsWarnHandler.hpp                                  */
-/*                                                                            */
-/* Author : Raajnaag HULIYAPURADA MATA                                        */
-/*                                                                            */
-/* License / Warranty / Terms and Conditions                                  */
-/*                                                                            */
-/* Everyone is permitted to copy and distribute verbatim copies of this lice- */
-/* nse document, but changing it is not allowed. This is a free, copyright l- */
-/* icense for software and other kinds of works. By contrast, this license is */
-/* intended to guarantee your freedom to share and change all versions of a   */
-/* program, to make sure it remains free software for all its users. You have */
-/* certain responsibilities, if you distribute copies of the software, or if  */
-/* you modify it: responsibilities to respect the freedom of others.          */
-/*                                                                            */
-/* All rights reserved. Copyright © 1982 Raajnaag HULIYAPURADA MATA           */
-/*                                                                            */
-/* Always refer latest software version from:                                 */
-/* https://github.com/RaajnaagHuliyapuradaMata?tab=repositories               */
-/*                                                                            */
+/* File              : infRteSwcApplTpmsWarnHandler.hpp                       */
+/* Author            : Nagaraja HULIYAPURADA MATA                             */
+/* Copyright (c)2024 : All rights reserved.                                   */
 /******************************************************************************/
 
 /******************************************************************************/
@@ -148,7 +132,6 @@ extern uint8 bEcE        (struct LocalWarnDat* ptLWD, uint8 ucWarnCfg);
 extern uint8 bSoftFactor (struct LocalWarnDat *ptLWD, uint8 ucWarnCfg);
 extern uint8 bDHW        (struct LocalWarnDat *ptLWD, uint8 ucWarnCfg);
 #define cAllWT_function {bPMin, bEcE, bSoftFactor, bDHW}
-
 
 /* eeiface.h */
 extern void GetDataEE(uint8,       uint8*, uint8);

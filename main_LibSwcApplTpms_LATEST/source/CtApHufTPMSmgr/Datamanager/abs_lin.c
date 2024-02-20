@@ -1,262 +1,122 @@
-/************************************************************************************************************
- * (c) HuF Electronics GmbH      Abteilung ENTS4     2015
- ************************************************************************************************************/
-
-/*********************************************************************************************************//**
- * \file abs_lin.c
- * \brief ABS Data management
- *
- *------------------------------------------------------------------------------------------------------------
- * Global Description
- * 
- *
- *
- *
- *
- *------------------------------------------------------------------------------------------------------------
- * Modul Description
- * 
- *
- * Purpose:
- *
- *
- *
- *------------------------------------------------------------------------------------------------------------
- */
 
 
-
-
-
-/************************************************************************************************************
- *                                             include
- ************************************************************************************************************/
 #include "abs_lin.h"
 #include "abs_linX.h"
 #include "wallocX.h"
 
-
-
-/************************************************************************************************************
- *                                             macro
- ************************************************************************************************************/
-
-
-
-/************************************************************************************************************
- *                                            typedef
- ************************************************************************************************************/
-
-
-
-/************************************************************************************************************
- *                                    data (Modulglobal) - ROM
- ************************************************************************************************************/
-
-
-
-/************************************************************************************************************
- *                                    data (Modulglobal) - RAM
- ************************************************************************************************************/
-
-
-
-/************************************************************************************************************
- *                                       data (global) - ROM
- ************************************************************************************************************/
-
-
-
-/************************************************************************************************************
- *                                       data (global) - RAM
- ************************************************************************************************************/
-
-
-
-/***********************************************************************************************************
- *                                 prototype (local functions - private)
- ***********************************************************************************************************/
 static uint16 ushCalcABS( uint16, uint16, uint16, uint16, uint16 );
 static uint8 getDivRemainder(uint8 input, uint8 factor);
 
-
-/***********************************************************************************************************
- *                                 prototype (local functions - public)
- ***********************************************************************************************************/
 uint8 ucGetAbsOverflowCtrFL(void);
 uint8 ucGetAbsOverflowCtrFR(void);
 uint8 ucGetAbsOverflowCtrRL(void);
 uint8 ucGetAbsOverflowCtrRR(void);
 
-
-/************************************************************************************************************
- *                               prototype (external functions - interface)
- ************************************************************************************************************/
-
-
-
-/************************************************************************************************************
- *                                            implementation
- ************************************************************************************************************/
-
-
-
-
-/************************************************************************************************//**
- *
- * \brief  puts received abs signals together with the coresponding time stamp in the buffer
- *
- *-----------------------------------------------------------------------------------------------
- * \param [in] ushTime time stamp
- * \param [in] ushCnt  Abs Sticks
- *
- * \return	none
- *
- *------------------------------------------------------------------------------------------------
- */
 void PutABS(uint16 ushTime, const uint16 ushCnt[] )
 {
-	uint8 ucAbsIndexPrev;
-	uint8 ucTempDiff;
-	uint8 ucAbsIndex200msOffset; /* index of the tenth last received abs signal */
-	uint16 ushTempdiff = 0xFFFF;
-	if (ucAbsState == cABS_STATE_INIT){
+   uint8 ucAbsIndexPrev;
+   uint8 ucTempDiff;
+   uint8 ucAbsIndex200msOffset;
+   uint16 ushTempdiff = 0xFFFF;
+   if (ucAbsState == cABS_STATE_INIT){
 
-		tAbsDataBuff[ucAbsIndex].ushAbsTimeStamp = ushTime;
+      tAbsDataBuff[ucAbsIndex].ushAbsTimeStamp = ushTime;
 
-		tAbsDataBuff[ucAbsIndex].ushAbsCntVl = ushCnt[0];
-		tAbsDataBuff[ucAbsIndex].ushAbsCntVr = ushCnt[1];
-		tAbsDataBuff[ucAbsIndex].ushAbsCntHl = ushCnt[2];
-		tAbsDataBuff[ucAbsIndex].ushAbsCntHr = ushCnt[3];
+      tAbsDataBuff[ucAbsIndex].ushAbsCntVl = ushCnt[0];
+      tAbsDataBuff[ucAbsIndex].ushAbsCntVr = ushCnt[1];
+      tAbsDataBuff[ucAbsIndex].ushAbsCntHl = ushCnt[2];
+      tAbsDataBuff[ucAbsIndex].ushAbsCntHr = ushCnt[3];
 
-		ucAbsState = ccABS_STATE_LinABS_ERR;
-	}
-	else{
+      ucAbsState = ccABS_STATE_LinABS_ERR;
+   }
+   else{
 
-		/* Überlaufbehandlung */
-		if(ucAbsIndex == 0)
-			ucAbsIndexPrev = cAbsBufferSize - 1;
-		else
-			ucAbsIndexPrev = ucAbsIndex-1;
+      if(ucAbsIndex == 0)
+         ucAbsIndexPrev = cAbsBufferSize - 1;
+      else
+         ucAbsIndexPrev = ucAbsIndex-1;
 
-		ucAbsIndex = getDivRemainder(ucAbsIndex, cAbsBufferSize);
+      ucAbsIndex = getDivRemainder(ucAbsIndex, cAbsBufferSize);
 
-		tAbsDataBuff[ucAbsIndex].ushAbsTimeStamp = ushTime;
+      tAbsDataBuff[ucAbsIndex].ushAbsTimeStamp = ushTime;
 
-		/*---------Vorne links----*/
-		if (ushCnt[0] < tAbsDataBuff[ucAbsIndexPrev].ushAbsCntVl)
-		{
-			/* Überlaufbehandlung */
-			//RebuildABSRef((unsigned char) 0);
-			ucCurrentOverflowCntVl++;
-		}
+      if (ushCnt[0] < tAbsDataBuff[ucAbsIndexPrev].ushAbsCntVl)
+      {
+          ucCurrentOverflowCntVl++;
+      }
 
-		tAbsDataBuff[ucAbsIndex].ucOverflowCntVl  = ucCurrentOverflowCntVl;
-		tAbsDataBuff[ucAbsIndex].ushAbsCntVl = ushCnt[0];
+      tAbsDataBuff[ucAbsIndex].ucOverflowCntVl  = ucCurrentOverflowCntVl;
+      tAbsDataBuff[ucAbsIndex].ushAbsCntVl = ushCnt[0];
 
-		/*---------Vorne rechts----*/
-		if (ushCnt[1] < tAbsDataBuff[ucAbsIndexPrev].ushAbsCntVr)
-		{
-			/* Überlaufbehandlung */
-			//RebuildABSRef((unsigned char) 1);
-			ucCurrentOverflowCntVr++;
-		}
-		tAbsDataBuff[ucAbsIndex].ucOverflowCntVr = ucCurrentOverflowCntVr;
-		tAbsDataBuff[ucAbsIndex].ushAbsCntVr = ushCnt[1];
+      if (ushCnt[1] < tAbsDataBuff[ucAbsIndexPrev].ushAbsCntVr)
+      {
+          ucCurrentOverflowCntVr++;
+      }
+      tAbsDataBuff[ucAbsIndex].ucOverflowCntVr = ucCurrentOverflowCntVr;
+      tAbsDataBuff[ucAbsIndex].ushAbsCntVr = ushCnt[1];
 
-		/*---------Hinten links----*/
-		if (ushCnt[2] < tAbsDataBuff[ucAbsIndexPrev].ushAbsCntHl)
-		{
-			/* Überlaufbehandlung */
-			//RebuildABSRef((unsigned char) 2);
-			ucCurrentOverflowCntHl++;
-		}
-		tAbsDataBuff[ucAbsIndex].ucOverflowCntHl = ucCurrentOverflowCntHl;
-		tAbsDataBuff[ucAbsIndex].ushAbsCntHl = ushCnt[2];
+      if (ushCnt[2] < tAbsDataBuff[ucAbsIndexPrev].ushAbsCntHl)
+      {
+          ucCurrentOverflowCntHl++;
+      }
+      tAbsDataBuff[ucAbsIndex].ucOverflowCntHl = ucCurrentOverflowCntHl;
+      tAbsDataBuff[ucAbsIndex].ushAbsCntHl = ushCnt[2];
 
+      if (ushCnt[3] < tAbsDataBuff[ucAbsIndexPrev].ushAbsCntHr)
+      {
+          ucCurrentOverflowCntHr++;
+      }
+      tAbsDataBuff[ucAbsIndex].ucOverflowCntHr  = ucCurrentOverflowCntHr;
+      tAbsDataBuff[ucAbsIndex].ushAbsCntHr = ushCnt[3];
 
-		/*---------Hinten rechts----*/
-		if (ushCnt[3] < tAbsDataBuff[ucAbsIndexPrev].ushAbsCntHr)
-		{
-			/* Überlaufbehandlung */
-			//RebuildABSRef((unsigned char) 3);
-			ucCurrentOverflowCntHr++;
-		}
-		tAbsDataBuff[ucAbsIndex].ucOverflowCntHr  = ucCurrentOverflowCntHr;
-		tAbsDataBuff[ucAbsIndex].ushAbsCntHr = ushCnt[3];
+   }
 
-	}
+   ucTempDiff = (uint8) (200/cAbsSignalPeriodicity);
+    ucAbsIndex200msOffset = (ucAbsIndex >= ucTempDiff) ? (ucAbsIndex - ucTempDiff) : (cAbsBufferSize - ucTempDiff + ucAbsIndex);
 
+   ushTempdiff = (tAbsDataBuff[ucAbsIndex].ucOverflowCntVl>=tAbsDataBuff[ucAbsIndex200msOffset].ucOverflowCntVl) ?
+      (tAbsDataBuff[ucAbsIndex].ucOverflowCntVl-tAbsDataBuff[ucAbsIndex200msOffset].ucOverflowCntVl):
+      (0xFF + tAbsDataBuff[ucAbsIndex].ucOverflowCntVl - tAbsDataBuff[ucAbsIndex200msOffset].ucOverflowCntVl +1);
 
+   ushAbsStickDiff200msOffset = (tAbsDataBuff[ucAbsIndex].ushAbsCntVl >= tAbsDataBuff[ucAbsIndex200msOffset].ushAbsCntVl) ? (tAbsDataBuff[ucAbsIndex].ushAbsCntVl - tAbsDataBuff[ucAbsIndex200msOffset].ushAbsCntVl) : (cAbsOverflowValue + tAbsDataBuff[ucAbsIndex].ushAbsCntVl - tAbsDataBuff[ucAbsIndex200msOffset].ushAbsCntVl);
+   ushAbsStickDiff200msOffset = (uint16) (ushAbsStickDiff200msOffset + ushTempdiff*cAbsOverflowValue);
 
-	/*-------- minimum Abs Counter difference of last 200 ms-------*/
+   if (ushAbsStickPrevStop != 0xFFFF){
 
-	/* here we compute the ABS overflow difference */
-	ucTempDiff = (uint8) (200/cAbsSignalPeriodicity); // number of index to lookback for 200 ms
-	ucAbsIndex200msOffset = (ucAbsIndex >= ucTempDiff) ? (ucAbsIndex - ucTempDiff) : (cAbsBufferSize - ucTempDiff + ucAbsIndex);
-	
-	ushTempdiff = (tAbsDataBuff[ucAbsIndex].ucOverflowCntVl>=tAbsDataBuff[ucAbsIndex200msOffset].ucOverflowCntVl) ? 
-		(tAbsDataBuff[ucAbsIndex].ucOverflowCntVl-tAbsDataBuff[ucAbsIndex200msOffset].ucOverflowCntVl):
-		(0xFF + tAbsDataBuff[ucAbsIndex].ucOverflowCntVl - tAbsDataBuff[ucAbsIndex200msOffset].ucOverflowCntVl +1); // overflow counter diff
+      ushTempdiff = (tAbsDataBuff[ucAbsIndex].ushAbsCntVl >= ushAbsStickPrevStop)? (tAbsDataBuff[ucAbsIndex].ushAbsCntVl - ushAbsStickPrevStop):
+            (cAbsOverflowValue + tAbsDataBuff[ucAbsIndex].ushAbsCntVl - ushAbsStickPrevStop);
 
+      if(ushTempdiff > 8*20/cAbsSignalPeriodicity){
+         ushCumAbsStickDiffOffset = 8*20/cAbsSignalPeriodicity;
+         ushAbsStickPrevStop = 0xFFFF;
+      }
+   }
 
-	/* here we compute the ABS stick difference */
-	ushAbsStickDiff200msOffset = (tAbsDataBuff[ucAbsIndex].ushAbsCntVl >= tAbsDataBuff[ucAbsIndex200msOffset].ushAbsCntVl) ? (tAbsDataBuff[ucAbsIndex].ushAbsCntVl - tAbsDataBuff[ucAbsIndex200msOffset].ushAbsCntVl) : (cAbsOverflowValue + tAbsDataBuff[ucAbsIndex].ushAbsCntVl - tAbsDataBuff[ucAbsIndex200msOffset].ushAbsCntVl);
-	ushAbsStickDiff200msOffset = (uint16) (ushAbsStickDiff200msOffset + ushTempdiff*cAbsOverflowValue);
+   if(ushAbsStickDiff200msOffset == 0)
+   {
+      if(ushAbsStickPrevStop != 0xFFFF)
+       {
+         ushTempdiff = (tAbsDataBuff[ucAbsIndex].ushAbsCntVl >= ushAbsStickPrevStop)? (tAbsDataBuff[ucAbsIndex].ushAbsCntVl - ushAbsStickPrevStop):
+            (cAbsOverflowValue + tAbsDataBuff[ucAbsIndex].ushAbsCntVl - ushAbsStickPrevStop);
+         ushAbsStickPrevStop = tAbsDataBuff[ucAbsIndex].ushAbsCntVl;
 
-	if (ushAbsStickPrevStop != 0xFFFF){
+         ushCumAbsStickDiffOffset += ushTempdiff;
+      }
+      else{
 
-		ushTempdiff = (tAbsDataBuff[ucAbsIndex].ushAbsCntVl >= ushAbsStickPrevStop)? (tAbsDataBuff[ucAbsIndex].ushAbsCntVl - ushAbsStickPrevStop):
-				(cAbsOverflowValue + tAbsDataBuff[ucAbsIndex].ushAbsCntVl - ushAbsStickPrevStop);
+         ushAbsStickPrevStop = tAbsDataBuff[ucAbsIndex].ushAbsCntVl;
+      }
+   }
 
-		if(ushTempdiff > 8*20/cAbsSignalPeriodicity){
-			ushCumAbsStickDiffOffset = 8*20/cAbsSignalPeriodicity;
-			ushAbsStickPrevStop = 0xFFFF;
-		}
-	}
-
-	/* Car has stopped */
-	if(ushAbsStickDiff200msOffset == 0)
-	{
-		if(ushAbsStickPrevStop != 0xFFFF) // check valid value
-		{
-			ushTempdiff = (tAbsDataBuff[ucAbsIndex].ushAbsCntVl >= ushAbsStickPrevStop)? (tAbsDataBuff[ucAbsIndex].ushAbsCntVl - ushAbsStickPrevStop):
-				(cAbsOverflowValue + tAbsDataBuff[ucAbsIndex].ushAbsCntVl - ushAbsStickPrevStop);
-			ushAbsStickPrevStop = tAbsDataBuff[ucAbsIndex].ushAbsCntVl;
-
-			/* cumulate ABS offset difference */
-			ushCumAbsStickDiffOffset += ushTempdiff;
-		}
-		else{
-			/* save abs counter */
-			ushAbsStickPrevStop = tAbsDataBuff[ucAbsIndex].ushAbsCntVl;
-			//ushCumAbsStickDiffOffset = 0;
-		}
-	}
-
-	ucAbsIndex++;
+   ucAbsIndex++;
 }
 
-
-/************************************************************************************************//**
- *
- * \brief  gets interpolated ABS Sticks
- *
- *-----------------------------------------------------------------------------------------------
- *
- * \param [in] ucAbsState  Global variable
- * \param [out] ushCnt Output array
- *
- * \return	Error code OK (0x00) / ERROR (0x01)
- *
- *------------------------------------------------------------------------------------------------
- */
 uint8 GetLinABS( uint16 ushCnt[] )
 {
-	uint8 ucRet;
+   uint8 ucRet;
 
-	if( ucAbsState == ccABS_STATE_LinABS_AVL)
-	{
+   if( ucAbsState == ccABS_STATE_LinABS_AVL)
+   {
     ushCnt[0] = ushLinAbsData[0];
     ushCnt[1] = ushLinAbsData[1];
     ushCnt[2] = ushLinAbsData[2];
@@ -272,26 +132,12 @@ uint8 GetLinABS( uint16 ushCnt[] )
   }
 
   return ucRet;
-} /* uint8 GetLinABS( uint16 ushCnt[] ) */
-	
+}
 
-
-/************************************************************************************************//**
- *
- * \brief  initializes ABS management module
- *
- *-----------------------------------------------------------------------------------------------
- *
- *
- * \return	none
- *
- *------------------------------------------------------------------------------------------------
- */
 void InitABS( void )
 {
   uint8 ucLoop;
 
-  /* init buffer */
   for ( ucLoop = 0; ucLoop < cAbsBufferSize; ucLoop++ )
   {
     tAbsDataBuff[ucLoop].ushAbsTimeStamp = (uint16) 0;
@@ -300,7 +146,7 @@ void InitABS( void )
     tAbsDataBuff[ucLoop].ushAbsCntVr = (uint16) 0;
     tAbsDataBuff[ucLoop].ushAbsCntHl = (uint16) 0;
     tAbsDataBuff[ucLoop].ushAbsCntHr = (uint16) 0;
-	tAbsDataBuff[ucLoop].ucOverflowCntVl = (uint8) 0;
+   tAbsDataBuff[ucLoop].ucOverflowCntVl = (uint8) 0;
     tAbsDataBuff[ucLoop].ucOverflowCntVr = (uint8) 0;
     tAbsDataBuff[ucLoop].ucOverflowCntHl = (uint8) 0;
     tAbsDataBuff[ucLoop].ucOverflowCntHr = (uint8) 0;
@@ -321,301 +167,216 @@ void InitABS( void )
   ushAbsStickDiff200msOffset = 0;
   ushAbsStickPrevStop = 0xFFFF;
   ushCumAbsStickDiffOffset = 0;
-} /* void InitABS( void ) */
+}
 
-
-/************************************************************************************************//**
- *
- * \brief  Watch ABS sticks  within approximately 200 ms intervall
- *
- *-----------------------------------------------------------------------------------------------
- *
- * \param [in] 
- * \param [in] 
- *
- * \return	0x01 Car standstill 0x00 Car motion detected
- *
- *------------------------------------------------------------------------------------------------
- */
 uint8 bCarAbsStickStandstill()
 
 {
-	if (ushAbsStickDiff200msOffset < 1)
-		return 1;
+   if (ushAbsStickDiff200msOffset < 1)
+      return 1;
 
-	else
-		return 0;
-	
+   else
+      return 0;
+
 }
 
-/************************************************************************************************//**
- *
- * \brief  Decide whether the reference point of the Walloc needs to be reset
- *
- *-----------------------------------------------------------------------------------------------
- *
- * \param [in] 
- * \param [in] 
- *
- * \return	0x01 Reset Needed 0x00 No Reset Needed
- *
- *------------------------------------------------------------------------------------------------
- */
 uint8 bResetAbsRefPoint()
 
 {
-	if (ushCumAbsStickDiffOffset < (8*20/cAbsSignalPeriodicity))
-	{
-		return 0;
-	}
-	else
-	{	// reinit values
-		ushCumAbsStickDiffOffset = 0;
-		ushAbsStickPrevStop = 0xFFFF;
-		return 1;
-	}
-	
+   if (ushCumAbsStickDiffOffset < (8*20/cAbsSignalPeriodicity))
+   {
+      return 0;
+   }
+   else
+   {
+       ushCumAbsStickDiffOffset = 0;
+      ushAbsStickPrevStop = 0xFFFF;
+      return 1;
+   }
+
 }
-/************************************************************************************************//**
- *
- * \brief  Interpolates ABS sticks
- *
- *-----------------------------------------------------------------------------------------------
- *
- * \param [in] ushRfTimeStamp  Time stamp
- * \param [in] tAbsDataBuff Global Array ABS Buffer
- *
- * \return	Error code OK (0x00) / ERROR (0x01)
- *
- *------------------------------------------------------------------------------------------------
- */
+
 uint8 LinABS( uint16 ushRfTimeStamp)
 {
   uint8 ucRet;
 
   uint8 ucABSIndex1, ucABSIndex2, ucLoop;
-#if 0 //see OIL317 : variables are not used
-  uint16 ushAbs2RfTimeDiff, ushAbsTimeDiff;
+#if 0
+   uint16 ushAbs2RfTimeDiff, ushAbsTimeDiff;
 #endif
   uint16 ushAbsCntVlDiff, ushAbsCntVrDiff, ushAbsCntHlDiff, ushAbsCntHrDiff;
   uint8  ucDebugError;
 
-  uint8 ucOverflowOffset, ucTempOverflowCntIdx,  i;// overflow to compensate
-  //uint16 ush1stAbsTimeStamp, ush2ndAbsTimeStamp;
-  
-
-  ucRet= 0;
+  uint8 ucOverflowOffset, ucTempOverflowCntIdx,  i;
+   ucRet= 0;
   ucDebugError = 0;
-  ucABSIndex1 = 0xFF; 
+  ucABSIndex1 = 0xFF;
   for (ucLoop = 0; ucLoop < cAbsBufferSize; ucLoop++){
-	  if (tAbsDataBuff[ucLoop].ushAbsTimeStamp < ushRfTimeStamp) {
-		  /* very first minimum */
-		  if (ucABSIndex1 == 0xFF)
-			  ucABSIndex1 = ucLoop;
-		  else{
-			if (tAbsDataBuff[ucLoop].ushAbsTimeStamp > tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp)
-				ucABSIndex1 = ucLoop;
-		  }
-	  }
-  }
-  
+     if (tAbsDataBuff[ucLoop].ushAbsTimeStamp < ushRfTimeStamp) {
 
+        if (ucABSIndex1 == 0xFF)
+           ucABSIndex1 = ucLoop;
+        else{
+         if (tAbsDataBuff[ucLoop].ushAbsTimeStamp > tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp)
+            ucABSIndex1 = ucLoop;
+        }
+     }
+  }
 
   if(ucABSIndex1!=0xFF)
   {
 
-	  /* Überlaufbehandlung */
-	  if(ucABSIndex1 == cAbsBufferSize-1)
-		  ucABSIndex2 = 0;
-	  else
-		  ucABSIndex2 = ucABSIndex1+1;
+     if(ucABSIndex1 == cAbsBufferSize-1)
+        ucABSIndex2 = 0;
+     else
+        ucABSIndex2 = ucABSIndex1+1;
 
+#if 0
+     if( tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp > ushRfTimeStamp )
+      {
 
-		/*
-		* ---------------- Zeitlicher Abstand zwischen 1. ABS-Botschaft und aktuellem RF-Telegramm ermitteln und in Debug-Variable sichern
-		*/
-#if 0 //see OIL317 : variables are not used
-    if( tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp > ushRfTimeStamp )
-		{
-			/* Überlaufbehandlung */
-			ushAbs2RfTimeDiff = (cTimeOverflowValue - tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp) + ushRfTimeStamp;
-		}else{
-			ushAbs2RfTimeDiff = ushRfTimeStamp - tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp;
-		}
+         ushAbs2RfTimeDiff = (cTimeOverflowValue - tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp) + ushRfTimeStamp;
+      }else{
+         ushAbs2RfTimeDiff = ushRfTimeStamp - tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp;
+      }
 #endif
-  
-		/*
-		* ---------------- Zeitlicher Abstand zwischen 1. und 2. ABS-Botschaft ermitteln und in Debug-Variable sichern
-		*/
-#if 0 //see OIL317: varialbles are not used
-		if( tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp > tAbsDataBuff[ucABSIndex2].ushAbsTimeStamp )
-		{
-			/* Überlaufbehandlung */
-			ushAbsTimeDiff = (cTimeOverflowValue - tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp) + tAbsDataBuff[ucABSIndex2].ushAbsTimeStamp;
-		}else{
-			ushAbsTimeDiff = tAbsDataBuff[ucABSIndex2].ushAbsTimeStamp - tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp;
-		}
+
+#if 0
+       if( tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp > tAbsDataBuff[ucABSIndex2].ushAbsTimeStamp )
+      {
+
+         ushAbsTimeDiff = (cTimeOverflowValue - tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp) + tAbsDataBuff[ucABSIndex2].ushAbsTimeStamp;
+      }else{
+         ushAbsTimeDiff = tAbsDataBuff[ucABSIndex2].ushAbsTimeStamp - tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp;
+      }
 #endif
-		/*
-		* ---------------- Anzahl der Raddrehimpulse des ABS-Sensors vorne links zwischen 1. und 2. ABS-Botschaft ermitteln und in Debug-Variable sichern
-		*/
-		if( tAbsDataBuff[ucABSIndex1].ushAbsCntVl > tAbsDataBuff[ucABSIndex2].ushAbsCntVl )
-		{
-			/* Überlaufbehandlung */
-			ushAbsCntVlDiff = (cAbsOverflowValue - tAbsDataBuff[ucABSIndex1].ushAbsCntVl) + tAbsDataBuff[ucABSIndex2].ushAbsCntVl;
-		}else{
-			ushAbsCntVlDiff = tAbsDataBuff[ucABSIndex2].ushAbsCntVl - tAbsDataBuff[ucABSIndex1].ushAbsCntVl;
-		}
 
-		if( (ushAbsCntVlDiff > 600) || (tAbsDataBuff[ucABSIndex1].ushAbsCntVl == cAbsOverflowValue) || (tAbsDataBuff[ucABSIndex2].ushAbsCntVl == cAbsOverflowValue))
-		{
-			/* Fehlerbehandlung */
-			ucDebugError |= cDEBUG_ERROR_OVERFLOW_ABSCNTVL;
-			ucAbsState = ccABS_STATE_LinABS_ERR;
-			return cABS_ERROR;
-		}
+      if( tAbsDataBuff[ucABSIndex1].ushAbsCntVl > tAbsDataBuff[ucABSIndex2].ushAbsCntVl )
+      {
 
-		/*
-		* ---------------- Anzahl der Raddrehimpulse des ABS-Sensors vorne rechts zwischen 1. und 2. ABS-Botschaft ermitteln und in Debug-Variable sichern
-		*/
-		if( tAbsDataBuff[ucABSIndex1].ushAbsCntVr > tAbsDataBuff[ucABSIndex2].ushAbsCntVr )
-		{
-			/* Überlaufbehandlung */
-			ushAbsCntVrDiff = (cAbsOverflowValue - tAbsDataBuff[ucABSIndex1].ushAbsCntVr) + tAbsDataBuff[ucABSIndex2].ushAbsCntVr;
-		}else{
-			ushAbsCntVrDiff = tAbsDataBuff[ucABSIndex2].ushAbsCntVr - tAbsDataBuff[ucABSIndex1].ushAbsCntVr;
-		}
+         ushAbsCntVlDiff = (cAbsOverflowValue - tAbsDataBuff[ucABSIndex1].ushAbsCntVl) + tAbsDataBuff[ucABSIndex2].ushAbsCntVl;
+      }else{
+         ushAbsCntVlDiff = tAbsDataBuff[ucABSIndex2].ushAbsCntVl - tAbsDataBuff[ucABSIndex1].ushAbsCntVl;
+      }
 
-		if( (ushAbsCntVrDiff > 600) || (tAbsDataBuff[ucABSIndex1].ushAbsCntVr == cAbsOverflowValue) || (tAbsDataBuff[ucABSIndex2].ushAbsCntVr == cAbsOverflowValue) )
-		{
-			/* Fehlerbehandlung */
-			ucDebugError |= cDEBUG_ERROR_OVERFLOW_ABSCNTVR;
-			ucAbsState = ccABS_STATE_LinABS_ERR;
-			return cABS_ERROR;
-		}
+      if( (ushAbsCntVlDiff > 600) || (tAbsDataBuff[ucABSIndex1].ushAbsCntVl == cAbsOverflowValue) || (tAbsDataBuff[ucABSIndex2].ushAbsCntVl == cAbsOverflowValue))
+      {
 
-		/*
-		* ---------------- Anzahl der Raddrehimpulse des ABS-Sensors hinten links zwischen 1. und 2. ABS-Botschaft ermitteln und in Debug-Variable sichern
-		*/
-		if( tAbsDataBuff[ucABSIndex1].ushAbsCntHl > tAbsDataBuff[ucABSIndex2].ushAbsCntHl )
-		{
-			/* Überlaufbehandlung */
-			ushAbsCntHlDiff = (cAbsOverflowValue - tAbsDataBuff[ucABSIndex1].ushAbsCntHl) + tAbsDataBuff[ucABSIndex2].ushAbsCntHl;
-		}else{
-			ushAbsCntHlDiff = tAbsDataBuff[ucABSIndex2].ushAbsCntHl - tAbsDataBuff[ucABSIndex1].ushAbsCntHl;
-		}
+         ucDebugError |= cDEBUG_ERROR_OVERFLOW_ABSCNTVL;
+         ucAbsState = ccABS_STATE_LinABS_ERR;
+         return cABS_ERROR;
+      }
 
-		if( (ushAbsCntHlDiff > 600) || (tAbsDataBuff[ucABSIndex1].ushAbsCntHl == cAbsOverflowValue) || (tAbsDataBuff[ucABSIndex2].ushAbsCntHl == cAbsOverflowValue) )
-		{
-			/* Fehlerbehandlung */
-			ucDebugError |= cDEBUG_ERROR_OVERFLOW_ABSCNTHL;
-			ucAbsState = ccABS_STATE_LinABS_ERR;
-			return cABS_ERROR;
-		}
+      if( tAbsDataBuff[ucABSIndex1].ushAbsCntVr > tAbsDataBuff[ucABSIndex2].ushAbsCntVr )
+      {
 
-		/*
-		* ---------------- Anzahl der Raddrehimpulse des ABS-Sensors hinten rechts zwischen 1. und 2. ABS-Botschaft ermitteln und in Debug-Variable sichern
-		*/
-		if( tAbsDataBuff[ucABSIndex1].ushAbsCntHr > tAbsDataBuff[ucABSIndex2].ushAbsCntHr )
-		{
-			/* Überlaufbehandlung */
-			ushAbsCntHrDiff = (cAbsOverflowValue - tAbsDataBuff[ucABSIndex1].ushAbsCntHr) + tAbsDataBuff[ucABSIndex2].ushAbsCntHr;
-		}else{
-			ushAbsCntHrDiff = tAbsDataBuff[ucABSIndex2].ushAbsCntHr - tAbsDataBuff[ucABSIndex1].ushAbsCntHr;
-		}
+         ushAbsCntVrDiff = (cAbsOverflowValue - tAbsDataBuff[ucABSIndex1].ushAbsCntVr) + tAbsDataBuff[ucABSIndex2].ushAbsCntVr;
+      }else{
+         ushAbsCntVrDiff = tAbsDataBuff[ucABSIndex2].ushAbsCntVr - tAbsDataBuff[ucABSIndex1].ushAbsCntVr;
+      }
 
-		if( (ushAbsCntHrDiff > 600) || (tAbsDataBuff[ucABSIndex1].ushAbsCntHr == cAbsOverflowValue) || (tAbsDataBuff[ucABSIndex2].ushAbsCntHr == cAbsOverflowValue) )
-		{
-			/* Fehlerbehandlung */
-			ucDebugError |= cDEBUG_ERROR_OVERFLOW_ABSCNTHR;
-			ucAbsState = ccABS_STATE_LinABS_ERR;
-			return cABS_ERROR;
-		}
+      if( (ushAbsCntVrDiff > 600) || (tAbsDataBuff[ucABSIndex1].ushAbsCntVr == cAbsOverflowValue) || (tAbsDataBuff[ucABSIndex2].ushAbsCntVr == cAbsOverflowValue) )
+      {
 
+         ucDebugError |= cDEBUG_ERROR_OVERFLOW_ABSCNTVR;
+         ucAbsState = ccABS_STATE_LinABS_ERR;
+         return cABS_ERROR;
+      }
 
+      if( tAbsDataBuff[ucABSIndex1].ushAbsCntHl > tAbsDataBuff[ucABSIndex2].ushAbsCntHl )
+      {
 
-		/*
-		*----------------- Teiler für Linearisierung ermitteln und in Debug-Variable sichern (ist positionsunabhängig)
-		*/
-		ushLinAbsData[0] = tAbsDataBuff[ucABSIndex1].ushAbsCntVl + ushCalcABS( ushRfTimeStamp, tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp, tAbsDataBuff[ucABSIndex1].ushAbsCntVl, tAbsDataBuff[ucABSIndex2].ushAbsTimeStamp, tAbsDataBuff[ucABSIndex2].ushAbsCntVl );
-		ushLinAbsData[1] = tAbsDataBuff[ucABSIndex1].ushAbsCntVr + ushCalcABS( ushRfTimeStamp, tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp, tAbsDataBuff[ucABSIndex1].ushAbsCntVr, tAbsDataBuff[ucABSIndex2].ushAbsTimeStamp, tAbsDataBuff[ucABSIndex2].ushAbsCntVr );
-		ushLinAbsData[2] = tAbsDataBuff[ucABSIndex1].ushAbsCntHl + ushCalcABS( ushRfTimeStamp, tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp, tAbsDataBuff[ucABSIndex1].ushAbsCntHl, tAbsDataBuff[ucABSIndex2].ushAbsTimeStamp, tAbsDataBuff[ucABSIndex2].ushAbsCntHl );
-		ushLinAbsData[3] = tAbsDataBuff[ucABSIndex1].ushAbsCntHr + ushCalcABS( ushRfTimeStamp, tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp, tAbsDataBuff[ucABSIndex1].ushAbsCntHr, tAbsDataBuff[ucABSIndex2].ushAbsTimeStamp, tAbsDataBuff[ucABSIndex2].ushAbsCntHr );
+         ushAbsCntHlDiff = (cAbsOverflowValue - tAbsDataBuff[ucABSIndex1].ushAbsCntHl) + tAbsDataBuff[ucABSIndex2].ushAbsCntHl;
+      }else{
+         ushAbsCntHlDiff = tAbsDataBuff[ucABSIndex2].ushAbsCntHl - tAbsDataBuff[ucABSIndex1].ushAbsCntHl;
+      }
+
+      if( (ushAbsCntHlDiff > 600) || (tAbsDataBuff[ucABSIndex1].ushAbsCntHl == cAbsOverflowValue) || (tAbsDataBuff[ucABSIndex2].ushAbsCntHl == cAbsOverflowValue) )
+      {
+
+         ucDebugError |= cDEBUG_ERROR_OVERFLOW_ABSCNTHL;
+         ucAbsState = ccABS_STATE_LinABS_ERR;
+         return cABS_ERROR;
+      }
+
+      if( tAbsDataBuff[ucABSIndex1].ushAbsCntHr > tAbsDataBuff[ucABSIndex2].ushAbsCntHr )
+      {
+
+         ushAbsCntHrDiff = (cAbsOverflowValue - tAbsDataBuff[ucABSIndex1].ushAbsCntHr) + tAbsDataBuff[ucABSIndex2].ushAbsCntHr;
+      }else{
+         ushAbsCntHrDiff = tAbsDataBuff[ucABSIndex2].ushAbsCntHr - tAbsDataBuff[ucABSIndex1].ushAbsCntHr;
+      }
+
+      if( (ushAbsCntHrDiff > 600) || (tAbsDataBuff[ucABSIndex1].ushAbsCntHr == cAbsOverflowValue) || (tAbsDataBuff[ucABSIndex2].ushAbsCntHr == cAbsOverflowValue) )
+      {
+
+         ucDebugError |= cDEBUG_ERROR_OVERFLOW_ABSCNTHR;
+         ucAbsState = ccABS_STATE_LinABS_ERR;
+         return cABS_ERROR;
+      }
+
+      ushLinAbsData[0] = tAbsDataBuff[ucABSIndex1].ushAbsCntVl + ushCalcABS( ushRfTimeStamp, tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp, tAbsDataBuff[ucABSIndex1].ushAbsCntVl, tAbsDataBuff[ucABSIndex2].ushAbsTimeStamp, tAbsDataBuff[ucABSIndex2].ushAbsCntVl );
+      ushLinAbsData[1] = tAbsDataBuff[ucABSIndex1].ushAbsCntVr + ushCalcABS( ushRfTimeStamp, tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp, tAbsDataBuff[ucABSIndex1].ushAbsCntVr, tAbsDataBuff[ucABSIndex2].ushAbsTimeStamp, tAbsDataBuff[ucABSIndex2].ushAbsCntVr );
+      ushLinAbsData[2] = tAbsDataBuff[ucABSIndex1].ushAbsCntHl + ushCalcABS( ushRfTimeStamp, tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp, tAbsDataBuff[ucABSIndex1].ushAbsCntHl, tAbsDataBuff[ucABSIndex2].ushAbsTimeStamp, tAbsDataBuff[ucABSIndex2].ushAbsCntHl );
+      ushLinAbsData[3] = tAbsDataBuff[ucABSIndex1].ushAbsCntHr + ushCalcABS( ushRfTimeStamp, tAbsDataBuff[ucABSIndex1].ushAbsTimeStamp, tAbsDataBuff[ucABSIndex1].ushAbsCntHr, tAbsDataBuff[ucABSIndex2].ushAbsTimeStamp, tAbsDataBuff[ucABSIndex2].ushAbsCntHr );
 #if ABS_SIG_SIZE_ONEBYTE
-		ushLinAbsData[0] = (uint8) ushLinAbsData[0];
-		ushLinAbsData[1] = (uint8) ushLinAbsData[1];
-		ushLinAbsData[2] = (uint8) ushLinAbsData[2];
-		ushLinAbsData[3] = (uint8) ushLinAbsData[3];
+      ushLinAbsData[0] = (uint8) ushLinAbsData[0];
+      ushLinAbsData[1] = (uint8) ushLinAbsData[1];
+      ushLinAbsData[2] = (uint8) ushLinAbsData[2];
+      ushLinAbsData[3] = (uint8) ushLinAbsData[3];
 #endif
 
-		if (ushLinAbsData[0] < tAbsDataBuff[ucABSIndex1].ushAbsCntVl)
-			ucTempOverflowCntIdx = ucABSIndex2;
-		else
-			ucTempOverflowCntIdx = ucABSIndex1;
-		ucOverflowOffset = (tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntVl >= ucPreviousOverflowCntVl ) ? tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntVl - ucPreviousOverflowCntVl: 0xFF - ucPreviousOverflowCntVl + tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntVl + 1;
-		for (i=0; i<ucOverflowOffset; i++){
-			RebuildABSRef(0);
-		}
-		ucPreviousOverflowCntVl = tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntVl;
+      if (ushLinAbsData[0] < tAbsDataBuff[ucABSIndex1].ushAbsCntVl)
+         ucTempOverflowCntIdx = ucABSIndex2;
+      else
+         ucTempOverflowCntIdx = ucABSIndex1;
+      ucOverflowOffset = (tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntVl >= ucPreviousOverflowCntVl ) ? tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntVl - ucPreviousOverflowCntVl: 0xFF - ucPreviousOverflowCntVl + tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntVl + 1;
+      for (i=0; i<ucOverflowOffset; i++){
+         RebuildABSRef(0);
+      }
+      ucPreviousOverflowCntVl = tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntVl;
 
-		if (ushLinAbsData[1] < tAbsDataBuff[ucABSIndex1].ushAbsCntVr)
-			ucTempOverflowCntIdx = ucABSIndex2;
-		else
-			ucTempOverflowCntIdx = ucABSIndex1;
-		ucOverflowOffset = (tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntVr >= ucPreviousOverflowCntVr ) ? tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntVr - ucPreviousOverflowCntVr: 0xFF - ucPreviousOverflowCntVr + tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntVr + 1;
-		for (i=0; i<ucOverflowOffset; i++){
-			RebuildABSRef(1);
-		}
-		ucPreviousOverflowCntVr = tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntVr;
+      if (ushLinAbsData[1] < tAbsDataBuff[ucABSIndex1].ushAbsCntVr)
+         ucTempOverflowCntIdx = ucABSIndex2;
+      else
+         ucTempOverflowCntIdx = ucABSIndex1;
+      ucOverflowOffset = (tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntVr >= ucPreviousOverflowCntVr ) ? tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntVr - ucPreviousOverflowCntVr: 0xFF - ucPreviousOverflowCntVr + tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntVr + 1;
+      for (i=0; i<ucOverflowOffset; i++){
+         RebuildABSRef(1);
+      }
+      ucPreviousOverflowCntVr = tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntVr;
 
-		if (ushLinAbsData[2] < tAbsDataBuff[ucABSIndex1].ushAbsCntHl)
-			ucTempOverflowCntIdx = ucABSIndex2;
-		else
-			ucTempOverflowCntIdx = ucABSIndex1;
-		ucOverflowOffset = (tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntHl >= ucPreviousOverflowCntHl ) ? tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntHl - ucPreviousOverflowCntHl: 0xFF - ucPreviousOverflowCntHl + tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntHl + 1;
-		for (i=0; i<ucOverflowOffset; i++){
-			RebuildABSRef(2);
-		}
-		ucPreviousOverflowCntHl = tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntHl;
+      if (ushLinAbsData[2] < tAbsDataBuff[ucABSIndex1].ushAbsCntHl)
+         ucTempOverflowCntIdx = ucABSIndex2;
+      else
+         ucTempOverflowCntIdx = ucABSIndex1;
+      ucOverflowOffset = (tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntHl >= ucPreviousOverflowCntHl ) ? tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntHl - ucPreviousOverflowCntHl: 0xFF - ucPreviousOverflowCntHl + tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntHl + 1;
+      for (i=0; i<ucOverflowOffset; i++){
+         RebuildABSRef(2);
+      }
+      ucPreviousOverflowCntHl = tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntHl;
 
-		if (ushLinAbsData[3] < tAbsDataBuff[ucABSIndex1].ushAbsCntHr)
-			ucTempOverflowCntIdx = ucABSIndex2;
-		else
-			ucTempOverflowCntIdx = ucABSIndex1;
-		ucOverflowOffset = (tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntHr >= ucPreviousOverflowCntHr ) ? tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntHr - ucPreviousOverflowCntHr: 0xFF - ucPreviousOverflowCntHr + tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntHr + 1;
-		for (i=0; i<ucOverflowOffset; i++){
-			RebuildABSRef(3);
-		}
-		ucPreviousOverflowCntHr = tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntHr;
+      if (ushLinAbsData[3] < tAbsDataBuff[ucABSIndex1].ushAbsCntHr)
+         ucTempOverflowCntIdx = ucABSIndex2;
+      else
+         ucTempOverflowCntIdx = ucABSIndex1;
+      ucOverflowOffset = (tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntHr >= ucPreviousOverflowCntHr ) ? tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntHr - ucPreviousOverflowCntHr: 0xFF - ucPreviousOverflowCntHr + tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntHr + 1;
+      for (i=0; i<ucOverflowOffset; i++){
+         RebuildABSRef(3);
+      }
+      ucPreviousOverflowCntHr = tAbsDataBuff[ucTempOverflowCntIdx].ucOverflowCntHr;
 
-		ucRet = cABS_OK;
-		ucAbsState = ccABS_STATE_LinABS_AVL;
-		
-	}else{
-			ucRet = cABS_ERROR;
-			ucAbsState = ccABS_STATE_LinABS_ERR;
-	}
+      ucRet = cABS_OK;
+      ucAbsState = ccABS_STATE_LinABS_AVL;
 
-	return ucRet;
-} /* uint8 LinABS( uint16 ushRfTimeStamp ) */
+   }else{
+         ucRet = cABS_ERROR;
+         ucAbsState = ccABS_STATE_LinABS_ERR;
+   }
 
+   return ucRet;
+}
 
-/************************************************************************************************//**
- *
- * \brief  Interpolates ABS sticks
- *
- *-----------------------------------------------------------------------------------------------
- *
- * \param [in] ushRfTimeStamp  Time stamp Rf telegram
- * \param [in] ush1stAbsTimeStamp Left hand ABS stamp
- * \param [in] ush1stAbsCnt  Left hand ABS stick value
- * \param [in] ush2ndAbsTimeStamp Right hand ABS stamp
- * \param [in] ush2ndAbsCnt Right hand ABS stick value
- *
- * \return	Interpolated ABS stick
- *
- *------------------------------------------------------------------------------------------------
- */
 static uint16 ushCalcABS( uint16 ushRfTimeStamp, uint16 ush1stAbsTimeStamp, uint16 ush1stAbsCnt,
                                                  uint16 ush2ndAbsTimeStamp, uint16 ush2ndAbsCnt )
 {
@@ -624,90 +385,50 @@ static uint16 ushCalcABS( uint16 ushRfTimeStamp, uint16 ush1stAbsTimeStamp, uint
   uint16 ushAbsCntDiff;
   uint16 ushDiv;
 
-  /*
-   * ---------------- Zeitlicher Abstand zwischen 1. ABS-Botschaft und aktuellem RF-Telegramm ermitteln
-   */
   if( ush1stAbsTimeStamp > ushRfTimeStamp )
   {
-    /* Überlaufbehandlung */
+
     ushAbs2RfTimeDiff = (cTimeOverflowValue - ush1stAbsTimeStamp) + ushRfTimeStamp;
   }else{
     ushAbs2RfTimeDiff = ushRfTimeStamp - ush1stAbsTimeStamp;
   }
 
-  /*
-   * ---------------- Zeitlicher Abstand zwischen 1. und 2. ABS-Botschaft ermitteln
-   */
   if( ush1stAbsTimeStamp > ush2ndAbsTimeStamp )
   {
-    /* Überlaufbehandlung */
+
     ushAbsTimeDiff = (cTimeOverflowValue - ush1stAbsTimeStamp) + ush2ndAbsTimeStamp;
   }else{
     ushAbsTimeDiff = ush2ndAbsTimeStamp - ush1stAbsTimeStamp;
   }
 
-  /*
-   * ---------------- Anzahl der Raddrehimpulse des ABS-Sensors zwischen 1. und 2. ABS-Botschaft ermitteln
-   */
   if( ush1stAbsCnt > ush2ndAbsCnt )
   {
-   /* Überlaufbehandlung */
+
     ushAbsCntDiff = (cAbsOverflowValue - ush1stAbsCnt) + ush2ndAbsCnt;
   }else{
     ushAbsCntDiff = ush2ndAbsCnt - ush1stAbsCnt;
   }
 
-  if (ushAbs2RfTimeDiff == 0) /* avoid division by 0 */
-	  return 0;
+  if (ushAbs2RfTimeDiff == 0)
+     return 0;
 
-  ushDiv = ((((ushAbsTimeDiff * 100) / ushAbs2RfTimeDiff) + 5) / 10); /* Divisor berechnen und runden */
-  
-  /* Check for division by zero */
+  ushDiv = ((((ushAbsTimeDiff * 100) / ushAbs2RfTimeDiff) + 5) / 10);
+
   if (ushDiv == 0)
-	  return 0;
+     return 0;
   else
-	return ((((ushAbsCntDiff * 100) / ushDiv) + 5) / 10);
-} /* static uint16 ushCalcABS( uint16 ushRfTimeStamp, uint16 ush1stAbsTimeStamp, uint16 ush1stAbsCnt, uint16 ush2ndAbsTimeStamp, uint16 ush2ndAbsCnt ) */
-
-
-
-/************************************************************************************************//**
- *
- * \brief  Gets the remainder of the division
- *
- *-----------------------------------------------------------------------------------------------
- *
- * \param [in] input  Time stamp Rf telegram
- * \param [in] factor 
- *
- * \return	Remainder
- *
- *------------------------------------------------------------------------------------------------
- */
-static uint8 getDivRemainder(uint8 input, uint8 factor){
-
-	// prevent division by zero
-	if (factor > 0)
-	{
-		return (uint8) (input%factor);
-	}
-	else
-		return 0; 
+   return ((((ushAbsCntDiff * 100) / ushDiv) + 5) / 10);
 }
 
-/************************************************************************************************//**
- *
- * \brief  Gets current abs overflow counter FL
- *
- *-----------------------------------------------------------------------------------------------
- *
- * \param [in] none
- * \param [out] none 
- *
- * \return	current overflow counter
- *
- *------------------------------------------------------------------------------------------------
- */
+static uint8 getDivRemainder(uint8 input, uint8 factor){
+    if (factor > 0)
+   {
+      return (uint8) (input%factor);
+   }
+   else
+      return 0;
+}
+
 uint8 ucGetAbsOverflowCtrFL(void)
 {
 
@@ -715,19 +436,6 @@ uint8 ucGetAbsOverflowCtrFL(void)
 
 }
 
-/************************************************************************************************//**
- *
- * \brief  Gets current abs overflow counter FR
- *
- *-----------------------------------------------------------------------------------------------
- *
- * \param [in] none
- * \param [out] none 
- *
- * \return	current overflow counter
- *
- *------------------------------------------------------------------------------------------------
- */
 uint8 ucGetAbsOverflowCtrFR(void)
 {
 
@@ -735,19 +443,6 @@ uint8 ucGetAbsOverflowCtrFR(void)
 
 }
 
-/************************************************************************************************//**
- *
- * \brief  Gets current abs overflow counter RL
- *
- *-----------------------------------------------------------------------------------------------
- *
- * \param [in] none
- * \param [out] none 
- *
- * \return	current overflow counter
- *
- *------------------------------------------------------------------------------------------------
- */
 uint8 ucGetAbsOverflowCtrRL(void)
 {
 
@@ -755,19 +450,6 @@ uint8 ucGetAbsOverflowCtrRL(void)
 
 }
 
-/************************************************************************************************//**
- *
- * \brief  Gets current abs overflow counter RR
- *
- *-----------------------------------------------------------------------------------------------
- *
- * \param [in] none
- * \param [out] none 
- *
- * \return	current overflow counter
- *
- *------------------------------------------------------------------------------------------------
- */
 uint8 ucGetAbsOverflowCtrRR(void)
 {
 

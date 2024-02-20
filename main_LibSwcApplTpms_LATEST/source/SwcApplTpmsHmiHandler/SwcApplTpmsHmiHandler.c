@@ -551,7 +551,7 @@ void InitHMIAfterKL15Off(void){
 }
 
 void ResetHmiTpmStat(void){
-   if((cAL_Error == ui8GetALState ()) && (bGetSensorStateMissing(0) || bGetSensorStateMissing(1) || bGetSensorStateMissing(2) || bGetSensorStateMissing(3))) // position of a missing sensors unknown & Autolacation failure?
+   if((cAL_Error == ui8GetALState ()) && (bGetSensorStateMissing(0) || bGetSensorStateMissing(1) || bGetSensorStateMissing(2) || bGetSensorStateMissing(3)))
    {
       tTireStat.TPM_Stat = I_C03_TPM_STAT_ERROR;
    }

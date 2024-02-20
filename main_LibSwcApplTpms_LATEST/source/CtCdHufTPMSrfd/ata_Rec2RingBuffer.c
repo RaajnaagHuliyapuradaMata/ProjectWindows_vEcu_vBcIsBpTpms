@@ -1,145 +1,42 @@
-/************************************************************************************************************
-* (c) Beru Electronics GmbH      Abteilung BES       2007
-* (c) Huf  Electronics GmbH      Abteilung ENTS4     2014
-************************************************************************************************************/
-/************************************************************************************************************
-* Project:       Reifendruckkontrolle TPMS (TPMS = tyre pressure monitor system)
-*
-* $Archive: C:\_TSS\DAG\MFA2\Target\SWC\Source\CtCdHufTPMSrfd\ata_Rec2RingBuffer.c $
-*
-* File Status:   compiled           - (under construction, compiled etc.)
-*
-************************************************************************************************************/
-/************************************************************************************************************
-* Author:
-*
-* Initials     Name                           Company
-* --------     --------------------------     --------------------------------------------------------------
-* pb           Peter Brand                    Huf  Electronics GmbH (BEE1) 2014 ...
-* as           Andreas Schubert               Huf  Electronics GmbH (ENTS4) 2014 ... 
-************************************************************************************************************/
-/************************************************************************************************************
-* Global Description
-* ==================
-*
-*
-*
-************************************************************************************************************/
-/************************************************************************************************************
-* Modul Description
-* =================
-*
-* Purpose:
-*
-* rf telegram buffer
-*
-************************************************************************************************************/
-/************************************************************************************************************
-* Modul Abbreviation:
-* ===================
-*
-*
-************************************************************************************************************/
-/************************************************************************************************************
-* Glossary
-* ========
-*
-*
-************************************************************************************************************/
 
 
-/************************************************************************************************************
-*                                             include
-************************************************************************************************************/
-#include "Platform_Types.h" /*BSW types.h*/ 
-#include "Spi.h" /*BSW */
+#include "Platform_Types.h"
+#include "Spi.h"
 #include "ata_Rec2RingBuffer_X.h"
 #include "Rte_CtCdHufTPMSrfd.h"
 #include "internal_clockX.h"
-#include "CtCdHufTPMSrfd.h" // for testpoints - only for debug
+#include "CtCdHufTPMSrfd.h"
 
 extern void csig0_4ATAinit(void);
 extern DT_auRfStruct aucRfStruct;
+ #define cMODE1_TEL   (uint8) 0x01
+#define cDefConfRBuf (uint8) 0x00
 
-/************************************************************************************************************
-*                                             macro
-************************************************************************************************************/
-//#define TestTPx  /* TestPin enable for time mesurament
-#define cMODE1_TEL   (uint8) 0x01    /* Maske zum dedektieren von Mode2 und 3 Telegrammen */
-#define cDefConfRBuf (uint8) 0x00    /* no overwrite mode active - no error tels */
-
-#define cATAok       (uint8) 0x00    /* Atmel receiver has no error */
-#define cATAhasError (uint8) 0xFF    /* Atmel receiver is erroneous */
-#define cCountsOfErr (uint8) 0x64    /* count tolerance */
-
-//#define RFChipTest_Instrument // ToDo: must be deactivated for delivery !!
-/************************************************************************************************************
-*                                            typedef
-************************************************************************************************************/
-
-
-
-/************************************************************************************************************
-*                                    data (Modulglobal) - ROM
-************************************************************************************************************/
-
-
-
-/************************************************************************************************************
-*                                    data (Modulglobal) - RAM
-************************************************************************************************************/
+#define cATAok       (uint8) 0x00
+#define cATAhasError (uint8) 0xFF
+#define cCountsOfErr (uint8) 0x64
 
 uint8 ui8TelCt = 0;
-//static uint8 ucErrorCode = 0;
-//static uint8 ucSMState = 0;
-static uint8 uiErrorCNT = 0;
-uint8 ucCrcPassedTel; // Counter for telegrams with valid CRC
-uint8 ucCrcFailedTel; // Counter for telegrams with invalid CRC
+ static uint8 uiErrorCNT = 0;
+uint8 ucCrcPassedTel;
+ uint8 ucCrcFailedTel;
 
-static union ringbuffer tBufferData[cBUFFER_SIZE];   /* Ringpuffer-Array: Datenstruktur siehe Ringbuffer.h */
-
-/*
-Puffer-Zustands-Register: Beschreibt bitweise den Zustand des Puffers.
-
-ucBCR = MSB 0 X X X X X X LSB
-Bit 8 tbd                                     | | | | | | |
-1 = Nur HF-Telegramme in Mode2 speichern -----' | | | | | |
-1 = HF-Telegramm in Mode2 gespeichert-----------' | | | | |
-1 = HF-Telegramm mit Fehlern gespeichert----------' | | | |
-1 = Lesezugriff aktiviert---------------------------' | | |
-1 = Schreibzugriff aktiviert--------------------------' | |
-1 = Speicherung fehlerhafter Telegramme erlauben--------' |
-1 = Überschreibmodus, wenn Puffer voll--------------------'
-*/
+static union ringbuffer tBufferData[cBUFFER_SIZE];
 
 struct para{
   uint8 ucBCR;
-  uint8 ucWrTelPos;          /* Schreibposition im Puffer */
-  uint8 ucRdTelPos;          /* Leseposition im Puffer */
-  uint8 ucWrTelPosSearch;    /* Schreibposition für Mode2 und Fehlertelegramme */
-  uint8 ucWrError;           /* Merker Schreibposition für HF-Error-Telegramme */
-  uint8 ucOrCt;              /* Überlaufzähler: Zählt Überläufe des Puffers (0x00...0xFF) */
-  uint8 bBufferOverrun;      /* Puffer-Überlauf-Flag */
+  uint8 ucWrTelPos;
+  uint8 ucRdTelPos;
+  uint8 ucWrTelPosSearch;
+  uint8 ucWrError;
+  uint8 ucOrCt;
+  uint8 bBufferOverrun;
 };
 
 static struct para tPara;
 
 static uint8 ui8RepairCnt = (uint8) 0;
-/************************************************************************************************************
-*                                       data (global) - ROM
-************************************************************************************************************/
 
-
-
-/************************************************************************************************************
-*                                       data (global) - RAM
-************************************************************************************************************/
-
-
-
-/***********************************************************************************************************
-*                                 prototype (local functions - private)
-***********************************************************************************************************/
 uint8 appBuild8CRC(const uint8 *pui8Buffer, uint8 ui8MessageLen, uint8 ui8BitsInFirstByte, uint8 ui8Polynom, uint8 ui8CrcStartValue);
 
 static void PosWrPointerRB(signed char);
@@ -148,170 +45,58 @@ static void PosRdPointerRB(signed char);
 static uint8 ui8RepairMessage(struct rfstruct * p2Tel, uint8 ui8TeLen);
 static uint8 ui8GetLenOfTelType(uint8 ui8TelType);
 
-/***********************************************************************************************************
-*                                 prototype (local functions - public)
-***********************************************************************************************************/
-
-
-
-/************************************************************************************************************
-*                               prototype (external functions - interface)
-************************************************************************************************************/
-
-
-/************************************************************************************************************
-*                                            implementation
-************************************************************************************************************/
-
-/************************************************************************************************************
-*                                            private functions
-************************************************************************************************************/
-
-
-/************************************************************************************************************
-* Function:          void PosWrPointerRB(signed char cIncDec)
-*
-*
-* Typ:               public
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Purpose:           Positioniert den Schreib-Zeiger des Ringpuffers. Inkrementiert bzw. dekrementiert den
-*                    Zeiger anhand des übergebenen Parameters.
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Parameter:         signed char cIncDec - Anzahl Inkremente (Vorzeichenbehaftet)
-*
-* Input (global):    none
-*
-* Output (global):   none
-*
-* Return:            none
-*
-************************************************************************************************************/
-
 static void PosWrPointerRB(signed char cIncDec)
 {
   tPara.ucWrTelPos += cIncDec;
-  if ( (cIncDec>=0) && (tPara.ucWrTelPos >= cBUFFER_SIZE) )   /* increment */
+  if ( (cIncDec>=0) && (tPara.ucWrTelPos >= cBUFFER_SIZE) )
   {
-    tPara.ucWrTelPos = 0;                                    /* overflow */
+    tPara.ucWrTelPos = 0;
   }
-  else if(tPara.ucWrTelPos>=cBUFFER_SIZE)                     /* decrement */
+  else if(tPara.ucWrTelPos>=cBUFFER_SIZE)
   {
-    tPara.ucWrTelPos = cBUFFER_SIZE - 1;                      /* underflow */
+    tPara.ucWrTelPos = cBUFFER_SIZE - 1;
   }
 }
-
-/************************************************************************************************************
-* Function:          void PosRdPointerRB(signed char cIncDec)
-*
-*
-* Typ:               public
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Purpose:           Positioniert den Lese-Zeiger des Ringpuffers. Inkrementiert bzw. dekrementiert den
-*                    Zeiger anhand des übergebenen Parameters.
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Parameter:         signed char cIncDec - Anzahl Inkremente (Vorzeichenbehaftet)
-*
-* Input (global):    none
-*
-* Output (global):   none
-*
-* Return:            none
-*
-************************************************************************************************************/
 
 static void PosRdPointerRB(signed char cIncDec)
 {
 
   tPara.ucBCR &= ~cMODE2_TEL_IN_BUFFER;
 
-  /* increment */
   tPara.ucRdTelPos += cIncDec;
 
-  if ( (cIncDec >= 0) && (tPara.ucRdTelPos >= cBUFFER_SIZE) )   /* increment */
+  if ( (cIncDec >= 0) && (tPara.ucRdTelPos >= cBUFFER_SIZE) )
   {
-    tPara.ucRdTelPos = 0;                                       /* overflow */
+    tPara.ucRdTelPos = 0;
   }
-  else if (tPara.ucRdTelPos>=cBUFFER_SIZE)                      /* decrement */
+  else if (tPara.ucRdTelPos>=cBUFFER_SIZE)
   {
-    tPara.ucRdTelPos = cBUFFER_SIZE - 1;                        /* underflow */
+    tPara.ucRdTelPos = cBUFFER_SIZE - 1;
   }
 }
 
-/************************************************************************************************************
-* Function:          void GetRB(uint8 * pDataOut)
-*
-*
-* Typ:               public
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Purpose:           Liefert nächtest Telegramm im Ringpuffer. Über das Konstanten-Array caucOutputMapping[]
-*                    wird festgelegt, welche Daten über den Datenzeiger pDataOut zurückgegeben werden.
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Parameter:         Ausgabepuffer strucktur AK35Tel.ucType ...
-*
-* Input (global):    none
-*
-* Output (global):   none
-*
-* Return:            initialization state uint8 GetRB( tRecRFTelType (* pDataOut))->CR_1211_150_022
-*
-************************************************************************************************************/
 uint8 StartAtaRec(uint8 ucPathNServNr)
 {
   uint8 i;
-  uint8 ucAtaInitSate=TRUE; /*CR_1211_150_022*/
+  uint8 ucAtaInitSate=TRUE;
 
-  if( rf_ata5785_init() == TRUE )  /*CR_1211_150_021*/
+  if( rf_ata5785_init() == TRUE )
   {
 
     SetServNPath(ucPathNServNr);
-    for(i=0; i<sizeof(tRecRFTelData); i++) /* for Transmit to CAN */
+    for(i=0; i<sizeof(tRecRFTelData); i++)
     {
       tRecRFTel.ucByteAccess[i] = 0x55;
     }
   }
   else
   {
-    ucAtaInitSate=FALSE; /* Please start reinit event*/
+    ucAtaInitSate=FALSE;
   }
 
-  return ucAtaInitSate;/*CR_1211_150_022*/
+  return ucAtaInitSate;
 }
-/************************************************************************************************************
-*                                            public functions
-************************************************************************************************************/
-/************************************************************************************************************
-* Function:          void InitRB(void)
-*
-*
-* Typ:               public
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Purpose:           Initialisierung des Ringpuffers.
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Parameter:         union ringbuffer * tData - Zu speicherndes Datenpaket
-*
-* Input (global):    none
-*
-* Output (global):   none
-*
-* Return:            none
-*
-************************************************************************************************************/
+
 void InitRB(void)
 {
   uint8 i, j;
@@ -334,338 +119,166 @@ void InitRB(void)
 
 }
 
-
-/************************************************************************************************************
-* Function:          void GetRB(uint8 * pDataOut)
-*
-*
-* Typ:               public
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Purpose:           Liefert nächtest Telegramm im Ringpuffer. Über das Konstanten-Array caucOutputMapping[]
-*                    wird festgelegt, welche Daten über den Datenzeiger pDataOut zurückgegeben werden.
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Parameter:         Ausgabepuffer strucktur AK35Tel.ucType ...
-*
-* Input (global):    none
-*
-* Output (global):   none
-*
-* Return:            nonevoid GetRB( tRecRFTelType (* pDataOut))
-*
-************************************************************************************************************/
 void GetRB( void)
 {
   uint8 i;
 
-  tPara.ucBCR |= cREAD_ACCESS_ACTIVE;    /* Leserechte für Ringpuffer setzen */
+  tPara.ucBCR |= cREAD_ACCESS_ACTIVE;
   tRecRFTel.AK35Data.ulTime=  tBufferData[tPara.ucRdTelPos].Tel .ulTimeInMsec;
-#ifdef V24_64F1L   
-  WordIn4AsciiBytesToV24(tBufferData[tPara.ucRdTelPos].Tel .ushTimeInMsec); /*send data to uart v24*/
-#endif
-  //pDataOut->RecRFAK35Tel.ucAVRS = tBufferData[tPara.ucRdTelPos].Tel.ucRssi[0];
-  //tRecRFTel.AK35Data.ucAVRS = tBufferData[tPara.ucRdTelPos].Tel.ucRssi[0];
-  tRecRFTel.AK35Data.ucNoise = tBufferData[tPara.ucRdTelPos].Tel.ucRssiNoise; /*CR_1211_150_010*/
 #ifdef V24_64F1L
-  RLIN30_send_byte(0x20); /*Leerzeichen 4 Exel */
-  ByteIn2AsciiToV24(tBufferData[tPara.ucRdTelPos].Tel.ucRssi[0]); /*send data to uart v24*/
-  RLIN30_send_byte(0x20); /*Leerzeichen 4 Exel */
+  WordIn4AsciiBytesToV24(tBufferData[tPara.ucRdTelPos].Tel .ushTimeInMsec);
+#endif
+   tRecRFTel.AK35Data.ucNoise = tBufferData[tPara.ucRdTelPos].Tel.ucRssiNoise;
+#ifdef V24_64F1L
+  RLIN30_send_byte(0x20);
+  ByteIn2AsciiToV24(tBufferData[tPara.ucRdTelPos].Tel.ucRssi[0]);
+  RLIN30_send_byte(0x20);
 #endif
 
-
-  for(i=0; i<(uint8) (RB_DATA_LEN); i++) // RB_DATA_LEN=24 copy timestamp + tel dat + tel rssi
-  {
-    //pDataOut->RecRFTel.aucTel[i] = tBufferData[tPara.ucRdTelPos].Tel.ucByte[i];
-    //pDataOut->RecRFAK35Tel.aucTel[i] = tBufferData[tPara.ucRdTelPos].Tel.ucByte[i];
+  for(i=0; i<(uint8) (RB_DATA_LEN); i++)
+   {
 
     tRecRFTel.AK35Data.aucTel[i] = tBufferData[tPara.ucRdTelPos].Tel.ucByte[i];
 #ifdef V24_64F1L
     if(i==1)
-      RLIN30_send_byte(0x20); /*Leerzeichen 4 Exel 4Byte ID*/
+      RLIN30_send_byte(0x20);
     if(i==5)
-      RLIN30_send_byte(0x20); /*Leerzeichen 4 Exel 20Byte Data*/
-    ByteIn2AsciiToV24(tBufferData[tPara.ucRdTelPos].Tel.ucByte[i]); /*send data to uart v24*/
+      RLIN30_send_byte(0x20);
+    ByteIn2AsciiToV24(tBufferData[tPara.ucRdTelPos].Tel.ucByte[i]);
 #endif
 
-
   }
-  //RLIN30_send_byte(0x20); /*Leerzeichen 4 Exel */
-  for(i=0; i<(uint8) (RB_RS_BUF_LEN); i++) // RB_RS_BUF_LEN=6 copy timestamp + tel dat RB_DATA_LEN =24Bytes + tel rssi 6Bytes
-  {
-    //pDataOut->RecRFTel.aucTel[i] = tBufferData[tPara.ucRdTelPos].Tel.ucByte[i];
-    //pDataOut->RecRFAK35Tel.aucTel[i] = tBufferData[tPara.ucRdTelPos].Tel.ucByte[i];
+  for(i=0; i<(uint8) (RB_RS_BUF_LEN); i++)
+   {
 
     tRecRFTel.AK35Data.aucTel[RB_DATA_LEN +i ] = tBufferData[tPara.ucRdTelPos].Tel.ucRssi[i];
 #ifdef V24_64F1L
-    RLIN30_send_byte(0x20); /*Leerzeichen 4 Exel */
-    ByteIn2AsciiToV24(tBufferData[tPara.ucRdTelPos].Tel.ucByte[i]); /*send data to uart v24*/
+    RLIN30_send_byte(0x20);
+    ByteIn2AsciiToV24(tBufferData[tPara.ucRdTelPos].Tel.ucByte[i]);
 #endif
   }
 
-  PosRdPointerRB(1);                     /* Lesezeiger des Ringpuffers inkrementieren */
-  if(tPara.bBufferOverrun)               /* BufferOverRun-Flag gesetzt? */
+  PosRdPointerRB(1);
+  if(tPara.bBufferOverrun)
   {
-    PosWrPointerRB(1);                   /* Schreibzeiger des Ringpuffers inkrementieren */
-    tPara.bBufferOverrun=0;          /* BufferOverRun-Flag zurücksetzen */
+    PosWrPointerRB(1);
+    tPara.bBufferOverrun=0;
   }
 
-
-  for(i=0; i<sizeof(aucRfStruct); i++) // RB_RS_BUF_LEN=6 copy timestamp + tel dat RB_DATA_LEN =24Bytes + tel rssi 6Bytes
-  {
+  for(i=0; i<sizeof(aucRfStruct); i++)
+   {
     aucRfStruct[i] = tRecRFTel.ucByteAccess[i];
   }
-  tPara.ucBCR&=~cREAD_ACCESS_ACTIVE;     /* Clear Read Access in BCR */
+  tPara.ucBCR&=~cREAD_ACCESS_ACTIVE;
 }
-
-/************************************************************************************************************
-* Function:          uint8 PutRB(union ringbuffer * tData)
-*
-*
-* Typ:               public
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Purpose:           Schreibt ein empfangenes HF-Telegramm in den Ringpuffer.
-*                    WARNING: this function probably runs in a ISR1 context !!
-* ----------------------------------------------------------------------------------------------------------
-** SW_Requirements: {variable ring buffer size E90D5A7F-46D7-4ab3-8CC3-D51DD568CE5C}
-*
-* Parameter:         union ringbuffer * tData - Zu speicherndes Datenpaket
-*
-* Input (global):    * pucInBuf points to byte array w/ length cBUFFER_SLOTEL_LEN, that contains new telgram data (Data and RSS as well)
-*
-* Output (global):   none
-*
-* Return:            none
-*
-************************************************************************************************************/
 
 void PutRB(struct rfstruct * tRfBuf)
 {
   uint8 i,ucTop;
 
-  if (tPara.bBufferOverrun == 0)   /* Kein Pufferüberläuf dedektiert */
+  if (tPara.bBufferOverrun == 0)
   {
-    //TP0 (1);
-    
-    tPara.ucBCR |= cWRITE_MODE;        /* Schreibzugriff setzen */
+    tPara.ucBCR |= cWRITE_MODE;
 
-    tPara.ucWrTelPosSearch = tPara.ucWrTelPos;    // no more overwrite functionality
+    tPara.ucWrTelPosSearch = tPara.ucWrTelPos;
 
     ucTop = (tRfBuf->level>RB_DATA_LEN) ? RB_DATA_LEN:tRfBuf->level;
-    for (i=0; i<ucTop ; i++) // // wr data val to RB full up rest w/ 0
-    {
+    for (i=0; i<ucTop ; i++)
+      {
       tBufferData[tPara.ucWrTelPosSearch].Tel.ucByte[i] = tRfBuf->buffer[i];
     }
-    for (i=ucTop; i<(uint8) RB_DATA_LEN ; i++) // write all data bytes + rssi bytes
-    {
+    for (i=ucTop; i<(uint8) RB_DATA_LEN ; i++)
+     {
       tBufferData[tPara.ucWrTelPosSearch].Tel.ucByte[i] = 0;
     }
-    for (i=0; i<((tRfBuf->rssilvl>RB_RS_BUF_LEN) ? RB_RS_BUF_LEN:tRfBuf->rssilvl ); i++) // wr RS val to RB full up rest w/ 0
-    {
-      //tBufferData[tPara.ucWrTelPosSearch].Tel.ucRssi[i] = tRfBuf->rssibuf[i];
-      tBufferData[tPara.ucWrTelPosSearch].Tel.ucRssi[i] = tRfBuf->rssibuf[tRfBuf->rssilvl - i - 1]; /*CR_1211_150_010*/
+    for (i=0; i<((tRfBuf->rssilvl>RB_RS_BUF_LEN) ? RB_RS_BUF_LEN:tRfBuf->rssilvl ); i++)
+     {
+      tBufferData[tPara.ucWrTelPosSearch].Tel.ucRssi[i] = tRfBuf->rssibuf[tRfBuf->rssilvl - i - 1];
     }
-    tBufferData[tPara.ucWrTelPosSearch].Tel.ucRssiNoise = tRfBuf->rssibuf[0];/*CR_1211_150_010*/
+    tBufferData[tPara.ucWrTelPosSearch].Tel.ucRssiNoise = tRfBuf->rssibuf[0];
 
-    for (i=((tRfBuf->rssilvl>RB_RS_BUF_LEN) ? RB_RS_BUF_LEN:tRfBuf->rssilvl) ; i<(uint8) RB_RS_BUF_LEN ; i++) // write all data bytes + rssi bytes
-    {
+    for (i=((tRfBuf->rssilvl>RB_RS_BUF_LEN) ? RB_RS_BUF_LEN:tRfBuf->rssilvl) ; i<(uint8) RB_RS_BUF_LEN ; i++)
+     {
       tBufferData[tPara.ucWrTelPosSearch].Tel.ucRssi[i] = 0;
     }
     tBufferData[tPara.ucWrTelPosSearch].Tel.ucByte[RB_DATA_LEN-1] = tRfBuf->level;
     tBufferData[tPara.ucWrTelPosSearch].Tel.ucRssi[RB_RS_BUF_LEN -1] = tRfBuf->rssilvl;
-    /*@as F1L BSWWERT=111 TEST Hier muss später der Timerwert SYSTEM Uhr für den Zeitstempel  gespeichert werden!!!!*/
 
-    GetSystemOperatingTime(&tBufferData[tPara.ucWrTelPosSearch].Tel.ulTimeInMsec); // get system time
+    GetSystemOperatingTime(&tBufferData[tPara.ucWrTelPosSearch].Tel.ulTimeInMsec);
 
+    tPara.ucBCR &= ~cWRITE_MODE;
 
-    tPara.ucBCR &= ~cWRITE_MODE;                /* Schreibzugriff zurücksetzen */
-
-    if (tPara.ucWrTelPosSearch == tPara.ucWrTelPos)   /* Gefundene Schreibposition = aktuelle Schreibposition */
+    if (tPara.ucWrTelPosSearch == tPara.ucWrTelPos)
     {
-      PosWrPointerRB(1);                 /* Schreibposition inkrementieren */
+      PosWrPointerRB(1);
     }
 
-    if (tPara.ucWrTelPos == tPara.ucRdTelPos)         /* Puffer ist leer oder läuft über */
-    {   /* Telegramm wurde noch nicht gesendet => Überlauf */
-      tPara.ucOrCt++;                          /* Überlaufzähler hochzählen */
-      if (tPara.ucBCR & cOVERWRITE_MODE)       /* Überschreibmode ist aktiv */
+    if (tPara.ucWrTelPos == tPara.ucRdTelPos)
+    {
+      tPara.ucOrCt++;
+      if (tPara.ucBCR & cOVERWRITE_MODE)
       {
-        if (tPara.ucBCR & cREAD_ACCESS_ACTIVE) /* Lesezugriff auf der selben Pufferstelle => Schreibschutz */
+        if (tPara.ucBCR & cREAD_ACCESS_ACTIVE)
         {
           tPara.bBufferOverrun = 1;
           PosWrPointerRB(-1);
         }
-        else                             /* Telegramm überschreiben */
+        else
         {
           PosRdPointerRB(1);
         }
       }
-      else   /* Normal Mode: Schreibzugriff gesperrt. Beim nächsten Lesezugriff tPara.bBufferOverrun-Bit zurücksetzen*/
+      else
       {
         tPara.bBufferOverrun = 1;
         PosWrPointerRB(-1);
       }
     }
-    // TP0 (0);
   }
-  else        /* Kein Schreibzugriff erlaubt bis nächstes Telegramm gelesen wurde */
+  else
   {
     tPara.ucOrCt++;
   }
 }
 
-
-
-
-/************************************************************************************************************
-* Function:          uint8 GetBufferStateRB(void)
-*
-*
-* Typ:               public
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Purpose:           Berechnet die Anzahl von Telegrammen im Ringpuffer und speichert diese im aktuellen
-*                    Telegramm.
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Parameter:         none
-*
-* Input (global):    none
-*
-* Output (global):   none
-*
-* Return:            none
-*
-************************************************************************************************************/
 uint8 GetBufferStateRB(void)
 {
   uint8 tmp;
 
 #ifdef TestTPx
-  TP0(0); /*TEST: set Test Pin0 TP0 to L at CPU Port9_0  CPUpin 45 */
+  TP0(0);
 #endif
   if(tPara.ucWrTelPos>=tPara.ucRdTelPos)
   {
-    /*return (tPara.ucWrTelPos-tPara.ucRdTelPos);*/
+
     tmp=(tPara.ucWrTelPos-tPara.ucRdTelPos);
   }
   else
   {
-    /*return (cBUFFER_SIZE-tPara.ucRdTelPos+tPara.ucWrTelPos);*/
+
     tmp=(cBUFFER_SIZE-tPara.ucRdTelPos+tPara.ucWrTelPos);
   }
-
 
   return tmp;
 }
 
-
-/************************************************************************************************************
-* Function:          void SetBitBufferConditionRegisterRB(uint8 ucBitMask)
-*
-*
-* Typ:               public
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Purpose:           Interfacefunktion für die Variable tPara.ucBCR.
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Parameter:         uint8 ucBitMask - Bitmaske
-*
-* Input (global):    none
-*
-* Output (global):   none
-*
-* Return:            none
-*
-************************************************************************************************************/
 void SetBitBufferConditionRegisterRB(uint8 ucBitMask)
 {
   tPara.ucBCR|=ucBitMask;
 }
 
-
-
-
-
-
-/************************************************************************************************************
-* Function:          void ClearBitBufferConditionRegisterRB(uint8 ucBitMask)
-*
-*
-* Typ:               public
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Purpose:           Interfacefunktion für die Variable tPara.ucBCR.
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Parameter:         uint8 ucBitMask - Bitmaske
-*
-* Input (global):    none
-*
-* Output (global):   none
-*
-* Return:            none
-*
-************************************************************************************************************/
 void ClearBitBufferConditionRegisterRB(uint8 ucBitMask)
 {
   tPara.ucBCR&=~ucBitMask;
 }
 
-
-/************************************************************************************************************
-*                                            interface functions
-************************************************************************************************************/
-/************************************************************************************************************
-* Function:          void ConfigRingBufferCC(void)
-*
-*
-* Typ:               public
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Purpose:           Konfiguriert Ringpuffer mit Übergabeparametern von CPU.
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Parameter:                     ucConfRBuf = MSB 0 X X X X X X LSB
-| | | | | | |
-1 = Nur HF-Telegramme in Mode2 speichern-----' | | | | | |
-| | | | |
-' | | | |
-' | | |
-' | |
-1 = Speicherung fehlerhafter Telegramme erlauben-------' |
-1 = Überschreibmodus, wenn Puffer voll-------------------'
-
-*
-* Input (global):    none
-*
-* Output (global):   none
-*
-* Return:            none
-*
-************************************************************************************************************/
-
 void ConfigRingBufferCC(uint8 ucConfRBuf)
 {
   if ((uint8) 0 == ucConfRBuf)
   {
-    ucConfRBuf = cDefConfRBuf; /* configure per default */
+    ucConfRBuf = cDefConfRBuf;
   }
 
-  /* "Buffer Over Write"-Mode aktivieren? */
   if((ucConfRBuf & 0x01))
   {
     SetBitBufferConditionRegisterRB(cOVERWRITE_MODE);
@@ -675,7 +288,6 @@ void ConfigRingBufferCC(uint8 ucConfRBuf)
     ClearBitBufferConditionRegisterRB(cOVERWRITE_MODE);
   }
 
-  /* Speicherung von fehlerhaften Telegrammen zulassen? */
   if((ucConfRBuf & 0x02))
   {
     SetBitBufferConditionRegisterRB(cSAVE_ERROR_TEL);
@@ -685,7 +297,6 @@ void ConfigRingBufferCC(uint8 ucConfRBuf)
     ClearBitBufferConditionRegisterRB(cSAVE_ERROR_TEL);
   }
 
-  /* Nur Telegramm in Mode 2 speichern? */
   if((ucConfRBuf & 0x80))
   {
     SetBitBufferConditionRegisterRB(cSAVE_MODE2_ONLY);
@@ -695,30 +306,6 @@ void ConfigRingBufferCC(uint8 ucConfRBuf)
     ClearBitBufferConditionRegisterRB(cSAVE_MODE2_ONLY);
   }
 }
-
-
-/************************************************************************************************************
-* Function:          void ChkAtaRecive(void)
-*
-*
-* Typ:               public
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Purpose:           Prüft den Atmel HF Empfänger Interrupt auf Empfangsereignisse 
-*                    Hollt die Telegramm ab und legt diese im Ringpuffer ab.
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Parameter:         none
-*
-* Input (global):    none
-*
-* Output (global):   none
-*
-* Return:            Telegrammzähler ui8TelCt
-*
-************************************************************************************************************/
 
 void ChkAtaRecive(void)
 {
@@ -733,13 +320,13 @@ void ChkAtaRecive(void)
   csig0_4ATAinit();
   rf_ata5785_get_events( rf.events );
 
-  if (   ((rf.events[3]&rf.channel) == rf.channel)   && 
-         (((rf.events[1]&0x07) == 0x07) || ((rf.events[1]&0x70) == 0x70))    
+  if (   ((rf.events[3]&rf.channel) == rf.channel)   &&
+         (((rf.events[1]&0x07) == 0x07) || ((rf.events[1]&0x70) == 0x70))
 #ifdef RFChipTest_Instrument
-      && !(ui8ReIniAfterXTels++ == 30)     
+      && !(ui8ReIniAfterXTels++ == 30)
 #endif
-         )  // cfg = activated one && OK events on path B or A
-  {
+         )
+   {
     rf_ata5785_read_rx_buf( rf.buffer, &(rf.level) );
     rf_ata5785_read_rssi_buf( rf.rssibuf, &(rf.rssilvl) );
     ui8TelCt++;
@@ -753,9 +340,9 @@ void ChkAtaRecive(void)
         ucCrcFailedTel++;
         if (ui8RepairMessage((struct rfstruct *) &rf , ui8MessageLen) > 0)
         {
-          rf.buffer [0] = (uint8) 0;    // repaired message is treated as AK def tel type allways for only ID,p and T is validated
-          rf.level = (uint8) 8;         // has len of AKdef per def
-          ui8RepairCnt++;
+          rf.buffer [0] = (uint8) 0;
+           rf.level = (uint8) 8;
+           ui8RepairCnt++;
           PutRB((struct rfstruct *) &rf);
         }
       }
@@ -770,16 +357,14 @@ void ChkAtaRecive(void)
       ucCrcFailedTel++;
     }
 
-    //uiErrorCNT = (uint8) 0;
-
     SetServNPath(rf.channel);
   }
-  else 
+  else
   {
-    if ((rf.events[0] & 0x80)     // sys error ?
-#ifdef  RFChipTest_Instrument
-      || (0 < ui8ReIniAfterXTels) // emulated syserror
-#endif
+    if ((rf.events[0] & 0x80)
+ #ifdef  RFChipTest_Instrument
+      || (0 < ui8ReIniAfterXTels)
+ #endif
       )
     {
 #ifdef RFChipTest_Instrument
@@ -789,8 +374,8 @@ void ChkAtaRecive(void)
       {
         uiErrorCNT++;
       }
-      ReInitAfterError(); // OIL #642 receiver chip MCU RAM config content might be corrupted - so better init anew
-    }
+      ReInitAfterError();
+     }
     else
     {
       SetServNPath(rf.channel);
@@ -798,124 +383,40 @@ void ChkAtaRecive(void)
   }
 }
 
-
-
-
-
-
-/************************************************************************************************************
-* Function:          uint8 ChkAtaError(void)
-*
-*
-* Typ:               public
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Purpose:           check ATA errors and make error handling
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Parameter:         none
-*
-* Input (global):    uiErrorCNT
-*
-* Output (global):   none
-*
-* Return:            0x00: everthing is fine
-*
-************************************************************************************************************/
-
 uint8 ChkAtaError(void)
 {
   uint8 ret = cATAok;
 
-  if ( uiErrorCNT > cCountsOfErr)   /* makes it tolerant  */
+  if ( uiErrorCNT > cCountsOfErr)
   {
-    ////Spi_Init(SpiDriver); /*@RENESAS BSW F1L out of order */
-    //csig0_4ATAinit();
-    //
-    ///* be aware of PWRON is set when changing operation mode. This could launch SYS_ERR */
-    //rf_ata5785_set_mode( (rf.mode & 0xFC), rf.channel ); /* only at idle mode SRAM and register are readable */
-    ////ucErrorCode = rf_ata5785_read_error_code();
-    ////ucSMState = rf_ata5785_read_SM_state();
-    //rf_ata5785_set_mode( rf.mode, rf.channel ); /* back to receive mode */
 
-    //csig0_disable(); /* without disable SPI*/
-    ////Spi_Cancel(SPI_ZERO); /*@RENESAS BSW F1L out of order*/
-
-    uiErrorCNT = (uint8) 0; /* reset CNT to make RET once */
+    uiErrorCNT = (uint8) 0;
     ret = cATAhasError;
   }
-  
+
   return ret;
 }
 
-
-
-
-
-
-
-
-/************************************************************************************************************
-* Function:          void GetRB(uint8 * pDataOut)
-*
-*
-* Typ:               public
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Purpose:           Liefert nächtest Telegramm im Ringpuffer. Über das Konstanten-Array caucOutputMapping[]
-*                    wird festgelegt, welche Daten über den Datenzeiger pDataOut zurückgegeben werden.
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Parameter:         Ausgabepuffer strucktur AK35Tel.ucType ...
-*
-* Input (global):    none
-*
-* Output (global):   none
-*
-* Return:            nonevoid GetRB( tRecRFTelType (* pDataOut))
-*
-************************************************************************************************************/
 void RestartAtaRec(uint8 ucPathNServNr)
 {
-
-  //Spi_Init(SPI_ZERO); /*@RENESAS BSW F1L out of order */
-  csig0_4ATAinit();
-  WaitHard(1000); /*ATA4MFA RH850 1ms*/
+   csig0_4ATAinit();
+  WaitHard(1000);
   rf_ata5785_get_events(rf.events);
-  WaitHard(1000); /*ATA4MFA RH850 1ms*/
-  rf.mode = 0x00; // set idele mode
-  rf.channel = 0x00;
+  WaitHard(1000);
+  rf.mode = 0x00;
+   rf.channel = 0x00;
   rf_ata5785_set_mode( rf.mode, rf.channel );
-  WaitHard(2000); /*ATA4MFA RH850 2ms*/
-  //Spi_Cancel(SPI_ZERO); /*@RENESAS BSW F1L out of order */
-  //csig0_disable(); /* disable SPI*/
-  SetServNPath(ucPathNServNr);
+  WaitHard(2000);
+   SetServNPath(ucPathNServNr);
 }
-/*!***********************************************************************************************
-* Computes the ATM8 CRC 8-bit checksum for a specified messages 
-*
-* \Param   - UINT8 pui8buffer - the byte buffer
-*          - UINT8 ui8MessageLen - the total number of bytes on which the CRC will be performed
-*          - UINT8 ui8BitsInFirstByte how many bits have to be handled from first byte (if 8 than we are aligned)
-*          - UINT8 ui8Polynom - desired polynom to calculate 
-*          - UINT8 ui8CrcStartValue - Start value for CRC
-*
-* \Return        - ui8CRC - the 1 byte CRC checksum of the message
-*                  
-* \Note          - Be careful Buffer must be bigger than lenght
-*
-***************************************************************************************************/
+
 uint8 appBuild8CRC(const uint8 *pui8Buffer, uint8 ui8MessageLen, uint8 ui8BitsInFirstByte, uint8 ui8Polynom, uint8 ui8CrcStartValue)
 {
-  /* init the register with zero  (mandatory to be zero)*/
+
   uint8 ui8CRC = ui8CrcStartValue;
 
-  if ( 0 == ui8MessageLen ) // parameter check
-  {
+  if ( 0 == ui8MessageLen )
+   {
     return ( ui8CRC );
   }
 
@@ -925,16 +426,15 @@ uint8 appBuild8CRC(const uint8 *pui8Buffer, uint8 ui8MessageLen, uint8 ui8BitsIn
     uint8 byteContent = ( pui8Buffer[0] << ( 8 - ui8BitsInFirstByte ) );
 
     if( 1U < ui8MessageLen )
-    {/*not last byte*/
+    {
       byteContent |= ( pui8Buffer[1] >> ( ui8BitsInFirstByte ) );
       ui8BitNumber = 8U;
     }
     else
-    {/*last byte*/
+    {
       ui8BitNumber = ui8BitsInFirstByte;
     }
 
-    /* bring the next byte into the remainder and XOR it with the CRC */
     ui8CRC ^= byteContent;
     do
     {
@@ -949,7 +449,6 @@ uint8 appBuild8CRC(const uint8 *pui8Buffer, uint8 ui8MessageLen, uint8 ui8BitsIn
       ui8BitNumber--;
     }while( 0 != ui8BitNumber );
 
-    /*go to next element*/
     pui8Buffer++;
     ui8MessageLen--;
   }while( 0 != ui8MessageLen );
@@ -968,11 +467,11 @@ static uint8 ui8RepairMessage(struct rfstruct * p2Tel, uint8 ui8TeLen)
   if (ui8TeLen < ui8MinLen)
     return ((uint8) 0);
   else if (ui8TeLen > ui8MaxLen )
-    return ((uint8) 0);  // TODO: pb we might have >1 tel in rf buffer...process also 2nd telegram
-  else
-  {  // potential candidate 2 repair
-    for ( i = 0; i < cBUFFER_SIZE ; i++)  // we search all the slots also the consumed ones
-    {
+    return ((uint8) 0);
+   else
+  {
+     for ( i = 0; i < cBUFFER_SIZE ; i++)
+     {
       for (j = 1 ; j < ui8MinLen; j++)
       {
         if ( p2Tel -> buffer[j] != tBufferData [i].Tel .ucByte [j])
@@ -984,8 +483,8 @@ static uint8 ui8RepairMessage(struct rfstruct * p2Tel, uint8 ui8TeLen)
     }
   }
 
-  return ((uint8) 0);  //failed
-}
+  return ((uint8) 0);
+ }
 
 uint8 ui8GetComptoirRepare(void)
 {
@@ -1014,28 +513,6 @@ static uint8 ui8GetLenOfTelType(uint8 ui8TelType)
   return (ui8Ret);
 }
 
-
-/************************************************************************************************************
-* Function:          uint8 ui8GetErrorCnt(void)
-*
-*
-* Typ:               Interface
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Purpose:           return consecutive counts of ATA errors
-*
-* ----------------------------------------------------------------------------------------------------------
-*
-* Parameter:         none
-*
-* Input (global):    uiErrorCNT
-*
-* Output (global):   none
-*
-* Return:            uiErrorCNT
-*
-************************************************************************************************************/
 uint8 ui8GetErrorCnt(void)
 {
   return uiErrorCNT;
@@ -1046,18 +523,12 @@ void PutErrorCnt(uint8 x)
   uiErrorCNT = x;
 }
 
-// InitRFTelBufferW0x55ForWhatSoEver purpose:
-// TBD some kind of great mud
-void InitRFTelBufferW0x55ForWhatSoEver(void)
+ void InitRFTelBufferW0x55ForWhatSoEver(void)
 {
   uint8 i;
-  for(i=0; i<sizeof(tRecRFTelData); i++) /* for Transmit to CAN */
+  for(i=0; i<sizeof(tRecRFTelData); i++)
   {
     tRecRFTel.ucByteAccess[i] = 0x55;
   }
 }
-/************************************************************************************************************
-*                                            Private Functions
-************************************************************************************************************/
-
 

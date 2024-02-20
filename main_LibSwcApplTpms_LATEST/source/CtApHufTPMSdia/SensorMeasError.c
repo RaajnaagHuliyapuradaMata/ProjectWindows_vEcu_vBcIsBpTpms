@@ -1,70 +1,28 @@
-/*
-(c)  Electronics GmbH     BEE1     11/2016
-================================================================================================
 
-file name:     SensorMeasError.c
 
-file status:   fine
-
-------------------------------------------------------------------------------------------------
-
-author:        Peter Brand                 Electronics GmbH
-
-intials:       pb
-
-Purpose:
-check measerement values w/ AK spec for errors,
-make error entries if measurement errors are detected consecutively
-
-*/
-/*******************************************************************************
-Declaration
-*/
-
-/*******************************************************************************
-Include
-*/
 #define SensorMeasError_C
 #include "SensorMeasError.h"
 #include "Rte_Type.h"
-#include "Dem.h"  // 4 error entries....
-#include "tel_statisticX.h"
+#include "Dem.h"
+ #include "tel_statisticX.h"
 #include "WallocX.h"
 #include "CD_Decoder_X.h"
 
-/*******************************************************************************
-Macros
-*/
 #define cMaxBaTCt ((uint8) 15)
 #define cMaxBadPCt ((uint8) 15)
 #define cNull ((uint8) 0)
 #define cSensErrorActive ((uint8) 0xFF)
-/*******************************************************************************
-Data
-*/
+
 static uint8 ui8BaTempCt[4] = {cNull,cNull,cNull,cNull};
 static uint8 ui8BadPressCt[4] = {cNull,cNull,cNull,cNull};
-static boolean bNewIDFlag[4] = {FALSE, FALSE, FALSE, FALSE}; // DTC can be cleared for new ID
+static boolean bNewIDFlag[4] = {FALSE, FALSE, FALSE, FALSE};
 
-/*******************************************************************************
-prototipicos locale
-*/
-extern void Dem_SetEventExData(uint8);  // <- sowas da wollen wir eigentlich ueberhaupt nirgends sehen....
+extern void Dem_SetEventExData(uint8);
 
 static uint8 GETui8PValid(uint8 ui8AKRawPressure);
 static uint8 GETui8TValid(uint8 ui8AKRawTemp);
 static boolean bTelTypeHasPT( uint8 ui8TT);
-/*******************************************************************************
-Implementation
-*/
 
-/*******************************************************************************
-private functions
-*/
-
-/*******************************************************************************
-public functions
-*/
 static uint8 GETui8PValid(uint8 ui8AKRawPressure)
 {
   return ((cNull == ui8AKRawPressure) ? cNull:(uint8) 0xFF);
@@ -76,14 +34,14 @@ static uint8 GETui8TValid(uint8 ui8AKRawTemp)
 }
 
 void ClrMeasError(uint8 ui8HistCol, uint8 ui8ReasonOnly)
-{  
-  
+{
+
   if (((uint8) 4) > ui8HistCol )
   {
     ui8BaTempCt[ui8HistCol] = cNull;
     ui8BadPressCt[ui8HistCol] = cNull;
-    if (ui8ReasonOnly == cNull) // new ID?
-    {
+    if (ui8ReasonOnly == cNull)
+     {
       bNewIDFlag[ui8HistCol] = TRUE;
     }
   }
@@ -97,9 +55,9 @@ void ClrMeasError(uint8 ui8HistCol, uint8 ui8ReasonOnly)
     ui8BadPressCt[2] = cNull;
     ui8BaTempCt[3] = cNull;
     ui8BadPressCt[3] = cNull;
-    
-    if (ui8ReasonOnly == cNull) // new ID?
-    {
+
+    if (ui8ReasonOnly == cNull)
+     {
       bNewIDFlag[0] = TRUE;
       bNewIDFlag[1] = TRUE;
       bNewIDFlag[2] = TRUE;
@@ -114,19 +72,19 @@ void SetMeasError(uint8 ui8HistCol)
   switch (ui8HistCol)
   {
     case 0:
-      Dem_SetEventExData( Dem_DTC_0x550196 ); /* interface to external data record */
+      Dem_SetEventExData( Dem_DTC_0x550196 );
       Dem_SetEventStatus( Dem_DTC_0x550196, DEM_EVENT_STATUS_FAILED);
       break;
     case 1:
-      Dem_SetEventExData( Dem_DTC_0x550296 ); /* interface to external data record */
+      Dem_SetEventExData( Dem_DTC_0x550296 );
       Dem_SetEventStatus( Dem_DTC_0x550296, DEM_EVENT_STATUS_FAILED);
       break;
     case 2:
-      Dem_SetEventExData( Dem_DTC_0x550396 ); /* interface to external data record */
+      Dem_SetEventExData( Dem_DTC_0x550396 );
       Dem_SetEventStatus( Dem_DTC_0x550396, DEM_EVENT_STATUS_FAILED);
       break;
     case 3:
-      Dem_SetEventExData( Dem_DTC_0x550496 ); /* interface to external data record */
+      Dem_SetEventExData( Dem_DTC_0x550496 );
       Dem_SetEventStatus( Dem_DTC_0x550496, DEM_EVENT_STATUS_FAILED);
       break;
     default :
@@ -203,11 +161,9 @@ void CheckSensorPnT(uint8 ui8HistCol, uint8 ui8AKRawPressure, uint8 ui8AKRawTemp
     {
       ui8BadPressCt[ui8HistCol] = cNull ;
     }
-
-    // clear DTC
-    if( ( bNewIDFlag[ui8HistCol] || (!bMeasErrorActive(ui8HistCol)) ) && ( ui8BadPressCt[ui8HistCol] == cNull) && (ui8BaTempCt[ui8HistCol] == cNull) )
+     if( ( bNewIDFlag[ui8HistCol] || (!bMeasErrorActive(ui8HistCol)) ) && ( ui8BadPressCt[ui8HistCol] == cNull) && (ui8BaTempCt[ui8HistCol] == cNull) )
     {
-      bNewIDFlag[ui8HistCol] = FALSE; // do it once then reset flag
+      bNewIDFlag[ui8HistCol] = FALSE;
 
       switch (ui8HistCol)
       {
@@ -280,4 +236,3 @@ static boolean bTelTypeHasPT( uint8 ui8TT)
     return (FALSE );
   }
 }
-/******************************************************************************/

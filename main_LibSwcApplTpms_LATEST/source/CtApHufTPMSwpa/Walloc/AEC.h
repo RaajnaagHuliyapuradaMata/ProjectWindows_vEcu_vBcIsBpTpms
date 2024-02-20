@@ -1,47 +1,11 @@
-/*
- *(c) Huf Electronics GmbH     BEE1     08/2012
- *================================================================================================
- *
- *$Archive: /LIB/WAF/work/AEC.h $
- *
- *file status:   under construction
- *
- *------------------------------------------------------------------------------------------------
- *
- *author:        Peter Brand                Huf Electronics GmbH
- *
- *intials:       pb
- *
- *
- *
- *Modul Description
- *
- *
- *Global description: 
- *Purpose: 
- *
- *
- *
- *Modul Modification
- *
- *
- *
- * $Log: /LIB/WAF/work/AEC.h $
- * 
- * 1     17.08.12 17:27 Peter
- * 
- * 1     10.08.12 10:09 Peter
- * 
-*/
-
 
 
 #ifdef AEC_INT
 void SetFrontBack(unsigned char ucFrontIx, unsigned char ucBackIx);
 
 void SetFBPACM(unsigned char ucFrontIx, unsigned char ucBackIx,unsigned char ucWrong);
-void SetFBACM(unsigned char ucFrontID, unsigned char ucBackID,unsigned char ucWrong);  // set front back by ACM
-void ResetBadWayCheck(void);
+void SetFBACM(unsigned char ucFrontID, unsigned char ucBackID,unsigned char ucWrong);
+ void ResetBadWayCheck(void);
 
 #else
 #ifdef CONCEPT4
@@ -55,8 +19,8 @@ extern void Concept5pb8(unsigned char ucID, tRFTelType * ptInputWA);
 extern unsigned char ucEarlyEnd(unsigned char ucIx);
 extern void SetFrontBack(unsigned char ucFrontIx, unsigned char ucBackIx);
 extern void SetFBPACM(unsigned char ucFrontIx, unsigned char ucBackIx,unsigned char ucWrong);
-extern void SetFBACM(unsigned char ucFrontID, unsigned char ucBackID,unsigned char ucWrong);  // set front back by ACM
-extern void ResetACM(void);
+extern void SetFBACM(unsigned char ucFrontID, unsigned char ucBackID,unsigned char ucWrong);
+ extern void ResetACM(void);
 extern void CtACM(unsigned char ucID1, unsigned char ucID2);
 extern unsigned char ucAutoACM(void);
 extern unsigned char ucEarlyEnd(unsigned char ucIx);

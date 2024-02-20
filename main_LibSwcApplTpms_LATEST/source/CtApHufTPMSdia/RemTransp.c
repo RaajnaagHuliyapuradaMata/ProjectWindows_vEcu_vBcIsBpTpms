@@ -1,59 +1,14 @@
-/*
-(c)  Electronics GmbH     BEE1     08/2016
-================================================================================================
 
-file name:     SensorLoBat.c
 
-file status:   fine
-
-------------------------------------------------------------------------------------------------
-
-author:        Peter Brand                 Electronics GmbH
-
-intials:       pb
-
-Purpose:
-asynchron diagnostic routine $0302 to check reception of any triggered or remeasured sensor  according to TPMS Logic  PAL2 V1.5 implementation
-
-*/
-/*******************************************************************************
-Declaration
-*/
-
-/*******************************************************************************
-Include
-*/
 #include "RemTransp.h"
 
-
-
-/*******************************************************************************
-Macros
-*/
 #define cRemeasure (uint8) 1
 #define cTransmissionTriggered (uint8) 2
 #define cModeStationary (uint8) 2
-/*******************************************************************************
-Data
-*/
+
 RemTranspResulType tResult = {0xFFFFFFFF,0xFF,0xFF,0xFF};
 uint8 ui8RoutineActive = (uint8) 0;
 
-/*******************************************************************************
-prototipicos locale
-*/
-
-/*******************************************************************************
-Implementation
-*/
-
-/*******************************************************************************
-private functions
-*/
-
-/*******************************************************************************
-public functions
-*/
 void StartRoutine302(uint8 ui8Meffed)
 {
   uint8 i;
@@ -111,4 +66,3 @@ uint8 GETui8RemTranspActive(void)
 {
   return ((ui8RoutineActive>0) ? 1:0);
 }
-/******************************************************************************/

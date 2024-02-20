@@ -1,77 +1,39 @@
-/**
- * \file
- *
- * \brief AUTOSAR SCrc
- *
- * This file contains the implementation of the AUTOSAR
- * module SCrc.
- *
- * \author Elektrobit Automotive GmbH, 91058 Erlangen, Germany
- *
- * Copyright 2005 - 2013 Elektrobit Automotive GmbH
- * All rights exclusively reserved for Elektrobit Automotive GmbH,
- * unless expressly agreed to otherwise.
- */
+
 
 #if (!defined SCRC_CRC8_H)
 #define SCRC_CRC8_H
 
-/*==================[includes]===============================================*/
 
-#include <SCrc.h>              /* Module public API      */
+
+#include <SCrc.h>              
 #if (SCRC_FUNCENABLED_SCRC_CRC8 == STD_OFF)
 #include <Crc.h>
-#endif /* SCRC_FUNCENABLED_SCRC_CRC8 == STD_OFF */
+#endif 
 
-/*==================[macros]=================================================*/
+
 
 #if (SCRC_FUNCENABLED_SCRC_CRC8 == STD_OFF)
 
-#if (defined SCrc_CalculateCRC8) /* to prevent double declaration */
+#if (defined SCrc_CalculateCRC8) 
 #error SCrc_CalculateCRC8 is already defined
 #endif
 
-/** \brief Map the function SCrc_CalculateCRC8 to Crc_CalculateCRC8
- * of an external Crc module */
+
 #define SCrc_CalculateCRC8(data,length,startvalue,isfirstcall) \
    Crc_CalculateCRC8((data),(length),(startvalue),(isfirstcall))
 
-#endif /* SCRC_FUNCENABLED_SCRC_CRC8 == STD_OFF */
+#endif 
 
-/*==================[type definitions]=======================================*/
 
-/*==================[external function declarations]=========================*/
+
+
 
 #if (SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON)
 
 #define SCRC_START_SEC_CODE
 #include <MemMap.h>
 
-/** \brief Calculation of CRC8
- **
- ** This function performs the calculation of a 8-bit SAE J1850 CRC value
- ** over the memory block referenced by \p SCrc_DataPtr of byte length \p
- ** SCrc_Length.
- **
- ** \pre The data where \a SCrc_DataPtr points is persistent
- **      (i.e. does not change during the calculation of the CRC)
- ** \pre SCrc_DataPtr is a valid pointer (does not equal a Null Pointer)
- ** \pre SCrc_Length is valid with respect to the passed data pointer
- ** \pre SCrc_IsFirstCall is valid (only TRUE or FALSE)
- **
- ** \param[in] SCrc_DataPtr Valid pointer to start address of data block
- ** \param[in] SCrc_Length  Length of data block in bytes
- ** \param[in] SCrc_StartValue8 Initial Value
- ** \param[in] SCrc_IsFirstCall
- **    TRUE: First call in a sequence or individual CRC calculation;
- **          start from initial value, ignore Crc_StartValue8.
- **    FALSE: Subsequent call in a call sequence;
- **           Crc_StartValue8 is interpreted to be the return value
- **           of the previous function call.
- ** \return calculated CRC8 value
- **
- ** \Reentrancy{Reentrant}
- ** \Synchronicity{Synchronous} */
+
 extern FUNC(uint8, SCRC_CODE) SCrc_CalculateCRC8
 (
     P2CONST(uint8, AUTOMATIC, SCRC_APPL_DATA) SCrc_DataPtr,
@@ -83,15 +45,15 @@ extern FUNC(uint8, SCRC_CODE) SCrc_CalculateCRC8
 #define SCRC_STOP_SEC_CODE
 #include <MemMap.h>
 
-#endif /* SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON */
+#endif 
 
-/*==================[type definitions]=======================================*/
 
-/*==================[external function declarations]=========================*/
 
-/*==================[external constants]=====================================*/
 
-/*==================[external data]==========================================*/
 
-#endif /* if !defined( SCRC_CRC8_H ) */
-/*==================[end of file]============================================*/
+
+
+
+
+#endif 
+

@@ -1,52 +1,35 @@
-/**
- * \file
- *
- * \brief AUTOSAR SCrc
- *
- * This file contains the implementation of the AUTOSAR
- * module SCrc.
- *
- * \author Elektrobit Automotive GmbH, 91058 Erlangen, Germany
- *
- * Copyright 2005 - 2013 Elektrobit Automotive GmbH
- * All rights exclusively reserved for Elektrobit Automotive GmbH,
- * unless expressly agreed to otherwise.
- */
+
 
 #if (!defined SCRC_LOCALSRCCFG_H)
 #define SCRC_LOCALSRCCFG_H
 
-/*==================[includes]===============================================*/
 
-#include <Std_Types.h>   /* AUTOSAR standard types */
 
-/*==================[macros]=================================================*/
+#include <Std_Types.h>   
 
-#if (defined SCRC_FUNCENABLED_SCRC_CRC8) /* to prevent double declaration */
+
+
+#if (defined SCRC_FUNCENABLED_SCRC_CRC8) 
 #error SCRC_FUNCENABLED_SCRC_CRC8 is already defined
 #endif
 
-/** \brief Defines whether or not SCrc_CalculateCRC8
- * shall map to SCrc_CalculateCRC8() of this SCrc module (STD_ON)
- * or shall map to an external function Crc_CalculateCRC8() declared in Crc.h (STD_OFF). */
+
 #define SCRC_FUNCENABLED_SCRC_CRC8 STD_ON
 
-#if (defined SCRC_FUNCENABLED_SCRC_CRC8H2F) /* to prevent double declaration */
+#if (defined SCRC_FUNCENABLED_SCRC_CRC8H2F) 
 #error SCRC_FUNCENABLED_SCRC_CRC8H2F is already defined
 #endif
 
-/** \brief Defines whether or not SCrc_CalculateCRC8H2F
- * shall map to SCrc_CalculateCRC8H2F() of this SCrc module (STD_ON)
- * or shall map to an external function Crc_CalculateCRC8H2F() declared in Crc.h (STD_OFF). */
+
 #define SCRC_FUNCENABLED_SCRC_CRC8H2F STD_ON
 
-/*==================[type definitions]=======================================*/
 
-/*==================[external function declarations]=========================*/
 
-/*==================[external constants]=====================================*/
 
-/*==================[external data]==========================================*/
 
-#endif /* if !defined( SCRC_LOCALSRCCFG_H ) */
-/*==================[end of file]============================================*/
+
+
+
+
+#endif 
+

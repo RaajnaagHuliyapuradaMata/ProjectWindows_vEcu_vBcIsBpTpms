@@ -1,47 +1,23 @@
-/* Kernbauer Version: 2.16 Konfiguration: RH850 Erzeugungsgangnummer: 145 Zweig: 1 */
 
-/*****************************************************************************
-| Project Name: MICROSAR OS
-|    File Name: osekerr.h
-|
-|  General code: @Version: 9.00.00@
-|  Module version: $vv$=1.55
-|
-|  Description: definitions of all errors for assertions and OSError
-|
-|-----------------------------------------------------------------------------
-|               C O P Y R I G H T
-|-----------------------------------------------------------------------------
-| Copyright (c) 2000-2015 Vector Informatik GmbH          All rights reserved.
-|****************************************************************************/
 
-/* CovComment 0:  file: osekerr.h */
-/* double include preventer */
 #ifndef _OSEKERR_H
 #define _OSEKERR_H
 
-/*lint -save Messages inhibited in this file, will be re-enabled at the end of file */
-/*lint -e539 Did not expect positive indentation */
-
-/* Vector release management */
 #if defined USE_QUOTE_INCLUDES
  #include "vrm.h"
 #else
  #include <vrm.h>
 #endif
-/* KB begin vrmReleaseNumber (overwritten) */
-/* Source release number */
+
 #define osdVrmMajRelNum 1
 #define osdVrmMinRelNum 1
-/* KB end vrmReleaseNumber */
+
 #if defined USE_QUOTE_INCLUDES
  #include "vrm.h"
 #else
  #include <vrm.h>
 #endif
 
-/* All errors of API services (inherited from OSEK spec) */
-/*      E_OK            0  now defined in osek.h */
 #define E_OS_ACCESS     1
 #define E_OS_CALLEVEL   2
 #define E_OS_ID         3
@@ -51,8 +27,6 @@
 #define E_OS_STATE      7
 #define E_OS_VALUE      8
 
-/* errors of API services (Autosar specification v3.0) */
-/* fullfills [SR:311] of $\AutosarOS\general\Generation5\_doc\12_SystemRequirements\RequirementsSpec_MicrosarOS.doc */
 #define E_OS_SERVICEID            9
 #define E_OS_ILLEGAL_ADDRESS      10
 #define E_OS_MISSINGEND           11
@@ -66,35 +40,10 @@
 
 #define E_OS_SYS_ASSERTION        20
 #define E_OS_SYS_ABORT            21
-/*E_OS_SYS_DIS_INT replaced by E_OS_DISABLEDINT, no No. 22*/
+
 #define E_OS_SYS_API_ERROR        23
 #define E_OS_SYS_ALARM_MANAGEMENT 24
 #define E_OS_SYS_WARNING          25
-
-
-/* TR:SPMF10:0002 Start */
-/* TR:SPMF10:0003 Start */
-/* TR:SPMF10:0004 Start */
-/* TR:SPMF10:0005 Start */
-/* TR:SPMF10:0006 Start */
-/* TR:SPMF10:0007 Start */
-
-/*
- * Syntax of errornumbers:
- * 0xgfee
- *   ||+--- consecutive error number
- *   |+---- number of function in the function group
- *   +----- number of function group
- */
-
-/* Group: Task management 1 */
-/*    function ActivateTask:           AT: 1 */
-/*    function TerminateTask:          TT: 2 */
-/*    function ChainTask:              HT: 3 */
-/*    function Schedule:               SH: 4 */
-/*    function GetTaskState:           GS: 5 */
-/*    function GetTaskID:              GI: 6 */
-/*    function osMissingTerminateError MT: 7 */
 
 #define osdErrATWrongTaskID           0x1101U
 #define osdErrATWrongTaskPrio         0x1102U
@@ -109,7 +58,7 @@
 #define osdErrTTResourcesOccupied     0x1202U
 #define osdErrTTNotActivated          0x1203U
 #define osdErrTTOnInterruptLevel      0x1204U
-#define osdErrTTNoImmediateTaskSwitch 0x1205U /* TR:SPMF12:0011 */
+#define osdErrTTNoImmediateTaskSwitch 0x1205U
 #define osdErrTTCallContext           0x1206U
 #define osdErrTTWrongActiveTaskID     0x1208U
 
@@ -119,7 +68,7 @@
 #define osdErrHTNotActivated          0x1304U
 #define osdErrHTMultipleActivation    0x1305U
 #define osdErrHTOnInterruptLevel      0x1306U
-#define osdErrHTNoImmediateTaskSwitch 0x1308U /* TR:SPMF12:0012 */
+#define osdErrHTNoImmediateTaskSwitch 0x1308U
 #define osdErrHTCallContext           0x1309U
 #define osdErrHTNoAccess              0x130AU
 #define osdErrHTWrongAppState         0x130BU
@@ -148,26 +97,10 @@
 
 #define osdErrMTMissingTerminateTask  0x1701U
 
-
-/* Group: Interrupt handling 2 */
-/*    function EnableAllInterrupts         EA: 4 */
-/*    function DisableAllInterrupts        DA: 5 */
-/*    function ResumeOSInterrupts          RI: 6 */
-/*    function SuspendOSInterrupts         SI: 7 */
-/*    function osUnhandledException        UE: 8 */
-/*    function osSaveDisableLevelNested    SD: 9 */
-/*    function osRestoreEnableLevelNested  RE: A */
-/*    function osSaveDisableGlobalNested   SG: B */
-/*    function osRestoreEnableGlobalNested RG: C */
-/*    function ResumeAllInterrupts         RA: D */
-/*    function SuspendAllInterrupts        SA: E */
-/*    function GetISRID                    II: 2 */
-/*    function Interrupt Exit              IX: 3 */
-
 #define osdErrEAIntAPIWrongSequence   0x2401U
 #define osdErrDAIntAPIDisabled        0x2501U
 
-#define osdErrUEUnhandledException    0x2801U  /* TR:SPMF78:0004 */
+#define osdErrUEUnhandledException    0x2801U
 
 #define osdErrSDWrongCounter          0x2901U
 #define osdErrREWrongCounter          0x2A01U
@@ -181,15 +114,10 @@
 #define osdErrIXResourcesOccupied     0x2301U
 #define osdErrIXIntAPIDisabled        0x2302U
 
-
-/* Group: Resource management 3 */
-/*    function GetResource            GR:  1 */
-/*    function ReleaseResource        RR:  2 */
-
 #define osdErrGRWrongResourceID       0x3101U
 #define osdErrGRPriorityOccupied      0x3102U
 #define osdErrGRResourceOccupied      0x3103U
-#define osdErrGRNoAccessRights        0x3104U /* TR:SPMF12:0009 */ /* TR:SPMF12:0010 */
+#define osdErrGRNoAccessRights        0x3104U
 #define osdErrGRWrongPrio             0x3105U
 #define osdErrGRIntAPIDisabled        0x3106U
 #define osdErrGRNoAccess              0x3107U
@@ -210,13 +138,6 @@
 #define osdErrRRNoReadyTaskFound      0x320DU
 #define osdErrRRWrongTaskID           0x320EU
 #define osdErrRRWrongHighRdyPrio      0x320FU
-
-
-/* Group: Event control 4 */
-/*    function SetEvent               SE:  1 */
-/*    function ClearEvent             CE:  2 */
-/*    function GetEvent               GE:  3 */
-/*    function WaitEvent              WE:  4 */
 
 #define osdErrSEWrongTaskID           0x4101U
 #define osdErrSENotExtendedTask       0x4102U
@@ -247,15 +168,6 @@
 #define osdErrWEInterruptsDisabled    0x4403U
 #define osdErrWEOnInterruptLevel      0x4404U
 #define osdErrWECallContext           0x4405U
-
-
-/* Group: Alarms 5 */
-/*    function GetAlarmBase           GB:  1 */
-/*    function GetAlarm               GA:  2 */
-/*    function SetRelAlarm            SA:  3 */
-/*    function SetAbsAlarm            SL:  4 */
-/*    function CancelAlarm            CA:  5 */
-/*    function osWorkAlarm            WA:  6 */
 
 #define osdErrGBWrongAlarmID          0x5101U
 #define osdErrGBIntAPIDisabled        0x5102U
@@ -294,7 +206,7 @@
 #define osdErrCAWrongAlarmID          0x5501U
 #define osdErrCANotActive             0x5502U
 #define osdErrCAIntAPIDisabled        0x5503U
-#define osdErrCAAlarmInternal         0x5504U /* TR:SPMF12:0008 */
+#define osdErrCAAlarmInternal         0x5504U
 #define osdErrCACallContext           0x5505U
 #define osdErrCANoAccess              0x5506U
 #define osdErrCAWrongAppState         0x5507U
@@ -304,17 +216,6 @@
 #define osdErrWAUnknownAction         0x5603U
 #define osdErrWAWrongCounterID        0x5604U
 
-
-/* Group: Operating system execution control 6 */
-/*    function osCheckStackOverflow      SO:  1 */
-/*    function osGetStackUsage           SU:  3 */
-/*    function osCheckLibraryVers..      CL:  4 */
-/*    function osErrorHook               EH:  5 */
-/*    function StartOS                   ST:  6 */
-/*    function osSchedInsertTask         QI:  7 */
-/*    function osSchedRemoveRunningTask  QR:  8 */
-/*    function osSchedOnHomePrio         QS:  9 */
-
 #define osdErrSOStackOverflow         0x6101U
 
 #define osdErrSUWrongTaskID           0x6301U
@@ -323,34 +224,23 @@
 
 #define osdErrEHInterruptsEnabled     0x6501U
 
-#define osdErrSTMemoryError           0x6601U /* TR:SPMF12:0006 */
+#define osdErrSTMemoryError           0x6601U
 #define osdErrSTNoImmediateTaskSwitch 0x6602U
 #define osdErrSTWrongAppMode          0x6603U
 #define osdErrSTInvalidSTCfg          0x6609U
 
 #define osdErrQIWrongTaskPrio         0x6701U
 
-#define osdErrQRInterruptsEnabled     0x6801U /* TR:SPMF12:0007 */
+#define osdErrQRInterruptsEnabled     0x6801U
 #define osdErrQRWrongTaskID           0x6802U
 #define osdErrQRWrongTaskPrio         0x6803U
 #define osdErrQRWrongHighRdyPrio      0x6804U
 
-#define osdErrQSInterruptsEnabled     0x6901U /* TR:SPMF12:0007 */
+#define osdErrQSInterruptsEnabled     0x6901U
 #define osdErrQSNoReadyTaskFound      0x6902U
 #define osdErrQSWrongPriority         0x6903U
 
 #define osdErrQOWrongTaskID           0x6A01U
-
-/* Group: Schedule Table control 7 */
-/*    function StartScheduleTableRel      SR:  1 */
-/*    function StartScheduleTableAbs      SS:  2 */
-/*    function StopScheduleTable          SP:  3 */
-/*    function GetScheduleTableStatus     SG:  4 */
-/*    function NextScheduleTable          SN:  5 */
-/*    function osWorkScheduleTable        WS:  6 */
-/*    function SyncScheduleTable          SY:  7 */
-/*    function SetScheduleTableAsync      AY:  8 */
-/*    function StartScheduleTableSynchron TS:  C */
 
 #define osdErrSRWrongID                0x7101U
 #define osdErrSRAlreadyRunningOrNext   0x7102U
@@ -426,11 +316,6 @@
 #define osdErrTSSyncKindNotExplicit    0x7C08U
 #define osdErrTSWrongAppState          0x7C09U
 
-
-/* Group: Counter API 8 */
-/*    function IncrementCounter         IC:  1 */
-/*    function osGetCounterValue        GC:  3 */
-/*    function osGetElapsedValue        GV:  4 */
 #define osdErrICWrongCounterID        0x8101U
 #define osdErrICIntAPIDisabled        0x8102U
 #define osdErrICCallContext           0x8103U
@@ -454,17 +339,6 @@
 #define osdErrGVIllegalValue          0x8407U
 #define osdErrGVIllegalPointers       0x8408U
 #define osdErrGVOddInvocation         0x8409U
-
-
-/* Group: Timing Protection and Timing Measurement 9 */
-/*    function osGetTaskMinInterArrivalTime   TM:  0 */
-/*    function BlockingTimeMonitoring         BM:  7 */
-/*    function osGetTaskMaxExecutionTime      TE:  8 */
-/*    function osGetISRMaxExecutionTime       IE:  9 */
-/*    function osGetTaskMaxBlockingTime       TB:  A */
-/*    function osGetISRMaxBlockingTime        IB:  B */
-/*    function ExecutionTimeMonitoring        ET:  D */
-/*    function osGetISRMinInterArrivalTime    MI:  F */
 
 #define osdErrTMWrongTaskID            0x9001U
 #define osdErrTMNoAccess               0x9002U
@@ -509,33 +383,31 @@
 #define osdErrMIIllegalAddr            0x9F03U
 #define osdErrMIWrongAppState          0x9F04U
 
-/* Group: Platform specific error codes A */
-/* KB begin osekHwErrorCodes (overwritten) */
 #define osdErrYOSystemStackOverflow       0xA101U
 #define osdErrYOTaskStackOverflow         0xA102U
 #define osdErrYOISRStackOverflow          0xA103U
 
 #define osdErrSCWrongSysCallParameter     0xA201U
-                                          
+
 #define osdErrDPStartValidContext         0xA401U
 #define osdErrDPResumeInvalidContext      0xA402U
 #define osdErrDPInvalidTaskIndex          0xA403U
 #define osdErrDPInvalidApplicationID      0xA404U
 
 #define osdErrEXMemoryViolation           0xA501U
-#define osdErrEXPrivilegedInstruction     0xA502U                                          
+#define osdErrEXPrivilegedInstruction     0xA502U
 
 #define osdErrSUInvalidTaskIndex          0xA601U
 #define osdErrSUInvalidIsrIndex           0xA602U
 #define osdErrSUInvalidIsrPrioLevel       0xA603U
-                                          
+
 #define osdErrCIInvalidIsrIndex           0xA701U
 #define osdErrCIInvalidIsrPrioLevel       0xA702U
 #define osdErrCIInvalidApplicationID      0xA703U
 #define osdErrCIMissingIntRequest         0xA704U
 #define osdErrCIInterruptIsMasked         0xA705U
 #define osdErrCIWrongIntPriority          0xA706U
-                                          
+
 #define osdErrPIGetIMRInvalidIndex        0xA801U
 #define osdErrPISetIMRInvalidIndex        0xA802U
 #define osdErrPIClearIMRInvalidIndex      0xA803U
@@ -557,13 +429,6 @@
 
 #define osdErrUEUnhandledCoreException    0xAA01U
 #define osdErrUEUnhandledDirectBranch     0xAA02U
-/* KB end osekHwErrorCodes */
-
-
-/* Group: Application API B */
-/*    function osGetApplicationState    AS:  1 */
-/*    function osAllowAccess            AA:  2 */
-/*    function TerminateApplication     TA:  4 */
 
 #define osdErrASCallContext           0xB101U
 #define osdErrASIntAPIDisabled        0xB102U
@@ -582,11 +447,6 @@
 #define osdErrTAWrongAppState         0xB406U
 #define osdErrTAInvalidTaskState      0xB407U
 
-
-/* Group: Semaphores C */
-/*    function osGetSemaphore         GM:  1 */
-/*    function osReleaseSemaphore     RS:  2 */
-
 #define osdErrGMWrongSemaphoreID      0xC101U
 #define osdErrGMOnInterruptLevel      0xC102U
 #define osdErrGMNotExtendedTask       0xC103U
@@ -598,19 +458,10 @@
 #define osdErrRSWrongTaskPrio         0xC204U
 #define osdErrRSInterruptsDisabled    0xC205U
 
-
-/* Group: Additional functions E */
-/*    function CallTrustedFunction        CT:  3 */
-
 #define osdErrCTWrongFctIdx           0xE301U
 #define osdErrCTCallContext           0xE302U
 #define osdErrCTIntAPIDisabled        0xE303U
 
-
-
-/* KB begin osekServiceIdParamAccessMacros (default) */
-
-/* definitions to save the parameters in global variables before calling the service */
 #if osdParameterAccessMacros && osdErrorHook
    #define osSaveActivateTask_TaskID(x)                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType = (x));
    #define osSaveChainTask_TaskID(x)                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType = (x));
@@ -682,34 +533,34 @@
    #define osSaveosGetISRMaxBlockingTime_ResourceID(z)         (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osResourceType = (z));
    #define osSaveosGetISRMaxBlockingTime_MaxTime(z1)           (osOwnCcb->LockIsNotNeeded.ossAPIParam4                = (z1));
 #endif
-#else /* osdParameterAccessMacros && osdErrorHook */
+#else
 
-   #define osSaveActivateTask_TaskID(x)  
-   #define osSaveChainTask_TaskID(x)     
-   #define osSaveGetTaskID_TaskID(x)      
-   #define osSaveGetTaskState_TaskID(x)  
-   #define osSaveGetTaskState_State(y)  
+   #define osSaveActivateTask_TaskID(x)
+   #define osSaveChainTask_TaskID(x)
+   #define osSaveGetTaskID_TaskID(x)
+   #define osSaveGetTaskState_TaskID(x)
+   #define osSaveGetTaskState_State(y)
    #define osSaveGetResource_ResID(x)
    #define osSaveReleaseResource_ResID(x)
    #define osSaveGetSemaphore_SemaID(x)
    #define osSaveReleaseSemaphore_SemaID(x)
-   #define osSaveSetEvent_TaskID(x)     
-   #define osSaveSetEvent_Mask(y)     
-   #define osSaveGetEvent_TaskID(x)     
-   #define osSaveGetEvent_Event(y)        
-   #define osSaveClearEvent_Mask(x)      
-   #define osSaveWaitEvent_Mask(x)       
-   #define osSaveGetAlarmBase_AlarmID(x)    
-   #define osSaveGetAlarmBase_Info(y)     
-   #define osSaveSetRelAlarm_AlarmID(x)   
-   #define osSaveSetRelAlarm_increment(y)    
-   #define osSaveSetRelAlarm_cycle(z)     
-   #define osSaveSetAbsAlarm_AlarmID(x)    
-   #define osSaveSetAbsAlarm_start(y)    
-   #define osSaveSetAbsAlarm_cycle(z)    
-   #define osSaveCancelAlarm_AlarmID(x)   
-   #define osSaveGetAlarm_AlarmID(x)      
-   #define osSaveGetAlarm_Tick(y)         
+   #define osSaveSetEvent_TaskID(x)
+   #define osSaveSetEvent_Mask(y)
+   #define osSaveGetEvent_TaskID(x)
+   #define osSaveGetEvent_Event(y)
+   #define osSaveClearEvent_Mask(x)
+   #define osSaveWaitEvent_Mask(x)
+   #define osSaveGetAlarmBase_AlarmID(x)
+   #define osSaveGetAlarmBase_Info(y)
+   #define osSaveSetRelAlarm_AlarmID(x)
+   #define osSaveSetRelAlarm_increment(y)
+   #define osSaveSetRelAlarm_cycle(z)
+   #define osSaveSetAbsAlarm_AlarmID(x)
+   #define osSaveSetAbsAlarm_start(y)
+   #define osSaveSetAbsAlarm_cycle(z)
+   #define osSaveCancelAlarm_AlarmID(x)
+   #define osSaveGetAlarm_AlarmID(x)
+   #define osSaveGetAlarm_Tick(y)
    #define osSaveIncrementCounter_CounterID(x)
    #define osSaveGetCounterValue_CounterID(x)
    #define osSaveGetCounterValue_Value(x)
@@ -752,11 +603,11 @@
    #define osSaveosGetISRMaxBlockingTime_ResourceID(z)
    #define osSaveosGetISRMaxBlockingTime_MaxTime(z1)
 
-#endif /* osdParameterAccessMacros && osdErrorHook else */
+#endif
 
  #if osdErrorHook
   #if osdGetServiceIdMacros
-   
+
    #define OSServiceId_ActivateTask          0x1100U
    #define OSServiceId_TerminateTask         0x1200U
    #define OSServiceId_ChainTask             0x1300U
@@ -806,7 +657,6 @@
    #define OSServiceId_osGetISRMaxBlockingTime      0x9B00U
    #define OSServiceId_osGetISRMinInterArrivalTime  0x9F00U
 
-
    #define OSServiceId_GetApplicationState        0xB100U
    #define OSServiceId_AllowAccess                0xB200U
    #define OSServiceId_TerminateApplication       0xB400U
@@ -816,47 +666,44 @@
 
    #define OSServiceId_CallTrustedFunction        0xE300U
 
-   /* fullfills [SR:154] of $\AutosarOS\general\Generation5\_doc\12_SystemRequirements\RequirementsSpec_MicrosarOS.doc */
    #define OSErrorGetServiceId()       ((OSServiceIdType) (osOwnCcb->LockIsNotNeeded.ossLastError & 0xFF00U))
 
   #endif
 
-  /* KB begin osekGetErrorDef (default) */
     #define OSErrorGetosCANError()      osOwnCcb->LockIsNotNeeded.ossLastError
-  /* KB end osekGetErrorDef */
 
-  #if osdParameterAccessMacros 
-   /* fullfills [SR:154] of $\AutosarOS\general\Generation5\_doc\12_SystemRequirements\RequirementsSpec_MicrosarOS.doc */
-   #define OSError_ActivateTask_TaskID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType) 
-   #define OSError_ChainTask_TaskID()                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType) 
-   #define OSError_GetTaskID_TaskID()                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskRefType) 
-   #define OSError_GetTaskState_TaskID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType) 
-   #define OSError_GetTaskState_State()                       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTaskStateRefType) 
+  #if osdParameterAccessMacros
 
-   #define OSError_GetResource_ResID()                        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osResourceType) 
-   #define OSError_ReleaseResource_ResID()                    (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osResourceType) 
+   #define OSError_ActivateTask_TaskID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType)
+   #define OSError_ChainTask_TaskID()                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType)
+   #define OSError_GetTaskID_TaskID()                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskRefType)
+   #define OSError_GetTaskState_TaskID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType)
+   #define OSError_GetTaskState_State()                       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTaskStateRefType)
+
+   #define OSError_GetResource_ResID()                        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osResourceType)
+   #define OSError_ReleaseResource_ResID()                    (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osResourceType)
    #define OSError_GetSemaphore_SemaID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osOsSemaphoreType)
    #define OSError_ReleaseSemaphore_SemaID()                  (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osOsSemaphoreType)
 
-   #define OSError_SetEvent_TaskID()                          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType) 
-   #define OSError_SetEvent_Mask()                            (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osEventMaskType) 
-   #define OSError_GetEvent_TaskID()                          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType) 
-   #define OSError_GetEvent_Event()                           (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osEventMaskRefType) 
-   #define OSError_ClearEvent_Mask()                          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osEventMaskType) 
-   #define OSError_WaitEvent_Mask()                           (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osEventMaskType) 
+   #define OSError_SetEvent_TaskID()                          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType)
+   #define OSError_SetEvent_Mask()                            (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osEventMaskType)
+   #define OSError_GetEvent_TaskID()                          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType)
+   #define OSError_GetEvent_Event()                           (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osEventMaskRefType)
+   #define OSError_ClearEvent_Mask()                          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osEventMaskType)
+   #define OSError_WaitEvent_Mask()                           (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osEventMaskType)
 
-   #define OSError_GetAlarmBase_AlarmID()                     (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType) 
-   #define OSError_GetAlarmBase_Info()                        (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osAlarmBaseRefType) 
-   #define OSError_SetRelAlarm_AlarmID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType) 
-   #define OSError_SetRelAlarm_increment()                    (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType) 
+   #define OSError_GetAlarmBase_AlarmID()                     (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType)
+   #define OSError_GetAlarmBase_Info()                        (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osAlarmBaseRefType)
+   #define OSError_SetRelAlarm_AlarmID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType)
+   #define OSError_SetRelAlarm_increment()                    (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType)
    #define OSError_SetRelAlarm_cycle()                        (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osTickType)
-   #define OSError_SetAbsAlarm_AlarmID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType) 
-   #define OSError_SetAbsAlarm_start()                        (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType) 
+   #define OSError_SetAbsAlarm_AlarmID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType)
+   #define OSError_SetAbsAlarm_start()                        (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType)
    #define OSError_SetAbsAlarm_cycle()                        (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osTickType)
-   #define OSError_CancelAlarm_AlarmID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType) 
-   #define OSError_GetAlarm_AlarmID()                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType) 
+   #define OSError_CancelAlarm_AlarmID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType)
+   #define OSError_GetAlarm_AlarmID()                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType)
    #define OSError_GetAlarm_Tick()                            (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickRefType)
- 
+
    #define OSError_StartScheduleTableRel_ScheduleTableID()    (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType)
    #define OSError_StartScheduleTableRel_Offset()             (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType)
    #define OSError_StartScheduleTableAbs_ScheduleTableID()    (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType)
@@ -868,13 +715,11 @@
    #define OSError_GetScheduleTableStatus_ScheduleID()        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType)
    #define OSError_GetScheduleTableStatus_ScheduleStatus()    (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osScheduleTableStatusRefType)
 
-
    #if ((osdSC== SC3) || (osdSC== SC4))
-    #define OSError_CallTrustedFunction_FunctionIndex()        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osFunctionIndexType) 
-    #define OSError_CallTrustedFunction_FunctionParams()       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTrustedFunctionParameterRefType) 
-    #define OSError_TerminateApplication_RestartOption()       (osOwnCcb->LockIsNotNeeded.ossAPIParam1.RestartType) 
+    #define OSError_CallTrustedFunction_FunctionIndex()        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osFunctionIndexType)
+    #define OSError_CallTrustedFunction_FunctionParams()       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTrustedFunctionParameterRefType)
+    #define OSError_TerminateApplication_RestartOption()       (osOwnCcb->LockIsNotNeeded.ossAPIParam1.RestartType)
    #endif
-
 
    #if ((osdSC == SC3) || (osdSC == SC4))
     #define OSError_GetApplicationState_Application()          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osApplicationType)
@@ -888,20 +733,8 @@
    #define OSError_GetElapsedValue_Value()                     (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickRefType)
    #define OSError_GetElapsedValue_ElapsedValue()              (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osTickRefType)
 
-  #endif /* #if osdParameterAccessMacros */
- #endif /* #if osdErrorHook */
+  #endif
+ #endif
 
-/* KB end osekServiceIdParamAccessMacros */
-
-/* TR:SPMF10:0002 End */
-/* TR:SPMF10:0003 End */
-/* TR:SPMF10:0004 End */
-/* TR:SPMF10:0005 End */
-/* TR:SPMF10:0006 End */
-/* TR:SPMF10:0007 End */
-/*lint -restore re-enable messages*/
-
-#endif /* double include preventer */
-
-/* END OF HEADER osekerr.h */
+#endif
 

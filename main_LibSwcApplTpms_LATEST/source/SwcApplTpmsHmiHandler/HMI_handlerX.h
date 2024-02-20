@@ -24,8 +24,8 @@ extern uint8 ucGetHMICurrentTireStat(uint8 ucPos);
 extern uint8 ucGetHMICurrentTireTemp(uint8 ucPos);
 extern uint8 ucGetHMICurrentTireTempStat(uint8 ucPos);
 
-extern uint8 ucGetHMITPMMsgDisp(void); 
-extern uint8 ucGetHMITPMStat(void); 
+extern uint8 ucGetHMITPMMsgDisp(void);
+extern uint8 ucGetHMITPMStat(void);
 extern uint8 ucGetHMITPMWarnDisp(void);
 extern DC_BOOL bGetHMITPMIndLmpOn(void);
 extern DC_BOOL bGetHMITPMMalfLmpOn(void);

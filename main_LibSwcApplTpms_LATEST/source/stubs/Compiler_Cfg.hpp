@@ -94,8 +94,8 @@ Version  : 2019.1.4
 #define DEM_APPL_CODE           /* callback functions used by DEM, implemented outside DEM */
 #define DEM_APPL_DATA           /* vars (buffers) outside DEM, passed via API */
 #define DEM_APPL_CONST          /* constants outside DEM, passed via API */
-#define FLS_E_WRITE_FAILED          Dem_FLS_E_WRITE_FAILED 
-#define FLS_E_READ_FAILED           Dem_FLS_E_READ_FAILED 
+#define FLS_E_WRITE_FAILED          Dem_FLS_E_WRITE_FAILED
+#define FLS_E_READ_FAILED           Dem_FLS_E_READ_FAILED
 #define FLS_E_ERASE_FAILED          Dem_FLS_E_ERASE_FAILED
 #define FLS_E_READ_FAILED_DED       Dem_FLS_E_READ_FAILED_DED
 #define MCU_E_WRITE_TIMEOUT_FAILURE Dem_MCU_E_WRITE_TIMEOUT_FAILURE
@@ -299,7 +299,7 @@ Version  : 2019.1.4
 #define PDUR_APPL_CODE
 #define PDUR_IPDUM_DATA
 #define PDUR_MOST_DATA
-#define PDUR_PBCFG_ROOT		PDUR_PBCFG
+#define PDUR_PBCFG_ROOT      PDUR_PBCFG
 
 #define CANIF_VAR_NOINIT
 #define CANIF_VAR_ZERO_INIT
@@ -644,16 +644,16 @@ Version  : 2019.1.4
 #define DET_APPL_DATA
 #define DET_APPL_CODE
 
-#define ECUM_API_CODE 
-#define ECUM_APPL_CONFIG 
-#define ECUM_APPL_DATA 
+#define ECUM_API_CODE
+#define ECUM_APPL_CONFIG
+#define ECUM_APPL_DATA
 #define ECUM_VAR_BOOT
 #define ECUM_CODE
-#define ECUM_CODE_BOOT_TARGET 
-#define ECUM_CONST 
+#define ECUM_CODE_BOOT_TARGET
+#define ECUM_CONST
 #define ECUM_PBCFG
-#define ECUM_VAR 
-#define ECUM_VAR_NOINIT 
+#define ECUM_VAR
+#define ECUM_VAR_NOINIT
 
 #define SCHM_CONST
 #define SCHM_CODE
