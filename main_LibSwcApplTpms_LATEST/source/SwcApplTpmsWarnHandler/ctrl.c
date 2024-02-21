@@ -66,7 +66,7 @@ static void InitDefValTemPara(void)
     tDAG_TemPara .ui16_HC_MAX = GETushHCmax();
     tDAG_TemPara.ui8_TempWarnEnable = GETucTempWarnOnOffOfRam();
 }
- static uint8 ui8GetDAGTempWarnPara(TempWarnParaType * ptTemPara)
+static uint8 ui8GetDAGTempWarnPara(TempWarnParaType * ptTemPara)
 {
     return 0;
 }
@@ -96,7 +96,7 @@ uint8 ui8GetPMIN_R(void)
   return (tDAG_PPara .ui8_P_MIN_R );
 }
 
- void UpdateWarnOut(const unsigned char * p2WPs)
+void UpdateWarnOut(const unsigned char * p2WPs)
 {
   unsigned char aucDgServ[6]={0};
   unsigned char i;

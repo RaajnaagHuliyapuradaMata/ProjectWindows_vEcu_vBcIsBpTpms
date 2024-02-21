@@ -2462,7 +2462,7 @@ static unsigned char ucFinalFreeze(unsigned char ucMinCt4HistER, unsigned char u
     break;
   case cAL_Stored :
     if (cEv4WPs == ui8Trigger)
-      tWAPar .AL_State = cAL_OK ; /* #OIL 1273 --> SOLL: Bei Rückfall auf Historie kein Wechsel von cAL_Stored 2 cAL_OK!!*/
+      tWAPar .AL_State = cAL_OK ; /* #OIL 1273 --> SOLL: Bei Rï¿½ckfall auf Historie kein Wechsel von cAL_Stored 2 cAL_OK!!*/
     else if ( cEvNewIDs == ui8Trigger)
       tWAPar .AL_State = cAL_Unknown ;
     break;
@@ -2755,7 +2755,7 @@ void ClearAlLearNLocatError(unsigned char ucErrType)
       else
       {
         ucWAStateHi |= cErrorActive ;
-            (void) ucGetAnyLocatErrors(0); /*pb Empfehlung für #OIL1314 CRS_1211_090_003 */
+            (void) ucGetAnyLocatErrors(0); /*pb Empfehlung fï¿½r #OIL1314 CRS_1211_090_003 */
       }
       WAStatusChangedEvent(GETushWAState() );
     }
@@ -3002,7 +3002,7 @@ static unsigned short ushLearnInOver8(tRFTelType * ptInputWA)
   }
 }
 
- unsigned char * GETpucStartAdrWPorPWP(void)
+unsigned char * GETpucStartAdrWPorPWP(void)
 {
   MergeWPandPWP ();
 

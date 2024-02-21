@@ -110,6 +110,9 @@ static const uint8 ucMaxWarnTypeWNc = 4;
 /******************************************************************************/
 /* ctrl */
 extern PWarnParaType tDAG_PPara;
+extern uint8 ui8GetPMIN_F  (void);
+extern uint8 ui8GetPMIN_R  (void);
+extern void  UpdateWarnOut (const uint8* p2WPs);
 
 /******************************************************************************/
 /* FUNCTIONS                                                                  */
@@ -136,6 +139,9 @@ extern uint8 bDHW        (struct LocalWarnDat *ptLWD, uint8 ucWarnCfg);
 /* eeiface.h */
 extern void GetDataEE(uint8,       uint8*, uint8);
 extern void PutDataEE(uint8, const uint8*, uint8);
+
+/* WAlloc */
+extern uint8* GETpucStartAdrWPorPWP(void);
 
 /******************************************************************************/
 /* EOF                                                                        */

@@ -471,7 +471,7 @@ void DelWarnOfId(uint8 ui8HistColOfID){
        (void) ucWarnManagerWN(ucDiagServicec, aucDiagService);
      }
    }
-   UpdateWarnOut((const uint8*) GETpucStartAdrWPorPWP ());
+   UpdateWarnOut((const uint8*) GETpucStartAdrWPorPWP());
 }
 
 void GETDAGWrnLvlOfIdCol(uint8 ui8ColOfId, uint8 * p2WrnLvls){
