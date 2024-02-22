@@ -30,7 +30,7 @@ add_executable(
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSwpa
 #  ${PROJECT_SOURCE_DIR}/source/CtCdHufTPMSohds
 #  ${PROJECT_SOURCE_DIR}/source/CtCdHufTPMSrfd
-   ${PROJECT_SOURCE_DIR}/source/stubs/main.c
+   ${PROJECT_SOURCE_DIR}/source/wrappers/main.c
 )
 
 target_include_directories(

@@ -1,5 +1,3 @@
-
-
 #include "uswarn.h"
 #include "WnTypePar.h"
 #include "USWTime.h"

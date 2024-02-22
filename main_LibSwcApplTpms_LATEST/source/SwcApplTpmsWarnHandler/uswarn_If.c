@@ -15,7 +15,7 @@ void UpdateDAGsOldOff(void)
    updateHoldOffWarning();
 }
 
- void GetRatValOfId(uint8 uiHistCol, struct SollDat * p2RatVal)
+void GetRatValOfId(uint8 uiHistCol, struct SollDat * p2RatVal)
 {
   uint8 ui8WP,ui8PFA,ui8PRA;
   sint8 i8TFA,i8TRA;
@@ -80,7 +80,7 @@ uint8 Getui8PrefMinOfId(uint8 histCol)
  return (pRefMinRel);
 }
 
- uint8 Getui8AtmosphericP(void)
+uint8 Getui8AtmosphericP(void)
 {
   return (uc1Barc );
 }

@@ -36,7 +36,7 @@ uint8 * pui8GetLastM1Pressure(void)
   return (aucLastPressureM1DHW);
 }
 
-   uint8 bDHW( struct LocalWarnDat *ptLWD, uint8 ucWarnCfg )
+uint8 bDHW( struct LocalWarnDat *ptLWD, uint8 ucWarnCfg)
 {
   uint8 ui8CompRes,ui8Ret;
   uint16 ushHelp;

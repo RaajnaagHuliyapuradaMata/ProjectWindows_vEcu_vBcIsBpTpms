@@ -1,5 +1,3 @@
-
-
 #include "USWarnX.h"
 #include "global.h"
 #include "DAG_TVWarn.h"
