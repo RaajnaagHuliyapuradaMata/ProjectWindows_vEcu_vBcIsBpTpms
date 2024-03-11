@@ -1,6 +1,6 @@
 
 
-#if (!defined ECUM_GENERATED_TYPES_H)
+#if(!defined ECUM_GENERATED_TYPES_H)
 # define ECUM_GENERATED_TYPES_H
 
 # define ECUM_GENERATED_TYPES_MAJOR_VERSION    (7u)
@@ -55,7 +55,7 @@ typedef struct
   uint8 WatchdogMode_u8;
 } EcuM_SleepModeConfigType;
 
-# if ((ECUM_GEN_SHUTDOWN_TARGET_PORT == STD_OFF) && (ECUM_GEN_STATE_REQUEST_PORT == STD_OFF))
+# if((ECUM_GEN_SHUTDOWN_TARGET_PORT == STD_OFF) && (ECUM_GEN_STATE_REQUEST_PORT == STD_OFF))
 
   typedef uint8 EcuM_StateType;
 
@@ -98,7 +98,7 @@ typedef uint8 EcuM_WakeupReactionType;
 # define ECUM_WKACT_TTII                                              (2u)
 # define ECUM_WKACT_SHUTDOWN                                          (3u)
 
-# if (ECUM_GEN_BOOT_TARGET_PORT == STD_OFF)
+# if(ECUM_GEN_BOOT_TARGET_PORT == STD_OFF)
 
   typedef uint8 EcuM_BootTargetType;
 
@@ -107,13 +107,13 @@ typedef uint8 EcuM_WakeupReactionType;
 
 # endif
 
-# if (ECUM_GEN_STATE_REQUEST_PORT == STD_OFF)
+# if(ECUM_GEN_STATE_REQUEST_PORT == STD_OFF)
 
 typedef uint8 EcuM_UserType;
 
 # endif
 
-# if (ECUM_GEN_APPLICATION_MODE_PORT == STD_OFF)
+# if(ECUM_GEN_APPLICATION_MODE_PORT == STD_OFF)
 
 typedef uint8 EcuM_AppModeType;
 

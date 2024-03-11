@@ -30,7 +30,7 @@ struct tBitfeldKATC
 
   uint16 ushResetCnt;
 
-#if (BERU_BAUREIHE_BMW_PL4_ENABLE == ON)
+#if(BERU_BAUREIHE_BMW_PL4_ENABLE == ON)
   uint8 ucReserved[8];
 #endif
 

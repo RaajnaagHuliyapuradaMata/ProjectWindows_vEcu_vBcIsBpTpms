@@ -28,18 +28,15 @@ static uint8 ui8Check4AllSensorCounts0(void);
 static void PUTtSensorBatInfo2NVM(void);
 static uint8 ui8All4SensorsOK(uint8 idx);
 
-static void ClearBatInfo(BaType * pt2BatInfo)
-{
+static void ClearBatInfo(BaType * pt2BatInfo){
   uint8 i;
 
-  for (i = 0; i < sizeof (BaType ) ; i++)
-  {
+  for(i = 0; i < sizeof (BaType ) ; i++){
     *(((uint8 *) pt2BatInfo) + i) = (uint8) 0;
   }
 }
 
-static uint16 GETui16Odometer(void)
-{
+static uint16 GETui16Odometer(void){
     uint32 ui32OdoVal;
     uint16 ui16RetVal = 0;
     uint8 * p2RetVal = (uint8 *) &ui16RetVal;
@@ -52,27 +49,22 @@ static uint16 GETui16Odometer(void)
     return (ui16RetVal );
 }
 
-static uint8 GETui8AmbienTemp(void)
-{
+static uint8 GETui8AmbienTemp(void){
   return (tEnvDataToSend .ucTempOut + 50u);
 }
 
- static uint8 ui8Check4AllSensorCounts0(void)
-{
+ static uint8 ui8Check4AllSensorCounts0(void){
   uint8 i;
   BaType tbatinfo;
 
-  for ( i = 0; i < cMAXWU4BATINFO ; i++)
-  {
+  for( i = 0; i < cMAXWU4BATINFO ; i++){
     tbatinfo = GETtSensorBatInfOfRam (i);
-    if ( tbatinfo.ui8Count > ((uint8) 0))
-    {
+    if( tbatinfo.ui8Count > ((uint8) 0)){
       break;
     }
   }
 
-  if (cMAXWU4BATINFO == i)
-  {
+  if(cMAXWU4BATINFO == i){
     return ((uint8) 0xFF);
   }
   else
@@ -81,27 +73,23 @@ static uint8 GETui8AmbienTemp(void)
   }
 }
 
- static uint8 ui8All4SensorsOK(uint8 idx)
-{
+ static uint8 ui8All4SensorsOK(uint8 idx){
   uint8 i;
   BaType tbatinfo;
 
-  for ( i = 0; i < cMAXWU4BATINFO ; i++)
-  {
-    if (i == idx)
+  for( i = 0; i < cMAXWU4BATINFO ; i++){
+    if(i == idx)
       continue;
     else
     {
       tbatinfo = GETtSensorBatInfOfRam (i);
-      if ( cOK != tbatinfo.ui8Status )
-      {
+      if( cOK != tbatinfo.ui8Status ){
         break;
       }
     }
   }
 
-  if (cMAXWU4BATINFO == i)
-  {
+  if(cMAXWU4BATINFO == i){
     return ((uint8) 0xFF);
   }
   else
@@ -109,12 +97,10 @@ static uint8 GETui8AmbienTemp(void)
     return ((uint8) 0);
   }
 }
- BaType GETtSensorBatInfOfRam(uint8 idx)
-{
+ BaType GETtSensorBatInfOfRam(uint8 idx){
   BaType tLocalBatInfo;
 
-  if (cMAXWU4BATINFO > idx)
-  {
+  if(cMAXWU4BATINFO > idx){
     return ( *((BaType*) ((uint8 *)&Rte_Pim_Pim_tDiagNvMBlock2()->tSensorBatInfo + (idx * sizeof (BaType )))) );
   }
   else
@@ -125,27 +111,22 @@ static uint8 GETui8AmbienTemp(void)
 
 }
 
-void PUTtSensorBatInfo2Ram(BaType* pt2x, uint8 idx)
-{
-  if (cMAXWU4BATINFO > idx)
-  {
+void PUTtSensorBatInfo2Ram(BaType* pt2x, uint8 idx){
+  if(cMAXWU4BATINFO > idx){
     *((BaType*) ((uint8 *)&Rte_Pim_Pim_tDiagNvMBlock2()->tSensorBatInfo + (idx * sizeof (BaType )))) = (*pt2x);
   }
 }
 
-static void PUTtSensorBatInfo2NVM(void)
-{
+static void PUTtSensorBatInfo2NVM(void){
   NvM_RequestResultType ErrorStatus;
 
   Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock2_GetErrorStatus(&ErrorStatus);
-  if (ErrorStatus  != NVM_REQ_PENDING)
-  {
+  if(ErrorStatus  != NVM_REQ_PENDING){
     Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock2_SetRamBlockStatus(TRUE);
   }
 }
 
-  void CheckSensorLoBat(uint8 idx, uint8 ui8BatteryStatus, boolean bForceInit)
-{
+  void CheckSensorLoBat(uint8 idx, uint8 ui8BatteryStatus, boolean bForceInit){
   BaType tLocalBatInfo;
   uint8 ui8Update;
   boolean bStoreAmbientVal;
@@ -153,12 +134,10 @@ static void PUTtSensorBatInfo2NVM(void)
   ui8Update = FALSE ;
   bStoreAmbientVal = FALSE ;
 
-  if (( cMaxLR > idx ) && !(((uint8) 0 == ui8BatteryStatus) || ((uint8) 11 < ui8BatteryStatus)))
-   {
+  if(( cMaxLR > idx ) && !(((uint8) 0 == ui8BatteryStatus) || ((uint8) 11 < ui8BatteryStatus))){
     tLocalBatInfo = GETtSensorBatInfOfRam (idx);
 
-    if ( (ulGetID(idx) != tLocalBatInfo .ui32ID) || bForceInit )
-    {
+    if( (ulGetID(idx) != tLocalBatInfo .ui32ID) || bForceInit ){
       tLocalBatInfo .ui8Count = (uint8) 0;
       tLocalBatInfo .ui32ID =  ulGetID(idx);
 
@@ -169,51 +148,39 @@ static void PUTtSensorBatInfo2NVM(void)
       ui8Update = TRUE ;
     }
 
-    if (ui8BatteryStatus > 1)
-      {
-      if ((tLocalBatInfo .ui8LifeInPercent != ui8BatteryStatus) && !((11 == ui8BatteryStatus) && (10 == tLocalBatInfo .ui8LifeInPercent)))
-      {
+    if(ui8BatteryStatus > 1){
+      if((tLocalBatInfo .ui8LifeInPercent != ui8BatteryStatus) && !((11 == ui8BatteryStatus) && (10 == tLocalBatInfo .ui8LifeInPercent))){
         ui8Update = TRUE ;
         tLocalBatInfo .ui8LifeInPercent = ( ui8BatteryStatus < 11) ? ui8BatteryStatus:10;
       }
-      if ((cDtcWasCleared == tLocalBatInfo .ui8Status) && (!bForceInit))
-      {
+      if((cDtcWasCleared == tLocalBatInfo .ui8Status) && (!bForceInit)){
         ui8Update = TRUE ;
         tLocalBatInfo .ui8Status = cOK;
-        if (ui8All4SensorsOK (idx) > ((uint8) 0))
-        {
+        if(ui8All4SensorsOK (idx) > ((uint8) 0)){
 
           Dem_SetEventStatus( Dem_DTC_0x559916, DEM_EVENT_STATUS_PASSED);
         }
       }
       else
       {
-            if (bForceInit)
-            {
-               if (ui8All4SensorsOK (idx) > ((uint8) 0))
-               {
+            if(bForceInit){
+               if(ui8All4SensorsOK (idx) > ((uint8) 0)){
                   Dem_SetEventStatus( Dem_DTC_0x559916, DEM_EVENT_STATUS_PASSED);
                }
             }
         tLocalBatInfo .ui8Status = cOK;
       }
 
-      if (cLoBatRxInCurCycle != ui8SensorBatCtrl [idx] )
-      {
-        if (cMaxRxOkEvents > ui8SensorBatCtrl [idx])
-        {
+      if(cLoBatRxInCurCycle != ui8SensorBatCtrl [idx] ){
+        if(cMaxRxOkEvents > ui8SensorBatCtrl [idx]){
           ui8SensorBatCtrl [idx]++ ;
-          if (cMaxRxOkEvents == ui8SensorBatCtrl [idx])
-          {
-            if ((uint8) 0 < tLocalBatInfo .ui8Count)
-            {
+          if(cMaxRxOkEvents == ui8SensorBatCtrl [idx]){
+            if((uint8) 0 < tLocalBatInfo .ui8Count){
               ui8Update = TRUE ;
               tLocalBatInfo .ui8Count--;
-              if ((uint8) 0 == tLocalBatInfo .ui8Count)
-              {
+              if((uint8) 0 == tLocalBatInfo .ui8Count){
                 PUTtSensorBatInfo2Ram ( &tLocalBatInfo , idx);
-                 if (ui8Check4AllSensorCounts0 () > 0)
-                {
+                 if(ui8Check4AllSensorCounts0 () > 0){
                   Dem_SetEventStatus( Dem_DTC_0x559916, DEM_EVENT_STATUS_PASSED);
                 }
               }
@@ -224,37 +191,31 @@ static void PUTtSensorBatInfo2NVM(void)
     }
     else
     {
-      if (cLoBatRxInCurCycle != ui8SensorBatCtrl [idx]  )
-      {
+      if(cLoBatRxInCurCycle != ui8SensorBatCtrl [idx]  ){
         ui8SensorBatCtrl [idx] = cLoBatRxInCurCycle;
         tLocalBatInfo .ui8Status = cNOK;
          tLocalBatInfo .ui8LifeInPercent = (uint8) 1;
         ui8Update = TRUE;
-        if (tLocalBatInfo .ui8Count < LB_LIMIT )
-        {
+        if(tLocalBatInfo .ui8Count < LB_LIMIT ){
           tLocalBatInfo .ui8Count ++;
           bStoreAmbientVal = TRUE ;
-          if (LB_LIMIT == tLocalBatInfo .ui8Count)
-          {
+          if(LB_LIMIT == tLocalBatInfo .ui8Count){
             Dem_SetEventStatus( Dem_DTC_0x559916, DEM_EVENT_STATUS_FAILED);
           }
         }
       }
-      if ((uint8) 1 != tLocalBatInfo .ui8LifeInPercent )
-      {
+      if((uint8) 1 != tLocalBatInfo .ui8LifeInPercent ){
         tLocalBatInfo .ui8Status = cNOK;
          tLocalBatInfo .ui8LifeInPercent = (uint8) 1;
         ui8Update = TRUE;
       }
     }
 
-    if (TRUE == ui8Update )
-     {
+    if(TRUE == ui8Update ){
 
       MakeRoeObsMsg( GETtSensorBatInfOfRam(idx).ui8LifeInPercent, tLocalBatInfo.ui8LifeInPercent, idx);
 
-      if (bStoreAmbientVal)
-      {
+      if(bStoreAmbientVal){
         tLocalBatInfo .ui16Odometer = GETui16Odometer();
         tLocalBatInfo. ui8SensorTemp = GETui8LastSensorTemperature(idx);
         tLocalBatInfo. ui8AmbienTemp = GETui8AmbienTemp();
@@ -266,21 +227,18 @@ static void PUTtSensorBatInfo2NVM(void)
   }
 }
 
-void InitSensorLoBat(void)
-{
+void InitSensorLoBat(void){
   ui8SensorBatCtrl [0] = 0;
   ui8SensorBatCtrl [1] = 0;
   ui8SensorBatCtrl [2] = 0;
   ui8SensorBatCtrl [3] = 0;
 }
 
-void ClearAllBatStatCounts(void)
-{
+void ClearAllBatStatCounts(void){
   uint8 i;
   BaType tbatinfo;
 
-  for ( i = 0; i < cMAXWU4BATINFO ; i++)
-  {
+  for( i = 0; i < cMAXWU4BATINFO ; i++){
     tbatinfo = GETtSensorBatInfOfRam (i);
     tbatinfo.ui8Status = cDtcWasCleared;
     tbatinfo .ui8Count = 0;
@@ -290,19 +248,15 @@ void ClearAllBatStatCounts(void)
   PUTtSensorBatInfo2NVM ();
 }
 
-void PrepareLoBat4Obsolescence(uint8 * p2dat)
-{
+void PrepareLoBat4Obsolescence(uint8 * p2dat){
 
   uint8 i;
   BaType tbatinfo;
 
-  for ( i = 0; i < 4; i++)
-  {
+  for( i = 0; i < 4; i++){
     tbatinfo = GETtSensorBatInfOfRam (i);
-    if ((unsigned long) 4 < tbatinfo .ui32ID  )
-     {
-      if(ucGetSensorState(i) == SENSOR_STATE_MISSING)
-      {
+    if((unsigned long) 4 < tbatinfo .ui32ID  ){
+      if(ucGetSensorState(i) == SENSOR_STATE_MISSING){
         p2dat[1] = 0x00;
        }
       else
@@ -324,13 +278,11 @@ void PrepareLoBat4Obsolescence(uint8 * p2dat)
   }
 }
 
-void ClearAllParaApartId(void)
-{
+void ClearAllParaApartId(void){
   uint8 i;
   BaType tbatinfo;
 
-  for ( i = 0; i < cMAXWU4BATINFO ; i++)
-  {
+  for( i = 0; i < cMAXWU4BATINFO ; i++){
     tbatinfo = GETtSensorBatInfOfRam (i);
     tbatinfo.ui8Status = cOK;
     tbatinfo .ui8Count = 0;

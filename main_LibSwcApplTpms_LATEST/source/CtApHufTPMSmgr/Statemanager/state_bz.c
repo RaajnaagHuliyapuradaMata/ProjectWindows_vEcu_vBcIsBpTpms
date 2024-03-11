@@ -11,12 +11,10 @@ extern void CheckDTCInactiveERR(void);
 extern void InitIDOM(void);
 extern uint8 ucGetHistoryState(void);
 
-void InitBZ( void )
-{
+void InitBZ( void ){
   uint8 ucWAState;
 
-  if( GETbCalReqCAL() == TRUE )
-  {
+  if( GETbCalReqCAL() == TRUE ){
     SetBitBetriebszustandBZ(cCAL_REQUEST);
     InitIDOM();
   }
@@ -26,43 +24,35 @@ void InitBZ( void )
   ClearBitBetriebszustandBZ( cER_FINISH | cAL_RUNNING | cEIGENRAD | cZUGEORDNET | cHIST_PRELOAD | cZO_FINISH | cZO_TIMEOUT | cZO_ERROR | cTEILZUGEORDNET | cZO_Fallback2Hist);
 
   ucWAState =  ucGetHistoryState();
-  if( (ucWAState & cHiStateZG) == cHiStateZG )
-  {
+  if( (ucWAState & cHiStateZG) == cHiStateZG ){
     SetBitBetriebszustandBZ( cEIGENRAD | cZUGEORDNET | cHIST_PRELOAD );
   }
-  else if( (ucWAState & cHiStateER) == cHiStateER )
-  {
+  else if( (ucWAState & cHiStateER) == cHiStateER ){
     SetBitBetriebszustandBZ( cEIGENRAD | cHIST_PRELOAD );
   }
 }
 
-void SetBitBetriebszustandBZ( uint16 ushBitMask )
-{
+void SetBitBetriebszustandBZ( uint16 ushBitMask ){
    ushBetriebszustand |= ushBitMask;
 }
 
-void ClearBitBetriebszustandBZ( uint16 ushBitMask )
-{
+void ClearBitBetriebszustandBZ( uint16 ushBitMask ){
    ushBetriebszustand &= ~ushBitMask;
 }
 
-boolean bGetBitBetriebszustandBZ( uint16 ushBitMask )
-{
+boolean bGetBitBetriebszustandBZ( uint16 ushBitMask ){
    return (boolean) ((ushBetriebszustand & ushBitMask) != 0 );
 }
 
-uint16 ushGetBetriebszustandBZ( uint16 ushBitMask )
-{
+uint16 ushGetBetriebszustandBZ( uint16 ushBitMask ){
    return (ushBetriebszustand & ushBitMask);
 }
 
-uint8 ucGetBetriebszustandHByte(void)
-{
+uint8 ucGetBetriebszustandHByte(void){
 return ((uint8) (ushBetriebszustand >>8));
 }
 
-uint8 ucGetBetriebszustandLByte(void)
-{
+uint8 ucGetBetriebszustandLByte(void){
 return (( uint8) (ushBetriebszustand & 0x00FF ));
 }
 

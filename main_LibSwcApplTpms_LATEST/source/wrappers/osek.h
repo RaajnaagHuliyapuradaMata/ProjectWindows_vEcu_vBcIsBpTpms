@@ -367,37 +367,37 @@ typedef osuint16          OSServiceIdType;
 typedef void              (*osAlarmCallbackType)(void);
 typedef osuint8           BlockTypeType;
 
-#if (osdClearTIPAbsIdx != -1)
+#if(osdClearTIPAbsIdx != -1)
  osqFunc1 void osqFunc2 osClearTimerInterruptPointAbs(CounterType CounterID);
 #endif
-#if (osdClearTIPRelIdx != -1)
+#if(osdClearTIPRelIdx != -1)
  osqFunc1 void osqFunc2 osClearTimerInterruptPointRel(CounterType CounterID);
 #endif
-#if (osdSetTIPAbsMaxGtSemiCountIdx != -1)
+#if(osdSetTIPAbsMaxGtSemiCountIdx != -1)
  osqFunc1 osbool osqFunc2 osSetTIPAbsMaxGtSemiCount(CounterType CounterID, TickType timeToSet);
 #endif
-#if (osdSetTIPRelMaxGtSemiCountIdx != -1)
+#if(osdSetTIPRelMaxGtSemiCountIdx != -1)
  osqFunc1 osbool osqFunc2 osSetTIPRelMaxGtSemiCount(CounterType CounterID, TickType timeToSet);
 #endif
-#if (osdSetTIPAbsMaxLeSemiCountIdx != -1)
+#if(osdSetTIPAbsMaxLeSemiCountIdx != -1)
  osqFunc1 osbool osqFunc2 osSetTIPAbsMaxLeSemiCount(CounterType CounterID, TickType timeToSet);
 #endif
-#if (osdSetTIPRelMaxLeSemiCountIdx != -1)
+#if(osdSetTIPRelMaxLeSemiCountIdx != -1)
  osqFunc1 osbool osqFunc2 osSetTIPRelMaxLeSemiCount(CounterType CounterID, TickType timeToSet);
 #endif
-#if (osdGetCurrentTimeHighResHybridIdx != -1)
+#if(osdGetCurrentTimeHighResHybridIdx != -1)
  osqFunc1 TickType osqFunc2 osGetCurrentTimeHiResHybrid(CounterType CounterID);
 #endif
-#if (osdGetCurrentTimeHighResMonoIdx != -1)
+#if(osdGetCurrentTimeHighResMonoIdx != -1)
  osqFunc1 TickType osqFunc2 osGetCurrentTimeHiResMono(CounterType CounterID);
 #endif
-#if (osdGetCurrentTimeStdIdx != -1)
+#if(osdGetCurrentTimeStdIdx != -1)
  osqFunc1 TickType osqFunc2 osGetCurrentTimeStd(CounterType CounterID);
 #endif
-#if (osdHandleCounterInterruptStdIdx != -1)
+#if(osdHandleCounterInterruptStdIdx != -1)
  osqFunc1 void osqFunc2 osHandleCounterInterruptStd(CounterType CounterID);
 #endif
-#if (osdHandleCounterInterruptHiResIdx != -1)
+#if(osdHandleCounterInterruptHiResIdx != -1)
  osqFunc1 void osqFunc2 osHandleCounterInterruptHiRes(CounterType CounterID);
 #endif
 
@@ -452,8 +452,8 @@ typedef struct
    TaskType   ossHighReadyTaskIndex;
    osPrioType ossHighReadyTaskPrio;
    osbool ossStartDispatcher;
-#if (CC==BCC2) || (CC==ECC2)
-   #if (osdNumberOfPriorities > 0)
+#if(CC==BCC2) || (CC==ECC2)
+   #if(osdNumberOfPriorities > 0)
       osQEntryCountType ossQReadyTaskHead[osdNumberOfPriorities];
       osQEntryCountType ossQReadyTaskTail[osdNumberOfPriorities];
    #else
@@ -461,13 +461,13 @@ typedef struct
       osQEntryCountType ossQReadyTaskTail[1];
    #endif
 #else
-   #if (osdNumberOfPriorities > 0)
+   #if(osdNumberOfPriorities > 0)
       TaskType ossQReadyTask[osdNumberOfPriorities];
    #else
       TaskType ossQReadyTask[1];
    #endif
 #endif
-#if (osdRTSize > 1)
+#if(osdRTSize > 1)
    osPrioFlagType ossQReadyPrios[osdRTSize];
 #else
    osPrioFlagType ossQReadyPrios;
@@ -482,10 +482,10 @@ typedef struct
    ISRType ossActiveISRID;
    osuint8 ossIntSaveDisableCounter;
    osuint8 ossIntSaveDisableCounterGlobal;
-   #if (STATUS_LEVEL == EXTENDED_STATUS)
+   #if(STATUS_LEVEL == EXTENDED_STATUS)
    volatile osuint8 ossIntAPIStatus;
    #endif
-   #if (osdNumberOfApplications > 0)
+   #if(osdNumberOfApplications > 0)
    ApplicationType ossActiveApplicationID;
    #endif
 
@@ -499,28 +499,28 @@ typedef struct
    osuint32 ossSavedIntDisFlag;
    osuint32 ossSavedIntDisFlagNested;
 
-#if (osdFullPreempt || osdMixedPreempt)
+#if(osdFullPreempt || osdMixedPreempt)
    volatile osDispatcherLockType ossLockDispatcher;
 #endif
 #if osdExceptionDetails
    osint16 ossISRUnhandledException_Number;
 #endif
-#if ((osdSC == SC3) || (osdSC == SC4))
+#if((osdSC == SC3) || (osdSC == SC4))
    osuint16 ossCurrentContext;
    osuint32 ossIsInUserMode;
    osuint8  ossInSystemFct;
 #endif
-#if (osdNumberOfApplications > 0)
+#if(osdNumberOfApplications > 0)
    volatile osbool ossInApplHook;
 #endif
 
 #if STATUS_LEVEL == EXTENDED_STATUS
    osResCounterType ossResGlobalOccupationCounter;
-  #if (osdNumberOfInterruptResources > 0)
+  #if(osdNumberOfInterruptResources > 0)
    osIntLevelType ossInitialIntLevel;
   #endif
 #endif
-#if (osdParameterAccessMacros && osdErrorHook)
+#if(osdParameterAccessMacros && osdErrorHook)
    osAPIParam1Type ossAPIParam1;
    osAPIParam2Type ossAPIParam2;
    osAPIParam3Type ossAPIParam3;
@@ -535,7 +535,7 @@ typedef struct
    volatile osuint8 ossORTICurrentServiceId;
 #endif
 
-#if (osdErrorHook!=0)
+#if(osdErrorHook!=0)
    #if osdORTIDebug
       StatusType ossLastErrorCode;
    #endif
@@ -690,21 +690,21 @@ extern const tsConfigBlock osConfigBlock;
   #include <emptymac.h>
  #endif
 #else
- #if (osdTestMacros == 1)
+ #if(osdTestMacros == 1)
   #if defined USE_QUOTE_INCLUDES
    #include "testmac1.h"
   #else
    #include <testmac1.h>
   #endif
  #endif
- #if (osdTestMacros == 3)
+ #if(osdTestMacros == 3)
   #if defined USE_QUOTE_INCLUDES
    #include "testmac3.h"
   #else
    #include <testmac3.h>
   #endif
  #endif
- #if (osdTestMacros == 4)
+ #if(osdTestMacros == 4)
   #if defined USE_QUOTE_INCLUDES
    #include "testmac4.h"
   #else
@@ -721,16 +721,16 @@ osqFunc1 void osqFunc2 osAbortSystem(osuint16 uiError);
 
 osqFunc1 void osqFunc2 osUnrecoverableError(StatusType StdErrorCode, osuint16 osOsekErrorCode);
 
-#if (osdKillTaskIsrPossible || (osdSC == SC3) || (osdSC == SC4))
- #if (osdNumberOfAllResources > 0)
- #if (!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed))
+#if(osdKillTaskIsrPossible || (osdSC == SC3) || (osdSC == SC4))
+ #if(osdNumberOfAllResources > 0)
+ #if(!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed))
   osqFunc1 void osqFunc2 osSysKillResourceList(ResourceType ResId);
  #endif
  #endif
 #endif
 
 #ifndef osdActivateTaskNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 
 #define ActivateTask(x) (osPsysActivateTask(x))
 
@@ -740,7 +740,7 @@ osqFunc1 void osqFunc2 osUnrecoverableError(StatusType StdErrorCode, osuint16 os
 #endif
 
 #ifndef osdTerminateTaskNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define TerminateTask() osPsysTerminateTask()
 #else
 #define TerminateTask() osTerminateTask()
@@ -748,7 +748,7 @@ osqFunc1 void osqFunc2 osUnrecoverableError(StatusType StdErrorCode, osuint16 os
 #endif
 
 #ifndef osdChainTaskNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define ChainTask(x) (osPsysChainTask(x))
 #else
 #define ChainTask(x) (osChainTask(x))
@@ -756,7 +756,7 @@ osqFunc1 void osqFunc2 osUnrecoverableError(StatusType StdErrorCode, osuint16 os
 #endif
 
 #ifndef osdScheduleNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define Schedule() osPsysSchedule()
 #else
 #define Schedule() osSchedule()
@@ -764,7 +764,7 @@ osqFunc1 void osqFunc2 osUnrecoverableError(StatusType StdErrorCode, osuint16 os
 #endif
 
 #ifndef osdGetTaskIDNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define GetTaskID(x) (osPsysGetTaskID(x))
 #else
 #define GetTaskID(x) (osGetTaskID(x))
@@ -772,7 +772,7 @@ osqFunc1 void osqFunc2 osUnrecoverableError(StatusType StdErrorCode, osuint16 os
 #endif
 
 #ifndef osdGetTaskStateNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define GetTaskState(x, y) (osPsysGetTaskState((x), (y)))
 #else
 #define GetTaskState(x, y) (osGetTaskState((x), (y)))
@@ -848,7 +848,7 @@ osqFunc1 osuint16 osqFunc2 osGetConfigBlockVersion(void);
 #define osSysDisableInterruptSource(x)  osDisableInterrupt(x)
 #define osSysEnableInterruptSource(x)   osEnableInterrupt(x)
 
-#if (osdNumberOfPrioLevels == 8)
+#if(osdNumberOfPrioLevels == 8)
 #define osdPMRMask         0xFF
 #define osdPMRHiBit        0x100
 #else
@@ -904,198 +904,198 @@ osqFunc1 void osqFunc2 osResumeAllInterrupts(void);
 osqFunc1 void osqFunc2 osSuspendAllInterrupts(void);
 #endif
 
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 
-#if (((osdNumberOfAllTasks > 0) && !defined(osdActivateTaskNotUsed)))
+#if(((osdNumberOfAllTasks > 0) && !defined(osdActivateTaskNotUsed)))
 
 StatusType osPsysActivateTask(TaskType Param0taskIndex);
 #endif
 
-#if (((osdNumberOfAllTasks > 0) && !defined(osdChainTaskNotUsed)))
+#if(((osdNumberOfAllTasks > 0) && !defined(osdChainTaskNotUsed)))
 StatusType osPsysChainTask(TaskType Param0taskIndex);
 #endif
 
-#if (((osdNumberOfAllTasks > 0) && !defined(osdGetTaskIDNotUsed)))
+#if(((osdNumberOfAllTasks > 0) && !defined(osdGetTaskIDNotUsed)))
 StatusType osPsysGetTaskID(TaskRefType Param0TaskId);
 #endif
 
-#if (((osdNumberOfAllTasks > 0) && !defined(osdGetTaskStateNotUsed)))
+#if(((osdNumberOfAllTasks > 0) && !defined(osdGetTaskStateNotUsed)))
 StatusType osPsysGetTaskState(TaskType Param0TaskId, TaskStateRefType Param1State);
 #endif
 
-#if ((((osdNumberOfAllResources - osdNumberOfInternalResources) > 0) && !defined(osdGetResourceNotUsed)))
+#if((((osdNumberOfAllResources - osdNumberOfInternalResources) > 0) && !defined(osdGetResourceNotUsed)))
 StatusType osPsysGetResource(ResourceType Param0ResId);
 #endif
 
-#if ((((osdNumberOfAllResources - osdNumberOfInternalResources) > 0) && !defined(osdReleaseResourceNotUsed)))
+#if((((osdNumberOfAllResources - osdNumberOfInternalResources) > 0) && !defined(osdReleaseResourceNotUsed)))
 StatusType osPsysReleaseResource(ResourceType Param0ResId);
 #endif
 
-#if ((((CC == ECC1) || (CC == ECC2)) && (osdNumberOfExtendedTasks > 0) && !defined(osdSetEventNotUsed)))
+#if((((CC == ECC1) || (CC == ECC2)) && (osdNumberOfExtendedTasks > 0) && !defined(osdSetEventNotUsed)))
 
 StatusType osPsysSetEvent(TaskType Param0taskIndex, EventMaskType Param1setMask);
 #endif
 
-#if ((((CC == ECC1) || (CC == ECC2)) && (osdNumberOfExtendedTasks > 0) && !defined(osdClearEventNotUsed)))
+#if((((CC == ECC1) || (CC == ECC2)) && (osdNumberOfExtendedTasks > 0) && !defined(osdClearEventNotUsed)))
 StatusType osPsysClearEvent(EventMaskType Param0Mask);
 #endif
 
-#if ((((CC == ECC1) || (CC == ECC2)) && (osdNumberOfExtendedTasks > 0) && !defined(osdGetEventNotUsed)))
+#if((((CC == ECC1) || (CC == ECC2)) && (osdNumberOfExtendedTasks > 0) && !defined(osdGetEventNotUsed)))
 StatusType osPsysGetEvent(TaskType Param0taskIndex, EventMaskRefType Param1Event);
 #endif
 
-#if ((((CC == ECC1) || (CC == ECC2)) && (osdNumberOfExtendedTasks > 0) && !defined(osdWaitEventNotUsed)))
+#if((((CC == ECC1) || (CC == ECC2)) && (osdNumberOfExtendedTasks > 0) && !defined(osdWaitEventNotUsed)))
 StatusType osPsysWaitEvent(EventMaskType Param0Mask);
 #endif
 
-#if (((osdNumberOfAlarms > 0) && !defined(osdGetAlarmBaseNotUsed)))
+#if(((osdNumberOfAlarms > 0) && !defined(osdGetAlarmBaseNotUsed)))
 StatusType osPsysGetAlarmBase(AlarmType Param0AlarmId, AlarmBaseRefType Param1Info);
 #endif
 
-#if (((osdNumberOfAlarms > 0) && !defined(osdGetAlarmNotUsed)))
+#if(((osdNumberOfAlarms > 0) && !defined(osdGetAlarmNotUsed)))
 StatusType osPsysGetAlarm(AlarmType Param0alarmID, TickRefType Param1diffTickTime);
 #endif
 
-#if (((osdNumberOfAlarms > 0) && !defined(osdSetRelAlarmNotUsed)))
+#if(((osdNumberOfAlarms > 0) && !defined(osdSetRelAlarmNotUsed)))
 StatusType osPsysSetRelAlarm(AlarmType Param0alarmID, TickType Param1deltaTicks, TickType Param2cycle);
 #endif
 
-#if (((osdNumberOfAlarms > 0) && !defined(osdSetAbsAlarmNotUsed)))
+#if(((osdNumberOfAlarms > 0) && !defined(osdSetAbsAlarmNotUsed)))
 StatusType osPsysSetAbsAlarm(AlarmType Param0alarmID, TickType Param1start, TickType Param2cycle);
 #endif
 
-#if (((osdNumberOfAlarms > 0) && !defined(osdCancelAlarmNotUsed)))
+#if(((osdNumberOfAlarms > 0) && !defined(osdCancelAlarmNotUsed)))
 StatusType osPsysCancelAlarm(AlarmType Param0alarmID);
 #endif
 
 void osPsysShutdownOS(StatusType Param0Error);
 
-#if (((osdNumberOfScheduleTables > 0) && !defined(osdStartScheduleTableRelNotUsed)))
+#if(((osdNumberOfScheduleTables > 0) && !defined(osdStartScheduleTableRelNotUsed)))
 StatusType osPsysStartScheduleTableRel(ScheduleTableType Param0ScheduleTableID, TickType Param1Offset);
 #endif
 
-#if (((osdNumberOfScheduleTables > 0) && !defined(osdStartScheduleTableAbsNotUsed)))
+#if(((osdNumberOfScheduleTables > 0) && !defined(osdStartScheduleTableAbsNotUsed)))
 StatusType osPsysStartScheduleTableAbs(ScheduleTableType Param0ScheduleTableID, TickType Param1Offset);
 #endif
 
-#if (((osdNumberOfScheduleTables > 0) && !defined(osdNextScheduleTableNotUsed)))
+#if(((osdNumberOfScheduleTables > 0) && !defined(osdNextScheduleTableNotUsed)))
 StatusType osPsysNextScheduleTable(ScheduleTableType Param0ScheduleTableID_current, ScheduleTableType Param1ScheduleTableID_next);
 #endif
 
-#if (((osdNumberOfScheduleTables > 0) && !defined(osdStopScheduleTableNotUsed)))
+#if(((osdNumberOfScheduleTables > 0) && !defined(osdStopScheduleTableNotUsed)))
 StatusType osPsysStopScheduleTable(ScheduleTableType Param0ScheduleTableID);
 #endif
 
-#if (((osdNumberOfScheduleTables > 0) && !defined(osdGetScheduleTableStatusNotUsed)))
+#if(((osdNumberOfScheduleTables > 0) && !defined(osdGetScheduleTableStatusNotUsed)))
 StatusType osPsysGetScheduleTableStatus(ScheduleTableType Param0ScheduleTableID, ScheduleTableStatusRefType Param1ScheduleStatus);
 #endif
 
-#if (((osdNumberOfSWCounters > 0) && !defined(osdIncrementCounterNotUsed)))
+#if(((osdNumberOfSWCounters > 0) && !defined(osdIncrementCounterNotUsed)))
 StatusType osPsysIncrementCounter(CounterType Param0CounterID);
 #endif
 
-#if ((!defined(osdGetCounterValueNotUsed)))
+#if((!defined(osdGetCounterValueNotUsed)))
 StatusType osPsysGetCounterValue(CounterType Param0CounterID, TickRefType Param1Value);
 #endif
 
-#if ((!defined(osdGetElapsedValueNotUsed)))
+#if((!defined(osdGetElapsedValueNotUsed)))
 StatusType osPsysGetElapsedValue(CounterType Param0CounterID, TickRefType Param1Value, TickRefType Param2ElapsedValue);
 #endif
 
-#if (((osdNumberOfApplications > 0) && !defined(osdTerminateApplicationNotUsed)))
+#if(((osdNumberOfApplications > 0) && !defined(osdTerminateApplicationNotUsed)))
 StatusType osPsysTerminateApplication(ApplicationType Param0Application, RestartType Param1RestartOption);
 #endif
 
-#if ((((osdSC == SC3) || (osdSC == SC4)) && !defined(osdGetApplicationStateNotUsed)))
+#if((((osdSC == SC3) || (osdSC == SC4)) && !defined(osdGetApplicationStateNotUsed)))
 StatusType osPsysGetApplicationState(ApplicationType Param0Application, ApplicationStateRefType Param1Value);
 #endif
 
-#if ((!defined(osdCallTrustedFunctionNotUsed)))
+#if((!defined(osdCallTrustedFunctionNotUsed)))
 StatusType osPsysCallTrustedFunction(TrustedFunctionIndexType Param0FunctionIndex, TrustedFunctionParameterRefType Param1FunctionParams);
 #endif
 
-#if ((!defined(osdCheckISRMemoryAccessNotUsed)))
+#if((!defined(osdCheckISRMemoryAccessNotUsed)))
 AccessType osPsysCheckISRMemoryAccess(ISRType Param0ISRID, MemoryStartAddressType Param1Address, MemorySizeType Param2Size);
 #endif
 
-#if ((!defined(osdCheckTaskMemoryAccessNotUsed)))
+#if((!defined(osdCheckTaskMemoryAccessNotUsed)))
 AccessType osPsysCheckTaskMemoryAccess(TaskType Param0TaskID, MemoryStartAddressType Param1Address, MemorySizeType Param2Size);
 #endif
 
-#if ((!defined(osdCheckObjectAccessNotUsed)))
+#if((!defined(osdCheckObjectAccessNotUsed)))
 ObjectAccessType osPsysCheckObjectAccess(ApplicationType Param0ApplID, ObjectTypeType Param1ObjectType, ObjectIDType Param2ObjectID);
 #endif
 
-#if ((!defined(osdCheckObjectOwnershipNotUsed)))
+#if((!defined(osdCheckObjectOwnershipNotUsed)))
 
 ApplicationType osPsysCheckObjectOwnership(ObjectTypeType Param0ObjectType, ObjectIDType Param1ObjectID);
 #endif
 
-#if (((osdTimingProtectionUsed) && (osdTimingMeasurement) && !defined(osdosGetTaskMaxExecutionTimeNotUsed)))
+#if(((osdTimingProtectionUsed) && (osdTimingMeasurement) && !defined(osdosGetTaskMaxExecutionTimeNotUsed)))
 StatusType osPsysosGetTaskMaxExecutionTime(TaskType Param0TaskID, osTPTimeRefType Param1MaxTime);
 #endif
 
-#if (((osdTimingProtectionUsed) && (osdTimingMeasurement) && !defined(osdosGetISRMaxExecutionTimeNotUsed)))
+#if(((osdTimingProtectionUsed) && (osdTimingMeasurement) && !defined(osdosGetISRMaxExecutionTimeNotUsed)))
 StatusType osPsysosGetISRMaxExecutionTime(ISRType Param0ISRID, osTPTimeRefType Param1MaxTime);
 #endif
 
-#if (((osdTimingProtectionUsed) && (osdTimingMeasurement) && !defined(osdosGetTaskMaxBlockingTimeNotUsed)))
+#if(((osdTimingProtectionUsed) && (osdTimingMeasurement) && !defined(osdosGetTaskMaxBlockingTimeNotUsed)))
 StatusType osPsysosGetTaskMaxBlockingTime(TaskType Param0TaskID, BlockTypeType Param1BlockType, ResourceType Param2ResourceID, osTPTimeRefType Param3MaxTime);
 #endif
 
-#if (((osdTimingProtectionUsed) && (osdTimingMeasurement) && !defined(osdosGetISRMaxBlockingTimeNotUsed)))
+#if(((osdTimingProtectionUsed) && (osdTimingMeasurement) && !defined(osdosGetISRMaxBlockingTimeNotUsed)))
 StatusType osPsysosGetISRMaxBlockingTime(ISRType Param0ISRID, BlockTypeType Param1BlockType, ResourceType Param2ResourceID, osTPTimeRefType Param3MaxTime);
 #endif
 
-#if (((osdTimingProtectionUsed) && (osdTimingMeasurement) && !defined(osdosGetTaskMinInterArrivalTimeNotUsed)))
+#if(((osdTimingProtectionUsed) && (osdTimingMeasurement) && !defined(osdosGetTaskMinInterArrivalTimeNotUsed)))
 StatusType osPsysosGetTaskMinInterArrivalTime(TaskType Param0TaskID, osTPTimeStampRefType Param1MinTime);
 #endif
 
-#if (((osdTimingProtectionUsed) && (osdTimingMeasurement) && !defined(osdosGetISRMinInterArrivalTimeNotUsed)))
+#if(((osdTimingProtectionUsed) && (osdTimingMeasurement) && !defined(osdosGetISRMinInterArrivalTimeNotUsed)))
 StatusType osPsysosGetISRMinInterArrivalTime(ISRType Param0ISRID, osTPTimeStampRefType Param1MinTime);
 #endif
 
-#if (((osdNumberOfAllTasks > 0) && !defined(osdTerminateTaskNotUsed)))
+#if(((osdNumberOfAllTasks > 0) && !defined(osdTerminateTaskNotUsed)))
 StatusType osPsysTerminateTask(void);
 #endif
 
-#if (((osdNumberOfAllTasks > 0) && !defined(osdScheduleNotUsed)))
+#if(((osdNumberOfAllTasks > 0) && !defined(osdScheduleNotUsed)))
 StatusType osPsysSchedule(void);
 #endif
 
-#if (!defined(osdGetActiveApplicationModeNotUsed))
+#if(!defined(osdGetActiveApplicationModeNotUsed))
 AppModeType osPsysGetActiveApplicationMode(void);
 #endif
 
-#if (!defined(osdGetISRIDNotUsed))
+#if(!defined(osdGetISRIDNotUsed))
 ISRType osPsysGetISRID(void);
 #endif
 
-#if ((!defined(osdDisableAllInterruptsNotUsed)))
+#if((!defined(osdDisableAllInterruptsNotUsed)))
 void osPsysDisableAllInterrupts(void);
 #endif
 
-#if ((!defined(osdEnableAllInterruptsNotUsed)))
+#if((!defined(osdEnableAllInterruptsNotUsed)))
 void osPsysEnableAllInterrupts(void);
 #endif
 
-#if ((!defined(osdSuspendAllInterruptsNotUsed)))
+#if((!defined(osdSuspendAllInterruptsNotUsed)))
 void osPsysSuspendAllInterrupts(void);
 #endif
 
-#if ((!defined(osdResumeAllInterruptsNotUsed)))
+#if((!defined(osdResumeAllInterruptsNotUsed)))
 void osPsysResumeAllInterrupts(void);
 #endif
 
-#if ((!defined(osdSuspendOSInterruptsNotUsed)))
+#if((!defined(osdSuspendOSInterruptsNotUsed)))
 void osPsysSuspendOSInterrupts(void);
 #endif
 
-#if ((!defined(osdResumeOSInterruptsNotUsed)))
+#if((!defined(osdResumeOSInterruptsNotUsed)))
 void osPsysResumeOSInterrupts(void);
 #endif
 
-#if ((((osdSC == SC3) || (osdSC == SC4)) && !defined(osdAllowAccessNotUsed)))
+#if((((osdSC == SC3) || (osdSC == SC4)) && !defined(osdAllowAccessNotUsed)))
 StatusType osPsysAllowAccess(void);
 #endif
 
@@ -1109,7 +1109,7 @@ void osPsysCallApplShutdownHook(StatusType Param0Error, ApplicationType Param1ap
 
 #define osdIntAPIDisableAll 0x80U
 
-#if (STATUS_LEVEL == EXTENDED_STATUS)
+#if(STATUS_LEVEL == EXTENDED_STATUS)
    #define osSetIntAPIStatus(x) (osOwnCcb->LockIsNotNeeded.ossIntAPIStatus = (x))
    #define osIncIntAPIStatus() (osOwnCcb->LockIsNotNeeded.ossIntAPIStatus++)
    #define osDecIntAPIStatus() (osOwnCcb->LockIsNotNeeded.ossIntAPIStatus--)
@@ -1120,7 +1120,7 @@ void osPsysCallApplShutdownHook(StatusType Param0Error, ApplicationType Param1ap
 #endif
 
 #ifndef osdEnableAllInterruptsNotUsed
-   #if ((osdSC == SC2) ||  (osdSC == SC1))
+   #if((osdSC == SC2) ||  (osdSC == SC1))
       #define EnableAllInterrupts() (osEnableAllInterrupts())
    #else
       #define EnableAllInterrupts() (osPsysEnableAllInterrupts())
@@ -1128,7 +1128,7 @@ void osPsysCallApplShutdownHook(StatusType Param0Error, ApplicationType Param1ap
 #endif
 
 #ifndef osdDisableAllInterruptsNotUsed
-   #if ((osdSC == SC2) || (osdSC == SC1))
+   #if((osdSC == SC2) || (osdSC == SC1))
       #define DisableAllInterrupts() (osDisableAllInterrupts())
    #else
       #define DisableAllInterrupts() (osPsysDisableAllInterrupts())
@@ -1136,7 +1136,7 @@ void osPsysCallApplShutdownHook(StatusType Param0Error, ApplicationType Param1ap
 #endif
 
 #ifndef osdResumeOSInterruptsNotUsed
-   #if ((osdSC== SC2) || (osdSC== SC1))
+   #if((osdSC== SC2) || (osdSC== SC1))
       #define ResumeOSInterrupts() (osResumeOSInterrupts())
    #else
       #define ResumeOSInterrupts() (osPsysResumeOSInterrupts())
@@ -1144,7 +1144,7 @@ void osPsysCallApplShutdownHook(StatusType Param0Error, ApplicationType Param1ap
 #endif
 
 #ifndef osdSuspendOSInterruptsNotUsed
-   #if ((osdSC == SC2) || (osdSC == SC1))
+   #if((osdSC == SC2) || (osdSC == SC1))
       #define SuspendOSInterrupts() (osSuspendOSInterrupts())
    #else
       #define SuspendOSInterrupts() (osPsysSuspendOSInterrupts())
@@ -1152,7 +1152,7 @@ void osPsysCallApplShutdownHook(StatusType Param0Error, ApplicationType Param1ap
 #endif
 
 #ifndef osdResumeAllInterruptsNotUsed
-   #if ((osdSC== SC2) || (osdSC== SC1))
+   #if((osdSC== SC2) || (osdSC== SC1))
       #define ResumeAllInterrupts() (osResumeAllInterrupts())
    #else
       #define ResumeAllInterrupts() (osPsysResumeAllInterrupts())
@@ -1160,7 +1160,7 @@ void osPsysCallApplShutdownHook(StatusType Param0Error, ApplicationType Param1ap
 #endif
 
 #ifndef osdSuspendAllInterruptsNotUsed
-   #if ((osdSC == SC2) || (osdSC == SC1))
+   #if((osdSC == SC2) || (osdSC == SC1))
       #define SuspendAllInterrupts() (osSuspendAllInterrupts())
    #else
       #define SuspendAllInterrupts() (osPsysSuspendAllInterrupts())
@@ -1168,7 +1168,7 @@ void osPsysCallApplShutdownHook(StatusType Param0Error, ApplicationType Param1ap
 #endif
 
 #ifndef osdGetResourceNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define GetResource(x) (osPsysGetResource(x))
 #else
 #define GetResource(x) (osGetResource(x))
@@ -1176,7 +1176,7 @@ void osPsysCallApplShutdownHook(StatusType Param0Error, ApplicationType Param1ap
 #endif
 
 #ifndef osdReleaseResourceNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define ReleaseResource(x) (osPsysReleaseResource(x))
 #else
 #define ReleaseResource(x) (osReleaseResource(x))
@@ -1192,7 +1192,7 @@ osqFunc1 StatusType osqFunc2 osReleaseResource(ResourceType ResId);
 #endif
 
 #ifndef osdGetSemaphoreNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define GetSemaphore(x) (osPsysGetSemaphore(x))
 #else
 #define GetSemaphore(x) (osGetSemaphore(x))
@@ -1200,7 +1200,7 @@ osqFunc1 StatusType osqFunc2 osReleaseResource(ResourceType ResId);
 #endif
 
 #ifndef osdReleaseSemaphoreNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define ReleaseSemaphore(x) (osPsysReleaseSemaphore(x))
 #else
 #define ReleaseSemaphore(x) (osReleaseSemaphore(x))
@@ -1214,10 +1214,10 @@ osqFunc1 StatusType osqFunc2 osGetSemaphore(osSemaphoreType SemaId);
 osqFunc1 StatusType osqFunc2 osReleaseSemaphore(osSemaphoreType SemaId);
 #endif
 
-#if (CC == ECC1) || (CC == ECC2)
+#if(CC == ECC1) || (CC == ECC2)
 
 #ifndef osdSetEventNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define SetEvent(x, y) (osPsysSetEvent((x), (y)))
 #else
 #define SetEvent(x, y) (osSetEvent((x), (y)))
@@ -1225,7 +1225,7 @@ osqFunc1 StatusType osqFunc2 osReleaseSemaphore(osSemaphoreType SemaId);
 #endif
 
 #ifndef osdGetEventNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define GetEvent(x, y) (osPsysGetEvent((x), (y)))
 #else
 #define GetEvent(x, y) (osGetEvent((x), (y)))
@@ -1233,7 +1233,7 @@ osqFunc1 StatusType osqFunc2 osReleaseSemaphore(osSemaphoreType SemaId);
 #endif
 
 #ifndef osdClearEventNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define ClearEvent(x) (osPsysClearEvent(x))
 #else
 #define ClearEvent(x) (osClearEvent(x))
@@ -1241,7 +1241,7 @@ osqFunc1 StatusType osqFunc2 osReleaseSemaphore(osSemaphoreType SemaId);
 #endif
 
 #ifndef osdWaitEventNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define WaitEvent(x) (osPsysWaitEvent(x))
 #else
 #define WaitEvent(x) (osWaitEvent(x))
@@ -1282,7 +1282,7 @@ osqFunc1 StatusType osqFunc2 osWaitEvent(EventMaskType mask);
 #endif
 
 #ifndef osdGetAlarmBaseNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define GetAlarmBase(x, y) (osPsysGetAlarmBase((x), (y)))
 #else
 #define GetAlarmBase(x, y) (osGetAlarmBase((x), (y)))
@@ -1290,16 +1290,16 @@ osqFunc1 StatusType osqFunc2 osWaitEvent(EventMaskType mask);
 #endif
 
 #ifndef osdSetRelAlarmNotUsed
-#if (osdNumberOfAlarms > 0)
+#if(osdNumberOfAlarms > 0)
 
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define SetRelAlarm(x, y, z) (osPsysSetRelAlarm((x), (y), (z)))
 #else
 #define SetRelAlarm(x, y, z) (osSetRelAlarm((x), (y), (z)))
 #endif
 
 #else
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define SetRelAlarm(x, y, z) (osPsysSetRelAlarm(x))
 #else
 #define SetRelAlarm(x, y, z) (osSetRelAlarm(x))
@@ -1308,16 +1308,16 @@ osqFunc1 StatusType osqFunc2 osWaitEvent(EventMaskType mask);
 #endif
 
 #ifndef osdSetAbsAlarmNotUsed
-#if (osdNumberOfAlarms > 0)
+#if(osdNumberOfAlarms > 0)
 
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define SetAbsAlarm(x, y, z) (osPsysSetAbsAlarm((x), (y), (z)))
 #else
 #define SetAbsAlarm(x, y, z) (osSetAbsAlarm((x), (y), (z)))
 #endif
 
 #else
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define SetAbsAlarm(x, y, z) (osPsysSetAbsAlarm(x))
 #else
 #define SetAbsAlarm(x, y, z) (osSetAbsAlarm(x))
@@ -1326,16 +1326,16 @@ osqFunc1 StatusType osqFunc2 osWaitEvent(EventMaskType mask);
 #endif
 
 #ifndef osdCancelAlarmNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define CancelAlarm(x) (osPsysCancelAlarm(x))
 #else
 #define CancelAlarm(x) (osCancelAlarm(x))
 #endif
 #endif
 
-#if (osdNumberOfAlarmIncrementCounter > 0) || !defined(osdIncrementCounterNotUsed)
+#if(osdNumberOfAlarmIncrementCounter > 0) || !defined(osdIncrementCounterNotUsed)
 
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define IncrementCounter(x) (osPsysIncrementCounter(x))
 #else
 #define IncrementCounter(x) (osIncrementCounter(x))
@@ -1345,7 +1345,7 @@ osqFunc1 StatusType osqFunc2 osWaitEvent(EventMaskType mask);
 
 #ifndef osdGetCounterValueNotUsed
 
- #if ((osdSC == SC3) || (osdSC == SC4))
+ #if((osdSC == SC3) || (osdSC == SC4))
   #define GetCounterValue(x, y) (osPsysGetCounterValue((x), (y)))
  #else
   #define GetCounterValue(x, y) (osGetCounterValue((x), (y)))
@@ -1356,7 +1356,7 @@ osqFunc1 StatusType osqFunc2 osWaitEvent(EventMaskType mask);
 #ifndef osdGetElapsedValueNotUsed
  #define GetElapsedCounterValue(x,y,z) GetElapsedValue((x),(y),(z))
 
- #if ((osdSC == SC3) || (osdSC == SC4))
+ #if((osdSC == SC3) || (osdSC == SC4))
   #define GetElapsedValue(x, y, z) (osPsysGetElapsedValue((x), (y), (z)))
  #else
   #define GetElapsedValue(x, y, z) (osGetElapsedValue((x), (y), (z)))
@@ -1365,7 +1365,7 @@ osqFunc1 StatusType osqFunc2 osWaitEvent(EventMaskType mask);
 #endif
 
 #ifndef osdGetAlarmNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define GetAlarm(x, y) (osPsysGetAlarm((x), (y)))
 #else
 #define GetAlarm(x, y) (osGetAlarm((x), (y)))
@@ -1373,7 +1373,7 @@ osqFunc1 StatusType osqFunc2 osWaitEvent(EventMaskType mask);
 #endif
 
 #ifndef osdStartScheduleTableRelNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define StartScheduleTableRel(x, y) osPsysStartScheduleTableRel((x), (y))
 #else
 #define StartScheduleTableRel(x, y) osStartScheduleTableRel((x), (y))
@@ -1381,7 +1381,7 @@ osqFunc1 StatusType osqFunc2 osWaitEvent(EventMaskType mask);
 #endif
 
 #ifndef osdStartScheduleTableAbsNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define StartScheduleTableAbs(x, y) osPsysStartScheduleTableAbs((x), (y))
 #else
 #define StartScheduleTableAbs(x, y) osStartScheduleTableAbs((x), (y))
@@ -1389,7 +1389,7 @@ osqFunc1 StatusType osqFunc2 osWaitEvent(EventMaskType mask);
 #endif
 
 #ifndef osdStopScheduleTableNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define StopScheduleTable(x) osPsysStopScheduleTable((x))
 #else
 #define StopScheduleTable(x) osStopScheduleTable((x))
@@ -1397,7 +1397,7 @@ osqFunc1 StatusType osqFunc2 osWaitEvent(EventMaskType mask);
 #endif
 
 #ifndef osdNextScheduleTableNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define NextScheduleTable(x, y) osPsysNextScheduleTable((x), (y))
 #else
 #define NextScheduleTable(x, y) osNextScheduleTable((x), (y))
@@ -1405,7 +1405,7 @@ osqFunc1 StatusType osqFunc2 osWaitEvent(EventMaskType mask);
 #endif
 
 #ifndef osdGetScheduleTableStatusNotUsed
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define GetScheduleTableStatus(x, y) osPsysGetScheduleTableStatus((x), (y))
 #else
 #define GetScheduleTableStatus(x, y) osGetScheduleTableStatus((x), (y))
@@ -1418,7 +1418,7 @@ osqFunc1 StatusType osqFunc2 osGetAlarmBase(AlarmType AlarmId, AlarmBaseRefType 
 
 #ifndef osdSetRelAlarmNotUsed
 
-#if (osdNumberOfAlarms > 0)
+#if(osdNumberOfAlarms > 0)
 osqFunc1 StatusType osqFunc2 osSetRelAlarm(AlarmType alarmID,
                                            TickType deltaTicks,
                                            TickType cycle);
@@ -1428,7 +1428,7 @@ osqFunc1 StatusType osqFunc2 osSetRelAlarm(AlarmType alarmID,
 
 #ifndef osdSetAbsAlarmNotUsed
 
-#if (osdNumberOfAlarms > 0)
+#if(osdNumberOfAlarms > 0)
 osqFunc1 StatusType osqFunc2 osSetAbsAlarm(AlarmType alarmID,
                                            TickType start,
                                            TickType cycle);
@@ -1440,7 +1440,7 @@ osqFunc1 StatusType osqFunc2 osSetAbsAlarm(AlarmType alarmID,
 osqFunc1 StatusType osqFunc2 osCancelAlarm(AlarmType alarmID);
 #endif
 
-#if (osdNumberOfAlarmIncrementCounter > 0) || !defined(osdIncrementCounterNotUsed)
+#if(osdNumberOfAlarmIncrementCounter > 0) || !defined(osdIncrementCounterNotUsed)
 osqFunc1 StatusType osqFunc2 osIncrementCounter(CounterType CounterID);
 #endif
 
@@ -1478,7 +1478,7 @@ osqFunc1 StatusType osqFunc2 osStopScheduleTable(ScheduleTableType ScheduleTable
 
 osqFunc1 void osqFunc2 osErrorHook(StatusType ErrorCode);
 osqFunc1 void osqFunc2 osShutdownOS(StatusType Error);
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define ShutdownOS(x) (osPsysShutdownOS(x))
 #else
 #define ShutdownOS(x) (osShutdownOS(x))
@@ -1515,7 +1515,7 @@ osqFunc1 void osqFunc2 PreTaskHook (void);
 osqFunc1 void osqFunc2 PostTaskHook (void);
 #endif
 
-#if ((osdSC == SC2) || (osdSC == SC3) || (osdSC == SC4))
+#if((osdSC == SC2) || (osdSC == SC3) || (osdSC == SC4))
 ProtectionReturnType ProtectionHook(StatusType Fatalerror);
 #endif
 
@@ -1593,30 +1593,30 @@ osqROM0 extern osqROM1 const osqROM2 osVersionVariantCodingType osqROM3 oskVersi
    #define osdVariantAssertionsEnabled 0U
 #endif
 
-#if (osdSC== SC1)
+#if(osdSC== SC1)
    #define osdVariantSC 0U
-#elif (osdSC== SC2)
+#elif(osdSC== SC2)
    #define osdVariantSC 1U
-#elif (osdSC== SC3)
+#elif(osdSC== SC3)
    #define osdVariantSC 2U
-#elif (osdSC== SC4)
+#elif(osdSC== SC4)
    #define osdVariantSC 3U
 #else
 #error wrong scalability class
 #endif
 
-#if (osdNumberOfScheduleTables>0)
+#if(osdNumberOfScheduleTables>0)
    #define osdVariantFeaturesUsed_ST 1U
 #else
    #define osdVariantFeaturesUsed_ST 0U
 #endif
-#if (osdNumberOfHiResSchedTabs>0)
+#if(osdNumberOfHiResSchedTabs>0)
    #define osdVariantFeaturesUsed_HRST 1U
 #else
    #define osdVariantFeaturesUsed_HRST 0U
 #endif
    #define osdVariantFeaturesUsed_Sync 0U
-#if (osdTimingProtectionUsed)
+#if(osdTimingProtectionUsed)
    #define osdVariantFeaturesUsed_TP   1U
 #else
    #define osdVariantFeaturesUsed_TP   0U
@@ -1634,7 +1634,7 @@ osqROM0 extern osqROM1 const osqROM2 osVersionVariantCodingType osqROM3 oskVersi
 #define osdVariantCompiler    0
 #define osdVariantDerivative  0
 
-#if ((defined(__NoFloat__)) || (defined(__SoftwareFloat__)))
+#if((defined(__NoFloat__)) || (defined(__SoftwareFloat__)))
    #define osdVariantFPUSupport 0
 #else
    #define osdVariantFPUSupport 1
@@ -1662,9 +1662,9 @@ osqROM0 extern osqROM1 const osqROM2 osVersionVariantCodingType osqROM3 oskVersi
 #include <osekasm.h>
 #endif
 
-#if (osdStackCheck == 1)
-   #if (osdSC == SC3) || (osdSC == SC4)
-      #if (osdMPUSupportInSVMode == 0)
+#if(osdStackCheck == 1)
+   #if(osdSC == SC3) || (osdSC == SC4)
+      #if(osdMPUSupportInSVMode == 0)
          #define osdSoftwareStackCheck
       #endif
    #else

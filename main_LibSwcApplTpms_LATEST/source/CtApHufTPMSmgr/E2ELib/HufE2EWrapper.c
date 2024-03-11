@@ -11,23 +11,19 @@
 E2E_P02ReceiverStateType ucE2EStatesWhlplsCnt;
  E2E_P02SenderStateType ucE2EStateTireState2;
 
-void HufE2EWrapperInit(void)
-{
+void HufE2EWrapperInit(void){
    uint8 i;
-   for (i=0; i<sizeof(E2E_P02ReceiverStateType); i++)
-   {
+   for(i=0; i<sizeof(E2E_P02ReceiverStateType); i++){
       *((uint8*)&ucE2EStatesWhlplsCnt + i) = 0;
    }
    ucE2EStatesWhlplsCnt.WaitForFirstData=TRUE;
 
-   for (i=0; i<sizeof(E2E_P02SenderStateType); i++)
-   {
+   for(i=0; i<sizeof(E2E_P02SenderStateType); i++){
       *((uint8*)&ucE2EStateTireState2 + i) = 0;
    }
 }
 
- uint8 ucHufE2EWrapperCheckWhlPlsCnt(uint8* data)
- {
+ uint8 ucHufE2EWrapperCheckWhlPlsCnt(uint8* data){
     uint8 ucRetVal;
     uint8 aucTempData[8];
 
@@ -43,8 +39,7 @@ void HufE2EWrapperInit(void)
 
     E2E_P02Check(&cE2EConfigWhlplsCnt, &ucE2EStatesWhlplsCnt, aucTempData);
 
-    if (ucE2EStatesWhlplsCnt.Status == E2E_P02STATUS_OK)
-    {
+    if(ucE2EStatesWhlplsCnt.Status == E2E_P02STATUS_OK){
        ucRetVal = TRUE;
     }
     else{
@@ -54,8 +49,7 @@ void HufE2EWrapperInit(void)
     return ucRetVal;
  }
 
- uint8 ucHufE2EWrapperProtectTireState2(uint8* data)
- {
+ uint8 ucHufE2EWrapperProtectTireState2(uint8* data){
     uint8 ucRetVal;
     uint8 aucTempData[2];
 

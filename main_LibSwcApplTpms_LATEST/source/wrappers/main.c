@@ -1,13 +1,5 @@
 #include "Std_Types.hpp"
 
-int main(void){
-   return 0;
-}
-
-/******************************************************************************/
-/* Wrappers for SwcApplTpmsHmiHandler                                         */
-/******************************************************************************/
-#include "infRteSwcApplTpmsHmiHandler.hpp"
 boolean bGetBitBetriebszustandBZ   (uint16 ushBitMask) {ushBitMask = ushBitMask; return 0;}
 boolean bGetBitFahrzeugzustandFZZ  (uint16 ushBitMask) {ushBitMask = ushBitMask; return 0;}
 boolean bGetSensorStateMissing     (uint8  ucColOfID)  {ucColOfID  = ucColOfID;  return 0;}
@@ -30,6 +22,15 @@ uint8   ui8GetTempColeurWP_FR      (void)              {return 0;}
 uint8   ui8GetTempColeurWP_RL      (void)              {return 0;}
 uint8   ui8GetTempColeurWP_RR      (void)              {return 0;}
 uint8   GETucMinWarnThresholdOfRam (void)              {return 0;}
+
+int main(void){
+   return 0;
+}
+
+/******************************************************************************/
+/* Wrappers for SwcApplTpmsHmiHandler                                         */
+/******************************************************************************/
+#include "infRteSwcApplTpmsHmiHandler.hpp"
 
 FUNC(Std_ReturnType, DCM_CODE) Dcm_GetSesCtrlType(
    P2VAR(Dcm_SesCtrlType, AUTOMATIC, DCM_APPL_DATA) SessionCtrlType
@@ -80,13 +81,12 @@ FUNC(void, RTE_CTAPHUFTPMSWNH_APPL_CODE) RCtApHufTPMSwnh_GETaucWheelPosWarn_Oper
 }
 
 /******************************************************************************/
-/* Wrappers for SwcApplTpmsHmiHandler                                         */
+/* Wrappers for USWarn.c                                                      */
 /******************************************************************************/
 #include "infRteSwcApplTpmsWarnHandler.hpp"
 PWarnParaType tDAG_PPara;
 void   StopFilterSTWT        (void){}
 void   StopFilterHDWT        (void){}
-uint8  Getui8AtmosphericP    (void){return 0;}
 uint8  ui8GetPMIN_F          (void){return 0;}
 uint8  ui8GetPMIN_R          (void){return 0;}
 uint8* GETpucStartAdrWPorPWP (void){return NULL_PTR;}
@@ -95,13 +95,19 @@ void   ResetM1Pressure       (       uint8         i                ){i     = i;
 void   UpdateWarnOut         (const  uint8*        p2WPs            ){p2WPs = p2WPs;}
 uint8  ucStartFilterSTWT     (       uint16        x                ){x     = x; return 0;}
 uint8  ucStartFilterHDWT     (       uint16        x                ){x     = x; return 0;}
-uint8  Getui8PrefMinOfId     (       uint8         histCol          ){histCol = histCol; return 0;}
 void   PuT                   (       uint8         ui8Ix, sint8 i8T ){ui8Ix = ui8Ix; i8T = i8T;}
 void   GetDataEE             (       uint8         x,       uint8* y, uint8 z){x = x; y = y; z = z;}
 void   PutDataEE             (       uint8         x, const uint8* y, uint8 z){x = x; y = y; z = z;}
 void   SortBiggest1st        (       uint8*        ptVal, uint8* ptIx, uint8 ucMax){ptVal = ptVal; ptIx = ptIx; ucMax = ucMax;}
-void   GetRatValOfId         (       uint8         uiHistCol, struct SollDat* p2RatVal){uiHistCol = uiHistCol; p2RatVal = p2RatVal;}
 uint8  bDHW                  (struct LocalWarnDat* ptLWD, uint8 ucWarnCfg){ptLWD = ptLWD; ucWarnCfg = ucWarnCfg; return 0;}
 uint8  bSoftFactor           (struct LocalWarnDat* ptLWD, uint8 ucWarnCfg){ptLWD = ptLWD; ucWarnCfg = ucWarnCfg; return 0;}
 uint8  bEcE                  (struct LocalWarnDat* ptLWD, uint8 ucWarnCfg){ptLWD = ptLWD; ucWarnCfg = ucWarnCfg; return 0;}
 uint8  bPMin                 (struct LocalWarnDat *ptLWD, uint8 ucWarnCfg){ptLWD = ptLWD; ucWarnCfg = ucWarnCfg; return 0;}
+
+/******************************************************************************/
+/* Wrappers for uswarn_If.c                                                   */
+/******************************************************************************/
+sint8  GETscTref                     (void)                    {                            return 0;}
+uint8  GETucPcalMinVaRelativCodOfRam (void)                    {                            return 0;}
+uint8  GETucPcalMinHaRelativCodOfRam (void)                    {                            return 0;}
+uint8  GETucWPorPWPofHistCol         (uint8 ucCol)             {ucCol = ucCol;              return 0;}

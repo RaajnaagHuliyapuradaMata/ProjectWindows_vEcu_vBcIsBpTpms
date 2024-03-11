@@ -25,8 +25,7 @@ extern "C"
 
 #ifndef osdNOASM
 
-asm osuint32 osCheckIntDisabled(void)
-{
+asm osuint32 osCheckIntDisabled(void){
 %lab _osCheckIntDisabledExit
    stsr  PSW, r10                 -- r10 = PSW
    andi  0x20, r10, r10           -- r10 = r10 & 0x20
@@ -40,8 +39,7 @@ asm osuint32 osCheckIntDisabled(void)
 _osCheckIntDisabledExit:
 }
 
-asm void osSetICRxMask(osuint32 addr)
-{
+asm void osSetICRxMask(osuint32 addr){
 %con addr
    stsr    PSW, r12    -- r12 = PSW
    di                  -- disable interrupts
@@ -58,8 +56,7 @@ asm void osSetICRxMask(osuint32 addr)
 %error
 }
 
-asm void osClearICRxMask(osuint32 addr)
-{
+asm void osClearICRxMask(osuint32 addr){
 %con addr
    stsr    PSW, r12    -- r12 = PSW
    di                  -- disable interrupts
@@ -76,15 +73,13 @@ asm void osClearICRxMask(osuint32 addr)
 %error
 }
 
-asm osuint32 osGetSPR(osuint32 regID, osuint32 groupID)
-{
+asm osuint32 osGetSPR(osuint32 regID, osuint32 groupID){
 %con regID %con groupID
    stsr   regID, r10, groupID  -- r10 = SPR
 %error
 }
 
-asm void osSetSPR(osuint32 regID, osuint32 groupID, osuint32 value)
-{
+asm void osSetSPR(osuint32 regID, osuint32 groupID, osuint32 value){
 %con regID %con groupID %con value
    mov    value, r11                -- r11 = value
    ldsr   r11, regID, groupID       -- SPR = r11
@@ -93,13 +88,11 @@ asm void osSetSPR(osuint32 regID, osuint32 groupID, osuint32 value)
 %error
 }
 
-asm osuint32 osGetPSW(void)
-{
+asm osuint32 osGetPSW(void){
    stsr   PSW, r10  -- r10 = PSW
 }
 
-asm void osSetPSW(osuint32 value)
-{
+asm void osSetPSW(osuint32 value){
 %reg value
    ldsr   value, PSW  -- PSW = value
 %con value
@@ -108,13 +101,11 @@ asm void osSetPSW(osuint32 value)
 %error
 }
 
-asm osuint32 osGetEIPSW(void)
-{
+asm osuint32 osGetEIPSW(void){
    stsr   EIPSW, r10  -- r10 = EIPSW
 }
 
-asm void osSetEIPSW(osuint32 value)
-{
+asm void osSetEIPSW(osuint32 value){
 %reg value
    ldsr   value, EIPSW  -- EIPSW = value
 %con value
@@ -123,14 +114,12 @@ asm void osSetEIPSW(osuint32 value)
 %error
 }
 
-asm void osDispatch(void)
-{
+asm void osDispatch(void){
    nop                          -- improve interrupt latency
    trap 0                       -- trap exception
 }
 
-asm osuint8 osGetHighPrioBit(osuint32 pattern)
-{
+asm osuint8 osGetHighPrioBit(osuint32 pattern){
 %con pattern
    mov    pattern, r10  -- r10 = pattern
    sch1l  r10, r10      -- get first bit from left which is set
@@ -145,58 +134,49 @@ asm osuint8 osGetHighPrioBit(osuint32 pattern)
 %error
 }
 
-asm osuint32 osGetCurrentSP(void)
-{
+asm osuint32 osGetCurrentSP(void){
    mov   sp, r10  -- r10 = sp -> return value = sp
 }
 
-asm osuint32 osGetDisableGlobal(void)
-{
+asm osuint32 osGetDisableGlobal(void){
    stsr  PSW, r10        -- r10 = PSW
    di                    -- disable global interrupts
    andi  0x20, r10, r10  -- r10 = r10 & 0x20
 }
 
-asm osuint32 osGetIntDisableFlag(void)
-{
+asm osuint32 osGetIntDisableFlag(void){
    stsr  PSW, r10        -- r10 = PSW
    andi  0x20, r10, r10  -- r10 = r10 & 0x20
 }
 
-asm osuint32 osGetIntDisableFlagEIPSW(void)
-{
+asm osuint32 osGetIntDisableFlagEIPSW(void){
    stsr  EIPSW, r10      -- r10 = EIPSW
    andi  0x20, r10, r10  -- r10 = r10 & 0x20
 }
 
-asm osuint32 osGetDisableGlobalEIPSW(void)
-{
+asm osuint32 osGetDisableGlobalEIPSW(void){
    stsr  EIPSW, r11      -- r11 = EIPSW
    andi  0x20, r11, r10  -- r10 = r11 & 0x20
    ori   0x20, r11, r11  -- r11 = r11 | 0x20
    ldsr  r11, EIPSW      -- EIPSW = r11
 }
 
-asm void osEnableGlobalEIPSW(void)
-{
+asm void osEnableGlobalEIPSW(void){
    stsr  EIPSW, r11       -- r11 = EIPSW
    mov   0xFFFFFFDF, r12  -- r12 = 0xFFFFFFDF
    and   r12, r11         -- r11 = r11 & r12
    ldsr  r11, EIPSW       -- EIPSW = r11
 }
 
-asm osuint8 osAsmGetISPR(void)
-{
+asm osuint8 osAsmGetISPR(void){
    stsr   ISPR, r10  -- r10 = ISPR
 }
 
-asm osuint8 osAsmGetPMR(void)
-{
+asm osuint8 osAsmGetPMR(void){
    stsr   PMR, r10  -- r10 = PMR
 }
 
-asm void osSetPMR(osIntLevelType pattern)
-{
+asm void osSetPMR(osIntLevelType pattern){
 %reg pattern
    stsr    PSW, r12      -- r12 = PSW
    di                    -- disable interrupts
@@ -211,8 +191,7 @@ asm void osSetPMR(osIntLevelType pattern)
 %error
 }
 
-asm osIntLevelType osGetLevelPMR(void)
-{
+asm osIntLevelType osGetLevelPMR(void){
    stsr    PSW, r12          -- r12 = PSW
    di                        -- disable interrupts
    stsr    PMR, r10          -- r10 = PMR
@@ -223,8 +202,7 @@ asm osIntLevelType osGetLevelPMR(void)
    ldsr    r12, PSW          -- PSW = r12
 }
 
-asm osIntLevelType osGetLevelISPR(void)
-{
+asm osIntLevelType osGetLevelISPR(void){
    stsr    PSW, r12          -- r12 = PSW
    di                        -- disable interrupts
    stsr    ISPR, r10         -- r10 = ISPR
@@ -235,8 +213,7 @@ asm osIntLevelType osGetLevelISPR(void)
    ldsr    r12, PSW          -- PSW = r12
 }
 
-asm void osSetLevelPMR(osIntLevelType prioLevel)
-{
+asm void osSetLevelPMR(osIntLevelType prioLevel){
 %reg prioLevel
    stsr    PSW, r12        -- r12 = PSW
    di                      -- disable interrupts
@@ -257,16 +234,14 @@ asm void osSetLevelPMR(osIntLevelType prioLevel)
 %error
 }
 
-asm void osSetTaskLevel(void)
-{
+asm void osSetTaskLevel(void){
    stsr    PSW, r12  -- r12 = PSW
    di                -- disable interrupts
    ldsr    r0, PMR   -- PMR = r0 = 0
    ldsr    r12, PSW  -- PSW = r12
 }
 
-asm void osSetSystemLevel(void)
-{
+asm void osSetSystemLevel(void){
    stsr    PSW, r12                 -- r12 = PSW
    di                               -- disable interrupts
    mov     osdSystemLevelMask, r11  -- r11 = osdSystemLevelMask
@@ -274,8 +249,7 @@ asm void osSetSystemLevel(void)
    ldsr    r12, PSW                 -- PSW = r12
 }
 
-asm osuint32 osGetDisableLevel(void)
-{
+asm osuint32 osGetDisableLevel(void){
    stsr    PSW, r12                 -- r12 = PSW
    di                               -- disable interrupts
    stsr    PMR, r10                 -- r10 = PMR
@@ -285,8 +259,7 @@ asm osuint32 osGetDisableLevel(void)
    ldsr    r12, PSW                 -- PSW = r12
 }
 
-asm void osRestoreLevel(void)
-{
+asm void osRestoreLevel(void){
    stsr    PSW, r12                  -- r12 = PSW
    di                                -- disable interrupts
 
@@ -297,8 +270,7 @@ asm void osRestoreLevel(void)
    ldsr    r12, PSW                  -- PSW = r12
 }
 
-asm void osRestoreLevelNested(void)
-{
+asm void osRestoreLevelNested(void){
    stsr    PSW, r12                        -- r12 = PSW
    di                                      -- disable interrupts
 
@@ -309,8 +281,7 @@ asm void osRestoreLevelNested(void)
    ldsr    r12, PSW                        -- PSW = r12
 }
 
-asm osuint32 osGetStackPattern(void)
-{
+asm osuint32 osGetStackPattern(void){
    stsr   MPLA0, r10   -- r10 = MPLA0         -> get stack bottom address
    ld.w   0[r10], r10  -- r10 = *(uint32*)r10 -> get value at stack bottom address
 }

@@ -1,20 +1,20 @@
 
 
-#if (!defined SCRC_CRC8H2F_H)
+#if(!defined SCRC_CRC8H2F_H)
 #define SCRC_CRC8H2F_H
 
 
 
 #include <SCrc.h>              
-#if (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_OFF)
+#if(SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_OFF)
 #include <Crc.h>
 #endif 
 
 
 
-#if (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_OFF)
+#if(SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_OFF)
 
-#if (defined SCrc_CalculateCRC8H2F) 
+#if(defined SCrc_CalculateCRC8H2F) 
 #error SCrc_CalculateCRC8H2F is already defined
 #endif
 
@@ -28,7 +28,7 @@
 
 
 
-#if (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON)
+#if(SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON)
 
 #define SCRC_START_SEC_CODE
 #include <MemMap.h>

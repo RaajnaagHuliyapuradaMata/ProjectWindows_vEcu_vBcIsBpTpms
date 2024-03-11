@@ -42,15 +42,15 @@ void tracerInit(){
    ushReadCounter = 0;
   ushWriteCounter = 0;
 
-   for (i=0;i<sizeof(debugEnvDataStruct);i++){
+   for(i=0;i<sizeof(debugEnvDataStruct);i++){
       *((uint8*)&tDebugEnvDataStruct + i) = 0;
    }
 
-   for (i=0;i<sizeof(tDebugTelStruct);i++){
+   for(i=0;i<sizeof(tDebugTelStruct);i++){
       *((uint8*)&tDebugTelStruct + i) = 0;
    }
 
-  for (i=0;i<sizeof(tdebugTelStructPosFL);i++){
+  for(i=0;i<sizeof(tdebugTelStructPosFL);i++){
       *((uint8*)&tdebugTelStructPosFL + i) = 0;
     *((uint8*)&tdebugTelStructPosFR + i) = 0;
     *((uint8*)&tdebugTelStructPosRL + i) = 0;
@@ -707,8 +707,7 @@ void TracePutEnvDataStr2Queue(debugEnvDataStruct* tDebugEnvDataStruct){
 
 }
 
-void TracePutTelStrPosFL2Queue(debugTelStructPos* tDebugStruct)
-{
+void TracePutTelStrPosFL2Queue(debugTelStructPos* tDebugStruct){
   DT_HufDisplay tHufDisplay;
 
    tHufDisplay.Byte0 = (DT_HufDisplayByte) 70;
@@ -743,8 +742,7 @@ void TracePutTelStrPosFL2Queue(debugTelStructPos* tDebugStruct)
 
 }
 
-void TracePutTelStrPosFR2Queue(debugTelStructPos* tDebugStruct)
-{
+void TracePutTelStrPosFR2Queue(debugTelStructPos* tDebugStruct){
   DT_HufDisplay tHufDisplay;
 
    tHufDisplay.Byte0 = (DT_HufDisplayByte) 80;
@@ -779,8 +777,7 @@ void TracePutTelStrPosFR2Queue(debugTelStructPos* tDebugStruct)
 
 }
 
-void TracePutTelStrPosRL2Queue(debugTelStructPos* tDebugStruct)
-{
+void TracePutTelStrPosRL2Queue(debugTelStructPos* tDebugStruct){
   DT_HufDisplay tHufDisplay;
 
    tHufDisplay.Byte0 = (DT_HufDisplayByte) 90;
@@ -815,8 +812,7 @@ void TracePutTelStrPosRL2Queue(debugTelStructPos* tDebugStruct)
 
 }
 
-void TracePutTelStrPosRR2Queue(debugTelStructPos* tDebugStruct)
-{
+void TracePutTelStrPosRR2Queue(debugTelStructPos* tDebugStruct){
   DT_HufDisplay tHufDisplay;
 
    tHufDisplay.Byte0 = (DT_HufDisplayByte) 100;
@@ -854,7 +850,7 @@ void static putData2Queue(DT_HufDisplay tHufDisplay){
 
    tHufDisplayMsgBuf[ushWriteCounter] = tHufDisplay;
    ushWriteCounter++;
-    if (ushWriteCounter == MAX_SIZE_DISP_BUF)
+    if(ushWriteCounter == MAX_SIZE_DISP_BUF)
       ushWriteCounter = 0;
 }
 
@@ -862,10 +858,10 @@ uint8 ucTraceGetDataFromQueue(DT_HufDisplay* tHufDisplay){
    uint8 ucRet;
     ucRet = 0;
 
-   if (ushWriteCounter != ushReadCounter){
+   if(ushWriteCounter != ushReadCounter){
       *tHufDisplay = tHufDisplayMsgBuf[ushReadCounter];
       ushReadCounter++;
-    if (ushReadCounter == MAX_SIZE_DISP_BUF)
+    if(ushReadCounter == MAX_SIZE_DISP_BUF)
       ushReadCounter = 0;
 
    ucRet=1;
@@ -874,15 +870,13 @@ uint8 ucTraceGetDataFromQueue(DT_HufDisplay* tHufDisplay){
    return ucRet;
 }
 
-void GetDebugVar2beLogged()
-{
+void GetDebugVar2beLogged(){
       uint8 i;
     uint8 ucTemp1, ucTemp2;
 
       tDebugEnvDataStruct.ushBtrZustand = ushGetBetriebszustandBZ(0xFFFF);
       tDebugEnvDataStruct.ushFZZustand = ushGetFahrzeugzustandFZZ(cFZZ_ALLE_BITS);
-     if(tEnvDataToSend.ushVehSpeed<0xFF)
-    {
+     if(tEnvDataToSend.ushVehSpeed<0xFF){
       tDebugEnvDataStruct.ucVspeed = tEnvDataToSend.ushVehSpeed;
     }
     else
@@ -974,7 +968,7 @@ void GetDebugVar2beLogged()
       Rte_Call_PP_GetZomData_OP_GetZomID((uint8)14, &tDebugEnvDataStruct.ulZomID14);
       Rte_Call_PP_GetZomData_OP_GetZomID((uint8)15, &tDebugEnvDataStruct.ulZomID15);
 
-    for (i=0; i< cSumWE; i++){
+    for(i=0; i< cSumWE; i++){
       Rte_Call_PP_GetZomData_OP_GetZomStatus((uint8)i, &tDebugEnvDataStruct.aucZomStatus[i]);
       Rte_Call_PP_GetZomData_OP_GetZomStatisticTelCounter(i, &tDebugEnvDataStruct.aucZomStatTelCounter[i]);
       tDebugEnvDataStruct.aucZomToothTelCtLearnBit[i] = ucGetZomTelCtLearnBit(i);
@@ -992,7 +986,7 @@ void GetDebugVar2beLogged()
     tDebugEnvDataStruct.ucEcuALMethod = GetOpTimeMethodCurrent();
 
       tDebugEnvDataStruct.ushAbsResetFlag=0;
-      for (i=0; i< cSumWE; i++){
+      for(i=0; i< cSumWE; i++){
          tDebugEnvDataStruct.ushAbsResetFlag |= (((uint16)ucGetZomResetAbsRefFlag(i))<<i);
 
          if(tDebugEnvDataStruct.ushAbsResetFlag!=0)
@@ -1004,24 +998,19 @@ void GetDebugVar2beLogged()
     Rte_Call_PP_GetWarningVectors_OP_GETaucWheelPosWarn((uint8)cRadPosHL, &tdebugTelStructPosRL.ucWheelStat);
     Rte_Call_PP_GetWarningVectors_OP_GETaucWheelPosWarn((uint8)cRadPosHR, &tdebugTelStructPosRR.ucWheelStat);
     tDebugEnvDataStruct.ushUsedHistoryWP = 0;
-    for(i=0;i<cMaxLR;i++)
-    {
+    for(i=0;i<cMaxLR;i++){
       tDebugEnvDataStruct.ushUsedHistoryWP = tDebugEnvDataStruct.ushUsedHistoryWP | ((GetCurUsedWPOfCol(i)&0x07) << (i*4));
 
-      if(GetCurUsedWPOfCol(i)== cRadPosVL)
-      {
+      if(GetCurUsedWPOfCol(i)== cRadPosVL){
         tdebugTelStructPosFL.ulID = ulGetID(i);
       }
-      else if(GetCurUsedWPOfCol(i)== cRadPosVR)
-      {
+      else if(GetCurUsedWPOfCol(i)== cRadPosVR){
         tdebugTelStructPosFR.ulID = ulGetID(i);
       }
-      else if(GetCurUsedWPOfCol(i)== cRadPosHL)
-      {
+      else if(GetCurUsedWPOfCol(i)== cRadPosHL){
         tdebugTelStructPosRL.ulID = ulGetID(i);
       }
-      else if(GetCurUsedWPOfCol(i)== cRadPosHR)
-      {
+      else if(GetCurUsedWPOfCol(i)== cRadPosHR){
         tdebugTelStructPosRR.ulID = ulGetID(i);
       }
     }

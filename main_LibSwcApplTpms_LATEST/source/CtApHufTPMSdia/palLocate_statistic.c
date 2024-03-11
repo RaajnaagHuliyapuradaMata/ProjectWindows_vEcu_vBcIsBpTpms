@@ -51,63 +51,51 @@ static palLocateStats* ptr2PalLocateStats = (palLocateStats*)&Rte_Pim_Pim_tDiagN
 
 void InitPalLocateStatistics(void);
 
-void InitPalLocateStatistics(void)
-{
+void InitPalLocateStatistics(void){
 }
 
-uint8 * GetPalLocateStatistics(void)
-{
+uint8 * GetPalLocateStatistics(void){
   return (uint8*)&Rte_Pim_Pim_tDiagNvMBlock0()->aucPalLocateStatistics;
 }
 
-uint8 GetucFullLocFailureCnt(void)
-{
+uint8 GetucFullLocFailureCnt(void){
   return (ptr2PalLocateStats->ucFullLocFailureCnt);
 }
 
-void PutPalLocateStatistics2Ram(void)
-{
+void PutPalLocateStatistics2Ram(void){
   static boolean bPALCompleted = FALSE;
   uint8 i, ucFailureReason;
   NvM_RequestResultType ErrorStatus;
 
   ucFailureReason = 0;
-    if(ui8GetALState() == cAL_OK)
-  {
+    if(ui8GetALState() == cAL_OK){
     ptr2PalLocateStats->ucFullLocStatus =  0x02;
   }
-  else if (ui8GetALState() == cAL_Stored)
-  {
+  else if(ui8GetALState() == cAL_Stored){
     ptr2PalLocateStats->ucFullLocStatus =  0x03;
   }
-  else if (ui8GetALState() == cAL_Unknown)
-  {
+  else if(ui8GetALState() == cAL_Unknown){
     ptr2PalLocateStats->ucFullLocStatus =  0x00;
   }
-  else if(ui8GetALState() == cAL_Error)
-  {
+  else if(ui8GetALState() == cAL_Error){
     ptr2PalLocateStats->ucFullLocStatus =  0x01;
   }
   else
   {
   }
-  if( (bGetBitBetriebszustandBZ(cZO_FINISH) || bGetBitBetriebszustandBZ(cZO_TIMEOUT) )    && (!bPALCompleted)  &&  (ucGetLearnMode()==cCompleteLearn) )
-  {
+  if( (bGetBitBetriebszustandBZ(cZO_FINISH) || bGetBitBetriebszustandBZ(cZO_TIMEOUT) )    && (!bPALCompleted)  &&  (ucGetLearnMode()==cCompleteLearn) ){
     bPALCompleted = TRUE;
-    if( (ui8GetALState() == cAL_Error) || (ui8GetALState() == cAL_Stored))
-    {
+    if( (ui8GetALState() == cAL_Error) || (ui8GetALState() == cAL_Stored)){
       ptr2PalLocateStats->ucPrevPalResult = 0x01;
       if(ptr2PalLocateStats->ucFullLocFailureCnt < 0xFF)
         ptr2PalLocateStats->ucFullLocFailureCnt ++;
       ptr2PalLocateStats->ucFullLocPassCnt = 0;
 
-      if(ptr2PalLocateStats->ucFullLocFailureCnt > ptr2PalLocateStats->ucFullLocFailureCntMax )
-      {
+      if(ptr2PalLocateStats->ucFullLocFailureCnt > ptr2PalLocateStats->ucFullLocFailureCntMax ){
         ptr2PalLocateStats->ucFullLocFailureCntMax   = ptr2PalLocateStats->ucFullLocFailureCnt;
       }
     }
-    else if( ui8GetALState() == cAL_OK)
-    {
+    else if( ui8GetALState() == cAL_OK){
       ptr2PalLocateStats->ucPrevPalResult = 0x00;
       if(ptr2PalLocateStats->ucFullLocPassCnt < 0xFF)
         ptr2PalLocateStats->ucFullLocPassCnt++;
@@ -117,40 +105,33 @@ void PutPalLocateStatistics2Ram(void)
     else
     {
     }
-    for (i=0; i<cMaxLR; i++)
-    {
-      if( (pucGetLocatError()[i]) != NoError)
-      {
+    for(i=0; i<cMaxLR; i++){
+      if( (pucGetLocatError()[i]) != NoError){
           ucFailureReason |= (0x01<<i);
       }
     }
 
-    if( (ucFailureReason > 0) && (ucFailureReason != 0x01) && (ucFailureReason != 0x02) && (ucFailureReason != 0x04) && (ucFailureReason != 0x08))
-    {
-      for(i=FAILURE_REASONS_NUMB-1; i>0; i--)
-      {
+    if( (ucFailureReason > 0) && (ucFailureReason != 0x01) && (ucFailureReason != 0x02) && (ucFailureReason != 0x04) && (ucFailureReason != 0x08)){
+      for(i=FAILURE_REASONS_NUMB-1; i>0; i--){
         ptr2PalLocateStats->ucPalFailureReasonsArray[i] =  ptr2PalLocateStats->ucPalFailureReasonsArray[i-1];
       }
       ptr2PalLocateStats->ucPalFailureReasonsArray[0] = ucFailureReason;
     }
 
     Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock0_GetErrorStatus(&ErrorStatus);
-    if (ErrorStatus  != NVM_REQ_PENDING)
-    {
+    if(ErrorStatus  != NVM_REQ_PENDING){
       Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock0_SetRamBlockStatus(TRUE);
     }
   }
 }
 
-void PutPalStatsLastCycleWU2Ram(void)
-{
+void PutPalStatsLastCycleWU2Ram(void){
   uint8 ucColPos, ucZomPos, ucTemp1, ucTemp2;
   uint16 ushTemp1;
   uint32 ulTempID;
    static boolean bPALCompleted = FALSE;
   NvM_RequestResultType ErrorStatus;
-   for (ucColPos=0; ucColPos< cMaxLR; ucColPos++)
-  {
+   for(ucColPos=0; ucColPos< cMaxLR; ucColPos++){
     ulTempID = ulGetID(ucColPos);
      ptr2palStatsLastCycleWU[ucColPos].ulRvsID[0] = (uint8)(ulTempID>>24);
     ptr2palStatsLastCycleWU[ucColPos].ulRvsID[1] = (uint8)(ulTempID>>16);
@@ -162,16 +143,13 @@ void PutPalStatsLastCycleWU2Ram(void)
     ptr2PalStatsLongTermWU[ucColPos].ulRvsID[3] = (uint8)(ulTempID>>0);
   }
 
-  if( (bGetBitBetriebszustandBZ(cZO_FINISH) || bGetBitBetriebszustandBZ(cZO_TIMEOUT) )    && (!bPALCompleted)  &&  (ucGetLearnMode()==cCompleteLearn) )
-   {
+  if( (bGetBitBetriebszustandBZ(cZO_FINISH) || bGetBitBetriebszustandBZ(cZO_TIMEOUT) )    && (!bPALCompleted)  &&  (ucGetLearnMode()==cCompleteLearn) ){
     bPALCompleted = TRUE;
-     for (ucColPos=0; ucColPos< cMaxLR; ucColPos++)
-    {
+     for(ucColPos=0; ucColPos< cMaxLR; ucColPos++){
       ulTempID = ulGetID(ucColPos);
       ucZomPos = ucGetZOMPosOfID(&ulTempID);
 
-      if (ucZomPos < cSumWE)
-       {
+      if(ucZomPos < cSumWE){
         Rte_Call_PP_GetZomData_OP_GetZomToothTelCtCorrLearnBit(ucZomPos, &ucTemp1);
         Rte_Call_PP_GetZomData_OP_GetZomToothTelCtCorrNoLearnBit(ucZomPos, &ucTemp2);
         ptr2palStatsLastCycleWU[ucColPos].ucCorrBlocks = ucTemp1 + ucTemp2;
@@ -180,8 +158,7 @@ void PutPalStatsLastCycleWU2Ram(void)
         ptr2palStatsLastCycleWU[ucColPos].ucLearnBlocks = ucGetZomTelCtLearnBit(ucZomPos);
         ptr2palStatsLastCycleWU[ucColPos].ucOtherBlocks = ucTelStatGetLastRxBlocs(ulTempID) - (ptr2palStatsLastCycleWU[ucColPos].ucCorrBlocks + ptr2palStatsLastCycleWU[ucColPos].ucNoCorrBlocks);
 
-        if((pucGetLocatError()[ucColPos]) != SensorMissin)
-         {
+        if((pucGetLocatError()[ucColPos]) != SensorMissin){
           Rte_Call_PP_GetZomData_OP_GetAbsSumCorrFL(ucZomPos, &ushTemp1);
           ptr2palStatsLastCycleWU[ucColPos].ucAvgStdDevFL = (uint8)ushTemp1;
           Rte_Call_PP_GetZomData_OP_GetAbsSumCorrFR(ucZomPos, &ushTemp1);
@@ -198,11 +175,9 @@ void PutPalStatsLastCycleWU2Ram(void)
           ptr2palStatsLastCycleWU[ucColPos].ucAvgStdDevRL = 0;
           ptr2palStatsLastCycleWU[ucColPos].ucAvgStdDevRR = 0;
         }
-         if((pucGetLocatError()[ucColPos]) == NoError)
-         {
+         if((pucGetLocatError()[ucColPos]) == NoError){
           ptr2PalStatsLongTermWU[ucColPos].ucLocPassCnt++;
-          if(ptr2PalStatsLongTermWU[ucColPos].ucLocPassCnt == 0xFF)
-          {
+          if(ptr2PalStatsLongTermWU[ucColPos].ucLocPassCnt == 0xFF){
             ptr2PalStatsLongTermWU[ucColPos].ucLocPassCnt >>= 1;
             ptr2PalStatsLongTermWU[ucColPos].ucLocPassCnt >>= 1;
           }
@@ -211,13 +186,11 @@ void PutPalStatsLastCycleWU2Ram(void)
         else
         {
           ptr2PalStatsLongTermWU[ucColPos].ucLocFailureCnt++;
-          if(ptr2PalStatsLongTermWU[ucColPos].ucLocFailureCnt == 0xFF)
-          {
+          if(ptr2PalStatsLongTermWU[ucColPos].ucLocFailureCnt == 0xFF){
             ptr2PalStatsLongTermWU[ucColPos].ucLocPassCnt >>= 1;
             ptr2PalStatsLongTermWU[ucColPos].ucLocPassCnt >>= 1;
           }
-          if(ptr2PalStatsLongTermWU[ucColPos].ucLocFailureInARowCnt < 0xFF)
-          {
+          if(ptr2PalStatsLongTermWU[ucColPos].ucLocFailureInARowCnt < 0xFF){
             ptr2PalStatsLongTermWU[ucColPos].ucLocFailureInARowCnt++;
            }
         }
@@ -225,8 +198,7 @@ void PutPalStatsLastCycleWU2Ram(void)
 
         ushTemp1 = ptr2palStatsLastCycleWU[ucColPos].ucCorrBlocks + ptr2palStatsLastCycleWU[ucColPos].ucNoCorrBlocks + ptr2palStatsLastCycleWU[ucColPos].ucOtherBlocks;
 
-        if(ptr2PalStatsLongTermWU[ucColPos].ucAvgStdDevFL == 0)
-         {
+        if(ptr2PalStatsLongTermWU[ucColPos].ucAvgStdDevFL == 0){
           ptr2PalStatsLongTermWU[ucColPos].ucAvgStdDevFL = ptr2palStatsLastCycleWU[ucColPos].ucAvgStdDevFL;
           ptr2PalStatsLongTermWU[ucColPos].ucAvgStdDevFR = ptr2palStatsLastCycleWU[ucColPos].ucAvgStdDevFR;
           ptr2PalStatsLongTermWU[ucColPos].ucAvgStdDevRL = ptr2palStatsLastCycleWU[ucColPos].ucAvgStdDevRL;
@@ -258,17 +230,14 @@ void PutPalStatsLastCycleWU2Ram(void)
     }
 
     Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock0_GetErrorStatus(&ErrorStatus);
-    if (ErrorStatus  != NVM_REQ_PENDING)
-    {
+    if(ErrorStatus  != NVM_REQ_PENDING){
       Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock0_SetRamBlockStatus(TRUE);
     }
   }
 }
 
-uint8* GetPalStatsLastCycleWU(uint8 ucColPos)
-{
-  if (ucColPos<cMaxLR)
-  {
+uint8* GetPalStatsLastCycleWU(uint8 ucColPos){
+  if(ucColPos<cMaxLR){
     return (uint8*)(ptr2palStatsLastCycleWU + ucColPos);
   }
   else
@@ -277,10 +246,8 @@ uint8* GetPalStatsLastCycleWU(uint8 ucColPos)
   }
 }
 
-uint8* GetPalStatsLongTermWU(uint8 ucColPos)
-{
-  if (ucColPos<cMaxLR)
-  {
+uint8* GetPalStatsLongTermWU(uint8 ucColPos){
+  if(ucColPos<cMaxLR){
     return (uint8*)(ptr2PalStatsLongTermWU + ucColPos);
   }
   else
@@ -289,94 +256,76 @@ uint8* GetPalStatsLongTermWU(uint8 ucColPos)
   }
 }
 
-void ClearStatsLastCycleWU(void)
-{
+void ClearStatsLastCycleWU(void){
   uint8 i, j;
   NvM_RequestResultType ErrorStatus;
 
-  for(j=0; j<cMaxLR; j++)
-  {
-    for (i=0; i<sizeof(palStatsLastCycleWU); i++)
-    {
+  for(j=0; j<cMaxLR; j++){
+    for(i=0; i<sizeof(palStatsLastCycleWU); i++){
       ((uint8*)(ptr2palStatsLastCycleWU + j))[i] = 0;
     }
   }
 
   Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock0_GetErrorStatus(&ErrorStatus);
-  if (ErrorStatus  != NVM_REQ_PENDING)
-  {
+  if(ErrorStatus  != NVM_REQ_PENDING){
     Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock0_SetRamBlockStatus(TRUE);
   }
 }
 
-void ClearStatsLastCycleWUx(uint8 j)
-{
+void ClearStatsLastCycleWUx(uint8 j){
   uint8 i;
   NvM_RequestResultType ErrorStatus;
 
-  if (j < cMaxLR)
-   {
-    for (i=0; i<sizeof(palStatsLastCycleWU); i++)
-    {
+  if(j < cMaxLR){
+    for(i=0; i<sizeof(palStatsLastCycleWU); i++){
       ((uint8*)(ptr2palStatsLastCycleWU + j))[i] = 0;
     }
 
     Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock0_GetErrorStatus(&ErrorStatus);
-    if (ErrorStatus  != NVM_REQ_PENDING)
-    {
+    if(ErrorStatus  != NVM_REQ_PENDING){
       Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock0_SetRamBlockStatus(TRUE);
     }
   }
 }
 
-void ClearPalLocateStatistics(void)
-{
+void ClearPalLocateStatistics(void){
   uint8 i;
   NvM_RequestResultType ErrorStatus;
 
-  for (i=0; i<sizeof(DT_aucPalLocateStatistics); i++)
-  {
+  for(i=0; i<sizeof(DT_aucPalLocateStatistics); i++){
     ((uint8*)ptr2PalLocateStats)[i] =  0;
   }
   Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock0_GetErrorStatus(&ErrorStatus);
-  if (ErrorStatus  != NVM_REQ_PENDING)
-  {
+  if(ErrorStatus  != NVM_REQ_PENDING){
     Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock0_SetRamBlockStatus(TRUE);
   }
 }
 
-void ClearStatsLongTermWU(void)
-{
+void ClearStatsLongTermWU(void){
   uint8 i, j;
   NvM_RequestResultType ErrorStatus;
 
-  for(j=0; j<cMaxLR; j++)
-  {
-    for (i=0; i< sizeof(palStatsLongTermWU); i++)
-    {
+  for(j=0; j<cMaxLR; j++){
+    for(i=0; i< sizeof(palStatsLongTermWU); i++){
       ((uint8*)(ptr2PalStatsLongTermWU + j))[i] = 0;
     }
   }
   Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock0_GetErrorStatus(&ErrorStatus);
-  if (ErrorStatus  != NVM_REQ_PENDING)
-  {
+  if(ErrorStatus  != NVM_REQ_PENDING){
     Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock0_SetRamBlockStatus(TRUE);
   }
 }
 
-void ClearStatsLongTermWUx(uint8 j)
-{
+void ClearStatsLongTermWUx(uint8 j){
   uint8 i;
   NvM_RequestResultType ErrorStatus;
 
-  for (i=0; i< sizeof(palStatsLongTermWU); i++)
-  {
+  for(i=0; i< sizeof(palStatsLongTermWU); i++){
     ((uint8*)(ptr2PalStatsLongTermWU + j))[i] = 0;
   }
 
   Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock0_GetErrorStatus(&ErrorStatus);
-  if (ErrorStatus  != NVM_REQ_PENDING)
-  {
+  if(ErrorStatus  != NVM_REQ_PENDING){
     Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSdia_Pim_tDiagNvMBlock0_SetRamBlockStatus(TRUE);
   }
 }

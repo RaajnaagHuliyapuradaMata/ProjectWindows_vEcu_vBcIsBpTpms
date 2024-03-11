@@ -24,7 +24,7 @@
  #include <Os_Cfg.h>
 #endif
 
-#if (osdTypeHeaderInclude != 0)
+#if(osdTypeHeaderInclude != 0)
  #if defined USE_QUOTE_INCLUDES
   #include "Std_Types.h"
   #include "Rte_Type.h"
@@ -39,7 +39,7 @@ extern "C"
 {
 #endif
 
- #if (osdUseTrustedFunctionStubs != 0) || (osdNeedIOCTypes != 0)
+ #if(osdUseTrustedFunctionStubs != 0) || (osdNeedIOCTypes != 0)
   #if defined USE_QUOTE_INCLUDES
    #include "usrostyp.h"
   #else

@@ -5,38 +5,31 @@
 
 extern boolean GETbCalPminInvalidCAL( void );
 
-void InitZK( void )
-{
+void InitZK( void ){
   ClearBitZustandskennungZK( cZK_ALLE_BITS );
 
   SetCalNotAckZK();
  }
 
-void SetBitZustandskennungZK( uint16 ushBitMask )
-{
+void SetBitZustandskennungZK( uint16 ushBitMask ){
    ushZustandskennung |= ushBitMask;
 }
 
-void ClearBitZustandskennungZK( uint16 ushBitMask )
-{
+void ClearBitZustandskennungZK( uint16 ushBitMask ){
    ushZustandskennung &= ~ushBitMask;
 }
 
-boolean bGetBitZustandskennungZK( uint16 ushBitMask )
-{
+boolean bGetBitZustandskennungZK( uint16 ushBitMask ){
    return (boolean) ((ushZustandskennung & ushBitMask) != 0 );
 }
 
-uint16 ushGetZustandskennungZK( uint16 ushBitMask )
-{
+uint16 ushGetZustandskennungZK( uint16 ushBitMask ){
    return (ushZustandskennung & ushBitMask);
 }
 
-void SetChangedBit4WP( uint8 ucWP)
-{
+void SetChangedBit4WP( uint8 ucWP){
 
-  switch (ucWP)
-  {
+  switch (ucWP){
     case (uint8) 0:
     {
       ushZustandskennung |= cPOS_CHANGED_VL;
@@ -66,34 +59,29 @@ void SetChangedBit4WP( uint8 ucWP)
 
 }
 
-void SetCalNotAckZK( void )
-{
+void SetCalNotAckZK( void ){
 #ifdef cal_plausi_axes_invalid_110606
-  if( GETbCalVaInvalidCAL() == TRUE )
-  {
+  if( GETbCalVaInvalidCAL() == TRUE ){
     SetBitZustandskennungZK( cCAL_P_VA_INVALID );
   }else{
     ClearBitZustandskennungZK( cCAL_P_VA_INVALID );
   }
 
-  if( GETbCalHaInvalidCAL() == TRUE )
-  {
+  if( GETbCalHaInvalidCAL() == TRUE ){
     SetBitZustandskennungZK( cCAL_P_HA_INVALID );
   }else{
     ClearBitZustandskennungZK( cCAL_P_HA_INVALID );
   }
 #endif
 
-  if( GETbCalPminInvalidCAL() == TRUE )
-  {
+  if( GETbCalPminInvalidCAL() == TRUE ){
     SetBitZustandskennungZK( cCAL_P_MIN_INVALID );
   }else{
     ClearBitZustandskennungZK( cCAL_P_MIN_INVALID );
   }
 
 #ifdef cal_EvCalTimeout_110606
-  if( GETbCalTioCAL() == TRUE )
-  {
+  if( GETbCalTioCAL() == TRUE ){
     SetBitZustandskennungZK( cCAL_TIO );
   }else{
     ClearBitZustandskennungZK( cCAL_TIO );

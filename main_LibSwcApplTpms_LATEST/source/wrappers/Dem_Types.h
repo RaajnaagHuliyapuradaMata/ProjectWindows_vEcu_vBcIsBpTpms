@@ -9,14 +9,14 @@
 #error "Wrong #include sequence: Please include \"Dem_Cfg.h\" before including file \"Dem_Types.h\""
 #endif
 
-#if (DEM_USE_RTE == STD_ON)
+#if(DEM_USE_RTE == STD_ON)
 #include "Rte_Type.h"
 #endif
 
 #define DEM_NVDATA_PATTERN_SIZE                         4
 
 #if defined(RTE_VENDOR_ID)
-# if (RTE_VENDOR_ID == 0x1Eu)
+# if(RTE_VENDOR_ID == 0x1Eu)
 #   define DEM_USE_RTE_FROM_VECTOR  STD_ON
 # else
 #   define DEM_USE_RTE_FROM_VECTOR  STD_OFF
@@ -25,22 +25,22 @@
 #  define DEM_USE_RTE_FROM_VECTOR  STD_OFF
 #endif
 
-#if (DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_DTCStatusMaskType)))
+#if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_DTCStatusMaskType)))
 typedef uint8 Dem_DTCStatusMaskType;
 #endif
 
-#if (DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_DTCType)))
+#if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_DTCType)))
 typedef uint32 Dem_DTCType;
 #endif
 
-#if (DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_DTCKindType)))
+#if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_DTCKindType)))
 typedef uint8 Dem_DTCKindType;
 #define DEM_DTC_KIND_ALL_DTCS                             0x01
 #define DEM_DTC_KIND_EMISSION_REL_DTCS                    0x02
 #endif
 
-#if (DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_EventIdType)))
-# if (DEM_MAX_NUMBER_OF_EVENTS <= 255)
+#if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_EventIdType)))
+# if(DEM_MAX_NUMBER_OF_EVENTS <= 255)
 typedef uint8  Dem_EventIdType;
 # else
 typedef uint16 Dem_EventIdType;
@@ -49,15 +49,15 @@ typedef uint16 Dem_EventIdType;
 
 typedef P2VAR(Dem_EventIdType, TYPEDEF, DEM_VAR_NOINIT) Dem_EventIdPtrType;
 
-#if (DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_EventStatusExtendedType)))
+#if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_EventStatusExtendedType)))
 typedef uint8 Dem_EventStatusExtendedType;
 #endif
 
-#if (DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_FaultDetectionCounterType)))
+#if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_FaultDetectionCounterType)))
 typedef sint8 Dem_FaultDetectionCounterType;
 #endif
 
-#if (DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_EventStatusType)))
+#if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_EventStatusType)))
 typedef uint8 Dem_EventStatusType;
 #define DEM_EVENT_STATUS_PASSED                           0x00
 #define DEM_EVENT_STATUS_FAILED                           0x01
@@ -65,7 +65,7 @@ typedef uint8 Dem_EventStatusType;
 #define DEM_EVENT_STATUS_PREFAILED                        0x03
 #endif
 
-#if (DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_IndicatorStatusType)))
+#if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_IndicatorStatusType)))
 typedef uint8 Dem_IndicatorStatusType;
 #define DEM_INDICATOR_OFF                                 0x00
 #define DEM_INDICATOR_CONTINUOUS                          0x01
@@ -73,32 +73,32 @@ typedef uint8 Dem_IndicatorStatusType;
 #define DEM_INDICATOR_BLINK_CONT                          0x03
 #endif
 
-#if (DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_InitMonitorKindType)))
+#if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_InitMonitorKindType)))
 typedef uint8 Dem_InitMonitorKindType;
 #define DEM_INIT_MONITOR_CLEAR                            0x01
 #define DEM_INIT_MONITOR_RESTART                          0x02
 #endif
 
-#if (DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_OperationCycleIdType)))
+#if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_OperationCycleIdType)))
 typedef uint8 Dem_OperationCycleIdType;
 #endif
 
-#if (DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_OperationCycleStateType)))
+#if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_OperationCycleStateType)))
 typedef uint8 Dem_OperationCycleStateType;
 #define DEM_CYCLE_STATE_START                             0x01
 #define DEM_CYCLE_STATE_END                               0x02
 #endif
 #define DEM_CYCLE_STATE_START_BLOCKED                     0xFF
 
-#if (DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_MaxDataValueType)))
+#if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_MaxDataValueType)))
 typedef uint8 Dem_MaxDataValueType[];
 #endif
-#if (DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_MaxExtendedDataRecordType)))
+#if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_MaxExtendedDataRecordType)))
 typedef uint8 Dem_MaxExtendedDataRecordType[];
 #endif
 
-#if (DEM_SUPPORT_SUPPRESS_DTC == STD_ON)
-# if (DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_SuppressDTCStatusType)))
+#if(DEM_SUPPORT_SUPPRESS_DTC == STD_ON)
+# if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_SuppressDTCStatusType)))
 typedef uint8 Dem_SuppressDTCStatusType;
 # define DEM_SUPPRESS_DTC_OFF                              0u
 # define DEM_SUPPRESS_DTC_ON                               1u
@@ -309,7 +309,7 @@ typedef struct
   uint8 Action;
 } Dem_AQElementType;
 
-#if (DEM_SUPPORT_MULTIPLE_CONFIG == STD_ON) || (DEM_SUPPORT_VARIANT_HANDLING == STD_ON) || (DEM_PREINIT_HAS_CONFIG_PARAM == STD_ON)
+#if(DEM_SUPPORT_MULTIPLE_CONFIG == STD_ON) || (DEM_SUPPORT_VARIANT_HANDLING == STD_ON) || (DEM_PREINIT_HAS_CONFIG_PARAM == STD_ON)
 
 typedef struct
 {

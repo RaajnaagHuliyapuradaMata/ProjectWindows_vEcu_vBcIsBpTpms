@@ -149,11 +149,11 @@
 
 #if osdProtectionHook
 
- #if (osdTimingProtectionUsed && osdProtReactKillTaskIsrAllowed)
+ #if(osdTimingProtectionUsed && osdProtReactKillTaskIsrAllowed)
   #define osdKillTaskIsrPossible 1
  #endif
 
- #if ((osdSC == SC4) && (defined osdTimingProtectionUsed) && (osdProtReactKillApplAllowed || osdProtReactKillApplRestAllowed))
+ #if((osdSC == SC4) && (defined osdTimingProtectionUsed) && (osdProtReactKillApplAllowed || osdProtReactKillApplRestAllowed))
   #ifndef osdKillTaskIsrPossible
    #define osdKillTaskIsrPossible 1
   #endif
@@ -162,7 +162,7 @@
 
 #endif
 
-#if ((osdSC == SC3) || (osdSC == SC4)) && (!defined osdTerminateApplicationNotUsed)
+#if((osdSC == SC3) || (osdSC == SC4)) && (!defined osdTerminateApplicationNotUsed)
  #ifndef osdKillTaskIsrPossible
   #define osdKillTaskIsrPossible 1
  #endif

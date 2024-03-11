@@ -11,19 +11,6 @@
 
 #include "infRteSwcApplTpmsWarnHandler.hpp"
 
-/*
-#include "USWarnX.h"
-#include "global.h"
-#include "uswarn.h"
-
-#include "eeiface.h"
-#include "USWTime.h"
-#include "WnTypePar.h"
-#include "DAG_TVWarn.h"
-#include "uswarn_Ifx.h"
-#include "WallocX.h"
-*/
-
 /******************************************************************************/
 /* #DEFINES                                                                   */
 /******************************************************************************/

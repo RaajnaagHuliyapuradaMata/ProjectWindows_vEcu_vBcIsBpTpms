@@ -10,28 +10,28 @@
 
 
 
-#if (defined SCRC_CRC8_INITIALVALUE) 
+#if(defined SCRC_CRC8_INITIALVALUE) 
 #error SCRC_CRC8_INITIALVALUE is already defined
 #endif 
 
 
 #define SCRC_CRC8_INITIALVALUE 0xFFU
 
-#if (defined SCRC_CRC8_XORVALUE) 
+#if(defined SCRC_CRC8_XORVALUE) 
 #error SCRC_CRC8_XORVALUE is already defined
 #endif 
 
 
 #define SCRC_CRC8_XORVALUE 0xFFU
 
-#if (defined SCRC_CRC8H2F_INITIALVALUE) 
+#if(defined SCRC_CRC8H2F_INITIALVALUE) 
 #error SCRC_CRC8H2F_INITIALVALUE is already defined
 #endif 
 
 
 #define SCRC_CRC8H2F_INITIALVALUE 0xFFU
 
-#if (defined SCRC_CRC8H2F_XORVALUE) 
+#if(defined SCRC_CRC8H2F_XORVALUE) 
 #error SCRC_CRC8H2F_XORVALUE is already defined
 #endif 
 
@@ -55,7 +55,7 @@ typedef void SCrcPreventEmptyTranslationUnit;
 
 
 
-#if ((SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) || \
+#if((SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) || \
      (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON))
 
 #define SCRC_START_SEC_CONST_8BIT
@@ -64,7 +64,7 @@ typedef void SCrcPreventEmptyTranslationUnit;
 
 #endif 
 
-#if (SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON)
+#if(SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON)
 
 
 static CONST(uint8, SCRC_CONST) SCrc_Table8[256] =
@@ -97,7 +97,7 @@ static CONST(uint8, SCRC_CONST) SCrc_Table8[256] =
 
 #endif 
 
-#if (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON)
+#if(SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON)
 
 
 static CONST(uint8, SCRC_CONST) SCrc_Table8H2F[256] =
@@ -130,7 +130,7 @@ static CONST(uint8, SCRC_CONST) SCrc_Table8H2F[256] =
 
 #endif 
 
-#if ((SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) || \
+#if((SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) || \
      (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON))
 
 #define SCRC_STOP_SEC_CONST_8BIT
@@ -150,7 +150,7 @@ static CONST(uint8, SCRC_CONST) SCrc_Table8H2F[256] =
 
 
 
-#if ((SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) || \
+#if((SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) || \
      (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON))
 
 #define SCRC_START_SEC_CODE
@@ -158,7 +158,7 @@ static CONST(uint8, SCRC_CONST) SCrc_Table8H2F[256] =
 
 #endif 
 
-#if (SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON)
+#if(SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON)
 
 FUNC(uint8, SCRC_CODE) SCrc_CalculateCRC8
 (
@@ -171,7 +171,7 @@ FUNC(uint8, SCRC_CODE) SCrc_CalculateCRC8
     uint32 i;
 
     
-    if (FALSE == SCrc_IsFirstCall)
+    if(FALSE == SCrc_IsFirstCall)
     {
         SCrc_StartValue8 = (uint8)(SCrc_StartValue8 ^ SCRC_CRC8_XORVALUE);
     } else {
@@ -179,7 +179,7 @@ FUNC(uint8, SCRC_CODE) SCrc_CalculateCRC8
     }
 
     
-    for (i=0U; i<SCrc_Length; ++i)
+    for(i=0U; i<SCrc_Length; ++i)
     {
         SCrc_StartValue8 = SCrc_Table8[(uint8)(SCrc_StartValue8 ^ SCrc_DataPtr[i])];
     }
@@ -190,7 +190,7 @@ FUNC(uint8, SCRC_CODE) SCrc_CalculateCRC8
 
 #endif 
 
-#if (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON)
+#if(SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON)
 
 FUNC(uint8, SCRC_CODE) SCrc_CalculateCRC8H2F
 (
@@ -203,7 +203,7 @@ FUNC(uint8, SCRC_CODE) SCrc_CalculateCRC8H2F
     uint32 i;
 
     
-    if (FALSE == SCrc_IsFirstCall)
+    if(FALSE == SCrc_IsFirstCall)
     {
         SCrc_StartValue8H2F = (uint8)(SCrc_StartValue8H2F ^ SCRC_CRC8H2F_XORVALUE);
     } else {
@@ -211,7 +211,7 @@ FUNC(uint8, SCRC_CODE) SCrc_CalculateCRC8H2F
     }
 
     
-    for (i=0U; i<SCrc_Length; ++i)
+    for(i=0U; i<SCrc_Length; ++i)
     {
         SCrc_StartValue8H2F = SCrc_Table8H2F[(uint8)(SCrc_StartValue8H2F ^ SCrc_DataPtr[i])];
     }
@@ -222,7 +222,7 @@ FUNC(uint8, SCRC_CODE) SCrc_CalculateCRC8H2F
 
 #endif 
 
-#if ((SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) || \
+#if((SCRC_FUNCENABLED_SCRC_CRC8 == STD_ON) || \
      (SCRC_FUNCENABLED_SCRC_CRC8H2F == STD_ON))
 
 #define SCRC_STOP_SEC_CODE

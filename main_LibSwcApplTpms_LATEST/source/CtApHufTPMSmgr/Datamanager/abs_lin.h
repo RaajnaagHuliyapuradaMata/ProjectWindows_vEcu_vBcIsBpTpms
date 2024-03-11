@@ -64,7 +64,7 @@ static  uint8 ucCurrentOverflowCntVr;
 static  uint8 ucCurrentOverflowCntHl;
 static  uint8 ucCurrentOverflowCntHr;
 
-#if (cABS_DEBUG_MODE)
+#if(cABS_DEBUG_MODE)
   uint16 ushDebugAbsTimeDiff     = 0;
 
   uint16 ushDebugRfTimeStamp     = 0;

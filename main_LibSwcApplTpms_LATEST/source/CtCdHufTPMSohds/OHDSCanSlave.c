@@ -7,7 +7,7 @@
 #include "OHDSCanSlave_ApIf.h"
 #include "OHDSCanSlave_Cbk.h"
 #include "SchM_OHDSCanSlave.h"
-#if (OHDSCANSLAVE_DEV_ERROR_DETECT == STD_ON)
+#if(OHDSCANSLAVE_DEV_ERROR_DETECT == STD_ON)
   #include "Det.h"
 #endif
 
@@ -66,7 +66,7 @@
 #error "OHDSCANSLAVE_CYCLETIME must be defined between 0.1ms and 50ms."
 #endif
 
-#if ((1000000u % OHDSCANSLAVE_CYCLETIME) != 0u)
+#if((1000000u % OHDSCANSLAVE_CYCLETIME) != 0u)
 #error "OHDSCANSLAVE_CYCLETIME must be a multiple(integer) of 1 second."
 #endif
 
@@ -77,7 +77,7 @@
 # error "OHDSCanSlave_Config.h file has an incorrect version."
 #endif
 
-#if (OHDSCANSLAVE_DEV_ERROR_DETECT == STD_ON)
+#if(OHDSCANSLAVE_DEV_ERROR_DETECT == STD_ON)
   #define OHDSCanSlave_ReportError(apiID, errorID) Det_ReportError( OHDSCANSLAVE_REPORTERROR_MODULEID ,0u , apiID, errorID)
 #else
   #define OHDSCanSlave_ReportError(apiID, errorID)
@@ -117,7 +117,7 @@ STATIC CONST(E2E_P02ConfigType, OHDS_CONST)           OHDSCanSlave_E2EConfigSync
   ((OHDSCANSLAVE_CANSIGNAL_MSGLENGTH - 1u) * 8u)
   , OHDSCanSlave_Sync_DataID
   , 0x0u
-#if (OHDSCANSLAVE_E2E_AR322SUPPORT == STD_ON)
+#if(OHDSCANSLAVE_E2E_AR322SUPPORT == STD_ON)
   , 0x00u
   , 0x00u
 #endif
@@ -128,7 +128,7 @@ STATIC CONST(E2E_P02ConfigType, OHDS_CONST)           OHDSCanSlave_E2EConfigFup 
   ((OHDSCANSLAVE_CANSIGNAL_MSGLENGTH - 1u) * 8u)
   , OHDSCanSlave_Fup_DataID
   , 0x0u
-#if (OHDSCANSLAVE_E2E_AR322SUPPORT == STD_ON)
+#if(OHDSCANSLAVE_E2E_AR322SUPPORT == STD_ON)
   , 0x00u
   , 0x00u
 #endif
@@ -203,12 +203,10 @@ STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_Multiply( P2VAR(uint32, AUTOMATIC, OHD
                                                     P2VAR(uint8, AUTOMATIC, OHDS_APPL_VAR) resultHigh,
                                                     uint32 a, uint16 b);
 
-#if (OHDSCANSLAVE_VERSION_INFO_API == STD_ON)
+#if(OHDSCANSLAVE_VERSION_INFO_API == STD_ON)
 
-FUNC(void, OHDS_CODE) OHDSCanSlave_GetVersionInfo( P2VAR(Std_VersionInfoType, AUTOMATIC, OHDS_APPL_VAR) versionInfo )
-{
-  if (versionInfo != NULL_PTR)
-  {
+FUNC(void, OHDS_CODE) OHDSCanSlave_GetVersionInfo( P2VAR(Std_VersionInfoType, AUTOMATIC, OHDS_APPL_VAR) versionInfo ){
+  if(versionInfo != NULL_PTR){
     versionInfo->vendorID         = OHDSCANSLAVE_VENDOR_ID;
     versionInfo->moduleID         = OHDSCANSLAVE_MODULE_ID;
     versionInfo->instanceID       = 0u;
@@ -219,13 +217,11 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_GetVersionInfo( P2VAR(Std_VersionInfoType, AU
 }
 #endif
 
-FUNC(void, OHDS_CODE) OHDSCanSlave_InitMemory( void )
-{
+FUNC(void, OHDS_CODE) OHDSCanSlave_InitMemory( void ){
   OHDSCanSlave_State = OHDSCANSLAVE_STATE_UNINITIALIZED;
 }
 
-FUNC(void, OHDS_CODE) OHDSCanSlave_Init( void )
-{
+FUNC(void, OHDS_CODE) OHDSCanSlave_Init( void ){
 
   OHDSCanSlave_State = OHDSCANSLAVE_STATE_UNINITIALIZED;
 
@@ -246,7 +242,7 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_Init( void )
   OHDSCanSlave_E2EReceiverStateSync.NewDataAvailable = FALSE;
   OHDSCanSlave_E2EReceiverStateSync.Status = E2E_P02STATUS_NONEWDATA;
 
-#if (OHDSCANSLAVE_E2E_AR322SUPPORT == STD_ON)
+#if(OHDSCANSLAVE_E2E_AR322SUPPORT == STD_ON)
   OHDSCanSlave_E2EReceiverStateSync.NoNewOrRepeatedDataCounter = 0x00u;
   OHDSCanSlave_E2EReceiverStateSync.SyncCounter = 0x00u;
 #endif
@@ -258,7 +254,7 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_Init( void )
   OHDSCanSlave_E2EReceiverStateFup.NewDataAvailable = FALSE;
   OHDSCanSlave_E2EReceiverStateFup.Status = E2E_P02STATUS_NONEWDATA;
 
-#if (OHDSCANSLAVE_E2E_AR322SUPPORT == STD_ON)
+#if(OHDSCANSLAVE_E2E_AR322SUPPORT == STD_ON)
   OHDSCanSlave_E2EReceiverStateFup.NoNewOrRepeatedDataCounter = 0x00u;
   OHDSCanSlave_E2EReceiverStateFup.SyncCounter = 0x00u;
 #endif
@@ -268,8 +264,7 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_Init( void )
   OHDSCanSlave_OperatingHours_High_t2s = 0u;
   OHDSCanSlave_StatusByte_t2s = OHDSCANSLAVE_STATUS_INIT;
 
-  if( OHDSCanSlave_StartTimer() != E_OK )
-  {
+  if( OHDSCanSlave_StartTimer() != E_OK ){
     OHDSCanSlave_Timer_LastUpdate = 0u;
     OHDSCanSlave_Timer_LastUpdateCall = 0u;
     OHDSCanSlave_ReportError(OHDSCANSLAVE_INIT_SID, OHDSCANSLAVE_E_TIMERINIT);
@@ -283,28 +278,22 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_Init( void )
   }
 }
 
-FUNC(void, OHDS_CODE) OHDSCanSlave_MainFunction( void )
-{
-  if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_UNINITIALIZED )
-  {
+FUNC(void, OHDS_CODE) OHDSCanSlave_MainFunction( void ){
+  if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_UNINITIALIZED ){
     OHDSCanSlave_ReportError( OHDSCANSLAVE_MAINFUNCTION_SID, OHDSCANSLAVE_E_UNINIT);
   }
   else
   {
     VAR(Std_ReturnType,AUTOMATIC) syncPerformed = E_NOT_OK;
 
-    if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_SYNC_RECEIVED )
-    {
+    if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_SYNC_RECEIVED ){
       OHDSCanSlave_UpdateSyncOffset();
     }
-    else if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_FUP_RECEIVED )
-    {
+    else if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_FUP_RECEIVED ){
 
       OHDSCanSlave_E2EReceiverStateSync.NewDataAvailable = TRUE;
-      if( E2E_P02Check(&OHDSCanSlave_E2EConfigSync, &OHDSCanSlave_E2EReceiverStateSync, &OHDSCanSlave_SyncMsg[1]) == E2E_E_OK )
-      {
-        if( OHDSCanSlave_E2EReceiverStateSync.Status != E2E_P02STATUS_WRONGCRC )
-        {
+      if( E2E_P02Check(&OHDSCanSlave_E2EConfigSync, &OHDSCanSlave_E2EReceiverStateSync, &OHDSCanSlave_SyncMsg[1]) == E2E_E_OK ){
+        if( OHDSCanSlave_E2EReceiverStateSync.Status != E2E_P02STATUS_WRONGCRC ){
           syncPerformed = OHDSCanSlave_HandleFUP();
         }
       }
@@ -314,14 +303,12 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_MainFunction( void )
     else
     {  }
 
-    if( syncPerformed == E_OK )
-    {
+    if( syncPerformed == E_OK ){
 
       OHDSCanSlave_SetStatusBit_Sync();
       OHDSCanSlave_TimeoutValue = OHDSCANSLAVE_SYNC_TIMEOUT;
 
-      if( OHDSCanSlave_SyncLostState != FALSE )
-      {
+      if( OHDSCanSlave_SyncLostState != FALSE ){
 
         OHDSCanSlave_SyncLostState = FALSE;
         OHDSCanSlave_SyncLostState_TimeoutValue = OHDSCANSLAVE_SYNCLOSTSTATE_FALSE_DEBOUNCE_TIMEOUT + OHDSCANSLAVE_CYCLETIME;
@@ -332,8 +319,7 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_MainFunction( void )
 
       OHDSCanSlave_UpdateOperatingHoursCounter(NULL_PTR, NULL_PTR, NULL_PTR, NULL_PTR);
 
-      if( OHDSCANSLAVE_CYCLETIME >= OHDSCanSlave_TimeoutValue  )
-      {
+      if( OHDSCANSLAVE_CYCLETIME >= OHDSCanSlave_TimeoutValue  ){
         OHDSCanSlave_TimeoutValue = 0u;
         OHDSCanSlave_SetStatusBit_SyncLost();
 
@@ -346,11 +332,9 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_MainFunction( void )
       }
     }
 
-    if( OHDSCanSlave_SyncLostState_TimeoutValue > 0u )
-    {
+    if( OHDSCanSlave_SyncLostState_TimeoutValue > 0u ){
 
-      if( OHDSCANSLAVE_CYCLETIME >= OHDSCanSlave_SyncLostState_TimeoutValue )
-      {
+      if( OHDSCANSLAVE_CYCLETIME >= OHDSCanSlave_SyncLostState_TimeoutValue ){
 
         OHDSCanSlave_SyncLostState_TimeoutValue = 0u;
         OHDSCanSlave_ClearStatusBit_SyncLost();
@@ -364,26 +348,20 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_MainFunction( void )
   }
 }
 
-FUNC(void, OHDS_CODE) OHDSCanSlave_RxIndication(PduIdType RxPduId, P2CONST(PduInfoType, AUTOMATIC, OHDS_APPL_VAR) PduInfoPtr)
-{
-  if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_UNINITIALIZED  )
-  {
+FUNC(void, OHDS_CODE) OHDSCanSlave_RxIndication(PduIdType RxPduId, P2CONST(PduInfoType, AUTOMATIC, OHDS_APPL_VAR) PduInfoPtr){
+  if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_UNINITIALIZED  ){
 
   }
   else
   {
-    if( (RxPduId != 0u) || (PduInfoPtr == NULL_PTR) )
-    {
+    if( (RxPduId != 0u) || (PduInfoPtr == NULL_PTR) ){
        OHDSCanSlave_ReportError(OHDSCANSLAVE_RXINDICATION_SID, OHDSCANSLAVE_E_PARAM);
     }
     else
     {
-      if( PduInfoPtr->SduLength >= OHDSCANSLAVE_CANSIGNAL_MSGLENGTH )
-      {
-        if( OHDSCanSlave_CanSignal_IsSyncMsg(PduInfoPtr->SduDataPtr) )
-        {
-          if( OHDSCanSlave_GetCanSignal_TimeDomain(PduInfoPtr->SduDataPtr) == OHDSCANSLAVE_TIME_DOMAIN )
-          {
+      if( PduInfoPtr->SduLength >= OHDSCANSLAVE_CANSIGNAL_MSGLENGTH ){
+        if( OHDSCanSlave_CanSignal_IsSyncMsg(PduInfoPtr->SduDataPtr) ){
+          if( OHDSCanSlave_GetCanSignal_TimeDomain(PduInfoPtr->SduDataPtr) == OHDSCANSLAVE_TIME_DOMAIN ){
 
             OHDSCanSlave_UpdateOperatingHoursCounter(&OHDSCanSlave_OperatingHours_Low_t2s, &OHDSCanSlave_OperatingHours_High_t2s,
                                                      &OHDSCanSlave_OperatingHours_t2s_us, &OHDSCanSlave_StatusByte_t2s);
@@ -400,12 +378,9 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_RxIndication(PduIdType RxPduId, P2CONST(PduIn
             OHDSCanSlave_LeaveCritical(OHDSCANSLAVE_EXCLUSIVE_AREA_0);
           }
         }
-        else if( OHDSCanSlave_CanSignal_IsFupMsg(PduInfoPtr->SduDataPtr) )
-        {
-          if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_SYNC_RECEIVED )
-          {
-            if( OHDSCanSlave_GetCanSignal_TimeDomain(PduInfoPtr->SduDataPtr) == OHDSCANSLAVE_TIME_DOMAIN )
-            {
+        else if( OHDSCanSlave_CanSignal_IsFupMsg(PduInfoPtr->SduDataPtr) ){
+          if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_SYNC_RECEIVED ){
+            if( OHDSCanSlave_GetCanSignal_TimeDomain(PduInfoPtr->SduDataPtr) == OHDSCANSLAVE_TIME_DOMAIN ){
 
               OHDSCanSlave_EnterCritical(OHDSCANSLAVE_EXCLUSIVE_AREA_0);
 
@@ -424,40 +399,32 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_RxIndication(PduIdType RxPduId, P2CONST(PduIn
   }
 }
 
-FUNC(void, OHDS_CODE) OHDSCanSlave_TxConfirmation(PduIdType TxPduId)
-{
+FUNC(void, OHDS_CODE) OHDSCanSlave_TxConfirmation(PduIdType TxPduId){
 
   OHDSCanSlave_ReportError(OHDSCANSLAVE_TXCONFIRMATION_SID, OHDSCANSLAVE_E_NOTSUPPORTED);
 }
 
 STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_MemCpy( P2CONST(uint8, AUTOMATIC, OHDS_APPL_VAR) src,
                                                   P2VAR(uint8, AUTOMATIC, OHDS_APPL_VAR) dest,
-                                                  uint8 cnt )
-{
-  for( ;cnt > 0u; cnt-- )
-  {
+                                                  uint8 cnt ){
+  for( ;cnt > 0u; cnt-- ){
     dest[cnt-1u] = src[cnt-1u];
   }
 }
 
-STATIC FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_HandleFUP( void )
-{
+STATIC FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_HandleFUP( void ){
   VAR(Std_ReturnType, AUTOMATIC) retVal = E_NOT_OK;
 
-  if( OHDSCanSlave_GetCanSignal_SQC(OHDSCanSlave_FupMsg) == OHDSCanSlave_GetCanSignal_SQC(OHDSCanSlave_SyncMsg) )
-  {
+  if( OHDSCanSlave_GetCanSignal_SQC(OHDSCanSlave_FupMsg) == OHDSCanSlave_GetCanSignal_SQC(OHDSCanSlave_SyncMsg) ){
 
-    if( OHDSCanSlave_GetCanSignal_NS(OHDSCanSlave_FupMsg) > OHDSCANSLAVE_NS_MAXVALUE )
-    {
+    if( OHDSCanSlave_GetCanSignal_NS(OHDSCanSlave_FupMsg) > OHDSCANSLAVE_NS_MAXVALUE ){
     }
     else
     {
 
       OHDSCanSlave_E2EReceiverStateFup.NewDataAvailable = TRUE;
-      if( E2E_P02Check(&OHDSCanSlave_E2EConfigFup, &OHDSCanSlave_E2EReceiverStateFup, &OHDSCanSlave_FupMsg[1]) == E2E_E_OK )
-      {
-        if( OHDSCanSlave_E2EReceiverStateFup.Status != E2E_P02STATUS_WRONGCRC )
-        {
+      if( E2E_P02Check(&OHDSCanSlave_E2EConfigFup, &OHDSCanSlave_E2EReceiverStateFup, &OHDSCanSlave_FupMsg[1]) == E2E_E_OK ){
+        if( OHDSCanSlave_E2EReceiverStateFup.Status != E2E_P02STATUS_WRONGCRC ){
 
           VAR(uint32, AUTOMATIC) syncOffsetMS;
 
@@ -475,8 +442,7 @@ STATIC FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_HandleFUP( void )
 
           OHDSCanSlave_Multiply(&OHDSCanSlave_OperatingHours_Low, &OHDSCanSlave_OperatingHours_High, OHDSCanSlave_GetCanSignal_SEC(OHDSCanSlave_SyncMsg), 1000u);
 
-          if( (OHDSCANSLAVE_MAXUINT32 - syncOffsetMS) >= OHDSCanSlave_OperatingHours_Low  )
-          {
+          if( (OHDSCANSLAVE_MAXUINT32 - syncOffsetMS) >= OHDSCanSlave_OperatingHours_Low  ){
             OHDSCanSlave_OperatingHours_Low += syncOffsetMS;
           }
           else
@@ -504,16 +470,14 @@ STATIC FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_HandleFUP( void )
   return retVal;
 }
 
-STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateSyncOffset( void )
-{
+STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateSyncOffset( void ){
   VAR(uint32, AUTOMATIC) timerValue;
   VAR(uint32, AUTOMATIC) deltaTNS;
 
   OHDSCanSlave_EnterCritical(OHDSCANSLAVE_EXCLUSIVE_AREA_0);
 
   timerValue = OHDSCanSlave_GetTimerValue();
-  if(timerValue < OHDSCanSlave_Timer_LastSync)
-  {
+  if(timerValue < OHDSCanSlave_Timer_LastSync){
     deltaTNS = OHDSCANSLAVE_TIMER_MAX - OHDSCanSlave_Timer_LastSync;
 
     deltaTNS += timerValue + 1u;
@@ -525,8 +489,7 @@ STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateSyncOffset( void )
 
   deltaTNS *= OHDSCANSLAVE_TIMER_NS_PER_TICK;
 
-  if( (OHDSCANSLAVE_MAX_INTERSYNCFUP_TIME - deltaTNS) >= OHDSCanSlave_Timer_SyncOffset )
-  {
+  if( (OHDSCANSLAVE_MAX_INTERSYNCFUP_TIME - deltaTNS) >= OHDSCanSlave_Timer_SyncOffset ){
     OHDSCanSlave_Timer_SyncOffset += deltaTNS;
   }
   else
@@ -543,8 +506,7 @@ STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateSyncOffset( void )
 STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateOperatingHoursCounter( P2VAR(uint32, AUTOMATIC, OHDS_APPL_VAR) valueLow,
                                                                        P2VAR(uint8, AUTOMATIC, OHDS_APPL_VAR) valueMsb,
                                                                        P2VAR(uint32, AUTOMATIC, OHDS_APPL_VAR) microSeconds,
-                                                                       P2VAR(uint8, AUTOMATIC, OHDS_APPL_VAR) status )
-{
+                                                                       P2VAR(uint8, AUTOMATIC, OHDS_APPL_VAR) status ){
   VAR(boolean, AUTOMATIC) performUpdate = FALSE;
   VAR(uint32, AUTOMATIC) timerValue;
 
@@ -556,8 +518,7 @@ STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateOperatingHoursCounter( P2VAR(uin
 
   timerValue = OHDSCanSlave_GetTimerValue();
 
-  if( timerValue < OHDSCanSlave_Timer_LastUpdateCall  )
-  {
+  if( timerValue < OHDSCanSlave_Timer_LastUpdateCall  ){
     tmpNanoSeconds = OHDSCANSLAVE_TIMER_MAX - OHDSCanSlave_Timer_LastUpdate;
 
     tmpNanoSeconds += timerValue + 1u;
@@ -571,13 +532,11 @@ STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateOperatingHoursCounter( P2VAR(uin
 
   OHDSCanSlave_Timer_LastUpdateCall = timerValue;
 
-  if( tmpNanoSeconds >= OHDSCANSLAVE_MAXUPDATE_OFFSET )
-  {
+  if( tmpNanoSeconds >= OHDSCANSLAVE_MAXUPDATE_OFFSET ){
     performUpdate = TRUE;
   }
 
-  if( (performUpdate == TRUE) || (valueLow != NULL_PTR) )
-  {
+  if( (performUpdate == TRUE) || (valueLow != NULL_PTR) ){
 
     tmpNanoSeconds *= OHDSCANSLAVE_TIMER_NS_PER_TICK;
 
@@ -587,15 +546,13 @@ STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateOperatingHoursCounter( P2VAR(uin
 
     tmpNanoSeconds = tmpNanoSeconds % 1000000u;
 
-    if( (OHDSCANSLAVE_MAXUINT32 - tmpOHCounterLow) >= OHDSCanSlave_OperatingHours_Low )
-    {
+    if( (OHDSCANSLAVE_MAXUINT32 - tmpOHCounterLow) >= OHDSCanSlave_OperatingHours_Low ){
       tmpOHCounterLow += OHDSCanSlave_OperatingHours_Low;
       tmpOHCounterHigh = OHDSCanSlave_OperatingHours_High;
     }
     else
     {
-      if( OHDSCanSlave_OperatingHours_High == OHDSCANSLAVE_MAXUINT8 )
-      {
+      if( OHDSCanSlave_OperatingHours_High == OHDSCANSLAVE_MAXUINT8 ){
         tmpOHCounterHigh = 0x00u;
       }
       else
@@ -606,8 +563,7 @@ STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateOperatingHoursCounter( P2VAR(uin
       tmpOHCounterLow = tmpOHCounterLow - ((OHDSCANSLAVE_MAXUINT32 - OHDSCanSlave_OperatingHours_Low) + 1u);
     }
 
-    if( performUpdate == TRUE )
-    {
+    if( performUpdate == TRUE ){
 
       OHDSCanSlave_Timer_LastUpdate = timerValue;
 
@@ -616,20 +572,16 @@ STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateOperatingHoursCounter( P2VAR(uin
       OHDSCanSlave_Timer_UpdateError = tmpNanoSeconds;
     }
 
-    if( valueLow != NULL_PTR )
-    {
+    if( valueLow != NULL_PTR ){
       *valueLow = tmpOHCounterLow;
 
-      if( valueMsb != NULL_PTR )
-      {
+      if( valueMsb != NULL_PTR ){
         *valueMsb = tmpOHCounterHigh;
       }
-      if( microSeconds != NULL_PTR )
-      {
+      if( microSeconds != NULL_PTR ){
         *microSeconds = tmpNanoSeconds / 1000u;
       }
-      if( status != NULL_PTR )
-      {
+      if( status != NULL_PTR ){
         *status = OHDSCanSlave_StatusByte;
       }
     }
@@ -638,29 +590,24 @@ STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateOperatingHoursCounter( P2VAR(uin
 }
 
 FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_GetOperatingHoursUint16( P2VAR(uint16, AUTOMATIC, OHDS_APPL_VAR) value,
-                                                                      P2VAR(uint8, AUTOMATIC, OHDS_APPL_VAR) status )
-{
+                                                                      P2VAR(uint8, AUTOMATIC, OHDS_APPL_VAR) status ){
   VAR(Std_ReturnType, AUTOMATIC) retValue = E_OK;
 
-  if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_UNINITIALIZED )
-  {
+  if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_UNINITIALIZED ){
     retValue = E_NOT_OK;
     OHDSCanSlave_ReportError(OHDSCANSLAVE_GETOHUINT16_SID, OHDSCANSLAVE_E_UNINIT);
 
-    if(value != NULL_PTR )
-    {
+    if(value != NULL_PTR ){
       *value = OHDSCANSLAVE_OPERATINGHOURS_UINT16_SNA;
     }
-    if(status != NULL_PTR)
-    {
+    if(status != NULL_PTR){
       *status  = OHDSCANSLAVE_STATUS_SNA;
     }
   }
   else
   {
 
-    if(value != NULL_PTR)
-    {
+    if(value != NULL_PTR){
       VAR(uint32, AUTOMATIC) tmpOHLow;
       OHDSCanSlave_UpdateOperatingHoursCounter(&tmpOHLow, NULL_PTR, NULL_PTR, status);
 
@@ -673,29 +620,24 @@ FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_GetOperatingHoursUint16( P2VAR(uint
 
 FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_GetOperatingHours( P2VAR(uint32, AUTOMATIC, OHDS_APPL_VAR) value,
                                                                 P2VAR(uint8, AUTOMATIC, OHDS_APPL_VAR) valueMsb,
-                                                                P2VAR(uint8, AUTOMATIC, OHDS_APPL_VAR) status )
-{
+                                                                P2VAR(uint8, AUTOMATIC, OHDS_APPL_VAR) status ){
   VAR(Std_ReturnType, AUTOMATIC) retValue = E_OK;
 
-  if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_UNINITIALIZED )
-  {
+  if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_UNINITIALIZED ){
     retValue = E_NOT_OK;
     OHDSCanSlave_ReportError(OHDSCANSLAVE_GETOH_SID, OHDSCANSLAVE_E_UNINIT);
 
-    if((value != NULL_PTR) && (valueMsb != NULL_PTR))
-    {
+    if((value != NULL_PTR) && (valueMsb != NULL_PTR)){
       *value = OHDSCANSLAVE_OPERATINGHOURS_SNA;
       *valueMsb = OHDSCANSLAVE_OPERATINGHOURS_MSB_SNA;
     }
-    if(status != NULL_PTR)
-    {
+    if(status != NULL_PTR){
       *status  = OHDSCANSLAVE_STATUS_SNA;
     }
   }
   else
   {
-    if((value != NULL_PTR) && (valueMsb != NULL_PTR))
-    {
+    if((value != NULL_PTR) && (valueMsb != NULL_PTR)){
       OHDSCanSlave_UpdateOperatingHoursCounter(value, valueMsb, NULL_PTR, status );
     }
   }
@@ -704,29 +646,24 @@ FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_GetOperatingHours( P2VAR(uint32, AU
 }
 
 FUNC(Std_ReturnType, OHDS_CODE) OHDS_Dem_GetOperatingHours( P2VAR(uint32, AUTOMATIC, OHDS_APPL_VAR) value,
-                                                            P2VAR(uint8, AUTOMATIC, OHDS_APPL_VAR) status )
-{
+                                                            P2VAR(uint8, AUTOMATIC, OHDS_APPL_VAR) status ){
   VAR(Std_ReturnType, AUTOMATIC) retValue = E_OK;
 
-  if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_UNINITIALIZED )
-  {
+  if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_UNINITIALIZED ){
     retValue = E_NOT_OK;
     OHDSCanSlave_ReportError(OHDSCANSLAVE_DEM_GETOH_SID, OHDSCANSLAVE_E_UNINIT);
 
-    if(value != NULL_PTR)
-    {
+    if(value != NULL_PTR){
       *value = OHDSCANSLAVE_OPERATINGHOURS_SNA;
     }
-    if(status != NULL_PTR)
-    {
+    if(status != NULL_PTR){
       *status  = OHDSCANSLAVE_STATUS_SNA;
     }
   }
   else
   {
 
-    if(value != NULL_PTR)
-    {
+    if(value != NULL_PTR){
       OHDSCanSlave_UpdateOperatingHoursCounter(value, NULL_PTR, NULL_PTR, status);
     }
   }
@@ -734,18 +671,16 @@ FUNC(Std_ReturnType, OHDS_CODE) OHDS_Dem_GetOperatingHours( P2VAR(uint32, AUTOMA
   return retValue;
 }
 
-#if (OHDSCANSLAVE_VERSION_INFO_API == STD_ON)
+#if(OHDSCANSLAVE_VERSION_INFO_API == STD_ON)
 
-FUNC(void, OHDS_CODE) OHDS_Dem_GetVersionInfo( P2VAR(Std_VersionInfoType, AUTOMATIC, OHDS_APPL_VAR) versionInfo )
-{
+FUNC(void, OHDS_CODE) OHDS_Dem_GetVersionInfo( P2VAR(Std_VersionInfoType, AUTOMATIC, OHDS_APPL_VAR) versionInfo ){
   OHDSCanSlave_GetVersionInfo(versionInfo);
 }
 #endif
 
 STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_Multiply( P2VAR(uint32, AUTOMATIC, OHDS_APPL_VAR) resultLow,
                                                     P2VAR(uint8, AUTOMATIC, OHDS_APPL_VAR) resultHigh,
-                                                    uint32 a, uint16 b)
-{
+                                                    uint32 a, uint16 b){
   VAR(uint32, AUTOMATIC) alb, ahb, tmpResult;
 
   alb = (a & 0xFFFFu) * b;

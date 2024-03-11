@@ -1,5 +1,5 @@
 
-#if (!defined E2E_H)
+#if(!defined E2E_H)
 #define E2E_H
 
 
@@ -11,35 +11,35 @@
 
 
 
-#if (defined E2E_E_INPUTERR_NULL) 
+#if(defined E2E_E_INPUTERR_NULL) 
 #error E2E_E_INPUTERR_NULL is already defined
 #endif
 
 
 #define E2E_E_INPUTERR_NULL 0x13U
 
-#if (defined E2E_E_INPUTERR_WRONG) 
+#if(defined E2E_E_INPUTERR_WRONG) 
 #error E2E_E_INPUTERR_WRONG is already defined
 #endif
 
 
 #define E2E_E_INPUTERR_WRONG 0x17U
 
-#if (defined E2E_E_INTERR) 
+#if(defined E2E_E_INTERR) 
 #error E2E_E_INTERR is already defined
 #endif
 
 
 #define E2E_E_INTERR 0x19U
 
-#if (defined E2E_E_OK) 
+#if(defined E2E_E_OK) 
 #error E2E_E_OK is already defined
 #endif
 
 
 #define E2E_E_OK 0U
 
-#if (defined E2E_E_INVALID) 
+#if(defined E2E_E_INVALID) 
 #error E2E_E_INVALID is already defined
 #endif
 
@@ -48,7 +48,7 @@
 
 
 
-#if (defined E2E_VENDOR_ID) 
+#if(defined E2E_VENDOR_ID) 
 #error E2E_VENDOR_ID is already defined
 #endif
 
@@ -56,7 +56,7 @@
 
 
 
-#if (defined E2E_MODULE_ID) 
+#if(defined E2E_MODULE_ID) 
 #error E2E_MODULE_ID already defined
 #endif
 
@@ -64,19 +64,19 @@
 
 
 
-#if (defined E2E_AR_RELEASE_MAJOR_VERSION) 
+#if(defined E2E_AR_RELEASE_MAJOR_VERSION) 
 #error E2E_AR_RELEASE_MAJOR_VERSION already defined
 #endif
 
 #define E2E_AR_RELEASE_MAJOR_VERSION  4U
 
-#if (defined E2E_AR_RELEASE_MINOR_VERSION) 
+#if(defined E2E_AR_RELEASE_MINOR_VERSION) 
 #error E2E_AR_RELEASE_MINOR_VERSION already defined
 #endif
 
 #define E2E_AR_RELEASE_MINOR_VERSION  0U
 
-#if (defined E2E_AR_RELEASE_REVISION_VERSION) 
+#if(defined E2E_AR_RELEASE_REVISION_VERSION) 
 #error E2E_AR_RELEASE_REVISION_VERSION already defined
 #endif
 
@@ -84,19 +84,19 @@
 
 
 
-#if (defined E2E_AR_MAJOR_VERSION) 
+#if(defined E2E_AR_MAJOR_VERSION) 
 #error E2E_AR_MAJOR_VERSION already defined
 #endif
 
 #define E2E_AR_MAJOR_VERSION  2U
 
-#if (defined E2E_AR_MINOR_VERSION) 
+#if(defined E2E_AR_MINOR_VERSION) 
 #error E2E_AR_MINOR_VERSION already defined
 #endif
 
 #define E2E_AR_MINOR_VERSION  0U
 
-#if (defined E2E_AR_PATCH_VERSION) 
+#if(defined E2E_AR_PATCH_VERSION) 
 #error E2E_AR_PATCH_VERSION already defined
 #endif
 
@@ -104,19 +104,19 @@
 
 
 
-#if (defined E2E_SW_MAJOR_VERSION) 
+#if(defined E2E_SW_MAJOR_VERSION) 
 #error E2E_SW_MAJOR_VERSION already defined
 #endif
 
 #define E2E_SW_MAJOR_VERSION  2U
 
-#if (defined E2E_SW_MINOR_VERSION) 
+#if(defined E2E_SW_MINOR_VERSION) 
 #error E2E_SW_MINOR_VERSION already defined
 #endif
 
 #define E2E_SW_MINOR_VERSION  0U
 
-#if (defined E2E_SW_PATCH_VERSION) 
+#if(defined E2E_SW_PATCH_VERSION) 
 #error E2E_SW_PATCH_VERSION already defined
 #endif
 

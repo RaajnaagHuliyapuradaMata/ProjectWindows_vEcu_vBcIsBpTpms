@@ -29,8 +29,7 @@ extern uint16 uiKl30MFA_Vsys;
 extern void TP3(uint8 ucSet);
 extern void SetCodNvMBlockNewDataFlag(boolean);
 
-void InternTimersInit(void)
-{
+void InternTimersInit(void){
   ulGlobalTime = 0;
   ucLastTicks = 0;
   ucTicksError = 0;
@@ -42,13 +41,11 @@ void InternTimersInit(void)
 
 }
 
-void IncrInternMsTimer(void)
-{
+void IncrInternMsTimer(void){
   uint32 ucCurrentTicks, ucDeltaTicks;
 
   ucCurrentTicks = Gpt_GetTimeElapsed((Gpt_ChannelType) ECU_TIMER_CHANNEL);
-   if(ucCurrentTicks < ucLastTicks)
-  {
+   if(ucCurrentTicks < ucLastTicks){
     ucDeltaTicks = (ECU_TIMER_MAX - ucLastTicks) + ucCurrentTicks + 1;
   }
   else
@@ -61,12 +58,10 @@ void IncrInternMsTimer(void)
    ucTicksError =  ucDeltaTicks % ECU_TIMER_FREQ_KHZ;
  }
 
-void GetInternMSTime(uint32* ulInternalTime)
-{
+void GetInternMSTime(uint32* ulInternalTime){
   uint32 ucCurrentTicks, ucDeltaTicks;
   ucCurrentTicks = Gpt_GetTimeElapsed((Gpt_ChannelType) ECU_TIMER_CHANNEL);
-   if(ucCurrentTicks < ucLastTicks)
-  {
+   if(ucCurrentTicks < ucLastTicks){
     ucDeltaTicks = (ECU_TIMER_MAX - ucLastTicks) + ucCurrentTicks;
   }
   else
@@ -77,12 +72,9 @@ void GetInternMSTime(uint32* ulInternalTime)
    *ulInternalTime = ulGlobalTime + ((ucDeltaTicks + ucTicksError) / ECU_TIMER_FREQ_KHZ );
 }
 
-void UpdateParkingTimer(uint16 ushVSpeed)
-{
-  if(ushVSpeed == 0)
-  {
-    if(ushParkingTime<cT_STANBY)
-    {
+void UpdateParkingTimer(uint16 ushVSpeed){
+  if(ushVSpeed == 0){
+    if(ushParkingTime<cT_STANBY){
       ushParkingTime++;
 
     }
@@ -93,37 +85,31 @@ void UpdateParkingTimer(uint16 ushVSpeed)
   }
 }
 
-void UpdateStanbyTimer(boolean bIgnState, uint16 ushVSpeed, uint8 ucVmin)
-{
+void UpdateStanbyTimer(boolean bIgnState, uint16 ushVSpeed, uint8 ucVmin){
    static uint8 ucVSpeedCnt = 0;
 
-   if( (ushVSpeed > ucVmin) && (ucVSpeedCnt < 20) )
-   {
+   if( (ushVSpeed > ucVmin) && (ucVSpeedCnt < 20) ){
       ucVSpeedCnt ++;
    }
    else
    {
       ucVSpeedCnt = 0;
    }
-   if ((ucVSpeedCnt==20) && (bIgnState==TRUE))
-   {
+   if((ucVSpeedCnt==20) && (bIgnState==TRUE)){
       ResetStanbyTimer();
    }
 
-   if ((bIgnState ==  FALSE) || ((bIgnState==TRUE) && (ushVSpeed == 0)))
-   {
+   if((bIgnState ==  FALSE) || ((bIgnState==TRUE) && (ushVSpeed == 0))){
       if(ushStanbyTime < cT_STANBY)
          ushStanbyTime++;
    }
 }
 
-void ResetStanbyTimer(void)
-{
+void ResetStanbyTimer(void){
    ushStanbyTime = 0;
 }
 
-void SkipStanbyTimer(void)
-{
+void SkipStanbyTimer(void){
 
    ushStanbyTime = cT_STANBY;
 
@@ -134,12 +120,10 @@ uint16 ushGetCurrentECUStanbyTime(void){
 }
 
 uint8 ucGetCurrentECUParkingState(void){
-  if(ushParkingTime<cT_SpecialLearn)
-  {
+  if(ushParkingTime<cT_SpecialLearn){
     return 1;
    }
-  else if (ushParkingTime<cT_STANBY)
-  {
+  else if(ushParkingTime<cT_STANBY){
     return 2;
    }
   else
@@ -154,25 +138,20 @@ uint16 ushGetCurrentECUParkingTime(void){
   return ushParkingTime;
 }
 
-boolean bStanbyTimerElapsed(void)
-{
+boolean bStanbyTimerElapsed(void){
 
    return (ushStanbyTime >= cT_STANBY);
 
 }
 
-uint8  GetOpTimeMethodCurrent(void)
-{
+uint8  GetOpTimeMethodCurrent(void){
   return ucOpTimeMethodCurrent;
 }
- void SetOpTimeMethodTarget(uint8 ucTimeMethod, uint8 ucCstDelay)
-{
-  if(ucTimeMethod == OP_TIME_METHOD_CSTDELAY)
-  {
+ void SetOpTimeMethodTarget(uint8 ucTimeMethod, uint8 ucCstDelay){
+  if(ucTimeMethod == OP_TIME_METHOD_CSTDELAY){
     Rte_Pim_Pim_tCodNvMBlock()->aucPalAbsDelayTimeParam[0] = OP_TIME_METHOD_CSTDELAY;
   }
-  else if(ucTimeMethod == OP_TIME_METHOD_OHDS)
-  {
+  else if(ucTimeMethod == OP_TIME_METHOD_OHDS){
     Rte_Pim_Pim_tCodNvMBlock()->aucPalAbsDelayTimeParam[0] = OP_TIME_METHOD_OHDS;
   }
   else
@@ -182,34 +161,27 @@ uint8  GetOpTimeMethodCurrent(void)
   SetCodNvMBlockNewDataFlag(TRUE);
   Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSmgr_Pim_tCodNvMBlock_SetRamBlockStatus(TRUE);
 }
- uint8 GetOpTimeMehodTarget(void)
-{
+ uint8 GetOpTimeMehodTarget(void){
   return Rte_Pim_Pim_tCodNvMBlock()->aucPalAbsDelayTimeParam[0];
 }
- uint8 GetPalAbsConstantDelay(void)
-{
+ uint8 GetPalAbsConstantDelay(void){
   return Rte_Pim_Pim_tCodNvMBlock()->aucPalAbsDelayTimeParam[1];
 }
 
-void GetSystemOperatingTime(uint32* ulOpTime)
-{
+void GetSystemOperatingTime(uint32* ulOpTime){
   uint8 ucStatus, ucMSB, ucTemp;
   uint32 ulTempOpTime;
 
   ucTemp = ucOpTimeMethodCurrent;
 
-  if ( (GetOpTimeMehodTarget() == OP_TIME_METHOD_CSTDELAY) || (bAbsErrorDetected==TRUE))
-  {
+  if( (GetOpTimeMehodTarget() == OP_TIME_METHOD_CSTDELAY) || (bAbsErrorDetected==TRUE)){
     GetInternMSTime(ulOpTime);
     ucOpTimeMethodCurrent = OP_TIME_METHOD_CSTDELAY;
   }
-  else if( GetOpTimeMehodTarget() == OP_TIME_METHOD_OHDS)
-  {
+  else if( GetOpTimeMehodTarget() == OP_TIME_METHOD_OHDS){
     Rte_Call_R_OHDS_GetOperatingHours_GetOperatingHours(&ulTempOpTime, &ucMSB, &ucStatus);
-    if ((ucStatus & 0x01) == 0x01 )
-     {
-      if( bGetBitFahrzeugzustandFZZ(cFAILURE_MONITORING) && bGetFzzCanSignalImplausibleState(cFZZ_TRACTION_SYSTEM_IMPLAU))
-      {
+    if((ucStatus & 0x01) == 0x01 ){
+      if( bGetBitFahrzeugzustandFZZ(cFAILURE_MONITORING) && bGetFzzCanSignalImplausibleState(cFZZ_TRACTION_SYSTEM_IMPLAU)){
       GetInternMSTime(ulOpTime);
         ucOpTimeMethodCurrent = OP_TIME_METHOD_CSTDELAY;
         bAbsErrorDetected = TRUE;
@@ -231,14 +203,12 @@ void GetSystemOperatingTime(uint32* ulOpTime)
   else
   {
   }
-   if (ucTemp != ucOpTimeMethodCurrent)
-   {
+   if(ucTemp != ucOpTimeMethodCurrent){
       ReNewABSRef();
     }
 }
 
-void SetPalAbsTimeInfoSNA(void)
-{
+void SetPalAbsTimeInfoSNA(void){
 
 }
 

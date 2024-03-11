@@ -6,41 +6,36 @@
 #include "CtCdHufTPMSrfd.h"
  #endif
 
-void ShowWDTrigger(void)
- {
+void ShowWDTrigger(void){
 #ifdef TestPin4WD
   static uint8 ui8Ct;
 
   ui8Ct++;
-  if (ui8Ct&0x01)
+  if(ui8Ct&0x01)
     TP3 (1);
   else
     TP3 (0);
 #endif
 }
 
-void TriggerLegacyWD1(void)
-{
+void TriggerLegacyWD1(void){
 
   WDTA1.WDTE = (uint8) 0xAC;
 }
 
-void InitLegacyWD1(void)
-{
+void InitLegacyWD1(void){
   WDTA1.MD = (uint8) 0x77;
    WDTA1.WDTE = (uint8) 0xAC;
  }
 
-void TriggerLegacyWD0(void)
-{
+void TriggerLegacyWD0(void){
 #if 1
    WDTA0.WDTE = (uint8) 0xAC;
    ShowWDTrigger();
 #endif
 }
 
-void InitLegacyWD0(void)
-{
+void InitLegacyWD0(void){
 #if 1
 #ifdef WDTime4sec
   WDTA0.MD = (uint8) 0x47;

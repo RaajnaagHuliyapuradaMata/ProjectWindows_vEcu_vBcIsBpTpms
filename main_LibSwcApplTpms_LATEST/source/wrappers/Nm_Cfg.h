@@ -59,7 +59,7 @@ typedef uint8 Nm_ConfigType;
 # define NM_RM_RS      ((uint8)0x10)
 # define NM_RM_NO      ((uint8)0x20)
 
-# if ( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON ) || defined ( NM_GW_EXT_ENABLED )
+# if( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON ) || defined ( NM_GW_EXT_ENABLED )
 #  if defined ( NM_ENABLE_CHANNELTYPE_CANOSEKNM )
 #   define NM_SUPPRESSNOTIFYSTART     ((uint8)0x00)
 #   define NM_NOTIFYSTARTSLEEP        ((uint8)0x01)
@@ -71,7 +71,7 @@ typedef enum {
   NM_BUSNM_CANNM      = 0x00u,
   NM_BUSNM_FRNM       = 0x01u,
   NM_BUSNM_LINNM      = 0x02u,
-# if ( NM_OSEK_SUPPORT_ENABLED == STD_ON )
+# if( NM_OSEK_SUPPORT_ENABLED == STD_ON )
   NM_BUSNM_OSEKNM     = 0x03u,
   NM_BUSNM_CANOSEKNM  = 0x04u,
 # endif
@@ -84,7 +84,7 @@ typedef enum {
   NM_BUSNM_UNDEF      = 0xFFu
 } Nm_BusNmType;
 
-# if ( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON )
+# if( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON )
 
 typedef enum {
   NM_COORD_SEL            = 0x00,
@@ -94,7 +94,7 @@ typedef enum {
 #  endif
 } Nm_SyncNmType;
 
-#  if ( NM_NUMBER_OF_NM_CHANNELS <= 32 )
+#  if( NM_NUMBER_OF_NM_CHANNELS <= 32 )
 typedef uint32 Nm_NetworkCoordType;
 #  else
 #   error: "NM Interface configuration error: NM Interface with Coordinator Support ON does not support more than 32 channels!"
@@ -115,7 +115,7 @@ typedef enum
 #  if defined ( NM_ENABLE_COORD_SYNC_SUPPORT )
   NM_SLEEP_WAITANNOUNCESLEEP  = 2u,
 #  endif
-#  if ( defined ( NM_GW_EXT_ENABLED ) && defined ( NM_ENABLE_CHANNELTYPE_CANOSEKNM ) ) \
+#  if( defined ( NM_GW_EXT_ENABLED ) && defined ( NM_ENABLE_CHANNELTYPE_CANOSEKNM ) ) \
   || ( ( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON ) && ( NM_OSEK_SUPPORT_ENABLED == STD_ON ) )
   NM_SLEEP_WAITTOKEN          = 3u,
   NM_SLEEP_WAITTOKENLOSS      = 4u,
@@ -133,7 +133,7 @@ typedef struct
   Nm_MapPartEcuPtrType  NM_PART_ECU_TO_ACTCH_PTR;
 # endif
   Nm_BusNmType          NM_BUS_TYPE;
-# if ( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON )
+# if( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON )
   uint16                NM_SHUTDOWN_TIME;
 #  if defined ( NM_ENABLE_COORD_SYNC_SUPPORT )
   uint16                NM_MSG_CYCLE_TIME;
@@ -152,7 +152,7 @@ typedef struct
 
 typedef struct
 {
-# if ( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON ) || defined ( NM_GW_EXT_ENABLED )
+# if( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON ) || defined ( NM_GW_EXT_ENABLED )
   uint8  NM_MAIN_FUNCTION_PERIOD;
 # endif
   uint8  NM_NUMBER_OF_CHANNELS;
@@ -165,7 +165,7 @@ typedef struct
 # endif
 } Nm_LConfigType;
 
-# if ( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON )
+# if( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON )
 
 typedef P2CONST(Nm_SyncNmType, NM_CONST, NM_CONST ) Nm_PbChannelConfigPtrType;
 # endif
@@ -174,13 +174,13 @@ typedef struct {
 # if defined ( NM_USE_EXTENDED_ASR_VERSION_CHECK )
   uint32 Nm_GeneratorVersion;
 # endif
-# if ( NM_CRC_CHECK == STD_ON )
+# if( NM_CRC_CHECK == STD_ON )
   uint32 Nm_Cfg_PrecompileCRC;
 # endif
-# if ( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON )
+# if( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON )
   Nm_PbChannelConfigPtrType Nm_PbChannelConfigPtr;
   uint16 NM_COORD_SHUTDOWN_TIME;
-#  if ( NM_OSEK_SUPPORT_ENABLED == STD_ON )
+#  if( NM_OSEK_SUPPORT_ENABLED == STD_ON )
   uint8 NM_SYNC_ONM_CHANNEL_ID;
 #  endif
 # endif
@@ -225,7 +225,7 @@ extern CONST( Nm_LConfigType, NM_CONST ) Nm_LConfiguration;
 #define NM_START_SEC_VAR_NOINIT_8BIT
 #include "MemMap.h"
 
-# if ( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON ) || defined ( NM_GW_EXT_ENABLED )
+# if( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON ) || defined ( NM_GW_EXT_ENABLED )
 #  if defined ( NM_ENABLE_CHANNELTYPE_CANOSEKNM )
 extern VAR( uint8, NM_VAR_NOINIT ) Nm_NotifyNetworkStart[NM_NUMBER_OF_NM_CHANNELS];
 #  endif
@@ -241,7 +241,7 @@ extern VAR( uint8, NM_VAR_NOINIT ) Nm_WakeupDetected[NM_NUMBER_OF_NM_CHANNELS];
 # endif
 
 # if defined ( NM_ENABLE_COORD_SYNC_SUPPORT ) || ( NM_OSEK_SUPPORT_ENABLED == STD_ON )
-#  if ( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON )
+#  if( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON )
 extern VAR( uint8, NM_VAR_NOINIT ) Nm_AbortSleep_BusNm[1];
 #  else
 #   if defined ( NM_GW_EXT_ENABLED )
@@ -273,7 +273,7 @@ extern VAR( Nm_StateType, NM_VAR_NOINIT ) Nm_OnmNetworkRequested[NM_NUMBER_OF_NM
 
 #  if defined ( NM_GW_EXT_ENABLED )
 extern VAR( uint8, NM_VAR_NOINIT_FAST ) Nm_PartEcuActiveChannels[NM_NUMBER_OF_NM_CHANNELS];
-#   if ( NM_BUSNM_CANNM_ENABLED == STD_ON )
+#   if( NM_BUSNM_CANNM_ENABLED == STD_ON )
 extern VAR( uint8, NM_VAR_NOINIT_FAST ) Nm_PartEcuReqChannels[NM_NUMBER_OF_NM_CHANNELS];
 #   endif
 #  endif
@@ -294,7 +294,7 @@ extern VAR( uint8, NM_VAR_NOINIT_FAST ) Nm_CoordSleepInd[NM_NUMBER_OF_NM_CHANNEL
 extern VAR( Nm_TimerCounterType, NM_VAR_NOINIT_FAST ) Nm_ChannelActiveTimer[NM_NUMBER_OF_NM_CHANNELS];
 # endif
 
-# if ( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON ) || \
+# if( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON ) || \
   ( defined (NM_GW_EXT_ENABLED) && defined (NM_ENABLE_CHANNELTYPE_CANOSEKNM) )
 extern VAR( Nm_TimerCounterType, NM_VAR_NOINIT_FAST ) Nm_DelayTimer[NM_NUMBER_OF_NM_CHANNELS];
 #  if defined ( NM_ENABLE_CHANNELTYPE_CANOSEKNM )
@@ -302,7 +302,7 @@ extern VAR( Nm_TimerCounterType, NM_VAR_NOINIT_FAST ) Nm_DelayTimer_OsekNm[NM_NU
 #  endif
 # endif
 
-# if ( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON )
+# if( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON )
 #  if defined ( NM_ENABLE_COORD_SYNC_SUPPORT )
 extern VAR( Nm_TimerCounterType, NM_VAR_NOINIT_FAST) Nm_CoordTimeoutTimer[NM_NUMBER_OF_NM_CHANNELS];
 #  endif
@@ -311,7 +311,7 @@ extern VAR( Nm_TimerCounterType, NM_VAR_NOINIT_FAST) Nm_CoordTimeoutTimer[NM_NUM
 #define NM_STOP_SEC_VAR_FAST_NOINIT_16BIT
 #include "MemMap.h"
 
-# if ( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON )
+# if( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON )
 
 #define NM_START_SEC_VAR_FAST_NOINIT_UNSPECIFIED
 #include "MemMap.h"
@@ -338,7 +338,7 @@ extern P2CONST( Nm_ConfigType, NM_VAR_NOINIT_FAST, NM_CONST ) Nm_PbConfigPtr;
 extern VAR( Nm_NetCoordStateType, NM_VAR_ZERO_INIT_FAST ) Nm_NetCoordState[NM_NUMBER_OF_NM_CHANNELS];
 #  endif
 
-#  if ( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON )
+#  if( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON )
 
 extern VAR( Nm_NetCoordStateType, NM_VAR_ZERO_INIT_FAST ) Nm_NetCoordState[1];
 #  endif

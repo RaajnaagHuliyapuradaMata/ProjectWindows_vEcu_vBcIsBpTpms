@@ -27,12 +27,12 @@ typedef struct typedef_struct_tMirroredRamCatEDecl
 
   uint8  ucResettingTpms;
 
-#if (BERU_BAUREIHE_BMW_PL4_ENABLE == ON)
+#if(BERU_BAUREIHE_BMW_PL4_ENABLE == ON)
   uint8 ucReserved[10];
 
 #endif
 
-#if (BERU_BAUREIHE_BMW_PL6_ENABLE == ON)
+#if(BERU_BAUREIHE_BMW_PL6_ENABLE == ON)
   uint8 ucPresUnit;
   uint8 ucTempUnit;
 
@@ -60,7 +60,7 @@ extern void INCushResetCntEE( void );
 extern uint8 GETucForgottenResetEE( void );
 extern void PUTucForgottenResetEE( uint8 );
 
-#if (BERU_BAUREIHE_BMW_PL6_ENABLE == ON)
+#if(BERU_BAUREIHE_BMW_PL6_ENABLE == ON)
 extern uint8 GETucPresUnitEE( void );
 extern void PUTucPresUnitEE( uint8 );
 

@@ -24,12 +24,12 @@ FUNC(void, E2E_CODE) E2E_GetVersionInfo
    P2VAR(Std_VersionInfoType, AUTOMATIC, E2E_APPL_DATA) VersionInfo
 )
 {
-   if (NULL_PTR != VersionInfo)
+   if(NULL_PTR != VersionInfo)
    {
       uint32 i;
 
       
-      for (i=0U; i<(uint32)(sizeof(Std_VersionInfoType)); i++)
+      for(i=0U; i<(uint32)(sizeof(Std_VersionInfoType)); i++)
       {
          ((P2VAR(uint8, AUTOMATIC, E2E_APPL_DATA))
                ((P2VAR(void, AUTOMATIC, E2E_APPL_DATA))VersionInfo))[i] = 0U;

@@ -551,8 +551,7 @@ void InitHMIAfterKL15Off(void){
 }
 
 void ResetHmiTpmStat(void){
-   if((cAL_Error == ui8GetALState ()) && (bGetSensorStateMissing(0) || bGetSensorStateMissing(1) || bGetSensorStateMissing(2) || bGetSensorStateMissing(3)))
-   {
+   if((cAL_Error == ui8GetALState ()) && (bGetSensorStateMissing(0) || bGetSensorStateMissing(1) || bGetSensorStateMissing(2) || bGetSensorStateMissing(3))){
       tTireStat.TPM_Stat = I_C03_TPM_STAT_ERROR;
    }
    else{
@@ -581,21 +580,17 @@ static void GetLastReceivedPress(void){
       tTireStat.TirePress_RR  = ucGetLastReceivedPress(ulGetID(ucGetColOfWP(cRadPosHR)));
    }
    else{
-      for (i = 0;i < cMaxLR; i++){
-         if(USEui8PWPofHistCol(i) == cRadPosVL)
-         {
+      for(i = 0;i < cMaxLR; i++){
+         if(USEui8PWPofHistCol(i) == cRadPosVL){
             tTireStat.TirePress_FL = ucGetLastReceivedPress(ulGetID(i));
          }
-         else if(USEui8PWPofHistCol(i) == cRadPosVR)
-         {
+         else if(USEui8PWPofHistCol(i) == cRadPosVR){
             tTireStat.TirePress_FR = ucGetLastReceivedPress(ulGetID(i));
          }
-         else if(USEui8PWPofHistCol(i) == cRadPosHL)
-         {
+         else if(USEui8PWPofHistCol(i) == cRadPosHL){
             tTireStat.TirePress_RL = ucGetLastReceivedPress(ulGetID(i));
          }
-         else if(USEui8PWPofHistCol(i) == cRadPosHR)
-         {
+         else if(USEui8PWPofHistCol(i) == cRadPosHR){
             tTireStat.TirePress_RR = ucGetLastReceivedPress(ulGetID(i));
          }
          else
@@ -629,21 +624,17 @@ static void GetLastReceivedTemp(void){
       tTireTemp.TireTemp_RR = ucGetLastReceivedTemp(ulGetID(ucGetColOfWP(cRadPosHR)));
    }
    else{
-      for (i = 0;i < cMaxLR; i++){
-         if(USEui8PWPofHistCol(i) == cRadPosVL)
-         {
+      for(i = 0;i < cMaxLR; i++){
+         if(USEui8PWPofHistCol(i) == cRadPosVL){
             tTireTemp.TireTemp_FL = ucGetLastReceivedTemp(ulGetID(i));
          }
-         else if(USEui8PWPofHistCol(i) == cRadPosVR)
-         {
+         else if(USEui8PWPofHistCol(i) == cRadPosVR){
             tTireTemp.TireTemp_FR = ucGetLastReceivedTemp(ulGetID(i));
          }
-         else if(USEui8PWPofHistCol(i) == cRadPosHL)
-         {
+         else if(USEui8PWPofHistCol(i) == cRadPosHL){
             tTireTemp.TireTemp_RL = ucGetLastReceivedTemp(ulGetID(i));
          }
-         else if(USEui8PWPofHistCol(i) == cRadPosHR)
-         {
+         else if(USEui8PWPofHistCol(i) == cRadPosHR){
             tTireTemp.TireTemp_RR = ucGetLastReceivedTemp(ulGetID(i));
          }
          else

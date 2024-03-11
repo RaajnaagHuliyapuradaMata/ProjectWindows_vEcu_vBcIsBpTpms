@@ -7,28 +7,28 @@
 
 
 
-#if (defined E2EP02_CRC_STARTVALUE) 
+#if(defined E2EP02_CRC_STARTVALUE) 
 #error E2EP02_CRC_STARTVALUE is already defined
 #endif 
 
 
 #define E2EP02_CRC_STARTVALUE 0xFFU
 
-#if (defined E2EP02_COUNTER_MAX) 
+#if(defined E2EP02_COUNTER_MAX) 
 #error E2EP02_COUNTER_MAX is already defined
 #endif 
 
 
 #define E2EP02_COUNTER_MAX 15U
 
-#if (defined E2EP02_DATALENGTH_MAX) 
+#if(defined E2EP02_DATALENGTH_MAX) 
 #error E2EP02_DATALENGTH_MAX is already defined
 #endif 
 
 
 #define E2EP02_DATALENGTH_MAX 2048U
 
-#if (defined E2EP02_DATALENGTH_MIN) 
+#if(defined E2EP02_DATALENGTH_MIN) 
 #error E2EP02_DATALENGTH_MIN is already defined
 #endif 
 
@@ -121,15 +121,15 @@ FUNC(Std_ReturnType, E2E_CODE) E2E_P02Protect
 {
    Std_ReturnType RetVal;
 
-   if (E2E_EB_P02ProtectNullPtrChecks(Config, State, Data) != E_OK)
+   if(E2E_EB_P02ProtectNullPtrChecks(Config, State, Data) != E_OK)
    {
       RetVal = E2E_E_INPUTERR_NULL;
    }
-   else if (E2E_EB_P02ProtectConfigParamChecks(Config) != E_OK)
+   else if(E2E_EB_P02ProtectConfigParamChecks(Config) != E_OK)
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
-   else if (E2E_EB_P02ProtectStateParamChecks(State) != E_OK)
+   else if(E2E_EB_P02ProtectStateParamChecks(State) != E_OK)
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
@@ -151,15 +151,15 @@ FUNC(Std_ReturnType, E2E_CODE) E2E_P02Check
 {
    Std_ReturnType RetVal;
 
-   if (E2E_EB_P02CheckNullPtrChecks(Config, State, Data) != E_OK)
+   if(E2E_EB_P02CheckNullPtrChecks(Config, State, Data) != E_OK)
    {
       RetVal = E2E_E_INPUTERR_NULL;
    }
-   else if (E2E_EB_P02CheckConfigParamChecks(Config) != E_OK)
+   else if(E2E_EB_P02CheckConfigParamChecks(Config) != E_OK)
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
-   else if (E2E_EB_P02CheckStateParamChecks(State) != E_OK)
+   else if(E2E_EB_P02CheckStateParamChecks(State) != E_OK)
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
@@ -183,15 +183,15 @@ static FUNC(Std_ReturnType, E2E_CODE) E2E_EB_P02ProtectNullPtrChecks
    Std_ReturnType RetVal;
 
    
-   if (NULL_PTR == Config)
+   if(NULL_PTR == Config)
    {
       RetVal = E_NOT_OK;
    }
-   else if (NULL_PTR == State)
+   else if(NULL_PTR == State)
    {
       RetVal = E_NOT_OK;
    }
-   else if (NULL_PTR == Data)
+   else if(NULL_PTR == Data)
    {
       RetVal = E_NOT_OK;
    }
@@ -215,15 +215,15 @@ static FUNC(Std_ReturnType, E2E_CODE) E2E_EB_P02ProtectConfigParamChecks
    
    
    
-   if (E2EP02_DATALENGTH_MAX < Config->DataLength)
+   if(E2EP02_DATALENGTH_MAX < Config->DataLength)
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
-   else if (E2EP02_DATALENGTH_MIN > Config->DataLength)
+   else if(E2EP02_DATALENGTH_MIN > Config->DataLength)
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
-   else if (0U != (Config->DataLength % 8U))
+   else if(0U != (Config->DataLength % 8U))
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
@@ -243,7 +243,7 @@ static FUNC(Std_ReturnType, E2E_CODE) E2E_EB_P02ProtectStateParamChecks
    Std_ReturnType RetVal;
 
    
-   if (E2EP02_COUNTER_MAX < State->Counter)
+   if(E2EP02_COUNTER_MAX < State->Counter)
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
@@ -265,15 +265,15 @@ static FUNC(Std_ReturnType, E2E_CODE) E2E_EB_P02CheckNullPtrChecks
    Std_ReturnType RetVal;
 
    
-   if (NULL_PTR == Config)
+   if(NULL_PTR == Config)
    {
       RetVal = E2E_E_INPUTERR_NULL;
    }
-   else if (NULL_PTR == State)
+   else if(NULL_PTR == State)
    {
       RetVal = E2E_E_INPUTERR_NULL;
    }
-   else if (NULL_PTR == Data)
+   else if(NULL_PTR == Data)
    {
       RetVal = E2E_E_INPUTERR_NULL;
    }
@@ -293,27 +293,27 @@ static FUNC(Std_ReturnType, E2E_CODE) E2E_EB_P02CheckConfigParamChecks
    Std_ReturnType RetVal;
 
    
-   if (E2EP02_COUNTER_MAX < Config->MaxDeltaCounterInit)
+   if(E2EP02_COUNTER_MAX < Config->MaxDeltaCounterInit)
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
-   else if (E2EP02_DATALENGTH_MAX < Config->DataLength)
+   else if(E2EP02_DATALENGTH_MAX < Config->DataLength)
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
-   else if (E2EP02_DATALENGTH_MIN > Config->DataLength)
+   else if(E2EP02_DATALENGTH_MIN > Config->DataLength)
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
-   else if (0U != (Config->DataLength % 8U))
+   else if(0U != (Config->DataLength % 8U))
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
-   else if (E2EP02_COUNTER_MAX < Config->SyncCounterInit)
+   else if(E2EP02_COUNTER_MAX < Config->SyncCounterInit)
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
-   else if (E2EP02_COUNTER_MAX < Config->MaxNoNewOrRepeatedData)
+   else if(E2EP02_COUNTER_MAX < Config->MaxNoNewOrRepeatedData)
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
@@ -334,27 +334,27 @@ static FUNC(Std_ReturnType, E2E_CODE) E2E_EB_P02CheckStateParamChecks
 
    
    
-   if (E2EP02_COUNTER_MAX < State->LastValidCounter)
+   if(E2EP02_COUNTER_MAX < State->LastValidCounter)
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
-   else if (E2EP02_COUNTER_MAX < State->MaxDeltaCounter)
+   else if(E2EP02_COUNTER_MAX < State->MaxDeltaCounter)
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
-   else if ((TRUE != State->WaitForFirstData) && (FALSE != State->WaitForFirstData))
+   else if((TRUE != State->WaitForFirstData) && (FALSE != State->WaitForFirstData))
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
-   else if ((TRUE != State->NewDataAvailable) && (FALSE != State->NewDataAvailable))
+   else if((TRUE != State->NewDataAvailable) && (FALSE != State->NewDataAvailable))
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
-   else if (E2EP02_COUNTER_MAX < State->SyncCounter)
+   else if(E2EP02_COUNTER_MAX < State->SyncCounter)
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
-   else if (E2EP02_COUNTER_MAX < State->NoNewOrRepeatedDataCounter)
+   else if(E2EP02_COUNTER_MAX < State->NoNewOrRepeatedDataCounter)
    {
       RetVal = E2E_E_INPUTERR_WRONG;
    }
@@ -398,7 +398,7 @@ static FUNC(Std_ReturnType, E2E_CODE) E2E_EB_P02Protect
 )
 {
    
-   if (E2EP02_COUNTER_MAX > State->Counter)
+   if(E2EP02_COUNTER_MAX > State->Counter)
    {
       State->Counter++;
    }
@@ -424,21 +424,21 @@ static FUNC(Std_ReturnType, E2E_CODE) E2E_EB_P02Check
    CONSTP2VAR(uint8, AUTOMATIC, E2E_APPL_DATA) Data
 )
 {
-   if (E2EP02_COUNTER_MAX > State->MaxDeltaCounter)
+   if(E2EP02_COUNTER_MAX > State->MaxDeltaCounter)
    {
       
       State->MaxDeltaCounter++;
    }
 
-   if (TRUE == State->NewDataAvailable)
+   if(TRUE == State->NewDataAvailable)
    {
       const uint8 ReceivedCounter = Data[1] & 0x0FU;
 
       
-      if (E2E_EB_CalculateCrc(Config, Data, ReceivedCounter) == Data[0])
+      if(E2E_EB_CalculateCrc(Config, Data, ReceivedCounter) == Data[0])
       {
          
-         if (TRUE == State->WaitForFirstData)
+         if(TRUE == State->WaitForFirstData)
          {
             
             State->WaitForFirstData = FALSE;
@@ -453,14 +453,14 @@ static FUNC(Std_ReturnType, E2E_CODE) E2E_EB_P02Check
                (uint8)(ReceivedCounter - State->LastValidCounter) :
                (uint8)((ReceivedCounter + E2EP02_COUNTER_MAX + 1U) - State->LastValidCounter);
 
-            if (DeltaCounter > State->MaxDeltaCounter)
+            if(DeltaCounter > State->MaxDeltaCounter)
             {
                
                State->NoNewOrRepeatedDataCounter = 0U;
                
                State->SyncCounter = Config->SyncCounterInit;
                
-               if (0U < Config->SyncCounterInit)
+               if(0U < Config->SyncCounterInit)
                {
                   State->MaxDeltaCounter = Config->MaxDeltaCounterInit;
                   State->LastValidCounter = ReceivedCounter;
@@ -468,16 +468,16 @@ static FUNC(Std_ReturnType, E2E_CODE) E2E_EB_P02Check
                
                State->Status = E2E_P02STATUS_WRONGSEQUENCE;
             }
-            else if (1U < DeltaCounter)
+            else if(1U < DeltaCounter)
             {
                
                State->MaxDeltaCounter = Config->MaxDeltaCounterInit;
                State->LastValidCounter = ReceivedCounter;
                State->LostData = DeltaCounter - 1U;
-               if (Config->MaxNoNewOrRepeatedData >= State->NoNewOrRepeatedDataCounter)
+               if(Config->MaxNoNewOrRepeatedData >= State->NoNewOrRepeatedDataCounter)
                {
                   
-                  if (0U < State->SyncCounter)
+                  if(0U < State->SyncCounter)
                   {
                      State->SyncCounter--;
                      State->Status = E2E_P02STATUS_SYNC;
@@ -495,16 +495,16 @@ static FUNC(Std_ReturnType, E2E_CODE) E2E_EB_P02Check
                }
                State->NoNewOrRepeatedDataCounter = 0U;
             }
-            else if (1U == DeltaCounter)
+            else if(1U == DeltaCounter)
             {
                
                State->MaxDeltaCounter = Config->MaxDeltaCounterInit;
                State->LastValidCounter = ReceivedCounter;
                State->LostData = 0U;
-               if (Config->MaxNoNewOrRepeatedData >= State->NoNewOrRepeatedDataCounter)
+               if(Config->MaxNoNewOrRepeatedData >= State->NoNewOrRepeatedDataCounter)
                {
                   
-                  if (0U < State->SyncCounter)
+                  if(0U < State->SyncCounter)
                   {
                      State->SyncCounter--;
                      State->Status = E2E_P02STATUS_SYNC;
@@ -526,7 +526,7 @@ static FUNC(Std_ReturnType, E2E_CODE) E2E_EB_P02Check
             {
                
                
-               if (E2EP02_COUNTER_MAX > State->NoNewOrRepeatedDataCounter)
+               if(E2EP02_COUNTER_MAX > State->NoNewOrRepeatedDataCounter)
                {
                   State->NoNewOrRepeatedDataCounter++;
                }
@@ -543,7 +543,7 @@ static FUNC(Std_ReturnType, E2E_CODE) E2E_EB_P02Check
    else
    {
       
-      if (E2EP02_COUNTER_MAX > State->NoNewOrRepeatedDataCounter)
+      if(E2EP02_COUNTER_MAX > State->NoNewOrRepeatedDataCounter)
       {
          State->NoNewOrRepeatedDataCounter++;
       }

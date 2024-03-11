@@ -26,13 +26,13 @@
  #define osAssertFailed_(x) osAssertFailed()
 #endif
 
-#if ((STATUS_LEVEL == EXTENDED_STATUS) && (osdEnableAssertions))
+#if((STATUS_LEVEL == EXTENDED_STATUS) && (osdEnableAssertions))
     #define osSysErrAssertFailed(x)  {\
                                     osDisableGlobal();\
                                     osAssertFailed_(x);\
                                  }
 
-    #define osSysErrAssert(p, x) if ((p) == 0)\
+    #define osSysErrAssert(p, x) if((p) == 0)\
                                  {\
                                     osSysErrAssertFailed(x)\
                                  }

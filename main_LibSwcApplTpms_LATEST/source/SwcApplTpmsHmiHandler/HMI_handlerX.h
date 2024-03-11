@@ -11,8 +11,6 @@ void setTireStatMsgDispRestart(void);
 void clearTireStatMsgDispRestart(void);
 void setHmiGlobalSensorState(uint8 ucSensorState);
 
-void    updateHoldOff4Pmin(void);
-void    updateHoldOffWarning(void);
 boolean bHoldOffWarningEnabled(void);
 void    SetPminDetected(boolean ucInput);
 boolean GetPminDetected(void);

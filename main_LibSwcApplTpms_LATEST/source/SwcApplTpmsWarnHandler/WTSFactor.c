@@ -6,15 +6,13 @@
 #define ucPreSoftRangeInMBar (unsigned char) 100
 #define ucPreSoftRange (unsigned char)  (ucPreSoftRangeInMBar/ucPResInMBarc)
 
-uint8 bSoftFactor( struct LocalWarnDat *ptLWD, uint8 ucWarnCfg)
-{
+uint8 bSoftFactor( struct LocalWarnDat *ptLWD, uint8 ucWarnCfg){
   uint8 ucPCompare, ucPCompareLowest, ucRet;
   uint16 curTinK;
 
   curTinK = (uint16) ptLWD->tHFD.tHF.scTWE + ush273Kelvinc;
 
-  if ((uint8) 100 > tDAG_PPara .ui8_PERCENT_SOFT)
-  {
+  if((uint8) 100 > tDAG_PPara .ui8_PERCENT_SOFT){
     ucPCompare = ucPfT((ptLWD->tSD.ushMSoll), curTinK);
     ucPCompare -= (uint8) (((uint16) (tDAG_PPara .ui8_PERCENT_SOFT ) * ucPCompare) / 100);
   }
@@ -23,8 +21,7 @@ uint8 bSoftFactor( struct LocalWarnDat *ptLWD, uint8 ucWarnCfg)
     ucPCompare = (uint8) 0;
   }
 
-  if ((uint8) 100 > tDAG_PPara .ui8_PERCENT_HARD)
-  {
+  if((uint8) 100 > tDAG_PPara .ui8_PERCENT_HARD){
     ucPCompareLowest = ptLWD ->tSD .ucPSoll;
     ucPCompareLowest -= (uint8) (((uint16) (tDAG_PPara .ui8_PERCENT_HARD  ) * ucPCompareLowest) / 100);
    }
@@ -35,13 +32,11 @@ uint8 bSoftFactor( struct LocalWarnDat *ptLWD, uint8 ucWarnCfg)
 
   ucPCompare = (ucPCompare > ucPCompareLowest) ? ucPCompare:ucPCompareLowest;
 
-  if (cSOFT_WARNING <= GETushWarnstatus1WN())
-  {
+  if(cSOFT_WARNING <= GETushWarnstatus1WN()){
     ucPCompare += ucPreSoftRange;
   }
 
-  if (cDP_COMP_LIMIT < ptLWD ->tSD .ucPSoll)
-  {
+  if(cDP_COMP_LIMIT < ptLWD ->tSD .ucPSoll){
     ptLWD->ucCurWarnLevel = (ucPCompare  < (ptLWD ->tSD .ucPSoll - cDP_COMP_LIMIT)) ? ucPCompare:(ptLWD ->tSD .ucPSoll - cDP_COMP_LIMIT);
   }
   else
@@ -49,9 +44,8 @@ uint8 bSoftFactor( struct LocalWarnDat *ptLWD, uint8 ucWarnCfg)
     ptLWD->ucCurWarnLevel = (ucPCompare  < ptLWD ->tSD .ucPSoll) ? ucPCompare:ptLWD ->tSD .ucPSoll;
   }
 
-  if (ucGetWarnBitWN(ptLWD->tHFD.tHF.ucId, ucSFactorIxc) == 0)
-  {
-    if ( (ptLWD->tHFD.tHF.ucP < ucPCompare) && (ptLWD ->tHFD .tHF .ucP  < (ptLWD ->tSD .ucPSoll - cDP_COMP_LIMIT)))
+  if(ucGetWarnBitWN(ptLWD->tHFD.tHF.ucId, ucSFactorIxc) == 0){
+    if( (ptLWD->tHFD.tHF.ucP < ucPCompare) && (ptLWD ->tHFD .tHF .ucP  < (ptLWD ->tSD .ucPSoll - cDP_COMP_LIMIT)))
       ucRet = ucSetWarnBitWN(ptLWD->tHFD.tHF.ucId, ucSFactorIxc);
     else
     {
@@ -61,16 +55,13 @@ uint8 bSoftFactor( struct LocalWarnDat *ptLWD, uint8 ucWarnCfg)
   }
   else
   {
-     if ((ui8SWTimerExpired() > 0) || ( ushWarnOutTM != cNORMAL ))
-    {
+     if((ui8SWTimerExpired() > 0) || ( ushWarnOutTM != cNORMAL )){
       ucPCompare = ptLWD ->tSD .ucPSoll ;
       ucPCompare -= (uint8) (((uint16) (tDAG_PPara .ui8_PERCENT_HARD  ) * ucPCompare) / 100);
        ucPCompare += cDP_COMP_LIMIT;
-       if (ptLWD->tHFD.tHF.ucP >= ucPCompare )
-      {
+       if(ptLWD->tHFD.tHF.ucP >= ucPCompare ){
         ucPCompare = ucPfT((uint16) (ptLWD->tSD.ushMSoll - ushMIso(ucDP_TOLERANCEc, ptLWD->tSD.scTSoll )), curTinK) ;
-        if (ptLWD->tHFD.tHF.ucP > ucPCompare )
-         {
+        if(ptLWD->tHFD.tHF.ucP > ucPCompare ){
           ClearWarnBitWN(ptLWD->tHFD.tHF.ucId, ucSFactorIxc);
           ucRet = 0;
         }
@@ -82,7 +73,7 @@ uint8 bSoftFactor( struct LocalWarnDat *ptLWD, uint8 ucWarnCfg)
      }
     else
     {
-      if ( (ptLWD->tHFD.tHF.ucP < ucPCompare) && (ptLWD ->tHFD .tHF .ucP  < (ptLWD ->tSD .ucPSoll - cDP_COMP_LIMIT)))
+      if( (ptLWD->tHFD.tHF.ucP < ucPCompare) && (ptLWD ->tHFD .tHF .ucP  < (ptLWD ->tSD .ucPSoll - cDP_COMP_LIMIT)))
         ucRet = ucSetWarnBitWN(ptLWD->tHFD.tHF.ucId, ucSFactorIxc);
        else
       {

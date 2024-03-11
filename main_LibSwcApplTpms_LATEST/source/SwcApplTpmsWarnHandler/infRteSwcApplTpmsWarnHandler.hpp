@@ -132,8 +132,8 @@ extern void   SortBiggest1st        (uint8* ptVal, uint8* ptIx, uint8 ucMax);
 
 extern uint8 bPMin       (struct LocalWarnDat* ptLWD, uint8 ucWarnCfg);
 extern uint8 bEcE        (struct LocalWarnDat* ptLWD, uint8 ucWarnCfg);
-extern uint8 bSoftFactor (struct LocalWarnDat *ptLWD, uint8 ucWarnCfg);
-extern uint8 bDHW        (struct LocalWarnDat *ptLWD, uint8 ucWarnCfg);
+extern uint8 bSoftFactor (struct LocalWarnDat* ptLWD, uint8 ucWarnCfg);
+extern uint8 bDHW        (struct LocalWarnDat* ptLWD, uint8 ucWarnCfg);
 #define cAllWT_function {bPMin, bEcE, bSoftFactor, bDHW}
 
 /* eeiface.h */

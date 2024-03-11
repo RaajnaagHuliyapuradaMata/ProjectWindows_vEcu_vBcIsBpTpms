@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.25.3)
 
 project(
-   vEcu_vBcIsBpTpms_LibSwcApplTpms_LATEST
+   vEcu_iSolarV12.00.00_MinGwV06.03.00_NxpS32K146_vBcIsBpTpms_LATEST
    VERSION 0.1
 )
 
@@ -24,6 +24,7 @@ add_executable(
 
    ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsHmiHandler/SwcApplTpmsHmiHandler.c
    ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler/USWarn.c
+   ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler/uswarn_If.c
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSdia
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSwnh

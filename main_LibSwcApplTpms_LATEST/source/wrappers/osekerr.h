@@ -506,7 +506,7 @@
    #define osSaveGetScheduleTableStatus_ScheduleID(x)        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType = (x));
    #define osSaveGetScheduleTableStatus_ScheduleStatus(y)    (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osScheduleTableStatusRefType = (y));
 
-#if ((osdSC == SC3) || (osdSC == SC4))
+#if((osdSC == SC3) || (osdSC == SC4))
    #define osSaveCallTrustedFunction_FunctionIndex(x)        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osFunctionIndexType = (x));
    #define osSaveCallTrustedFunction_FunctionParams(y)       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTrustedFunctionParameterRefType = (y));
    #define osSaveTerminateApplication_RestartOption(x)       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osRestartType = (x));
@@ -515,7 +515,7 @@
    #define osSaveGetApplicationState_Value(x)                (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osApplicationStateRefType = (x));
 #endif
 
-#if (osdTimingProtectionUsed != 0)
+#if(osdTimingProtectionUsed != 0)
    #define osSaveosGetTaskMaxExecutionTime_TaskID(x)           (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType     = (x));
    #define osSaveosGetTaskMaxExecutionTime_MaxTime(y)          (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTimeRefType  = (y));
    #define osSaveosGetISRMaxExecutionTime_ISRID(x)             (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osISRType      = (x));
@@ -577,7 +577,7 @@
    #define osSaveGetScheduleTableStatus_ScheduleID(x)
    #define osSaveGetScheduleTableStatus_ScheduleStatus(y)
 
-#if ((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
    #define osSaveCallTrustedFunction_FunctionIndex(x)
    #define osSaveCallTrustedFunction_FunctionParams(y)
    #define osSaveTerminateApplication_RestartOption(x)
@@ -715,13 +715,13 @@
    #define OSError_GetScheduleTableStatus_ScheduleID()        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType)
    #define OSError_GetScheduleTableStatus_ScheduleStatus()    (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osScheduleTableStatusRefType)
 
-   #if ((osdSC== SC3) || (osdSC== SC4))
+   #if((osdSC== SC3) || (osdSC== SC4))
     #define OSError_CallTrustedFunction_FunctionIndex()        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osFunctionIndexType)
     #define OSError_CallTrustedFunction_FunctionParams()       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTrustedFunctionParameterRefType)
     #define OSError_TerminateApplication_RestartOption()       (osOwnCcb->LockIsNotNeeded.ossAPIParam1.RestartType)
    #endif
 
-   #if ((osdSC == SC3) || (osdSC == SC4))
+   #if((osdSC == SC3) || (osdSC == SC4))
     #define OSError_GetApplicationState_Application()          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osApplicationType)
     #define OSError_GetApplicationState_Value()                (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osApplicationStateRefType)
    #endif

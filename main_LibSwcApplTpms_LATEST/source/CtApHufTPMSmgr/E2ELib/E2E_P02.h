@@ -1,5 +1,5 @@
 
-#if (!defined E2E_P02_H)
+#if(!defined E2E_P02_H)
 #define E2E_P02_H
 
 
@@ -10,7 +10,7 @@
 
 
 
-#if (defined E2EP02_VENDOR_ID) 
+#if(defined E2EP02_VENDOR_ID) 
 #error E2EP02_VENDOR_ID is already defined
 #endif
 
@@ -18,19 +18,19 @@
 
 
 
-#if (defined E2EP02_AR_RELEASE_MAJOR_VERSION) 
+#if(defined E2EP02_AR_RELEASE_MAJOR_VERSION) 
 #error E2EP02_AR_RELEASE_MAJOR_VERSION already defined
 #endif
 
 #define E2EP02_AR_RELEASE_MAJOR_VERSION  4U
 
-#if (defined E2EP02_AR_RELEASE_MINOR_VERSION) 
+#if(defined E2EP02_AR_RELEASE_MINOR_VERSION) 
 #error E2EP02_AR_RELEASE_MINOR_VERSION already defined
 #endif
 
 #define E2EP02_AR_RELEASE_MINOR_VERSION  0U
 
-#if (defined E2EP02_AR_RELEASE_REVISION_VERSION) 
+#if(defined E2EP02_AR_RELEASE_REVISION_VERSION) 
 #error E2EP02_AR_RELEASE_REVISION_VERSION already defined
 #endif
 
@@ -38,19 +38,19 @@
 
 
 
-#if (defined E2EP02_AR_MAJOR_VERSION) 
+#if(defined E2EP02_AR_MAJOR_VERSION) 
 #error E2EP02_AR_MAJOR_VERSION already defined
 #endif
 
 #define E2EP02_AR_MAJOR_VERSION  2U
 
-#if (defined E2EP02_AR_MINOR_VERSION) 
+#if(defined E2EP02_AR_MINOR_VERSION) 
 #error E2EP02_AR_MINOR_VERSION already defined
 #endif
 
 #define E2EP02_AR_MINOR_VERSION  0U
 
-#if (defined E2EP02_AR_PATCH_VERSION) 
+#if(defined E2EP02_AR_PATCH_VERSION) 
 #error E2EP02_AR_PATCH_VERSION already defined
 #endif
 
@@ -58,19 +58,19 @@
 
 
 
-#if (defined E2EP02_SW_MAJOR_VERSION) 
+#if(defined E2EP02_SW_MAJOR_VERSION) 
 #error E2EP02_SW_MAJOR_VERSION already defined
 #endif
 
 #define E2EP02_SW_MAJOR_VERSION  2U
 
-#if (defined E2EP02_SW_MINOR_VERSION) 
+#if(defined E2EP02_SW_MINOR_VERSION) 
 #error E2EP02_SW_MINOR_VERSION already defined
 #endif
 
 #define E2EP02_SW_MINOR_VERSION  1U
 
-#if (defined E2EP02_SW_PATCH_VERSION) 
+#if(defined E2EP02_SW_PATCH_VERSION) 
 #error E2EP02_SW_PATCH_VERSION already defined
 #endif
 

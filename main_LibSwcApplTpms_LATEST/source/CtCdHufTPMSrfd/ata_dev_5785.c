@@ -43,31 +43,26 @@ struct rfstruct  rf;
 
 static void (*fp2IniState) (void) = ataIni1st;
 
-static void select_ata5785(void)
-{
+static void select_ata5785(void){
     RFD_CsAta(1);
     WaitHard(47);
 }
 
-static void release_ata5785(void)
-{
+static void release_ata5785(void){
     WaitHard(36);
    RFD_CsAta(0);
     WaitHard(17);
 }
 
-void WaitHard(unsigned long ulTicks)
-{
+void WaitHard(unsigned long ulTicks){
     ulTicks=(ulTicks*12);
-    while(ulTicks !=0)
-   {
+    while(ulTicks !=0){
      ulTicks--;
    }
 
 }
 
-void rf_ata5785_deinit(void)
-{
+void rf_ata5785_deinit(void){
   MKP11 = H;
 
   RFD_CsAta(0);
@@ -77,8 +72,7 @@ void rf_ata5785_deinit(void)
   fp2IniState = ataIni1st ;
 }
 
-uint8 rf_ata5785_init(void)
-{
+uint8 rf_ata5785_init(void){
     uint8 i;
     uint16 ushTO = 10000;
 
@@ -93,8 +87,7 @@ uint8 rf_ata5785_init(void)
     rf.events[1] = 0;
     rf.events[2] = 0;
     rf.events[3] = 0;
-    for(i=0; i<RF_DAT_BUF_LEN; i++)
-    {
+    for(i=0; i<RF_DAT_BUF_LEN; i++){
         rf.buffer[i] = 0;
         rf.rssibuf[i] = 0;
     }
@@ -110,8 +103,7 @@ uint8 rf_ata5785_init(void)
 
     while((ucIRQ_ATA_activ!=1) && (ushTO--));
 
-   if(ushTO != 0xFFFF)
-   {
+   if(ushTO != 0xFFFF){
     ucIRQ_ATA_activ=0;
 
     /* 2 Fkt im TransRaLF*/
@@ -186,8 +178,7 @@ uint8 rf_ata5785_init(void)
 * Arguments :       none
 * Return Value :    firmware version
 ***********************************************************************************************************************/
-uint8 rf_ata5785_read_version( void )
-{
+uint8 rf_ata5785_read_version( void ){
    uint8 rtn=FALSE;
 
    select_ata5785();
@@ -225,8 +216,7 @@ uint8 rf_ata5785_read_version( void )
 * Arguments :       buffer pointer
 * Return Value :    none
 ***********************************************************************************************************************/
-void rf_ata5785_get_events( uint8 buf[] )
-{
+void rf_ata5785_get_events( uint8 buf[] ){
    uint8 ptr;
    select_ata5785();
 #ifdef MCAL_F1L
@@ -257,8 +247,7 @@ void rf_ata5785_get_events( uint8 buf[] )
 * Arguments :       mode and channel
 * Return Value :    none
 ***********************************************************************************************************************/
-void rf_ata5785_set_mode( uint8 mode, uint8 channel )
-{
+void rf_ata5785_set_mode( uint8 mode, uint8 channel ){
    select_ata5785();
 #ifdef MCAL_F1L
    uint8 ptr;
@@ -287,8 +276,7 @@ void rf_ata5785_set_mode( uint8 mode, uint8 channel )
 * Arguments :       none
 * Return Value :    rx buffer level
 ***********************************************************************************************************************/
-uint8 rf_ata5785_read_rx_level( void )
-{
+uint8 rf_ata5785_read_rx_level( void ){
 uint8 rtn;
    select_ata5785();
 #ifdef MCAL_F1L
@@ -315,8 +303,7 @@ uint8 rtn;
 * Arguments :       none
 * Return Value :    rssi buffer level
 ***********************************************************************************************************************/
-uint8 rf_ata5785_read_rssi_level( void )
-{
+uint8 rf_ata5785_read_rssi_level( void ){
 uint8 rtn;
     select_ata5785();
 #ifdef MCAL_F1L
@@ -343,8 +330,7 @@ uint8 rtn;
 * Arguments :       buffer pointer and length
 * Return Value :    none
 ***********************************************************************************************************************/
-void rf_ata5785_read_rx_buf( uint8 buf[], uint8 *len )
-{
+void rf_ata5785_read_rx_buf( uint8 buf[], uint8 *len ){
 uint8 i;
     select_ata5785();
 #ifdef MCAL_F1L
@@ -364,8 +350,7 @@ uint8 i;
     ptr=0x00;
    Spi_WriteIB(0, (uint8 *) &ptr );
 
-   for(i=0; i<*len; i++)
-   {
+   for(i=0; i<*len; i++){
       buf[i] = Spi_WriteIB(0, (uint8 *) &ptr );
    }
 #else
@@ -379,8 +364,7 @@ uint8 i;
     active_xfer_spi( *len );
     active_xfer_spi( 0x00 );
 
-   for(i=0; i<*len; i++)
-   {
+   for(i=0; i<*len; i++){
       buf[i] = active_xfer_spi( 0x00 );
    }
 #endif
@@ -393,8 +377,7 @@ uint8 i;
 * Arguments :       buffer pointer and length
 * Return Value :    none
 ***********************************************************************************************************************/
-void rf_ata5785_read_rssi_buf( uint8 buf[], uint8 *len )
-{
+void rf_ata5785_read_rssi_buf( uint8 buf[], uint8 *len ){
 uint8 i;
    select_ata5785();
 #ifdef MCAL_F1L
@@ -411,8 +394,7 @@ uint8 i;
     Spi_WriteIB(0, len );
     ptr=0x00;
    Spi_WriteIB(0, (uint8 *) &ptr );
-    for(i=0; i<*len; i++)
-   {
+    for(i=0; i<*len; i++){
       buf[i] = Spi_WriteIB(0, (uint8 *) &ptr );
    }
 
@@ -425,8 +407,7 @@ uint8 i;
    active_xfer_spi( 0x05 );
     active_xfer_spi( *len );
     active_xfer_spi( 0x00 );
-    for(i=0; i<*len; i++)
-   {
+    for(i=0; i<*len; i++){
       buf[i] = active_xfer_spi( 0x00 );
    }
 
@@ -442,8 +423,7 @@ uint8 i;
 * Arguments :       buffer pointer and length
 * Return Value :    none
 ***********************************************************************************************************************/
-void rf_ata5785_write_tx_buf( uint8 buf[], uint8 len )
-{
+void rf_ata5785_write_tx_buf( uint8 buf[], uint8 len ){
 uint8 i;
    select_ata5785();
 #ifdef MCAL_F1L
@@ -456,8 +436,7 @@ uint8 i;
     ptr=0x00;
    Spi_WriteIB(0, (uint8 *) &ptr );
 
-   for(i=0; i<len; i++)
-   {
+   for(i=0; i<len; i++){
       ptr=buf[i];
       Spi_WriteIB(0, (uint8 *) &ptr );
    }
@@ -466,8 +445,7 @@ uint8 i;
     active_xfer_spi( len );
     active_xfer_spi( 0x00 );
 
-   for(i=0; i<len; i++)
-   {
+   for(i=0; i<len; i++){
       active_xfer_spi( buf[i] );
    }
 
@@ -483,8 +461,7 @@ uint8 i;
 * Arguments :       buffer pointer
 * Return Value :    none
 ***********************************************************************************************************************/
-void rf_ata5785_write_sram(const uint8 data[])
-{
+void rf_ata5785_write_sram(const uint8 data[]){
   uint8 i;
   uint8 length;
   uint8 offset;
@@ -506,8 +483,7 @@ void rf_ata5785_write_sram(const uint8 data[])
 
   do
   {
-    if(length <= SRAM_BUFFER_SIZE)
-    {
+    if(length <= SRAM_BUFFER_SIZE){
       select_ata5785();
 
 #ifdef MCAL_F1L
@@ -520,8 +496,7 @@ void rf_ata5785_write_sram(const uint8 data[])
        ptr=(uint8) addr.ui;
       Spi_WriteIB(0, (uint8 *) &ptr );
 
-      for(i=0; i<length; i++)
-      {
+      for(i=0; i<length; i++){
         ptr=data[i+offset];
         Spi_WriteIB(0, (uint8 *) &ptr );
       }
@@ -539,8 +514,7 @@ void rf_ata5785_write_sram(const uint8 data[])
       Spi_WriteIB(0, (uint8 *) &ptr );
        ptr=(uint8) addr.ui;
       Spi_WriteIB(0, (uint8 *) &ptr );
-       for(i=0; i<SRAM_BUFFER_SIZE; i++)
-      {
+       for(i=0; i<SRAM_BUFFER_SIZE; i++){
         ptr=data[i+offset];
         Spi_WriteIB(0, (uint8 *) &ptr );
       }
@@ -559,8 +533,7 @@ void rf_ata5785_write_sram(const uint8 data[])
        ptr=(uint8) addr.ui;
       active_xfer_spi(ptr);
 
-      for(i=0; i<length; i++)
-      {
+      for(i=0; i<length; i++){
         ptr=data[i+offset];
         active_xfer_spi(ptr);
       }
@@ -578,8 +551,7 @@ void rf_ata5785_write_sram(const uint8 data[])
       active_xfer_spi(ptr);
        ptr=(uint8) addr.ui;
       active_xfer_spi(ptr);
-       for(i=0; i<SRAM_BUFFER_SIZE; i++)
-      {
+       for(i=0; i<SRAM_BUFFER_SIZE; i++){
         ptr=data[i+offset];
         active_xfer_spi(ptr);
       }
@@ -602,8 +574,7 @@ void rf_ata5785_write_sram(const uint8 data[])
 * Arguments :       buffer pointer and length
 * Return Value :    none
 ***********************************************************************************************************************/
-void rf_ata5785_set_watchdog(const uint8 data[] )
-{
+void rf_ata5785_set_watchdog(const uint8 data[] ){
 uint8 ptr;
    select_ata5785();
 #ifdef MCAL_F1L
@@ -629,8 +600,7 @@ uint8 ptr;
 * Arguments :       none
 * Return Value :    sensor type
 ***********************************************************************************************************************/
-uint8 check_sensor_type(void)
-{
+uint8 check_sensor_type(void){
    unsigned int tcount;
    uint8 tmp=0;
     rf.mode = 0xA2;
@@ -683,8 +653,7 @@ uint8 check_sensor_type(void)
    rf_ata5785_set_mode( rf.mode, rf.channel );
    WaitHard(2000);
    Spi_Cancel(SPI_ZERO);
-   if(((rf.events[3]&0x84) == 0x84) && ((rf.events[1]&0x07) == 0x07))
-     {
+   if(((rf.events[3]&0x84) == 0x84) && ((rf.events[1]&0x07) == 0x07)){
         tmp=2;
      }
 
@@ -699,8 +668,7 @@ uint8 check_sensor_type(void)
 * Arguments :       none
 * Return Value :    sensor type
 ***********************************************************************************************************************/
-uint8 check_sensor_type(void)
-{
+uint8 check_sensor_type(void){
    unsigned int tcount;
    uint8 tmp=0;
     rf.mode = 0xA2;
@@ -771,24 +739,21 @@ uint8 check_sensor_type(void)
 * Arguments :       none
 * Return Value :    reset
 ***********************************************************************************************************************/
-static void rf_ata5785_system_reset( void )
- {
+static void rf_ata5785_system_reset( void ){
 uint8 ptr;
 
     select_ata5785(); /*CS for ATA and wait 47µs */
 
 #ifdef MCAL_F1L
 
-   if(Spi_GetHWUnitStatus(0)==SPI_IDLE)
-   {
+   if(Spi_GetHWUnitStatus(0)==SPI_IDLE){
    ptr=0x15;
    ucMISOdata[0]=Spi_WriteIB(0, (uint8 *) &ptr );
     Spi_AsyncTransmit(0);
 
    }
 
-     if(Spi_GetHWUnitStatus(0)==SPI_IDLE)
-   {
+     if(Spi_GetHWUnitStatus(0)==SPI_IDLE){
    ptr=0x00;
    ucMISOdata[1]=Spi_WriteIB(0, (uint8 *) &ptr );
      Spi_AsyncTransmit(0);
@@ -813,16 +778,14 @@ uint8 ptr;
 * Arguments :       none
 * Return Value :
 ***********************************************************************************************************************/
-void SetServNPath( uint8 ui8SrvNPath )
-{
+void SetServNPath( uint8 ui8SrvNPath ){
 #ifdef MCAL_F1L
    Spi_Init(SPI_ZERO);
 #else
    csig0_4ATAinit();
 #endif
 
-    if (ui8SrvNPath == rf.channel)
-     {
+    if(ui8SrvNPath == rf.channel){
         rf.mode = 0x12;
      }
     else
@@ -845,8 +808,7 @@ void SetServNPath( uint8 ui8SrvNPath )
 * Arguments :       none
 * Return Value :
 ***********************************************************************************************************************/
-uint8 rf_ata5785_read_error_code( void )
-{
+uint8 rf_ata5785_read_error_code( void ){
 uint8 rtn;
 uint8 ptr;
     select_ata5785();
@@ -886,8 +848,7 @@ uint8 ptr;
 * Arguments :       none
 * Return Value :
 ***********************************************************************************************************************/
-uint8 rf_ata5785_read_SM_state( void )
-{
+uint8 rf_ata5785_read_SM_state( void ){
 uint8 rtn;
 uint8 ptr;
     select_ata5785();
@@ -930,8 +891,7 @@ uint8 ptr;
 * Arguments :       none
 * Return Value :
 ***********************************************************************************************************************/
-void rf_ata5785_OFF_command( void )
-{
+void rf_ata5785_OFF_command( void ){
 uint8 ptr;
 
     select_ata5785();
@@ -954,11 +914,9 @@ uint8 ptr;
 
 }
 
-     uint8 rf_ata5785_InitSM(void)
-{
+     uint8 rf_ata5785_InitSM(void){
   fp2IniState ();
-  if(ataInitialized == fp2IniState)
-  {
+  if(ataInitialized == fp2IniState){
     return TRUE;
   }
   else
@@ -967,13 +925,11 @@ uint8 ptr;
   }
 }
 
-void rf_ata5785_StartInitSM(void)
-{
+void rf_ata5785_StartInitSM(void){
   fp2IniState = ataIni1st ;
 }
 
-static void ataIni1st(void)
-{
+static void ataIni1st(void){
   uint8 i;
 
   RFD_Pwr3Pin4Ata(0);/*@as F1L BSW ATMEL->Power off*/
@@ -986,8 +942,7 @@ static void ataIni1st(void)
   rf.events[1] = 0;
   rf.events[2] = 0;
   rf.events[3] = 0;
-  for(i=((uint8) 0); i<RF_DAT_BUF_LEN; i++)
-  {
+  for(i=((uint8) 0); i<RF_DAT_BUF_LEN; i++){
     rf.buffer[i] = (uint8) 0;
     rf.rssibuf[i] = (uint8) 0;
   }
@@ -995,15 +950,13 @@ static void ataIni1st(void)
   fp2IniState = ataIniPwrOn ;
 }
 
-static void ataIniPwrOn(void)
-{
+static void ataIniPwrOn(void){
   csig0_4ATAinit();     /*ATA4MFA DisableSPI ist in der INIT Fkt. included */
   RFD_Pwr3Pin4Ata(1);   /*@as F1L BSW ATMEL->Power on Port10_Bit14*/
   fp2IniState = ataInitSysRes ;
 }
 
-static void ataInitSysRes(void)
-{
+static void ataInitSysRes(void){
   ucIRQ_ATA_activ=0;    /*clear  Port10 IRQ activ member  */
   rf_ata5785_system_reset();  /*"System Reset" configures the watchdog with the minimum timeout period and waits for a watchdog reset in an endless loop.*/
 
@@ -1012,15 +965,12 @@ static void ataInitSysRes(void)
   fp2IniState = ataIniWtResetEvent;
 }
 
-static void ataIniWtResetEvent(void)
-{
+static void ataIniWtResetEvent(void){
   static uint8 tOCtIn50msec = (uint8) 3;
 
-  if (0 < tOCtIn50msec)
-  {
+  if(0 < tOCtIn50msec){
     tOCtIn50msec--;
-    if (1 == ucIRQ_ATA_activ)
-    {
+    if(1 == ucIRQ_ATA_activ){
       ucIRQ_ATA_activ = 0;
       tOCtIn50msec = (uint8) 3;
       fp2IniState = ataIniSeq1;
@@ -1039,8 +989,7 @@ static void ataIniWtResetEvent(void)
   }
 }
 
-static void ataIniSeq1(void)
-{
+static void ataIniSeq1(void){
   rf_ata5785_write_sram(rf_events_cfg);
   rf_ata5785_set_watchdog(rf_watchdog_cfg);
   rf_ata5785_write_sram(rf_dbgsw_cfg);
@@ -1056,8 +1005,7 @@ static void ataIniSeq1(void)
   fp2IniState = ataIniSeq2;
 }
 
-static void ataIniSeq2(void)
-{
+static void ataIniSeq2(void){
   rf_ata5785_write_sram(rf_temperatureCalibration_cfg);
   rf_ata5785_write_sram(rf_trxCalibConfiguration_cfg);
   rf_ata5785_write_sram(rf_sleepModeConfig_cfg);
@@ -1069,20 +1017,17 @@ static void ataIniSeq2(void)
   fp2IniState = ataIniSeq3;
 }
 
-static void ataIniSeq3(void)
-{
+static void ataIniSeq3(void){
   rf_ata5785_write_sram(rf_sramService3_cfg);
   fp2IniState = ataIniSeq4;
 }
 
-static void ataIniSeq4(void)
-{
+static void ataIniSeq4(void){
   rf_ata5785_write_sram(rf_sramService4_cfg);
   fp2IniState = ataIniSeq5;
 }
 
-static void ataIniSeq5(void)
-{
+static void ataIniSeq5(void){
   rf_ata5785_write_sram(rf_gapMode_cfg);
   rf_ata5785_write_sram(rf_eomConfig_cfg);
   rf_ata5785_write_sram(rf_tempMeas_cfg);
@@ -1097,17 +1042,14 @@ static void ataIniSeq5(void)
   fp2IniState = ataIniSeq6;
 }
 
-static void ataIniSeq6(void)
-{
+static void ataIniSeq6(void){
   rf_ata5785_get_events( rf.events );
   csig0_disable();
   fp2IniState = ataIniStartService;
 }
 
-static void ataIniStartService(void)
-{
-  if(GetPort4Frequenz433() == TRUE)
-  {
+static void ataIniStartService(void){
+  if(GetPort4Frequenz433() == TRUE){
     SetServNPath(0x83);
   }
   else
@@ -1118,7 +1060,6 @@ static void ataIniStartService(void)
   fp2IniState = ataInitialized;
 }
 
-void ataInitialized(void)
-{
+void ataInitialized(void){
 }
 

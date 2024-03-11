@@ -15,8 +15,7 @@ static void InitDefValTemPara(void);
 static uint8 ui8GetDAGTempWarnPara(TempWarnParaType * ptTemPara);
  static uint8 ui8GetDAGPWarnPara(PWarnParaType * ptPPara);
 
-void InitUSWAlgo(const unsigned char *ptWPos)
-{
+void InitUSWAlgo(const unsigned char *ptWPos){
     unsigned char aucDgServ[6]={0};
 
     aucDgServ[0] = 0x00;
@@ -34,16 +33,14 @@ void InitUSWAlgo(const unsigned char *ptWPos)
     IniTVWarn ();
 }
 
-static void RdDAGPara (void)
- {
-    if ( ui8GetDAGPWarnPara (&tDAG_PPara) == (uint8) 0)
+static void RdDAGPara (void){
+    if( ui8GetDAGPWarnPara (&tDAG_PPara) == (uint8) 0)
         InitDefValPPara();
-    if (ui8GetDAGTempWarnPara (&tDAG_TemPara ) == (uint8) 0)
+    if(ui8GetDAGTempWarnPara (&tDAG_TemPara ) == (uint8) 0)
         InitDefValTemPara ();
 }
 
-static void InitDefValPPara(void)
-{
+static void InitDefValPPara(void){
     tDAG_PPara.ui16_CONSTANT_DELAY = 0;
     tDAG_PPara .ui16_T_HARD = 60 * GETucT_HardOfRam();
     tDAG_PPara .ui16_T_SOFT = 60 * GETucT_SoftOfRam();
@@ -53,8 +50,7 @@ static void InitDefValPPara(void)
     tDAG_PPara .ui8_P_MIN_R = GETucPcalMinHaRelativCodOfRam();
     tDAG_PPara .ui8_P_MIN_TIRE = GETucMinWarnThresholdOfRam();
 }
-static void InitDefValTemPara(void)
-{
+static void InitDefValTemPara(void){
     tDAG_TemPara .i8_T0 = GETscT0OfRam();
     tDAG_TemPara .i8_T1 = GETscT1OfRam();
     tDAG_TemPara .i8_T2 = GETscT2OfRam();
@@ -64,17 +60,14 @@ static void InitDefValTemPara(void)
     tDAG_TemPara .ui16_HC_MAX = GETushHCmax();
     tDAG_TemPara.ui8_TempWarnEnable = GETucTempWarnOnOffOfRam();
 }
-static uint8 ui8GetDAGTempWarnPara(TempWarnParaType * ptTemPara)
-{
+static uint8 ui8GetDAGTempWarnPara(TempWarnParaType * ptTemPara){
     return 0;
 }
-static uint8 ui8GetDAGPWarnPara(PWarnParaType * ptPPara)
-{
+static uint8 ui8GetDAGPWarnPara(PWarnParaType * ptPPara){
     return 0;
 }
 
-void KL15OffWarnInit(const unsigned char *ptWPos)
-{
+void KL15OffWarnInit(const unsigned char *ptWPos){
   USWPostInit();
 
   UpdateWarnOut (ptWPos );
@@ -84,18 +77,15 @@ void KL15OffWarnInit(const unsigned char *ptWPos)
   UpdateGlobWrnLvlNWarnDisp();
 }
 
-uint8 ui8GetPMIN_F(void)
-{
+uint8 ui8GetPMIN_F(void){
   return (tDAG_PPara .ui8_P_MIN_F );
 }
 
-uint8 ui8GetPMIN_R(void)
-{
+uint8 ui8GetPMIN_R(void){
   return (tDAG_PPara .ui8_P_MIN_R );
 }
 
-void UpdateWarnOut(const unsigned char * p2WPs)
-{
+void UpdateWarnOut(const unsigned char * p2WPs){
   unsigned char aucDgServ[6]={0};
   unsigned char i;
 
@@ -107,8 +97,7 @@ void UpdateWarnOut(const unsigned char * p2WPs)
 
   aucDgServ[0] = ucNewPositionsc;
   aucDgServ[1] = *p2WPs;
-  for (i = 0; i < (ucSumWEc-1); i++)
-  {
+  for(i = 0; i < (ucSumWEc-1); i++){
     aucDgServ[2+i] = p2WPs[1+i];
   }
   aucDgServ[0] = ucTSSMsgManagerTM(ucDiagServicec,aucDgServ);
