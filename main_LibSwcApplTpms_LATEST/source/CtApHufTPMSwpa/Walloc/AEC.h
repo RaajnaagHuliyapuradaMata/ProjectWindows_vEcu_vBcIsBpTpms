@@ -1,38 +1,38 @@
 
 
 #ifdef AEC_INT
-void SetFrontBack(unsigned char ucFrontIx, unsigned char ucBackIx);
+void SetFrontBack(uint8 ucFrontIx, uint8 ucBackIx);
 
-void SetFBPACM(unsigned char ucFrontIx, unsigned char ucBackIx,unsigned char ucWrong);
-void SetFBACM(unsigned char ucFrontID, unsigned char ucBackID,unsigned char ucWrong);
+void SetFBPACM(uint8 ucFrontIx, uint8 ucBackIx,uint8 ucWrong);
+void SetFBACM(uint8 ucFrontID, uint8 ucBackID,uint8 ucWrong);
  void ResetBadWayCheck(void);
 
 #else
 #ifdef CONCEPT4
-extern unsigned short ushMofID(unsigned char ucIx);
-extern unsigned short ushDistInMSec(unsigned char ucIx1, unsigned char ucIx2);
-extern unsigned char ucGetBiggerM(unsigned char ucIx1,unsigned char ucIx2);
-extern unsigned short ushGetTruECt(tRFTelType * ptInputWA, unsigned char ucIx);
-extern void Concept4Op2(unsigned char ucIx, unsigned short ushCurECt);
+extern uint16 ushMofID(uint8 ucIx);
+extern uint16 ushDistInMSec(uint8 ucIx1, uint8 ucIx2);
+extern uint8 ucGetBiggerM(uint8 ucIx1,uint8 ucIx2);
+extern uint16 ushGetTruECt(tRFTelType * ptInputWA, uint8 ucIx);
+extern void Concept4Op2(uint8 ucIx, uint16 ushCurECt);
 #endif
-extern void Concept5pb8(unsigned char ucID, tRFTelType * ptInputWA);
-extern unsigned char ucEarlyEnd(unsigned char ucIx);
-extern void SetFrontBack(unsigned char ucFrontIx, unsigned char ucBackIx);
-extern void SetFBPACM(unsigned char ucFrontIx, unsigned char ucBackIx,unsigned char ucWrong);
-extern void SetFBACM(unsigned char ucFrontID, unsigned char ucBackID,unsigned char ucWrong);
+extern void Concept5pb8(uint8 ucID, tRFTelType * ptInputWA);
+extern uint8 ucEarlyEnd(uint8 ucIx);
+extern void SetFrontBack(uint8 ucFrontIx, uint8 ucBackIx);
+extern void SetFBPACM(uint8 ucFrontIx, uint8 ucBackIx,uint8 ucWrong);
+extern void SetFBACM(uint8 ucFrontID, uint8 ucBackID,uint8 ucWrong);
  extern void ResetACM(void);
-extern void CtACM(unsigned char ucID1, unsigned char ucID2);
-extern unsigned char ucAutoACM(void);
-extern unsigned char ucEarlyEnd(unsigned char ucIx);
-unsigned char ucAutoACM(void);
+extern void CtACM(uint8 ucID1, uint8 ucID2);
+extern uint8 ucAutoACM(void);
+extern uint8 ucEarlyEnd(uint8 ucIx);
+uint8 ucAutoACM(void);
 
-extern unsigned char ucDirectionDetection(unsigned char ucLeRiMinDistance);
-extern unsigned char ucAxisDetection(void);
-extern unsigned char ucWPConsistent(void);
+extern uint8 ucDirectionDetection(uint8 ucLeRiMinDistance);
+extern uint8 ucAxisDetection(void);
+extern uint8 ucWPConsistent(void);
 
-extern void BadWayCheck(unsigned char ucPeaks, unsigned short ushTime);
+extern void BadWayCheck(uint8 ucPeaks, uint16 ushTime);
 extern void ResetBadWayCheck(void);
-extern void PutushMaxAxDist( unsigned short ushVal);
-extern void PutushMinAxDist( unsigned short ushVal);
+extern void PutushMaxAxDist( uint16 ushVal);
+extern void PutushMinAxDist( uint16 ushVal);
 
 #endif

@@ -48,8 +48,7 @@ void IncrInternMsTimer(void){
    if(ucCurrentTicks < ucLastTicks){
     ucDeltaTicks = (ECU_TIMER_MAX - ucLastTicks) + ucCurrentTicks + 1;
   }
-  else
-  {
+  else{
       ucDeltaTicks = ucCurrentTicks - ucLastTicks;
   }
 
@@ -64,8 +63,7 @@ void GetInternMSTime(uint32* ulInternalTime){
    if(ucCurrentTicks < ucLastTicks){
     ucDeltaTicks = (ECU_TIMER_MAX - ucLastTicks) + ucCurrentTicks;
   }
-  else
-  {
+  else{
       ucDeltaTicks = ucCurrentTicks - ucLastTicks;
   }
 
@@ -79,8 +77,7 @@ void UpdateParkingTimer(uint16 ushVSpeed){
 
     }
   }
-  else
-   {
+  else{
     ushParkingTime=0;
   }
 }
@@ -91,8 +88,7 @@ void UpdateStanbyTimer(boolean bIgnState, uint16 ushVSpeed, uint8 ucVmin){
    if( (ushVSpeed > ucVmin) && (ucVSpeedCnt < 20) ){
       ucVSpeedCnt ++;
    }
-   else
-   {
+   else{
       ucVSpeedCnt = 0;
    }
    if((ucVSpeedCnt==20) && (bIgnState==TRUE)){
@@ -126,8 +122,7 @@ uint8 ucGetCurrentECUParkingState(void){
   else if(ushParkingTime<cT_STANBY){
     return 2;
    }
-  else
-  {
+  else{
     return 3;
    }
 
@@ -154,8 +149,7 @@ uint8  GetOpTimeMethodCurrent(void){
   else if(ucTimeMethod == OP_TIME_METHOD_OHDS){
     Rte_Pim_Pim_tCodNvMBlock()->aucPalAbsDelayTimeParam[0] = OP_TIME_METHOD_OHDS;
   }
-  else
-  {
+  else{
   }
   Rte_Pim_Pim_tCodNvMBlock()->aucPalAbsDelayTimeParam[1] = ucCstDelay;
   SetCodNvMBlockNewDataFlag(TRUE);
@@ -186,22 +180,19 @@ void GetSystemOperatingTime(uint32* ulOpTime){
         ucOpTimeMethodCurrent = OP_TIME_METHOD_CSTDELAY;
         bAbsErrorDetected = TRUE;
       }
-      else
-      {
+      else{
         *ulOpTime = ulTempOpTime;
         ucOpTimeMethodCurrent = OP_TIME_METHOD_OHDS;
       }
 
     }
-    else
-    {
+    else{
       GetInternMSTime(ulOpTime);
       ucOpTimeMethodCurrent = OP_TIME_METHOD_CSTDELAY;
     }
 
   }
-  else
-  {
+  else{
   }
    if(ucTemp != ucOpTimeMethodCurrent){
       ReNewABSRef();

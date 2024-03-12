@@ -40,8 +40,7 @@ void ClrMeasError(uint8 ui8HistCol, uint8 ui8ReasonOnly){
       bNewIDFlag[ui8HistCol] = TRUE;
     }
   }
-  else
-  {
+  else{
     ui8BaTempCt[0] = cNull;
     ui8BadPressCt[0] = cNull;
     ui8BaTempCt[1] = cNull;
@@ -125,8 +124,7 @@ void CheckSensorPnT(uint8 ui8HistCol, uint8 ui8AKRawPressure, uint8 ui8AKRawTemp
         ui8BaTempCt[ui8HistCol] = cSensErrorActive ;
       }
     }
-    else
-    {
+    else{
       ui8BaTempCt[ui8HistCol] = cNull;
     }
 
@@ -139,8 +137,7 @@ void CheckSensorPnT(uint8 ui8HistCol, uint8 ui8AKRawPressure, uint8 ui8AKRawTemp
         ui8BadPressCt[ui8HistCol] = cSensErrorActive ;
       }
     }
-    else
-    {
+    else{
       ui8BadPressCt[ui8HistCol] = cNull ;
     }
      if( ( bNewIDFlag[ui8HistCol] || (!bMeasErrorActive(ui8HistCol)) ) && ( ui8BadPressCt[ui8HistCol] == cNull) && (ui8BaTempCt[ui8HistCol] == cNull) ){

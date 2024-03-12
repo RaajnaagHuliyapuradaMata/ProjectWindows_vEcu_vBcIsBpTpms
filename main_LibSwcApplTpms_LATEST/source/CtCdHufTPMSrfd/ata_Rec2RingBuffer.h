@@ -11,7 +11,7 @@ extern void ChkAtaRecive(void);
 uint8 ChkAtaError(void);
 uint8 GetBufferStateRB(void);
 void GetRB( void);
-void RestartAtaRec(unsigned char ucPathNServNr);
+void RestartAtaRec(uint8 ucPathNServNr);
 extern void PutRB(struct rfstruct * tRfBuf);
 uint8 ui8GetErrorCnt(void);
 extern void InitRFTelBufferW0x55ForWhatSoEver(void);

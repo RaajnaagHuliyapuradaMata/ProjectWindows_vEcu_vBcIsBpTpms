@@ -1,6 +1,5 @@
+#include "Std_Types.hpp"
 
-
-#include "Platform_Types.h"
 #include "Spi.h"
 #include "ata_Rec2RingBuffer_X.h"
 #include "Rte_CtCdHufTPMSrfd.h"
@@ -34,18 +33,16 @@ struct para{
 };
 
 static struct para tPara;
-
 static uint8 ui8RepairCnt = (uint8) 0;
 
 uint8 appBuild8CRC(const uint8 *pui8Buffer, uint8 ui8MessageLen, uint8 ui8BitsInFirstByte, uint8 ui8Polynom, uint8 ui8CrcStartValue);
 
-static void PosWrPointerRB(signed char);
-static void PosRdPointerRB(signed char);
-
-static uint8 ui8RepairMessage(struct rfstruct * p2Tel, uint8 ui8TeLen);
+static void PosWrPointerRB(sint8);
+static void PosRdPointerRB(sint8);
+static uint8 ui8RepairMessage(struct rfstruct* p2Tel, uint8 ui8TeLen);
 static uint8 ui8GetLenOfTelType(uint8 ui8TelType);
 
-static void PosWrPointerRB(signed char cIncDec){
+static void PosWrPointerRB(sint8 cIncDec){
   tPara.ucWrTelPos += cIncDec;
   if( (cIncDec>=0) && (tPara.ucWrTelPos >= cBUFFER_SIZE) ){
     tPara.ucWrTelPos = 0;
@@ -55,7 +52,7 @@ static void PosWrPointerRB(signed char cIncDec){
   }
 }
 
-static void PosRdPointerRB(signed char cIncDec){
+static void PosRdPointerRB(sint8 cIncDec){
 
   tPara.ucBCR &= ~cMODE2_TEL_IN_BUFFER;
 
@@ -80,8 +77,7 @@ uint8 StartAtaRec(uint8 ucPathNServNr){
       tRecRFTel.ucByteAccess[i] = 0x55;
     }
   }
-  else
-  {
+  else{
     ucAtaInitSate=FALSE;
   }
 
@@ -196,20 +192,17 @@ void PutRB(struct rfstruct * tRfBuf){
           tPara.bBufferOverrun = 1;
           PosWrPointerRB(-1);
         }
-        else
-        {
+        else{
           PosRdPointerRB(1);
         }
       }
-      else
-      {
+      else{
         tPara.bBufferOverrun = 1;
         PosWrPointerRB(-1);
       }
     }
   }
-  else
-  {
+  else{
     tPara.ucOrCt++;
   }
 }
@@ -224,8 +217,7 @@ uint8 GetBufferStateRB(void){
 
     tmp=(tPara.ucWrTelPos-tPara.ucRdTelPos);
   }
-  else
-  {
+  else{
 
     tmp=(cBUFFER_SIZE-tPara.ucRdTelPos+tPara.ucWrTelPos);
   }
@@ -249,24 +241,21 @@ void ConfigRingBufferCC(uint8 ucConfRBuf){
   if((ucConfRBuf & 0x01)){
     SetBitBufferConditionRegisterRB(cOVERWRITE_MODE);
   }
-  else
-  {
+  else{
     ClearBitBufferConditionRegisterRB(cOVERWRITE_MODE);
   }
 
   if((ucConfRBuf & 0x02)){
     SetBitBufferConditionRegisterRB(cSAVE_ERROR_TEL);
   }
-  else
-  {
+  else{
     ClearBitBufferConditionRegisterRB(cSAVE_ERROR_TEL);
   }
 
   if((ucConfRBuf & 0x80)){
     SetBitBufferConditionRegisterRB(cSAVE_MODE2_ONLY);
   }
-  else
-  {
+  else{
     ClearBitBufferConditionRegisterRB(cSAVE_MODE2_ONLY);
   }
 }
@@ -305,21 +294,18 @@ void ChkAtaRecive(void){
           PutRB((struct rfstruct *) &rf);
         }
       }
-      else
-      {
+      else{
         PutRB((struct rfstruct *) &rf);
         ucCrcPassedTel++;
       }
     }
-    else
-    {
+    else{
       ucCrcFailedTel++;
     }
 
     SetServNPath(rf.channel);
   }
-  else
-  {
+  else{
     if((rf.events[0] & 0x80)
  #ifdef  RFChipTest_Instrument
       || (0 < ui8ReIniAfterXTels)
@@ -333,8 +319,7 @@ void ChkAtaRecive(void){
       }
       ReInitAfterError();
      }
-    else
-    {
+    else{
       SetServNPath(rf.channel);
     }
   }
@@ -381,8 +366,7 @@ uint8 appBuild8CRC(const uint8 *pui8Buffer, uint8 ui8MessageLen, uint8 ui8BitsIn
       byteContent |= ( pui8Buffer[1] >> ( ui8BitsInFirstByte ) );
       ui8BitNumber = 8U;
     }
-    else
-    {
+    else{
       ui8BitNumber = ui8BitsInFirstByte;
     }
 
@@ -392,8 +376,7 @@ uint8 appBuild8CRC(const uint8 *pui8Buffer, uint8 ui8MessageLen, uint8 ui8BitsIn
       if( 0 != ( ( 0x80U ) & ( ui8CRC ) ) ){
         ui8CRC = (uint8) ( ( ui8CRC << 1U ) ^ ( ui8Polynom ) );
       }
-      else
-      {
+      else{
         ui8CRC = (uint8) ( ( ui8CRC << 1U ) );
       }
       ui8BitNumber--;
@@ -417,8 +400,7 @@ static uint8 ui8RepairMessage(struct rfstruct * p2Tel, uint8 ui8TeLen){
     return ((uint8) 0);
   else if(ui8TeLen > ui8MaxLen )
     return ((uint8) 0);
-   else
-  {
+   else{
      for( i = 0; i < cBUFFER_SIZE ; i++){
       for(j = 1 ; j < ui8MinLen; j++){
         if( p2Tel -> buffer[j] != tBufferData [i].Tel .ucByte [j])

@@ -24,13 +24,11 @@ uint8 ucPassTimeFilter(uint32 ulID, uint8 ucTelType, uint32 ulSysTime){
         ucRet = 1;
        }
     }
-    else
-    {
+    else{
       ucRet = 1;
      }
   }
-  else
-  {
+  else{
       ucRet = 0;
    }
 

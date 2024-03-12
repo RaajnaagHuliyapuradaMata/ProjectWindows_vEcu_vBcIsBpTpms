@@ -49,22 +49,22 @@ extern boolean bGetSensorStateMissing (uint8  ucColOfID);
 extern uint8   ucGetLastReceivedPress (uint32 ulTelID);
 extern uint8   ucGetLastReceivedTemp  (uint32 ulTelID);
 
-#define cHiStateTZG ((unsigned char) 0x04)
-#define cHiStateZG  ((unsigned char) 0x02)
-#define cHiStateER  ((unsigned char) 0x01)
+#define cHiStateTZG ((uint8) 0x04)
+#define cHiStateZG  ((uint8) 0x02)
+#define cHiStateER  ((uint8) 0x01)
 
-#define cAL_OK      ((unsigned char) 100)
-#define cAL_Stored  ((unsigned char)   1)
-#define cAL_Unknown ((unsigned char)   2)
-#define cAL_Error   ((unsigned char)   3)
+#define cAL_OK      ((uint8) 100)
+#define cAL_Stored  ((uint8)   1)
+#define cAL_Unknown ((uint8)   2)
+#define cAL_Error   ((uint8)   3)
 extern uint8         ui8GetALState      (void);
-extern unsigned char USEui8PWPofHistCol (unsigned char ui8HistCol);
-extern unsigned long ulGetID            (unsigned char ucIx);
-extern unsigned char ucGetColOfWP       (unsigned char ucIx);
-extern unsigned char ucGetWPOfCol       (unsigned char ucIx);
+extern uint8 USEui8PWPofHistCol (uint8 ui8HistCol);
+extern unsigned long ulGetID            (uint8 ucIx);
+extern uint8 ucGetColOfWP       (uint8 ucIx);
+extern uint8 ucGetWPOfCol       (uint8 ucIx);
 
 /* TSSMsg.c */
-unsigned char GetucTPM_WarnDisp_Rq(void);
+extern uint8 GetucTPM_WarnDisp_Rq(void);
 
 /* tss_stdx.h */
 #define cRadPosVL ((uint8) 0)

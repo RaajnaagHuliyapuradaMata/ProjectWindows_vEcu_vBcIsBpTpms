@@ -23,8 +23,12 @@ add_executable(
    ${PROJECT_NAME}
 
    ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsHmiHandler/SwcApplTpmsHmiHandler.c
+   ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler/ctrl.c
+   ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler/DAG_TVWarn.c
+   ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler/TSSMsg.c
    ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler/USWarn.c
    ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler/uswarn_If.c
+   ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler/WTDHW.c
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSdia
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSwnh

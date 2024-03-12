@@ -418,14 +418,14 @@
      0x00
  };
 
- unsigned char rf_supcr_cfg[] = {
+ uint8 rf_supcr_cfg[] = {
     0x00,
      0xCB,
      0x01,
      0x20
  };
 
- unsigned char rf_feen_cfg[] = {
+ uint8 rf_feen_cfg[] = {
     0x01,
      0x01,
      0x01,

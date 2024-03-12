@@ -74,8 +74,8 @@ extern "C"
 #define PRO_SHUTDOWN              4U
 #define PRO_IGNORE                5U
 
-typedef unsigned char  osuint8;
-typedef unsigned short osuint16;
+typedef uint8  osuint8;
+typedef uint16 osuint16;
 typedef unsigned long  osuint32;
 typedef signed   char  osint8;
 typedef signed   short osint16;

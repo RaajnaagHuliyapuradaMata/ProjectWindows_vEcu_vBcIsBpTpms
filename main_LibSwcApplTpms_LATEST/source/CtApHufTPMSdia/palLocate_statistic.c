@@ -54,7 +54,7 @@ void InitPalLocateStatistics(void);
 void InitPalLocateStatistics(void){
 }
 
-uint8 * GetPalLocateStatistics(void){
+uint8* GetPalLocateStatistics(void){
   return (uint8*)&Rte_Pim_Pim_tDiagNvMBlock0()->aucPalLocateStatistics;
 }
 
@@ -80,8 +80,7 @@ void PutPalLocateStatistics2Ram(void){
   else if(ui8GetALState() == cAL_Error){
     ptr2PalLocateStats->ucFullLocStatus =  0x01;
   }
-  else
-  {
+  else{
   }
   if( (bGetBitBetriebszustandBZ(cZO_FINISH) || bGetBitBetriebszustandBZ(cZO_TIMEOUT) )    && (!bPALCompleted)  &&  (ucGetLearnMode()==cCompleteLearn) ){
     bPALCompleted = TRUE;
@@ -102,8 +101,7 @@ void PutPalLocateStatistics2Ram(void){
 
       ptr2PalLocateStats->ucFullLocFailureCnt = 0;
     }
-    else
-    {
+    else{
     }
     for(i=0; i<cMaxLR; i++){
       if( (pucGetLocatError()[i]) != NoError){
@@ -168,8 +166,7 @@ void PutPalStatsLastCycleWU2Ram(void){
           Rte_Call_PP_GetZomData_OP_GetAbsSumCorrRR(ucZomPos, &ushTemp1);
           ptr2palStatsLastCycleWU[ucColPos].ucAvgStdDevRR = (uint8)ushTemp1;
         }
-        else
-         {
+        else{
           ptr2palStatsLastCycleWU[ucColPos].ucAvgStdDevFL = 0;
           ptr2palStatsLastCycleWU[ucColPos].ucAvgStdDevFR = 0;
           ptr2palStatsLastCycleWU[ucColPos].ucAvgStdDevRL = 0;
@@ -183,8 +180,7 @@ void PutPalStatsLastCycleWU2Ram(void){
           }
           ptr2PalStatsLongTermWU[ucColPos].ucLocFailureInARowCnt = 0;
          }
-        else
-        {
+        else{
           ptr2PalStatsLongTermWU[ucColPos].ucLocFailureCnt++;
           if(ptr2PalStatsLongTermWU[ucColPos].ucLocFailureCnt == 0xFF){
             ptr2PalStatsLongTermWU[ucColPos].ucLocPassCnt >>= 1;
@@ -205,8 +201,7 @@ void PutPalStatsLastCycleWU2Ram(void){
           ptr2PalStatsLongTermWU[ucColPos].ucAvgStdDevRR = ptr2palStatsLastCycleWU[ucColPos].ucAvgStdDevRR;
           ptr2PalStatsLongTermWU[ucColPos].ucCorrBlocksRatio =  100*ptr2palStatsLastCycleWU[ucColPos].ucCorrBlocks/ushTemp1;
         }
-        else
-        {
+        else{
           ptr2PalStatsLongTermWU[ucColPos].ucAvgStdDevFL = (ptr2palStatsLastCycleWU[ucColPos].ucAvgStdDevFL + ptr2PalStatsLongTermWU[ucColPos].ucAvgStdDevFL)>>1;
           ptr2PalStatsLongTermWU[ucColPos].ucAvgStdDevFR = (ptr2palStatsLastCycleWU[ucColPos].ucAvgStdDevFR + ptr2PalStatsLongTermWU[ucColPos].ucAvgStdDevFR)>>1;
           ptr2PalStatsLongTermWU[ucColPos].ucAvgStdDevRL = (ptr2palStatsLastCycleWU[ucColPos].ucAvgStdDevRL + ptr2PalStatsLongTermWU[ucColPos].ucAvgStdDevRL)>>1;
@@ -215,8 +210,7 @@ void PutPalStatsLastCycleWU2Ram(void){
         }
 
       }
-      else
-      {
+      else{
           ptr2palStatsLastCycleWU[ucColPos].ucAvgStdDevFL = 0;
           ptr2palStatsLastCycleWU[ucColPos].ucAvgStdDevFR = 0;
           ptr2palStatsLastCycleWU[ucColPos].ucAvgStdDevRL = 0;
@@ -240,8 +234,7 @@ uint8* GetPalStatsLastCycleWU(uint8 ucColPos){
   if(ucColPos<cMaxLR){
     return (uint8*)(ptr2palStatsLastCycleWU + ucColPos);
   }
-  else
-  {
+  else{
     return (uint8*)NULL_PTR;
   }
 }
@@ -250,8 +243,7 @@ uint8* GetPalStatsLongTermWU(uint8 ucColPos){
   if(ucColPos<cMaxLR){
     return (uint8*)(ptr2PalStatsLongTermWU + ucColPos);
   }
-  else
-  {
+  else{
     return (uint8*)NULL_PTR;
   }
 }

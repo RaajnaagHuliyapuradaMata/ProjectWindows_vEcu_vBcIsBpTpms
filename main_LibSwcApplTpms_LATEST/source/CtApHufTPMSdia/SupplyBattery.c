@@ -30,8 +30,7 @@ void CheckADCvalue4Kl30Diagnostic(uint16 uiKl30Value){
                ucKl30_High_Reset_KazCnt=0;
                Dem_SetEventStatus( Dem_DTC_0xa10e00, DEM_EVENT_STATUS_FAILED);
             }
-            else
-            {
+            else{
                ucKl30_High_Set_KazCnt=cKL30_HIGH_LIMIT_KAZ;
             }
          }
@@ -42,14 +41,12 @@ void CheckADCvalue4Kl30Diagnostic(uint16 uiKl30Value){
                ucKl30_Low_Set_KazCnt=0;
                Dem_SetEventStatus( Dem_DTC_0xa10d00, DEM_EVENT_STATUS_PASSED);
             }
-            else
-            {
+            else{
                ucKl30_Low_Reset_KazCnt = cKL30_LOW_LIMIT_KAZ;
             }
          }
       }
-      else
-      {
+      else{
          if(uiKl30Value <= cKL30_HIGH_LIMIT_RES){
             ucKl30_High_Reset_KazCnt++;
             if(ucKl30_High_Reset_KazCnt >= cKL30_HIGH_LIMIT_KAZ){
@@ -58,8 +55,7 @@ void CheckADCvalue4Kl30Diagnostic(uint16 uiKl30Value){
                   ucKl30_High_Set_KazCnt=0;
                   Dem_SetEventStatus( Dem_DTC_0xa10e00, DEM_EVENT_STATUS_PASSED);
                }
-               else
-               {
+               else{
                   ucKl30_High_Reset_KazCnt = cKL30_HIGH_LIMIT_KAZ;
                }
             }
@@ -72,8 +68,7 @@ void CheckADCvalue4Kl30Diagnostic(uint16 uiKl30Value){
                   ucKl30_Low_Set_KazCnt=0;
                   Dem_SetEventStatus( Dem_DTC_0xa10d00, DEM_EVENT_STATUS_PASSED);
                }
-               else
-               {
+               else{
                   ucKl30_Low_Reset_KazCnt = cKL30_HIGH_LIMIT_KAZ;
                }
             }
@@ -86,8 +81,7 @@ void CheckADCvalue4Kl30Diagnostic(uint16 uiKl30Value){
                   ucKl30_Low_Reset_KazCnt=0;
             Dem_SetEventStatus( Dem_DTC_0xa10d00, DEM_EVENT_STATUS_FAILED);
                }
-               else
-               {
+               else{
                   ucKl30_Low_Set_KazCnt=cKL30_LOW_LIMIT_KAZ;
                }
             }
@@ -102,8 +96,7 @@ void CheckADCvalue4Kl30Diagnostic(uint16 uiKl30Value){
       }
 
    }
-   else
-   {
+   else{
       ucKl30_Low_Set_KazCnt=0;
       ucKl30_High_Set_KazCnt=0;
    }
@@ -122,8 +115,7 @@ void CheckPN14SupBatState4SupplybatterieDiagnostic(uint8 ucPN14SupBat_value){
                   ucPN14SupBat_High_Reset_KazCnt=0;
                   Dem_SetEventStatus( Dem_DTC_0xa10b00, DEM_EVENT_STATUS_FAILED);
                }
-               else
-               {
+               else{
                   ucPN14SupBat_High_Set_KazCnt=cPN14_SUPBAT_HIGH_LIMIT_KAZ;
                }
             }
@@ -133,14 +125,12 @@ void CheckPN14SupBatState4SupplybatterieDiagnostic(uint8 ucPN14SupBat_value){
                   ucPN14SupBat_Low_Set_KazCnt=0;
                   Dem_SetEventStatus( Dem_DTC_0xa10a00, DEM_EVENT_STATUS_PASSED);
                }
-               else
-               {
+               else{
                   ucPN14SupBat_Low_Reset_KazCnt = cPN14_SUPBAT_LOW_LIMIT_KAZ;
                }
             }
          }
-         else
-         {
+         else{
             if(ucPN14SupBat_value < cPN14_SUPBAT_HIGH_LIMIT_RES){
                ucPN14SupBat_High_Reset_KazCnt++;
                if(ucPN14SupBat_High_Reset_KazCnt >= cPN14_SUPBAT_HIGH_LIMIT_KAZ){
@@ -148,8 +138,7 @@ void CheckPN14SupBatState4SupplybatterieDiagnostic(uint8 ucPN14SupBat_value){
                      ucPN14SupBat_High_Set_KazCnt=0;
                      Dem_SetEventStatus( Dem_DTC_0xa10b00, DEM_EVENT_STATUS_PASSED);
                   }
-                  else
-                  {
+                  else{
                      ucPN14SupBat_High_Reset_KazCnt = cPN14_SUPBAT_HIGH_LIMIT_KAZ;
                   }
                }
@@ -162,8 +151,7 @@ void CheckPN14SupBatState4SupplybatterieDiagnostic(uint8 ucPN14SupBat_value){
                      ucPN14SupBat_Low_Set_KazCnt=0;
                      Dem_SetEventStatus( Dem_DTC_0xa10a00, DEM_EVENT_STATUS_PASSED);
                   }
-                  else
-                  {
+                  else{
                      ucPN14SupBat_Low_Reset_KazCnt = cPN14_SUPBAT_HIGH_LIMIT_KAZ;
                   }
                }
@@ -175,8 +163,7 @@ void CheckPN14SupBatState4SupplybatterieDiagnostic(uint8 ucPN14SupBat_value){
                      ucPN14SupBat_Low_Reset_KazCnt=0;
                      Dem_SetEventStatus( Dem_DTC_0xa10a00, DEM_EVENT_STATUS_FAILED);
                   }
-                  else
-                  {
+                  else{
                      ucPN14SupBat_Low_Set_KazCnt=cPN14_SUPBAT_LOW_LIMIT_KAZ;
                   }
                }
@@ -191,8 +178,7 @@ void CheckPN14SupBatState4SupplybatterieDiagnostic(uint8 ucPN14SupBat_value){
          Dem_SetEventStatus( Dem_DTC_0xa10b00, DEM_EVENT_STATUS_PASSED);
       }
    }
-   else
-   {
+   else{
       ucPN14SupBat_Low_Set_KazCnt=0;
       ucPN14SupBat_High_Set_KazCnt=0;
    }

@@ -29,11 +29,11 @@
 #define cZOMPos2      ( (uint8) 2 )
 #define cZOMPos3      ( (uint8) 3 )
 
-#define ucPalTempNormFACTORc (unsigned char) 50
-#define ucPalTempNormFACTOR4Calc (unsigned char) 50
-#define ucPalTempNormLIMITCalc (unsigned char) 125
-#define ucPalTempNorm4AM (unsigned char) 85
- #define ucPalTempNormOFFSETc (unsigned char) 2
+#define ucPalTempNormFACTORc (uint8) 50
+#define ucPalTempNormFACTOR4Calc (uint8) 50
+#define ucPalTempNormLIMITCalc (uint8) 125
+#define ucPalTempNorm4AM (uint8) 85
+ #define ucPalTempNormOFFSETc (uint8) 2
 #define cDP_STABI            ( (uint8) 4 )
 #define cDP_MANUAL         ( (uint8) 8 )
 #define cDP_AUTO            ( (uint8) 4 )

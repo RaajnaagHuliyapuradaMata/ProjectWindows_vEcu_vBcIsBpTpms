@@ -206,8 +206,7 @@ uint8 GetEvKl30DiagUnterSpgFZZ( void ){
   if( bGetBitFahrzeugzustandFZZ( cKL30_UNTERSPG ) == TRUE ){
       return ( TRUE );
   }
-   else
-   {
+   else{
       return ( FALSE );
    }
 }
@@ -228,8 +227,7 @@ uint8 GetEvKl30DiagUeberSpgFZZ( void ){
   if( bGetBitFahrzeugzustandFZZ( cKL30_UEBERSPG ) == TRUE ){
       return( TRUE );
   }
-   else
-   {
+   else{
       return( FALSE );
    }
 }
@@ -292,13 +290,11 @@ void SendEnvData2VehStateMgr(uint8* data){
     if(ushVehicleSpeed > cV_MIN){
          EvVehicleSpeed4CalFZZ();
     }
-      else
-      {
+      else{
          EvVehicleNoSpeed4CalFZZ();
       }
    }
-  else
-  {
+  else{
      if(ushVehicleSpeed < 2){
          EvVehicleStandsStillFZZ();
       }
@@ -347,14 +343,12 @@ void InitFDAfterKl15On(void){
    if((bGETucCalRequestState(cCAL_MANUAL_ACTIV) == TRUE) && (bGetBitBetriebszustandBZ(cCAL_REQUEST) == FALSE) && (bGETucCalRequestState(cCAL_AUTO_ENABLE2) == TRUE) ){
        FillingDetectionMFD(FALSE);
    }
-   else
-   {
+   else{
       if((bGETucCalRequestState(cCAL_AUTO_ACTIV) == TRUE) && (bGETucCalRequestState(cCAL_AUTO_ENABLE3) == TRUE)){
          ClearBitCalRequestState(cCAL_AUTO_ENABLE3);
          FillingDetectionAFDIII(TRUE);
       }
-      else
-      {
+      else{
          if((GETucPfillFront() == 0) && (GETucPfillRear() == 0 ) &&  (bGETucCalNotAckState(cCAL_FBM_ACTIV_NAK) == FALSE)){
             SetBitCalRequestState2Ram(cCAL_AUTO_ENABLE2);
          }
@@ -399,8 +393,7 @@ void UpdateFzzCurrentLearnMode(void){
   if( bGetBitBetriebszustandBZ(cZO_FINISH) ||  bGetBitBetriebszustandBZ(cZO_ERROR)){
     ucFzzCurrentLearnMode = cNoLearn;
   }
-  else
-   {
+  else{
     ucFzzCurrentLearnMode = ucGetLearnMode();
    }
 }
@@ -420,15 +413,13 @@ void UpdateFzzDTcEnableCond(void){
       Dem_SetEnableCondition( DEM_SL_NETWORK_COMM_WITH_CLAMP15, FALSE);
       Dem_SetEnableCondition( DEM_SL_NETWORK_COMM_NO_CLAMP15, FALSE);
     }
-    else
-    {
+    else{
       if(!bGetBitFahrzeugzustandFZZ( cKL_15_EIN )){
            Dem_SetEnableCondition( DEM_SL_POWER_DISTRIBUTION, FALSE);
            Dem_SetEnableCondition( DEM_SL_NETWORK_COMM_WITH_CLAMP15, FALSE);
         Dem_SetEnableCondition( DEM_SL_NETWORK_COMM_NO_CLAMP15, TRUE);
       }
-      else
-      {
+      else{
            Dem_SetEnableCondition( DEM_SL_POWER_DISTRIBUTION, TRUE);
            Dem_SetEnableCondition( DEM_SL_NETWORK_COMM_WITH_CLAMP15, TRUE);
         Dem_SetEnableCondition( DEM_SL_NETWORK_COMM_NO_CLAMP15, FALSE);
@@ -468,73 +459,61 @@ static void UpdateFzzAllSignalDTCSetCond(void){
   if( (ucTimeSnaWhlplsFL==cMIN_TIME_SNA_ERROR) && (ushVehicleSpeed>5) && bGetBitFahrzeugzustandFZZ( cKL_15_EIN ) && !bGetFzzSignalTimeOutState(cFZZ_WHLPLS_CNT_TIMEOUT)){
     Dem_SetEventStatus( Dem_DTC_0xd41208, DEM_EVENT_STATUS_FAILED);
    }
-  else
-  {
+  else{
   }
   if( (ucTimeSnaWhlplsFR==cMIN_TIME_SNA_ERROR) && (ushVehicleSpeed>5) && bGetBitFahrzeugzustandFZZ( cKL_15_EIN ) && !bGetFzzSignalTimeOutState(cFZZ_WHLPLS_CNT_TIMEOUT)){
     Dem_SetEventStatus( Dem_DTC_0xd41308, DEM_EVENT_STATUS_FAILED);
-   }else
-  {
+   }else{
   }
   if( (ucTimeSnaWhlplsRL==cMIN_TIME_SNA_ERROR) && (ushVehicleSpeed>5) && bGetBitFahrzeugzustandFZZ( cKL_15_EIN ) && !bGetFzzSignalTimeOutState(cFZZ_WHLPLS_CNT_TIMEOUT)){
       Dem_SetEventStatus( Dem_DTC_0xd41008, DEM_EVENT_STATUS_FAILED);
 
-  }else
-  {
+  }else{
   }
   if( (ucTimeSnaWhlplsRR==cMIN_TIME_SNA_ERROR) && (ushVehicleSpeed>5) && bGetBitFahrzeugzustandFZZ( cKL_15_EIN ) && !bGetFzzSignalTimeOutState(cFZZ_WHLPLS_CNT_TIMEOUT)){
     Dem_SetEventStatus( Dem_DTC_0xd41108, DEM_EVENT_STATUS_FAILED);
-   }else
-  {
+   }else{
   }
   if( ((ucTimeSnavehSpeed==cMIN_TIME_SNA_ERROR) || (ucTimeSnaAirTempOut==cMIN_TIME_SNA_ERROR) || (ucTimeSnaIcA3TpmActiv==cMIN_TIME_SNA_ERROR)) && bFzzSignalFailureMonitoringActiv() && (!bGetFzzSignalTimeOutState(cFZZ_CANSM_BUSOFF_Network)) ){
     Dem_SetEventStatus( Dem_DTC_0xc42308, DEM_EVENT_STATUS_FAILED);
    }
-  else
-  {
+  else{
   }
    if( (ucTimeSnaTractSystem==cMIN_TIME_SNA_ERROR) && bFzzSignalFailureMonitoringActiv() && (!bGetFzzSignalTimeOutState(cFZZ_CANSM_BUSOFF_Network)) && !bGetFzzSignalTimeOutState(cFZZ_WHLPLS_CNT_TIMEOUT)){
       Dem_SetEventStatus( Dem_DTC_0xc41608, DEM_EVENT_STATUS_FAILED);
    }
-  else
-  {
+  else{
   }
   if(bGetFzzSignalTimeOutState(cFZZ_WHLPLS_CNT_TIMEOUT) && bFzzSignalFailureMonitoringActiv()){
     Dem_SetEventStatus( Dem_DTC_0xc12287, DEM_EVENT_STATUS_FAILED);
    }
-  else
-  {
+  else{
   }
   if(bGetFzzSignalTimeOutState(cFZZ_IGN_VEH_STAT_TIMEOUT)){
     Dem_SetEventStatus( Dem_DTC_0xc16887, DEM_EVENT_STATUS_FAILED);
    }
-  else
-  {
+  else{
   }
    if(bGetFzzSignalTimeOutState(cFZZ_PN14_STAT_TIMEOUT) && bFzzSignalFailureMonitoringActiv()){
     Dem_SetEventStatus( Dem_DTC_0xc14187, DEM_EVENT_STATUS_FAILED);
    }
-  else
-  {
+  else{
   }
    if( (bGetFzzSignalTimeOutState(cFZZ_IC_BASIC_INFO_TIMEOUT) || bGetFzzSignalTimeOutState(cFZZ_IC_DATE_TIME_TIMEOUT) || bGetFzzSignalTimeOutState(cFZZ_IC_SETTINGS_TIMEOUT))&& bFzzSignalFailureMonitoringActiv()){
     Dem_SetEventStatus( Dem_DTC_0xc15587, DEM_EVENT_STATUS_FAILED);
    }
-  else
-  {
+  else{
   }
    if( ( bGetFzzSignalTimeOutState(cFZZ_ENG_CTRL_TIMEOUT) )&& bFzzSignalFailureMonitoringActiv()){
     Dem_SetEventStatus( Dem_DTC_0xc10087, DEM_EVENT_STATUS_FAILED);
    }
-  else
-  {
+  else{
   }
 
   if(bGetFzzSignalTimeOutState(cFZZ_CANSM_BUSOFF_Network)){
     Dem_SetEventStatus( Dem_CANSM_E_BUSOFF_Network_0, DEM_EVENT_STATUS_FAILED);
    }
-  else
-  {
+  else{
     Dem_SetEventStatus( Dem_CANSM_E_BUSOFF_Network_0, DEM_EVENT_STATUS_PASSED);
    }
 }
@@ -551,8 +530,7 @@ static void UpdateFzzAllSignalImplausibleCntr(void){
   if(bFzzSignalFailureMonitoringActiv()){
     SetBitFahrzeugzustandFZZ(cFAILURE_MONITORING);
   }
-  else
-  {
+  else{
     ClearBitFahrzeugzustandFZZ(cFAILURE_MONITORING);
   }
   if( bGetFzzCanSignalImplausibleState(cFZZ_WHLPLS_FL_IMPLAU) && (ucTimeSnaWhlplsFL < cMIN_TIME_SNA_ERROR) ){
@@ -712,8 +690,7 @@ uint8  bGetABSSignalDTCActive(void){
     (ucEventStatus4 == DEM_EVENT_STATUS_PASSED)){
     return (uint8)FALSE;
   }
-  else
-  {
+  else{
     return (uint8)TRUE;
   }
 }
@@ -726,8 +703,7 @@ uint8  bGetKl30HighDTCActive(void){
   if(ucEventStatus0 == DEM_EVENT_STATUS_PASSED){
     return (uint8)FALSE;
   }
-  else
-  {
+  else{
     return (uint8)TRUE;
   }
 }
@@ -740,8 +716,7 @@ uint8  bGetKl30LowDTCActive(void){
   if(ucEventStatus0 == DEM_EVENT_STATUS_PASSED){
     return (uint8)FALSE;
   }
-  else
-  {
+  else{
     return (uint8)TRUE;
   }
 }
@@ -754,8 +729,7 @@ uint8  bGetPN14SupbatHighDTCActive(void){
   if(ucEventStatus0 == DEM_EVENT_STATUS_PASSED){
     return (uint8)FALSE;
   }
-  else
-  {
+  else{
     return (uint8)TRUE;
   }
 }
@@ -768,8 +742,7 @@ uint8  bGetPN14SupbatLowDTCActive(void){
   if(ucEventStatus0 == DEM_EVENT_STATUS_PASSED){
     return (uint8)FALSE;
   }
-  else
-  {
+  else{
     return (uint8)TRUE;
   }
 }

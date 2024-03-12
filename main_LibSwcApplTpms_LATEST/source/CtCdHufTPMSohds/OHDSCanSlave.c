@@ -269,8 +269,7 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_Init( void ){
     OHDSCanSlave_Timer_LastUpdateCall = 0u;
     OHDSCanSlave_ReportError(OHDSCANSLAVE_INIT_SID, OHDSCANSLAVE_E_TIMERINIT);
   }
-  else
-  {
+  else{
 
     OHDSCanSlave_Timer_LastUpdate = OHDSCanSlave_GetTimerValue();
     OHDSCanSlave_Timer_LastUpdateCall = OHDSCanSlave_Timer_LastUpdate;
@@ -282,8 +281,7 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_MainFunction( void ){
   if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_UNINITIALIZED ){
     OHDSCanSlave_ReportError( OHDSCANSLAVE_MAINFUNCTION_SID, OHDSCANSLAVE_E_UNINIT);
   }
-  else
-  {
+  else{
     VAR(Std_ReturnType,AUTOMATIC) syncPerformed = E_NOT_OK;
 
     if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_SYNC_RECEIVED ){
@@ -300,8 +298,7 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_MainFunction( void ){
 
       OHDSCanSlave_State = OHDSCANSLAVE_STATE_INITIALIZED;
     }
-    else
-    {  }
+    else{  }
 
     if( syncPerformed == E_OK ){
 
@@ -314,8 +311,7 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_MainFunction( void ){
         OHDSCanSlave_SyncLostState_TimeoutValue = OHDSCANSLAVE_SYNCLOSTSTATE_FALSE_DEBOUNCE_TIMEOUT + OHDSCANSLAVE_CYCLETIME;
       }
     }
-    else
-    {
+    else{
 
       OHDSCanSlave_UpdateOperatingHoursCounter(NULL_PTR, NULL_PTR, NULL_PTR, NULL_PTR);
 
@@ -326,8 +322,7 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_MainFunction( void ){
         OHDSCanSlave_SyncLostState = TRUE;
         OHDSCanSlave_SyncLostState_TimeoutValue = 0u;
       }
-      else
-      {
+      else{
         OHDSCanSlave_TimeoutValue -= OHDSCANSLAVE_CYCLETIME;
       }
     }
@@ -339,8 +334,7 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_MainFunction( void ){
         OHDSCanSlave_SyncLostState_TimeoutValue = 0u;
         OHDSCanSlave_ClearStatusBit_SyncLost();
       }
-      else
-      {
+      else{
 
         OHDSCanSlave_SyncLostState_TimeoutValue -= OHDSCANSLAVE_CYCLETIME;
       }
@@ -352,13 +346,11 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_RxIndication(PduIdType RxPduId, P2CONST(PduIn
   if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_UNINITIALIZED  ){
 
   }
-  else
-  {
+  else{
     if( (RxPduId != 0u) || (PduInfoPtr == NULL_PTR) ){
        OHDSCanSlave_ReportError(OHDSCANSLAVE_RXINDICATION_SID, OHDSCANSLAVE_E_PARAM);
     }
-    else
-    {
+    else{
       if( PduInfoPtr->SduLength >= OHDSCANSLAVE_CANSIGNAL_MSGLENGTH ){
         if( OHDSCanSlave_CanSignal_IsSyncMsg(PduInfoPtr->SduDataPtr) ){
           if( OHDSCanSlave_GetCanSignal_TimeDomain(PduInfoPtr->SduDataPtr) == OHDSCANSLAVE_TIME_DOMAIN ){
@@ -392,8 +384,7 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_RxIndication(PduIdType RxPduId, P2CONST(PduIn
             }
           }
         }
-        else
-        {  }
+        else{  }
       }
     }
   }
@@ -419,8 +410,7 @@ STATIC FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_HandleFUP( void ){
 
     if( OHDSCanSlave_GetCanSignal_NS(OHDSCanSlave_FupMsg) > OHDSCANSLAVE_NS_MAXVALUE ){
     }
-    else
-    {
+    else{
 
       OHDSCanSlave_E2EReceiverStateFup.NewDataAvailable = TRUE;
       if( E2E_P02Check(&OHDSCanSlave_E2EConfigFup, &OHDSCanSlave_E2EReceiverStateFup, &OHDSCanSlave_FupMsg[1]) == E2E_E_OK ){
@@ -445,8 +435,7 @@ STATIC FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_HandleFUP( void ){
           if( (OHDSCANSLAVE_MAXUINT32 - syncOffsetMS) >= OHDSCanSlave_OperatingHours_Low  ){
             OHDSCanSlave_OperatingHours_Low += syncOffsetMS;
           }
-          else
-          {
+          else{
 
             OHDSCanSlave_OperatingHours_High++;
 
@@ -482,8 +471,7 @@ STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateSyncOffset( void ){
 
     deltaTNS += timerValue + 1u;
   }
-  else
-  {
+  else{
     deltaTNS = timerValue - OHDSCanSlave_Timer_LastSync;
   }
 
@@ -492,8 +480,7 @@ STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateSyncOffset( void ){
   if( (OHDSCANSLAVE_MAX_INTERSYNCFUP_TIME - deltaTNS) >= OHDSCanSlave_Timer_SyncOffset ){
     OHDSCanSlave_Timer_SyncOffset += deltaTNS;
   }
-  else
-  {
+  else{
     OHDSCanSlave_Timer_SyncOffset = 0u;
     OHDSCanSlave_State = OHDSCANSLAVE_STATE_INITIALIZED;
   }
@@ -525,8 +512,7 @@ STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateOperatingHoursCounter( P2VAR(uin
 
     performUpdate = TRUE;
   }
-  else
-  {
+  else{
     tmpNanoSeconds = timerValue - OHDSCanSlave_Timer_LastUpdate;
   }
 
@@ -550,13 +536,11 @@ STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateOperatingHoursCounter( P2VAR(uin
       tmpOHCounterLow += OHDSCanSlave_OperatingHours_Low;
       tmpOHCounterHigh = OHDSCanSlave_OperatingHours_High;
     }
-    else
-    {
+    else{
       if( OHDSCanSlave_OperatingHours_High == OHDSCANSLAVE_MAXUINT8 ){
         tmpOHCounterHigh = 0x00u;
       }
-      else
-      {
+      else{
         tmpOHCounterHigh = OHDSCanSlave_OperatingHours_High + 1u;
       }
 
@@ -604,8 +588,7 @@ FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_GetOperatingHoursUint16( P2VAR(uint
       *status  = OHDSCANSLAVE_STATUS_SNA;
     }
   }
-  else
-  {
+  else{
 
     if(value != NULL_PTR){
       VAR(uint32, AUTOMATIC) tmpOHLow;
@@ -635,8 +618,7 @@ FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_GetOperatingHours( P2VAR(uint32, AU
       *status  = OHDSCANSLAVE_STATUS_SNA;
     }
   }
-  else
-  {
+  else{
     if((value != NULL_PTR) && (valueMsb != NULL_PTR)){
       OHDSCanSlave_UpdateOperatingHoursCounter(value, valueMsb, NULL_PTR, status );
     }
@@ -660,8 +642,7 @@ FUNC(Std_ReturnType, OHDS_CODE) OHDS_Dem_GetOperatingHours( P2VAR(uint32, AUTOMA
       *status  = OHDSCANSLAVE_STATUS_SNA;
     }
   }
-  else
-  {
+  else{
 
     if(value != NULL_PTR){
       OHDSCanSlave_UpdateOperatingHoursCounter(value, NULL_PTR, NULL_PTR, status);

@@ -10,8 +10,8 @@
 #include "Rte_CtApHufTPMSwpa.h"
 extern uint8 GETucLqiOfRam(void);
 
-void GetWADataEE(unsigned char ucId, unsigned char *pRamAdr, unsigned char ucLen){
-unsigned char i;
+void GetWADataEE(uint8 ucId, uint8 *pRamAdr, uint8 ucLen){
+uint8 i;
 
 switch(ucId){
   case cWAParameter:
@@ -44,9 +44,9 @@ switch(ucId){
   }
 }
 
-void PutWADataEE(unsigned char ucId, unsigned char *pRamAdr, unsigned char ucLen){
-  unsigned char i;
-  unsigned char ucChange = (unsigned char) 0;
+void PutWADataEE(uint8 ucId, uint8 *pRamAdr, uint8 ucLen){
+  uint8 i;
+  uint8 ucChange = (uint8) 0;
 
   switch(ucId){
   case cWAParameter:
@@ -87,42 +87,40 @@ void PutWADataEE(unsigned char ucId, unsigned char *pRamAdr, unsigned char ucLen
   }
 
 #ifndef WAModulTest
-  if(ucChange > ((unsigned char) 0)){
+  if(ucChange > ((uint8) 0)){
     SetWaData2NvmFlag();
   }
 #endif
 }
 
-unsigned char ucGetABSTick(unsigned short * p2aushABS){
+uint8 ucGetABSTick(uint16 * p2aushABS){
 
   uint8  ucRet;
 
   ucRet = GetLinABS( p2aushABS );
 
   if( ucRet == cABS_OK ){
-    ucRet = (unsigned char) 1;
+    ucRet = (uint8) 1;
   }
-  else
-  {
-    ucRet = (unsigned char) 0;
+  else{
+    ucRet = (uint8) 0;
   }
 
   return ucRet;
 }
 
-unsigned short ushGetABSingleTick(unsigned char ucIx){
+uint16 ushGetABSingleTick(uint8 ucIx){
 
-  unsigned char  ucRet;
-  unsigned short ushCnt[4];
-  unsigned short ushCurrentAbsTick;
+  uint8  ucRet;
+  uint16 ushCnt[4];
+  uint16 ushCurrentAbsTick;
   ucRet = GetLinABS( ushCnt );
 
   if(ucRet == cABS_OK){
 
     ushCurrentAbsTick = ushCnt[ucIx];
   }
-  else
-  {
+  else{
     ushCurrentAbsTick = cABSStickError;
   }
 
@@ -130,31 +128,31 @@ unsigned short ushGetABSingleTick(unsigned char ucIx){
 
 }
 
-unsigned char ucGetSpeed(void){
+uint8 ucGetSpeed(void){
 
-    extern unsigned short ushV;
+    extern uint16 ushV;
 
    if(ushV > 255)
-      return ((unsigned char) 255);
+      return ((uint8) 255);
    else
-      return ((unsigned char) ushV);
+      return ((uint8) ushV);
 
 }
 
-unsigned char ucNoWheelSensorMounted(void){
+uint8 ucNoWheelSensorMounted(void){
 #ifdef WAModulTest
   return 0;
 #else
-  return ((FAILURE_MODE_noWE == ucGetFailureState()) ? (unsigned char) 1:(unsigned char) 0);
+  return ((FAILURE_MODE_noWE == ucGetFailureState()) ? (uint8) 1:(uint8) 0);
 #endif
 }
-void WAStatusChangedEvent(unsigned short ushWAState){
+void WAStatusChangedEvent(uint16 ushWAState){
 #ifndef WAModulTest
   Rte_Write_PP_WAState_DE_ushWAState(ushWAState);
 #endif
 }
 
-unsigned char ucDAG_LQIParameter(void){
+uint8 ucDAG_LQIParameter(void){
 #ifdef WAModulTest
   return 0;
 #else

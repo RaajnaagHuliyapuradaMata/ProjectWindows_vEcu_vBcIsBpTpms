@@ -15,72 +15,72 @@
 #define cAll (uint8) 0
 #define cLearnOnly (uint8) 1
 
-static unsigned short ushIDSetInHist(unsigned long *ptHistSet, unsigned char ucMinProbeCt, unsigned char ucSlots2Search);
-static unsigned short ushIDinLearnModeSetInHist(unsigned long *ptHistSet, unsigned char ucMinProbeCt, unsigned char ucSlots2Search);
-static unsigned short ushSpeciaLearn(tRFTelType * ptInputWA);
-static unsigned char ucAssessDAGSLUC(unsigned char ucWPs);
-static unsigned char ucNewZomIDsFit2MissingHistID_WP(unsigned char ucNewNMissing);
-static unsigned char ucGetNrOfNewIDs(unsigned char * p2Slots);
-static unsigned char ucWrZom2History(unsigned char ucNewNMissing);
-static unsigned char ucSL3MinHistPreFinish(void);
-static unsigned char ucSL31Finish(unsigned char ucMinCt4NewID);
-static unsigned char ucGetNrOfNewIDsInLM_SL(unsigned short * p2Slots, unsigned char ucMinCt);
-static unsigned char ucGetNrOfNewIDsInLM(unsigned short * p2Slots, unsigned char ucMinCt);
-static unsigned char ucGetNrOfNewIDsInLMwoPAL(unsigned short * p2Slots);
-static unsigned char uc3NewIDsAllocated(unsigned char ucMinCt4NewID);
-static unsigned short ushCompLearn(tRFTelType * ptInputWA);
-static unsigned short ushWhlSetRdy2Freeze(unsigned char ucMinCt, unsigned char ucMinCt4HistERc, unsigned char bLearnNewIDsFlag);
-static unsigned char ucForceAutoLocate(void);
-static unsigned char ucCmpHist2ZOMID(unsigned char ucVZS);
-static unsigned char ucNrOfUKWPinZOM(void);
-static unsigned char ucNrOfUKWPinHist(void);
+static uint16 ushIDSetInHist(unsigned long *ptHistSet, uint8 ucMinProbeCt, uint8 ucSlots2Search);
+static uint16 ushIDinLearnModeSetInHist(unsigned long *ptHistSet, uint8 ucMinProbeCt, uint8 ucSlots2Search);
+static uint16 ushSpeciaLearn(tRFTelType * ptInputWA);
+static uint8 ucAssessDAGSLUC(uint8 ucWPs);
+static uint8 ucNewZomIDsFit2MissingHistID_WP(uint8 ucNewNMissing);
+static uint8 ucGetNrOfNewIDs(uint8* p2Slots);
+static uint8 ucWrZom2History(uint8 ucNewNMissing);
+static uint8 ucSL3MinHistPreFinish(void);
+static uint8 ucSL31Finish(uint8 ucMinCt4NewID);
+static uint8 ucGetNrOfNewIDsInLM_SL(uint16 * p2Slots, uint8 ucMinCt);
+static uint8 ucGetNrOfNewIDsInLM(uint16 * p2Slots, uint8 ucMinCt);
+static uint8 ucGetNrOfNewIDsInLMwoPAL(uint16 * p2Slots);
+static uint8 uc3NewIDsAllocated(uint8 ucMinCt4NewID);
+static uint16 ushCompLearn(tRFTelType * ptInputWA);
+static uint16 ushWhlSetRdy2Freeze(uint8 ucMinCt, uint8 ucMinCt4HistERc, uint8 bLearnNewIDsFlag);
+static uint8 ucForceAutoLocate(void);
+static uint8 ucCmpHist2ZOMID(uint8 ucVZS);
+static uint8 ucNrOfUKWPinZOM(void);
+static uint8 ucNrOfUKWPinHist(void);
 static void CheckAutoDeactivateOverride(void);
-static unsigned char ucFinishViaHistory(void);
-static unsigned char ucBadHist2Def(void);
-static unsigned char ucFinalFreeze(unsigned char ucMinCt4HistER, unsigned char ucMinCt);
+static uint8 ucFinishViaHistory(void);
+static uint8 ucBadHist2Def(void);
+static uint8 ucFinalFreeze(uint8 ucMinCt4HistER, uint8 ucMinCt);
 static void UpdateALState(uint8 ui8Trigger);
-static unsigned short ucFindNoLearnHistoryIDs(unsigned long *ptHistID, unsigned char ucMinProbeCt, unsigned char ucSlots2Search);
-static unsigned short ucFindMissingHistoryIDs(unsigned long *ptHistID, unsigned char ucMinProbeCt, unsigned char ucSlots2Search);
-static unsigned char ucGetMisOrNoLearnError(void);
-static unsigned char ucGetAnyLocatErrors(unsigned char ucDontTouch);
-static void ClearAlLearNLocatError(unsigned char ucErrType);
+static uint16 ucFindNoLearnHistoryIDs(unsigned long *ptHistID, uint8 ucMinProbeCt, uint8 ucSlots2Search);
+static uint16 ucFindMissingHistoryIDs(unsigned long *ptHistID, uint8 ucMinProbeCt, uint8 ucSlots2Search);
+static uint8 ucGetMisOrNoLearnError(void);
+static uint8 ucGetAnyLocatErrors(uint8 ucDontTouch);
+static void ClearAlLearNLocatError(uint8 ucErrType);
 static void TOXpired(void);
 static void UpdateDAGLearnState(void);
-static unsigned char ucTakeOverHistWP(unsigned char ucHistIx,unsigned char ucZomIx);
-static unsigned short ushIDSetInHistNAlignWP(unsigned long *ptHistSet, unsigned char ucMinProbeCt, unsigned char ucSlots2Search);
-static unsigned short ushSetHistIDs2ER(unsigned long *ptHistSet, unsigned char ucMinProbeCt, unsigned char ucSlots2Search);
-static unsigned short ushLearnInOver8(tRFTelType * ptInputWA);
-static unsigned char ucPasSupplFilter(tRFTelType * p2Tel);
+static uint8 ucTakeOverHistWP(uint8 ucHistIx,uint8 ucZomIx);
+static uint16 ushIDSetInHistNAlignWP(unsigned long *ptHistSet, uint8 ucMinProbeCt, uint8 ucSlots2Search);
+static uint16 ushSetHistIDs2ER(unsigned long *ptHistSet, uint8 ucMinProbeCt, uint8 ucSlots2Search);
+static uint16 ushLearnInOver8(tRFTelType * ptInputWA);
+static uint8 ucPasSupplFilter(tRFTelType * p2Tel);
 static void MergeWPandPWP(void);
-static unsigned char ucNrOfLocatError(void);
-static unsigned char ucNrOfLocatErrorAndPosForce(void);
-static unsigned char ucNrOfLearnError(void);
+static uint8 ucNrOfLocatError(void);
+static uint8 ucNrOfLocatErrorAndPosForce(void);
+static uint8 ucNrOfLearnError(void);
 static uint8 considerationeDiAssegnazioneCostretto(void);
 static void dblCk4LocEr(void);
 static uint16 ui16NewIdFits(uint16 ushNewID, uint16 ushHistSet);
 static uint8 ui8AnyHistIdMissing(void);
-static unsigned short  ushLqiTribute(unsigned short ushCandidate);
+static uint16  ushLqiTribute(uint16 ushCandidate);
 
-static const unsigned char ucWACtrlFixc = 0x01;
-static const unsigned char ucWACtrlBreakc = 0x02;
-static unsigned char ucWAState;
+static const uint8 ucWACtrlFixc = 0x01;
+static const uint8 ucWACtrlBreakc = 0x02;
+static uint8 ucWAState;
 static unsigned long aulHistoryID[cMaxLR];
-static unsigned char aucHistoryWP[cMaxLR];
-static unsigned char ucLearnError[cMaxLR] = {NoError,NoError,NoError,NoError};
-static unsigned char ucLocatError[cMaxLR] = {NoError,NoError,NoError,NoError};
-static unsigned char ucABSignalMissin = NoError ;
+static uint8 aucHistoryWP[cMaxLR];
+static uint8 ucLearnError[cMaxLR] = {NoError,NoError,NoError,NoError};
+static uint8 ucLocatError[cMaxLR] = {NoError,NoError,NoError,NoError};
+static uint8 ucABSignalMissin = NoError ;
 
 #define cWPER 0x10
 
-static unsigned short ushDriveTimeInSec = 0;
-static unsigned short ushDriveTimeOverPalMax = 0;
-static unsigned char ucLearnMode = cNoLearn;
-static unsigned char ucWAStateHi = 0;
-static unsigned char ucDAGLearnState = Autolearn_Learning ;
+static uint16 ushDriveTimeInSec = 0;
+static uint16 ushDriveTimeOverPalMax = 0;
+static uint8 ucLearnMode = cNoLearn;
+static uint8 ucWAStateHi = 0;
+static uint8 ucDAGLearnState = Autolearn_Learning ;
 
-static unsigned char aucWPorPWP[cMaxLR] = {4,4,4,4};
-unsigned char ucNrOfBitSet(unsigned short ushTarget){
-  unsigned char i, ucHits= 0;
+static uint8 aucWPorPWP[cMaxLR] = {4,4,4,4};
+uint8 ucNrOfBitSet(uint16 ushTarget){
+  uint8 i, ucHits= 0;
   for(i = 0; i < 16; i ++){
     if((ushTarget & (1<<i)) > 0){
       ucHits++;
@@ -89,35 +89,35 @@ unsigned char ucNrOfBitSet(unsigned short ushTarget){
   return ucHits;
 }
 
-static void SetWAStateZOChange(unsigned char ucChangedPos){
+static void SetWAStateZOChange(uint8 ucChangedPos){
   ucWAState &= 0x0F;
-  ucWAState |= (unsigned char) ((ucChangedPos&0x0F)<<4);
+  ucWAState |= (uint8) ((ucChangedPos&0x0F)<<4);
   ucWAStateHi &= 0x0F;
-  ucWAStateHi |= (unsigned char) (ucChangedPos&0xF0);
+  ucWAStateHi |= (uint8) (ucChangedPos&0xF0);
 }
 
-static void ClearZOM(unsigned char ucIx){
-  unsigned char i,j;
+static void ClearZOM(uint8 ucIx){
+  uint8 i,j;
   if(ucIx > cSumWE){
   }
   else{
-    if(ucIx == (unsigned char) cSumWE){
+    if(ucIx == (uint8) cSumWE){
       for(i = 0; i < ucIx; i++){
-        for(j = 0; j < (unsigned char) sizeof(struct ZOMSlot);j++){
-          *((unsigned char *) &tZOM[i] + j) = 0;
+        for(j = 0; j < (uint8) sizeof(struct ZOMSlot);j++){
+          *((uint8 *) &tZOM[i] + j) = 0;
         }
       }
     }
     else{
-      for(j = 0; j < (unsigned char) sizeof(struct ZOMSlot);j++){
-        *((unsigned char *) &tZOM[ucIx] + j) = 0;
+      for(j = 0; j < (uint8) sizeof(struct ZOMSlot);j++){
+        *((uint8 *) &tZOM[ucIx] + j) = 0;
       }
     }
   }
 }
 
-static unsigned char ucSetWP(void){
-  unsigned char i, ucRet = 1;
+static uint8 ucSetWP(void){
+  uint8 i, ucRet = 1;
   for(i = 0; i < cMaxLR; i++){
     tZOM[i].ucStatus &= cNoWPos;
     switch (tZOM[i].ucStatus){
@@ -136,35 +136,35 @@ static unsigned char ucSetWP(void){
 }
 
 static void ResetWP(void){
-  unsigned char i;
+  uint8 i;
   for(i = 0; i < cMaxLR; i++){
     tZOM[i].ucStatus &= cNoWPos;
   }
 }
 
-static void PutulZOMID(unsigned char ucIx,unsigned long *p2ID){
+static void PutulZOMID(uint8 ucIx,unsigned long *p2ID){
   if(ucIx < cSumWE){
     tZOM[ucIx].ulID = *p2ID;
   }
 }
 
-static unsigned char ucGetZOMWP(unsigned char ucIx){
+static uint8 ucGetZOMWP(uint8 ucIx){
   if(ucIx < cSumWE){
     switch(tZOM[ucIx].ucStatus & ~cNoWPos){
-    case 0x01:      return ( (unsigned char) 0);
-    case 0x02:      return ( (unsigned char) 1);
-    case 0x04:      return ( (unsigned char) 2);
-    case 0x08:      return ( (unsigned char) 3);
-    default:        return ( (unsigned char) 4);
+    case 0x01:      return ( (uint8) 0);
+    case 0x02:      return ( (uint8) 1);
+    case 0x04:      return ( (uint8) 2);
+    case 0x08:      return ( (uint8) 3);
+    default:        return ( (uint8) 4);
     }
   }
   else{
-    return ( (unsigned char) 4);
+    return ( (uint8) 4);
   }
 }
 
 static void ResetAxis(void){
-  unsigned char i;
+  uint8 i;
   for(i = 0; i < cSumWE; i++){
     tZOM[i].ucStatus &= cNoAxis;
 #ifdef CONCEPT4
@@ -173,20 +173,20 @@ static void ResetAxis(void){
     tZOM[i].ucFCt = 0;
 #endif
   }
-  ucWAState &= (unsigned char) ~(cWAStateER);
+  ucWAState &= (uint8) ~(cWAStateER);
 }
 
-static unsigned char ucGetProbeCt(unsigned char ucIx){
+static uint8 ucGetProbeCt(uint8 ucIx){
   if(ucIx < cSumWE){
     return (tZOM[ucIx].ucProbeCt);
   }
   else{
-    return ( (unsigned char) 0);
+    return ( (uint8) 0);
   }
 }
 
-static unsigned char ucGetFreeZOMPos(void){
-  unsigned char i;
+static uint8 ucGetFreeZOMPos(void){
+  uint8 i;
   for(i = 0; i < cSumWE; i++){
     if(tZOM[i].ulID == (unsigned long) 0){
       break;
@@ -195,33 +195,33 @@ static unsigned char ucGetFreeZOMPos(void){
   return(i);
 }
 
-static unsigned char ucStartWA(void){
-  unsigned char i, ucRet = 0;
+static uint8 ucStartWA(void){
+  uint8 i, ucRet = 0;
   for(i = 0; i < cSumWE; i++){
     if(tZOM[i].ucProbeCt  > 0){
       ucRet++;
     }
   }
-  ucRet  =  (ucRet > (unsigned char) 0) ? (unsigned char) 1:(unsigned char) 0;
+  ucRet  =  (ucRet > (uint8) 0) ? (uint8) 1:(uint8) 0;
   return(ucRet);
 }
 
-unsigned short ushAlignZOM(unsigned short ushERSlot){
-  unsigned char i, j, k, ucCt = 0;
+uint16 ushAlignZOM(uint16 ushERSlot){
+  uint8 i, j, k, ucCt = 0;
   struct ZOMSlot tempZom;
 
   for(i = 0; i < cSumWE; i++){
-    if((((unsigned short ) (1<<i)) & ushERSlot) > 0){
+    if((((uint16 ) (1<<i)) & ushERSlot) > 0){
       ucCt++;
     }
     else{
       for(j = i+1; j < cSumWE; j++){
-        if((((unsigned short ) (1<<j)) & ushERSlot) > 0){
+        if((((uint16 ) (1<<j)) & ushERSlot) > 0){
           ucCt++;
-          for(k = 0; k < (unsigned char) sizeof(struct ZOMSlot); k++){
-            *(((unsigned char *) &tempZom) + k) = *(((unsigned char *) &tZOM[i]) + k) ;
-            *(((unsigned char *) &tZOM[i]) + k) = *(((unsigned char *) &tZOM[j]) + k);
-            *(((unsigned char *) &tZOM[j]) + k) = *(((unsigned char *) &tempZom) + k);
+          for(k = 0; k < (uint8) sizeof(struct ZOMSlot); k++){
+            *(((uint8 *) &tempZom) + k) = *(((uint8 *) &tZOM[i]) + k) ;
+            *(((uint8 *) &tZOM[i]) + k) = *(((uint8 *) &tZOM[j]) + k);
+            *(((uint8 *) &tZOM[j]) + k) = *(((uint8 *) &tempZom) + k);
           }
           ushERSlot |= (1<<i);
           ushERSlot &= ~(1<<j);
@@ -239,8 +239,8 @@ unsigned short ushAlignZOM(unsigned short ushERSlot){
   return (ushERSlot);
 }
 
-static unsigned char ucLowestProbe(unsigned short ushException){
-  unsigned char i, ucMinIx = cSumWE;
+static uint8 ucLowestProbe(uint16 ushException){
+  uint8 i, ucMinIx = cSumWE;
   for( i = 0; i < cSumWE; i++){
     if(((0x01<<i) & ushException) == 0){
       ucMinIx = i;
@@ -257,9 +257,9 @@ static unsigned char ucLowestProbe(unsigned short ushException){
   return( ucMinIx );
 }
 
-static unsigned char bWPExistInHist(unsigned char *p2HistoryWP, unsigned char ucWP){
-  unsigned char i;
-  unsigned char ucRetVal = 0;
+static uint8 bWPExistInHist(uint8 *p2HistoryWP, uint8 ucWP){
+  uint8 i;
+  uint8 ucRetVal = 0;
   for(i=0; i<cMaxLR; i++){
     if(p2HistoryWP[i] == ucWP){
       ucRetVal= 1;
@@ -269,20 +269,20 @@ static unsigned char bWPExistInHist(unsigned char *p2HistoryWP, unsigned char uc
   return ucRetVal;
 }
 
-unsigned char bCheckHistIDReception(void){
-  unsigned short ushHelp;
+uint8 bCheckHistIDReception(void){
+  uint16 ushHelp;
   ushHelp = ushIDSetInHist(aulHistoryID, 1, cSumWE);
   if((cMaxLR == ucNrOfBitSet(ushHelp)) && ((ucGetHistoryState()&cHiStateZG) == cHiStateZG))    return 1;
   else    return 0;
 }
 
-static unsigned short ushCheckERState(unsigned char ucMinCt, unsigned char ucMinCt4HistERc, unsigned char bLearnNewIDsFlag){
-  unsigned short ushRet = 0;
-  const unsigned char ucMinCt4ERResetc = 6;
+static uint16 ushCheckERState(uint8 ucMinCt, uint8 ucMinCt4HistERc, uint8 bLearnNewIDsFlag){
+  uint16 ushRet = 0;
+  const uint8 ucMinCt4ERResetc = 6;
   ushRet = ushIDinLearnModeSetInHist(aulHistoryID,ucMinCt4HistERc,cSumWE);
   if(ucNrOfBitSet(ushRet) < cMaxLR){
     if(bLearnNewIDsFlag == 1){
-      if(ucSumCtID(ucMinCt4ERResetc, &ushRet) > ((unsigned char) cMaxLR)){
+      if(ucSumCtID(ucMinCt4ERResetc, &ushRet) > ((uint8) cMaxLR)){
         ClearZOM(cSumWE);
 #ifdef AEC
         ResetACM();
@@ -302,29 +302,29 @@ static unsigned short ushCheckERState(unsigned char ucMinCt, unsigned char ucMin
   return(ushRet);
 }
 
-static unsigned char ucCheckWheelPos(unsigned char ucID, tRFTelType * ptInputWA){
-  unsigned char ucRet = 0;
-  unsigned short ushTmp = 0x000F;
+static uint8 ucCheckWheelPos(uint8 ucID, tRFTelType * ptInputWA){
+  uint8 ucRet = 0;
+  uint16 ushTmp = 0x000F;
 #ifdef AEC
   if( ptInputWA->Header .ucTType == cTelTypePeak )
     Concept5pb8(ucID, ptInputWA);
   else
 #endif
  #ifdef FPA
-   if((ucWAStateHi & cTO) > (unsigned char) 0){
-    if(ucAdjABSIface(ucID, ptInputWA) > (unsigned char) 0)
+   if((ucWAStateHi & cTO) > (uint8) 0){
+    if(ucAdjABSIface(ucID, ptInputWA) > (uint8) 0)
        BuildCmpVal (ucID);
    }
    else
     ucRet = ucConceptFixPos0(ucID, ptInputWA);
 
-  if((unsigned char) 0 == ucRet)
-    if((unsigned char) cMaxLR == ucFPDecPossible (&ushTmp, cMinCt4Dec ))
-      if((unsigned char) 0 == ucNrOfUKWPinZOM() )
-        ucRet = (unsigned char) 1;
+  if((uint8) 0 == ucRet)
+    if((uint8) cMaxLR == ucFPDecPossible (&ushTmp, cMinCt4Dec ))
+      if((uint8) 0 == ucNrOfUKWPinZOM() )
+        ucRet = (uint8) 1;
 #endif
  #ifdef AEC
-  if  (ucDirectionDetection((unsigned char) 1) == 0x0F){
+  if  (ucDirectionDetection((uint8) 1) == 0x0F){
  #ifdef CONCEPT4
     if(((tZOM[ucID].ucStatus & 0x30) == 0) && (ptInputWA->Header .ucTType == cTelTypeEdgeCnt))
       Concept4Op2(ucID,ushGetTruECt(ptInputWA,ucID) );
@@ -335,30 +335,27 @@ static unsigned char ucCheckWheelPos(unsigned char ucID, tRFTelType * ptInputWA)
         if(ucSetWP() == 1){
           ucRet = 1;
         }
-        else
-        {
+        else{
 
           ResetAxis();
         }
       }
-      else
-      {
+      else{
         ResetAxis();
       }
     }
   }
-  else
-  {
+  else{
     if(ucRet == 0)
        ResetWP();
   }
 #endif
-  return((unsigned char) ucRet);
+  return((uint8) ucRet);
 }
 
-static unsigned short ushIDSetInHist(unsigned long *ptHistSet, unsigned char ucMinProbeCt, unsigned char ucSlots2Search){
-  unsigned char i,j;
-  unsigned short ushRet = 0;
+static uint16 ushIDSetInHist(unsigned long *ptHistSet, uint8 ucMinProbeCt, uint8 ucSlots2Search){
+  uint8 i,j;
+  uint16 ushRet = 0;
   for( i = 0; i < cMaxLR; i++){
     if(ptHistSet[i] == (unsigned long) 0){
       ushRet = 0;
@@ -381,9 +378,9 @@ static unsigned short ushIDSetInHist(unsigned long *ptHistSet, unsigned char ucM
   return ushRet;
 }
 
-static unsigned short ushIDinLearnModeSetInHist(unsigned long *ptHistSet, unsigned char ucMinProbeCt, unsigned char ucSlots2Search){
-  unsigned char i,j;
-  unsigned short ushRet = 0;
+static uint16 ushIDinLearnModeSetInHist(unsigned long *ptHistSet, uint8 ucMinProbeCt, uint8 ucSlots2Search){
+  uint8 i,j;
+  uint16 ushRet = 0;
   for( i = 0; i < cMaxLR; i++){
     if(ptHistSet[i] == (unsigned long) 0){
       ushRet = 0;
@@ -407,19 +404,19 @@ static unsigned short ushIDinLearnModeSetInHist(unsigned long *ptHistSet, unsign
   return ushRet;
 }
 
-static void Put2Slot(tRFTelType *ptInputWA, unsigned char ucIx){
-  unsigned char ucSpin = (unsigned char) 0;
+static void Put2Slot(tRFTelType *ptInputWA, uint8 ucIx){
+  uint8 ucSpin = (uint8) 0;
   if(ucIx < cSumWE){
     tZOM[ucIx].ulID = ptInputWA->EdgeCnt.ulID;
-    if( (tZOM[ucIx].ucProbeCt < (unsigned char) 255) && ((tZOM[ucIx].ushRssiSum + (unsigned short) ptInputWA->Struc .ucAvg) >= tZOM[ucIx].ushRssiSum) ){
-      tZOM[ucIx].ushRssiSum += (unsigned short) ptInputWA->Struc .ucAvg;
+    if( (tZOM[ucIx].ucProbeCt < (uint8) 255) && ((tZOM[ucIx].ushRssiSum + (uint16) ptInputWA->Struc .ucAvg) >= tZOM[ucIx].ushRssiSum) ){
+      tZOM[ucIx].ushRssiSum += (uint16) ptInputWA->Struc .ucAvg;
       tZOM[ucIx].ucProbeCt++;
     }
     if( (cTelTypeSELPAL1== ptInputWA->Header.ucTType) || ( cTelTypeAK35defLMA == ptInputWA->Header.ucTType)){
       tZOM[ucIx].ucTelCtLearnBit++;
     }
     if( (cTelTypeSELPAL  == (ptInputWA->Header.ucTType&0x0F)) ){
-      tZOM[ucIx].ucFrameCounter = (unsigned char)((ptInputWA->SchraderFP.ushStatusField>>8)&0x1F);
+      tZOM[ucIx].ucFrameCounter = (uint8)((ptInputWA->SchraderFP.ushStatusField>>8)&0x1F);
       if(ptInputWA->SchraderFP.ucPAL == 0x0){
  #ifdef Test_LOG_ENABLE
         tZOM[ucIx].ucToothTelCtNoLearnMode++;
@@ -463,7 +460,7 @@ static void Put2Slot(tRFTelType *ptInputWA, unsigned char ucIx){
       if(tZOM[ucIx].ushStarTi == 0){
         tZOM[ucIx].ushStarTi = ptInputWA->Struc.ushTimeStamp;
         tZOM[ucIx].ushLogTime = ptInputWA->Struc.ushTimeStamp;
-        tZOM[ucIx].ucStarTiHi = (unsigned char) 0;
+        tZOM[ucIx].ucStarTiHi = (uint8) 0;
        }
       else{
          if(ptInputWA->Struc.ushTimeStamp < tZOM[ucIx].ushLogTime)
@@ -504,8 +501,8 @@ static void Put2Slot(tRFTelType *ptInputWA, unsigned char ucIx){
     }
 
     if( (ucSpin > 0) &&
-      (tZOM[ucIx].ucLeftCt  < (unsigned char) 255) &&
-      (tZOM[ucIx].ucRightCt < (unsigned char) 255)
+      (tZOM[ucIx].ucLeftCt  < (uint8) 255) &&
+      (tZOM[ucIx].ucRightCt < (uint8) 255)
    ){
       if( (ucSpin & cIDStateSpinLeft) == cIDStateSpinLeft){
         tZOM[ucIx].ucLeftCt++;
@@ -520,8 +517,8 @@ static void Put2Slot(tRFTelType *ptInputWA, unsigned char ucIx){
   return;
 }
 
-static unsigned char ucPutInZOM(tRFTelType *ptInputWA, WAParameter *ptWAPar){
-  unsigned char ucIx;
+static uint8 ucPutInZOM(tRFTelType *ptInputWA, WAParameter *ptWAPar){
+  uint8 ucIx;
   ucIx = ucGetZOMPosOfID( &ptInputWA->AK35def.ulID );
   if(ucIx < cSumWE){
     Put2Slot(ptInputWA, ucIx);
@@ -533,7 +530,7 @@ static unsigned char ucPutInZOM(tRFTelType *ptInputWA, WAParameter *ptWAPar){
     }
     else{
       if(ucGetERState() == 0){
-        ucIx = ucLowestProbe(ushIDSetInHist(aulHistoryID,(unsigned char) 1,cSumWE));
+        ucIx = ucLowestProbe(ushIDSetInHist(aulHistoryID,(uint8) 1,cSumWE));
         if(ucIx < cSumWE){
           ClearZOM(ucIx);
 #ifdef AEC
@@ -553,28 +550,28 @@ static unsigned char ucPutInZOM(tRFTelType *ptInputWA, WAParameter *ptWAPar){
   return ucIx;
 }
 
-unsigned char ucSetHistory(unsigned char ucType, unsigned char ucVZS){
-  unsigned char i,j,ucNrUK,ucNew,ucRet = 0x0f, ucChangedHistSlots = 0;
-  GetWADataEE(cHistorySet1, (unsigned char *) aulHistoryID, (unsigned char) sizeof(aulHistoryID) );
-  GetWADataEE(cHistoryWPSet1, aucHistoryWP, (unsigned char) sizeof(aucHistoryWP) );
+uint8 ucSetHistory(uint8 ucType, uint8 ucVZS){
+  uint8 i,j,ucNrUK,ucNew,ucRet = 0x0f, ucChangedHistSlots = 0;
+  GetWADataEE(cHistorySet1, (uint8 *) aulHistoryID, (uint8) sizeof(aulHistoryID) );
+  GetWADataEE(cHistoryWPSet1, aucHistoryWP, (uint8) sizeof(aucHistoryWP) );
   ucNew = ucCmpHist2ZOMID(ucVZS);
   ucNrUK = ucNrOfUKWPinZOM();
-  if( (((unsigned char) 0) == ucNrOfBitSet ((unsigned short) ucNew) ) && (ucNrUK > ucNrOfUKWPinHist ()) && !((((uint8) 1) ==  ucNrUK) && (ui8AnyHistIdMissing () == ((uint8) 0)))  )
+  if( (((uint8) 0) == ucNrOfBitSet ((uint16) ucNew) ) && (ucNrUK > ucNrOfUKWPinHist ()) && !((((uint8) 1) ==  ucNrUK) && (ui8AnyHistIdMissing () == ((uint8) 0)))  )
      ucType = cWAStateER;
 
   for(i = 0; i < cMaxLR; i++){
     for(j = 0; j < cMaxLR; j++){
-      if(( aulHistoryID[i] == ulGetZOMID(j) ) && (((ucVZS & (unsigned char) (1<<j)) > 0))){
-        ucRet &= (unsigned char) (~(unsigned char) (0x01 << j));
+      if(( aulHistoryID[i] == ulGetZOMID(j) ) && (((ucVZS & (uint8) (1<<j)) > 0))){
+        ucRet &= (uint8) (~(uint8) (0x01 << j));
         if(ucType == cWAStateZO){
           if((ucGetZOMWP(j) != aucHistoryWP[i]) && (ucGetZOMWP(j) < 4)){
             ucNrUK = ucGetColOfWP(ucGetZOMWP(j));
             if( cMaxLR > ucNrUK ){
               aucHistoryWP[ucNrUK] = 4;
-              ucRet |= (unsigned char) (0x10 << ucNrUK);
+              ucRet |= (uint8) (0x10 << ucNrUK);
             }
             aucHistoryWP[i] = ucGetZOMWP(j);
-            ucRet |= (unsigned char) (0x10 << i);
+            ucRet |= (uint8) (0x10 << i);
           }
         }
         break;
@@ -584,11 +581,11 @@ unsigned char ucSetHistory(unsigned char ucType, unsigned char ucVZS){
 
   ucRet = ucRet & (0xF0|ucVZS);
 
-  if(1 < ucNrOfBitSet((unsigned short) (ucRet & 0x0F))){
+  if(1 < ucNrOfBitSet((uint16) (ucRet & 0x0F))){
     if( ucWACtrlFixc == tWAPar.ucWACtrl ){
       tWAPar.ucWACtrl = ucDefWACtrl;
-      ucWAState &= (unsigned char) ~(cWAStateZO);
-      PutWADataEE(cWAParameter, (unsigned char *) &tWAPar , (unsigned char) sizeof(WAParameter));
+      ucWAState &= (uint8) ~(cWAStateZO);
+      PutWADataEE(cWAParameter, (uint8 *) &tWAPar , (uint8) sizeof(WAParameter));
     }
   }
   if(ucRet > 0){
@@ -597,27 +594,27 @@ unsigned char ucSetHistory(unsigned char ucType, unsigned char ucVZS){
         ucNrUK = ucGetColOfWP(ucGetZOMWP(i));
         if((ucGetZOMWP(i) <= cWheelPos_RR  )  && ((ucNew & ((1<<ucNrUK)&0x0F)) > 0)){
           aulHistoryID[ucNrUK] = ulGetZOMID(i);
-          ucNew &= (unsigned char) (~(unsigned char) (1 << ucNrUK));
-          ucChangedHistSlots |= (unsigned char) (1 << ucNrUK);
+          ucNew &= (uint8) (~(uint8) (1 << ucNrUK));
+          ucChangedHistSlots |= (uint8) (1 << ucNrUK);
         }
         else{
           for( j = 0; j < cMaxLR; j++){
-            if((ucNew & ((unsigned char) (1 << j))) > 0){
+            if((ucNew & ((uint8) (1 << j))) > 0){
               aulHistoryID[j] = ulGetZOMID(i);
-              ucNew &= (unsigned char) (~(unsigned char) (1 << j));
-              ucChangedHistSlots |= (unsigned char) (1 << j);
-              if((0 < ucNrOfBitSet((unsigned short) (ucRet & 0x0F)))||(ucNrOfUKWPinHist() > 0)){
+              ucNew &= (uint8) (~(uint8) (1 << j));
+              ucChangedHistSlots |= (uint8) (1 << j);
+              if((0 < ucNrOfBitSet((uint16) (ucRet & 0x0F)))||(ucNrOfUKWPinHist() > 0)){
                   aucHistoryWP[j] = 4;
-                  ucRet |= (unsigned char) (0x10 << j);
+                  ucRet |= (uint8) (0x10 << j);
               }
               if(cWAStateZO == ucType){
                 if((ucGetZOMWP(i) <= cWheelPos_RR ) && (aucHistoryWP[j] != ucGetZOMWP(i))){
                   if( cMaxLR > ucNrUK ){
                     aucHistoryWP[ucNrUK] = 4;
-                    ucRet |= (unsigned char) (0x10 << ucNrUK);
+                    ucRet |= (uint8) (0x10 << ucNrUK);
                   }
                   aucHistoryWP[j] = ucGetZOMWP(i);
-                  ucRet |= (unsigned char) (0x10 << j);
+                  ucRet |= (uint8) (0x10 << j);
                 }
               }
               break;
@@ -627,22 +624,22 @@ unsigned char ucSetHistory(unsigned char ucType, unsigned char ucVZS){
       }
     }
 
-    if((cMaxLR == ucNrOfBitSet ((unsigned short) ucVZS )) || ((unsigned char) 2 > ucNrOfUKWPinHist ()))
+    if((cMaxLR == ucNrOfBitSet ((uint16) ucVZS )) || ((uint8) 2 > ucNrOfUKWPinHist ()))
       ucRet |= ucForceAutoLocate ();
-    PutWADataEE(cHistorySet1, (unsigned char *) aulHistoryID, (unsigned char) sizeof(aulHistoryID));
-    PutWADataEE(cHistoryWPSet1, aucHistoryWP, (unsigned char) sizeof(aucHistoryWP));
+    PutWADataEE(cHistorySet1, (uint8 *) aulHistoryID, (uint8) sizeof(aulHistoryID));
+    PutWADataEE(cHistoryWPSet1, aucHistoryWP, (uint8) sizeof(aucHistoryWP));
   }
 
   return ((ucRet&0xF0)|ucChangedHistSlots);
 }
 
 static void RestoreHistory(void){
-  unsigned char i,j,ucCt = 0;
+  uint8 i,j,ucCt = 0;
   if(aulHistoryID[0] > (unsigned long) 0){
     if( ucGetERState() == 1 ){
       for( i = 0; i < cMaxLR; i++){
         for( j = 0; j < cMaxLR; j++ ){
-          if((unsigned char) 0 < ucTakeOverHistWP (j,i))
+          if((uint8) 0 < ucTakeOverHistWP (j,i))
             ucCt++;
         }
       }
@@ -650,7 +647,7 @@ static void RestoreHistory(void){
     else{
       for( i = 0; i < cMaxLR; i++){
         PutulZOMID(i,&aulHistoryID[i]);
-        if((unsigned char) 0 < ucTakeOverHistWP (i,i))
+        if((uint8) 0 < ucTakeOverHistWP (i,i))
             ucCt++;
       }
       ucWAState |= cWAStateER;
@@ -666,8 +663,8 @@ static void RestoreHistory(void){
   }
 }
 
-unsigned char ucGetZOMPosOfID(unsigned long *pt2ID){
-  unsigned char i;
+uint8 ucGetZOMPosOfID(unsigned long *pt2ID){
+  uint8 i;
   for(i = 0; i < cSumWE; i++){
     if(*pt2ID == tZOM[i].ulID){
       break;
@@ -676,25 +673,25 @@ unsigned char ucGetZOMPosOfID(unsigned long *pt2ID){
   return i;
 }
 
-unsigned char ucGetZOMPalFrameCounter(unsigned char ucIx){
+uint8 ucGetZOMPalFrameCounter(uint8 ucIx){
   if(ucIx < cSumWE){
     return (tZOM[ucIx].ucFrameCounter);
   }
   else{
-    return ( (unsigned char) 0);
+    return ( (uint8) 0);
   }
 }
 
-void SetZOMWP(unsigned char ucIx,unsigned char ucWP){
+void SetZOMWP(uint8 ucIx,uint8 ucWP){
   if(ucIx < cSumWE){
     tZOM[ucIx].ucStatus &= cNoWPos;
     if(ucWP < cMaxLR){
-      tZOM[ucIx].ucStatus |= (unsigned char) (0x01 << ucWP);
+      tZOM[ucIx].ucStatus |= (uint8) (0x01 << ucWP);
     }
   }
 }
 
-unsigned long ulGetZOMID(unsigned char ucIx){
+unsigned long ulGetZOMID(uint8 ucIx){
   if(ucIx < cSumWE){
     return (tZOM[ucIx].ulID);
   }
@@ -703,17 +700,17 @@ unsigned long ulGetZOMID(unsigned char ucIx){
   }
 }
 
-unsigned long ulGetID(unsigned char ucIx){
+unsigned long ulGetID(uint8 ucIx){
   if(ucIx < cMaxLR){
     return (aulHistoryID[ucIx]);
   }
   else{
-    return ( (unsigned char) 0);
+    return ( (uint8) 0);
   }
 }
 
-unsigned char ucGetColOfID(unsigned long *pt2ID){
-  unsigned char i;
+uint8 ucGetColOfID(unsigned long *pt2ID){
+  uint8 i;
   for(i = 0; i < cMaxLR; i++){
     if(*pt2ID == aulHistoryID[i]){
       break;
@@ -722,17 +719,17 @@ unsigned char ucGetColOfID(unsigned long *pt2ID){
   return i;
 }
 
-unsigned char ucGetWPOfCol(unsigned char ucIx){
+uint8 ucGetWPOfCol(uint8 ucIx){
   if(ucIx < cMaxLR){
     return (aucHistoryWP[ucIx]);
   }
   else{
-    return ((unsigned char) 4);
+    return ((uint8) 4);
   }
 }
 
-unsigned char ucGetColOfWP(unsigned char ucIx){
-  unsigned char i;
+uint8 ucGetColOfWP(uint8 ucIx){
+  uint8 i;
 
   for( i = 0; i < cMaxLR; i++ ){
     if(aucHistoryWP[i] == ucIx){
@@ -742,12 +739,12 @@ unsigned char ucGetColOfWP(unsigned char ucIx){
   return i;
 }
 
-unsigned char * GETpucStartAdrWP(void){
+uint8* GETpucStartAdrWP(void){
   return (aucHistoryWP);
 }
 
-unsigned char ucSetID(unsigned long *pt2ID, unsigned char *pt2Pos, unsigned char ucSum){
-  unsigned char i, j, ucRet = 0, ucHelp;
+uint8 ucSetID(unsigned long *pt2ID, uint8 *pt2Pos, uint8 ucSum){
+  uint8 i, j, ucRet = 0, ucHelp;
   unsigned long ulBufID;
   ucSum = (ucSum > cMaxLR) ? cMaxLR:ucSum;
   if(pt2ID[0] == (unsigned long) 0){
@@ -755,14 +752,14 @@ unsigned char ucSetID(unsigned long *pt2ID, unsigned char *pt2Pos, unsigned char
       aulHistoryID[i] = 0;
       aucHistoryWP[i] = 4;
     }
-    PutWADataEE(cHistorySet1, (unsigned char *) aulHistoryID, (unsigned char) sizeof(aulHistoryID));
-    PutWADataEE(cHistoryWPSet1, aucHistoryWP, (unsigned char) sizeof(aucHistoryWP));
+    PutWADataEE(cHistorySet1, (uint8 *) aulHistoryID, (uint8) sizeof(aulHistoryID));
+    PutWADataEE(cHistoryWPSet1, aucHistoryWP, (uint8) sizeof(aucHistoryWP));
     (void) WAInit((WAParNCfgType *) &ucLearnMode );
     ucRet = 0x0F;
   }
   else{
-    GetWADataEE(cHistorySet1, (unsigned char *) aulHistoryID, (unsigned char) sizeof(aulHistoryID));
-    GetWADataEE(cHistoryWPSet1, aucHistoryWP, (unsigned char) sizeof(aucHistoryWP));
+    GetWADataEE(cHistorySet1, (uint8 *) aulHistoryID, (uint8) sizeof(aulHistoryID));
+    GetWADataEE(cHistoryWPSet1, aucHistoryWP, (uint8) sizeof(aucHistoryWP));
     if((aulHistoryID[0] == 0) && (ucSum == 1)){
       for(i = 0; i < cMaxLR; i++){
         aulHistoryID[i] = i + 1;
@@ -778,7 +775,7 @@ unsigned char ucSetID(unsigned long *pt2ID, unsigned char *pt2Pos, unsigned char
     for(i = 0; i < ucSum; i++){
       for(j = 0; j < cMaxLR; j++){
         if(pt2ID[i] == aulHistoryID[j]){
-          ucHelp &= (unsigned char) (~(unsigned char) (0x01 << j));
+          ucHelp &= (uint8) (~(uint8) (0x01 << j));
           break;
         }
       }
@@ -789,19 +786,19 @@ unsigned char ucSetID(unsigned long *pt2ID, unsigned char *pt2Pos, unsigned char
           break;
         }
       }
-      pt2Pos[i] = (pt2Pos[i] < (unsigned char) 9) ? pt2Pos[i]:4;
+      pt2Pos[i] = (pt2Pos[i] < (uint8) 9) ? pt2Pos[i]:4;
       if(j == cMaxLR){
         if( pt2Pos[i] > cWheelPos_RR){
-          if( pt2Pos[i] == (unsigned char) 4 ){
+          if( pt2Pos[i] == (uint8) 4 ){
             ucRet = 0;
             i = ucSum;
           }
           else{
-            ucHelp = pt2Pos[i] - (unsigned char) 5;
+            ucHelp = pt2Pos[i] - (uint8) 5;
             aulHistoryID[ucHelp] = pt2ID[i];
-            aucHistoryWP[ucHelp] = (unsigned char) 4;
+            aucHistoryWP[ucHelp] = (uint8) 4;
             ucRet |= (0x10 << ucHelp);
-            ucWAState &= (unsigned char) ~(cWAStateZO);
+            ucWAState &= (uint8) ~(cWAStateZO);
           }
         }
         else{
@@ -812,8 +809,8 @@ unsigned char ucSetID(unsigned long *pt2ID, unsigned char *pt2Pos, unsigned char
           }
           if( j == cMaxLR ){
             for(j = 0; j < cMaxLR; j++){
-              if((ucHelp & (unsigned char)(0x01 << j)) > 0){
-                ucHelp =  (unsigned char) (ucHelp & (unsigned char) ~((unsigned char) (0x01 << j)));
+              if((ucHelp & (uint8)(0x01 << j)) > 0){
+                ucHelp =  (uint8) (ucHelp & (uint8) ~((uint8) (0x01 << j)));
                 break;
               }
             }
@@ -837,18 +834,18 @@ unsigned char ucSetID(unsigned long *pt2ID, unsigned char *pt2Pos, unsigned char
         }
         else{
           if( pt2Pos[i] > cWheelPos_RR){
-            if( pt2Pos[i] == (unsigned char) 4 ){
+            if( pt2Pos[i] == (uint8) 4 ){
               ucRet = 0;
               i = ucSum;
             }
             else{
               aulHistoryID[j] = (unsigned long) i + 1;
-              aucHistoryWP[j] = (unsigned char) 4;
-              ucHelp = pt2Pos[i] - (unsigned char) 5;
+              aucHistoryWP[j] = (uint8) 4;
+              ucHelp = pt2Pos[i] - (uint8) 5;
               aulHistoryID[ucHelp] = pt2ID[i];
-              aucHistoryWP[ucHelp] = (unsigned char) 4;
+              aucHistoryWP[ucHelp] = (uint8) 4;
               ucRet |= (0x10 << ucHelp);
-              ucWAState &= (unsigned char) ~(cWAStateZO);
+              ucWAState &= (uint8) ~(cWAStateZO);
             }
           }
           else{
@@ -863,19 +860,19 @@ unsigned char ucSetID(unsigned long *pt2ID, unsigned char *pt2Pos, unsigned char
             if((ucWAState & cWAStateZO) == cWAStateZO){
               SetZOMWP(j, aucHistoryWP[j]);
               SetZOMWP(ucHelp, pt2Pos[i]);
-              ucRet |= (unsigned char) (0x10 << pt2Pos[i]);
-              ucRet |= (unsigned char) (0x10 << aucHistoryWP[j]);
+              ucRet |= (uint8) (0x10 << pt2Pos[i]);
+              ucRet |= (uint8) (0x10 << aucHistoryWP[j]);
             }
             else{
-              ucRet |= (unsigned char) (1 << pt2Pos[i]);
+              ucRet |= (uint8) (1 << pt2Pos[i]);
             }
           }
         }
       }
     }
     if(ucRet > 0){
-      PutWADataEE(cHistorySet1, (unsigned char *) aulHistoryID, (unsigned char) sizeof(aulHistoryID));
-      PutWADataEE(cHistoryWPSet1, aucHistoryWP, (unsigned char) sizeof(aucHistoryWP));
+      PutWADataEE(cHistorySet1, (uint8 *) aulHistoryID, (uint8) sizeof(aulHistoryID));
+      PutWADataEE(cHistoryWPSet1, aucHistoryWP, (uint8) sizeof(aucHistoryWP));
     }
     if((ucWAState & cWAStateZO) == 0){
       (void) WAInit((WAParNCfgType *) &ucLearnMode);
@@ -885,8 +882,8 @@ unsigned char ucSetID(unsigned long *pt2ID, unsigned char *pt2Pos, unsigned char
   return ucRet;
 }
 
-unsigned char ucGetHistoryState(void){
-  unsigned char i, ucRet = 0;
+uint8 ucGetHistoryState(void){
+  uint8 i, ucRet = 0;
   if(aulHistoryID[0] > (unsigned long) 0){
     ucRet |= (cHiStateER | cHiStateZG);
     for(i = 0; i < cMaxLR; i++){
@@ -898,30 +895,30 @@ unsigned char ucGetHistoryState(void){
   return ucRet;
 }
 
-unsigned char ucGetERState(void){
-  return( ((ucWAState & cWAStateER) == cWAStateER) ? (unsigned char) 1:(unsigned char) 0);
+uint8 ucGetERState(void){
+  return( ((ucWAState & cWAStateER) == cWAStateER) ? (uint8) 1:(uint8) 0);
 }
 
-unsigned char ucSumCtID(unsigned char ucMinCt, unsigned short *ushRet){
-  unsigned char i, ucCt= 0;
+uint8 ucSumCtID(uint8 ucMinCt, uint16 *ushRet){
+  uint8 i, ucCt= 0;
   *ushRet = 0;
   for( i = 0; i < cSumWE; i++){
     if(ucGetZomTelCtLearnBit(i) >= ucMinCt  ){
       ucCt++;
-      *ushRet |= (unsigned short) (1 << i);
+      *ushRet |= (uint16) (1 << i);
     }
   }
   return ucCt;
 }
 
-unsigned short ushLearnID(tRFTelType * ptInputWA){
-  unsigned short ushRet;
+uint16 ushLearnID(tRFTelType * ptInputWA){
+  uint16 ushRet;
   ucWAStateHi &= 0x0F;
    ucWAState &= 0x0F;
   ushRet = GETushWAState();
 
-  if((unsigned char) 0 < ucPasSupplFilter(ptInputWA ) ){
-    if(!(((ucWAState & cWAStateZO) == cWAStateZO) || ((ucWAStateHi & cTO) > (unsigned char) 0))){
+  if((uint8) 0 < ucPasSupplFilter(ptInputWA ) ){
+    if(!(((ucWAState & cWAStateZO) == cWAStateZO) || ((ucWAStateHi & cTO) > (uint8) 0))){
       if((tWAPar.ucWACtrl & ucWACtrlFixc) > 0)
         (void) (ushLearnInOver8(ptInputWA ));
       else if(cCompleteLearn == ucLearnMode)
@@ -936,7 +933,7 @@ unsigned short ushLearnID(tRFTelType * ptInputWA){
     if((ucNrOfUKWPinHist () > 0) && ((ucWAState & 0xF0) > 0)){
       UpdateALState (cEvNewIDs);
     }
-    if((ucNrOfUKWPinHist () == 0) && ((ucWAState & cWAStateZO ) > 0) && (((unsigned char) 2) > ucNrOfLocatError())){
+    if((ucNrOfUKWPinHist () == 0) && ((ucWAState & cWAStateZO ) > 0) && (((uint8) 2) > ucNrOfLocatError())){
          if((ucNrOfLocatErrorAndPosForce() == 0) || (tWAPar.AL_State != cAL_Stored)){
             UpdateALState (cEv4WPs);
          }
@@ -946,33 +943,33 @@ unsigned short ushLearnID(tRFTelType * ptInputWA){
   return(ushRet);
 }
 
-unsigned char ucWATO(void){
-  unsigned char ucRet = (unsigned char) 0;
+uint8 ucWATO(void){
+  uint8 ucRet = (uint8) 0;
   if((ucWAState & cWAStateZO) == 0){
     ucRet = ucGetMisOrNoLearnError ();
     ucRet |= ucGetAnyLocatErrors(ucRet);
   }
-  if( (unsigned char) 0 == ucRet )
+  if( (uint8) 0 == ucRet )
     ClearAlLearNLocatError(cAll);
   return ucRet;
 }
 
-unsigned char WAInit(WAParNCfgType * p2ParNCfg){
-  ucWAState &= (unsigned char) ~(cWAStateZO);
-  ucWAState &= (unsigned char) ~(cWAStateER);
-  ucWAState &= (unsigned char) ~(cWAStateActive);
-  ucWAStateHi = (unsigned char) 0;
+uint8 WAInit(WAParNCfgType * p2ParNCfg){
+  ucWAState &= (uint8) ~(cWAStateZO);
+  ucWAState &= (uint8) ~(cWAStateER);
+  ucWAState &= (uint8) ~(cWAStateActive);
+  ucWAStateHi = (uint8) 0;
   SetWAStateZOChange(0);
   ushDriveTimeInSec = 0;
   ushDriveTimeOverPalMax = 0;
   ucLearnMode = p2ParNCfg ->ucWACfg ;
   ClearAlLearNLocatError(cAll);
   ClearZOM(cSumWE);
-  GetWADataEE(cWAParameter, (unsigned char *) &tWAPar , (unsigned char) sizeof(WAParameter));
-  GetWADataEE(cHistorySet1, (unsigned char *) aulHistoryID, (unsigned char) sizeof(aulHistoryID));
-  GetWADataEE(cHistoryWPSet1, aucHistoryWP, (unsigned char) sizeof(aucHistoryWP));
+  GetWADataEE(cWAParameter, (uint8 *) &tWAPar , (uint8) sizeof(WAParameter));
+  GetWADataEE(cHistorySet1, (uint8 *) aulHistoryID, (uint8) sizeof(aulHistoryID));
+  GetWADataEE(cHistoryWPSet1, aucHistoryWP, (uint8) sizeof(aucHistoryWP));
   if(ucBadHist2Def() > 0)
-    PutWADataEE(cHistorySet1, (unsigned char *) aulHistoryID, (unsigned char) sizeof(aulHistoryID));
+    PutWADataEE(cHistorySet1, (uint8 *) aulHistoryID, (uint8) sizeof(aulHistoryID));
   if((cNoLearn == ucLearnMode) && (ucHistInConsist () > 0))
     ucLearnMode = cCompleteLearn ;
   if(cNoLearn == ucLearnMode){
@@ -990,14 +987,14 @@ unsigned char WAInit(WAParNCfgType * p2ParNCfg){
   return ucGetHistoryState();
 }
 
-unsigned char ucSetAutolocationOveride(unsigned char ucPalOverideFlag){
-  unsigned char ucRetVal;
+uint8 ucSetAutolocationOveride(uint8 ucPalOverideFlag){
+  uint8 ucRetVal;
   if(ucPalOverideFlag==1){
     if((((ucGetHistoryState()&cHiStateZG) == cHiStateZG) == 1) && (cAL_OK == ui8GetALState())){
       ucRetVal=1;
       if(tWAPar.ucWACtrl != ucWACtrlFixc){
         tWAPar.ucWACtrl = ucWACtrlFixc;
-        PutWADataEE(cWAParameter, (unsigned char *) &tWAPar , (unsigned char) sizeof(WAParameter));
+        PutWADataEE(cWAParameter, (uint8 *) &tWAPar , (uint8) sizeof(WAParameter));
         ucRetVal=1;
       }
     }
@@ -1009,7 +1006,7 @@ unsigned char ucSetAutolocationOveride(unsigned char ucPalOverideFlag){
     ucRetVal=1;
     if(tWAPar.ucWACtrl != ucDefWACtrl){
       tWAPar.ucWACtrl = ucDefWACtrl;
-      PutWADataEE(cWAParameter, (unsigned char *) &tWAPar , (unsigned char) sizeof(WAParameter));
+      PutWADataEE(cWAParameter, (uint8 *) &tWAPar , (uint8) sizeof(WAParameter));
     }
   }
   else{
@@ -1018,8 +1015,8 @@ unsigned char ucSetAutolocationOveride(unsigned char ucPalOverideFlag){
   return ucRetVal;
 }
 
-unsigned char ucReadAutolocationOverideFlag(void){
-  unsigned char ucRetVal;
+uint8 ucReadAutolocationOverideFlag(void){
+  uint8 ucRetVal;
   if(tWAPar.ucWACtrl == ucWACtrlFixc)
     ucRetVal = 1;
   else
@@ -1028,8 +1025,8 @@ unsigned char ucReadAutolocationOverideFlag(void){
   return ucRetVal;
 }
 
-unsigned char ucSet1HistID(unsigned long *pt2ID, unsigned char *pt2Pos, unsigned char ucIdx){
-  unsigned char i, ucRetVal;
+uint8 ucSet1HistID(unsigned long *pt2ID, uint8 *pt2Pos, uint8 ucIdx){
+  uint8 i, ucRetVal;
   ucRetVal=0;
   for(i=0; i<cMaxLR; i++){
     if(i == ucIdx)
@@ -1048,18 +1045,18 @@ unsigned char ucSet1HistID(unsigned long *pt2ID, unsigned char *pt2Pos, unsigned
   if(i==cMaxLR){
     aulHistoryID[ucIdx] = pt2ID[0];
     aucHistoryWP[ucIdx] = pt2Pos[0];
-    PutWADataEE(cHistorySet1, (unsigned char *) aulHistoryID, (unsigned char) sizeof(aulHistoryID));
-    PutWADataEE(cHistoryWPSet1, aucHistoryWP, (unsigned char) sizeof(aucHistoryWP));
+    PutWADataEE(cHistorySet1, (uint8 *) aulHistoryID, (uint8) sizeof(aulHistoryID));
+    PutWADataEE(cHistoryWPSet1, aucHistoryWP, (uint8) sizeof(aucHistoryWP));
     ucLearnMode = cCompleteLearn ;
      (void) WAInitByDiag((WAParNCfgType *) &ucLearnMode );
-    ucRetVal = ((unsigned char) 0 == ucNrOfUKWPinHist ()) ? (unsigned char) 4:(unsigned char) 1;
+    ucRetVal = ((uint8) 0 == ucNrOfUKWPinHist ()) ? (uint8) 4:(uint8) 1;
   }
 
   return ucRetVal;
 }
 
-unsigned char ucSet4HistIDs(unsigned long *pt2ID, unsigned char *pt2Pos){
-  unsigned char i, j, ucRetVal;
+uint8 ucSet4HistIDs(unsigned long *pt2ID, uint8 *pt2Pos){
+  uint8 i, j, ucRetVal;
   ucRetVal=0;
   j=0;
   for(i=0; i<cMaxLR; i++){
@@ -1082,157 +1079,157 @@ unsigned char ucSet4HistIDs(unsigned long *pt2ID, unsigned char *pt2Pos){
       aulHistoryID[i] = pt2ID[i];
       aucHistoryWP[i] = pt2Pos[i];
     }
-    PutWADataEE(cHistorySet1, (unsigned char *) aulHistoryID, (unsigned char) sizeof(aulHistoryID));
-    PutWADataEE(cHistoryWPSet1, aucHistoryWP, (unsigned char) sizeof(aucHistoryWP));
+    PutWADataEE(cHistorySet1, (uint8 *) aulHistoryID, (uint8) sizeof(aulHistoryID));
+    PutWADataEE(cHistoryWPSet1, aucHistoryWP, (uint8) sizeof(aucHistoryWP));
      ucLearnMode = cCompleteLearn ;
      (void) WAInitByDiag((WAParNCfgType *) &ucLearnMode );
-    ucRetVal = ((unsigned char) 0 == ucNrOfUKWPinHist ()) ? (unsigned char) 4:(unsigned char) 1;
+    ucRetVal = ((uint8) 0 == ucNrOfUKWPinHist ()) ? (uint8) 4:(uint8) 1;
   }
   return ucRetVal;
 }
 
 #ifdef Test_LOG_ENABLE
-unsigned char ucGetZomStatus(unsigned char  ucIdx){
+uint8 ucGetZomStatus(uint8  ucIdx){
   if(ucIdx < cSumWE){
     return (tZOM[ucIdx].ucStatus);
   }
   else{
-    return ((unsigned char) cNoWPos);
+    return ((uint8) cNoWPos);
   }
 }
 
-unsigned char ucGetZomToothTelCtCorrLearnBit(unsigned char  ucIdx){
+uint8 ucGetZomToothTelCtCorrLearnBit(uint8  ucIdx){
   if(ucIdx < cSumWE){
     return (tZOM[ucIdx].ucToothTelCtCorrLearnBit);
   }
   else{
-    return ((unsigned char) 0);
+    return ((uint8) 0);
   }
 }
 
-unsigned char ucGetZomTelCtLearnBit(unsigned char ucIdx){
+uint8 ucGetZomTelCtLearnBit(uint8 ucIdx){
   if(ucIdx < cSumWE){
     return (tZOM[ucIdx].ucTelCtLearnBit);
   }
   else{
-    return ((unsigned char) 0);
+    return ((uint8) 0);
   }
 }
 
-unsigned char ucGetZomToothTelCtCorrNoLearnBit(unsigned char  ucIdx){
+uint8 ucGetZomToothTelCtCorrNoLearnBit(uint8  ucIdx){
   if(ucIdx < cSumWE){
     return (tZOM[ucIdx].ucToothTelCtCorrNoLearnBit);
   }
   else{
-    return ((unsigned char) 0);
+    return ((uint8) 0);
   }
 }
 
-unsigned char ucGetZomToothTelCtrNoCorr(unsigned char  ucIdx){
+uint8 ucGetZomToothTelCtrNoCorr(uint8  ucIdx){
   if(ucIdx < cSumWE){
     return (tZOM[ucIdx].ucToothTelCtNoCorr);
   }
   else{
-    return ((unsigned char) 0);
+    return ((uint8) 0);
   }
 }
 
-unsigned char ucGetZomToothTelCtNoLearnMode(unsigned char  ucIdx){
+uint8 ucGetZomToothTelCtNoLearnMode(uint8  ucIdx){
   if(ucIdx < cSumWE){
     return (tZOM[ucIdx].ucToothTelCtNoLearnMode);
   }
   else{
-    return ((unsigned char) 0);
+    return ((uint8) 0);
   }
 }
 
-unsigned char ucGetZomToothTelCt(unsigned char  ucIdx){
+uint8 ucGetZomToothTelCt(uint8  ucIdx){
   if(ucIdx < cSumWE){
     return (tZOM[ucIdx].ucToothTelCt);
   }
   else{
-    return ((unsigned char) 0);
+    return ((uint8) 0);
   }
 }
 
-unsigned char ucGetZomResetAbsRefFlag(unsigned char  ucIdx){
+uint8 ucGetZomResetAbsRefFlag(uint8  ucIdx){
   if(ucIdx < cSumWE){
     return (tZOM[ucIdx].ucResetABSRefFlag);
   }
   else{
-    return ((unsigned char) 0);
+    return ((uint8) 0);
   }
 }
 
-unsigned char ucGetZomDeltaMin(unsigned char  ucIdx){
+uint8 ucGetZomDeltaMin(uint8  ucIdx){
   if(ucIdx < cSumWE){
     return (tZOM[ucIdx].ucDeltaMin);
   }
   else{
-    return ((unsigned char) 0);
+    return ((uint8) 0);
   }
 }
 
-unsigned char *ucGetZomAbsComp(unsigned char  ucIdx){
+uint8 *ucGetZomAbsComp(uint8  ucIdx){
   if(ucIdx < cSumWE){
     return (&tZOM[ucIdx].ucABSComp[0]);
   }
   else{
-    return ((unsigned char*) 0);
+    return ((uint8*) 0);
   }
 }
 
-unsigned short *ushGetZomAbsSums(unsigned char  ucIdx){
+uint16 *ushGetZomAbsSums(uint8  ucIdx){
   if(ucIdx < cSumWE){
     return (&tZOM[ucIdx].ushRelCmpVal[0]);
   }
   else{
-    return ((unsigned short*) 0);
+    return ((uint16*) 0);
   }
 }
 #endif
 
-unsigned char ucGetZomLqi(unsigned char  ucIdx){
+uint8 ucGetZomLqi(uint8  ucIdx){
   if(ucIdx < cSumWE){
     if( tZOM[ucIdx].ushLqi < 0xFF){
-      return (unsigned char) tZOM[ucIdx].ushLqi;
+      return (uint8) tZOM[ucIdx].ushLqi;
     }
     else{
-      return (unsigned char) 0xFF;
+      return (uint8) 0xFF;
     }
   }
   else{
-    return ((unsigned char) 0x00);
+    return ((uint8) 0x00);
   }
 }
 
-void WATimer1sec(unsigned short ushVSpeedInKmh){
-  unsigned char ucTmp;
+void WATimer1sec(uint16 ushVSpeedInKmh){
+  uint8 ucTmp;
   if(cV_MIN < ushVSpeedInKmh){
     if(cV_MAX_PAL < ushVSpeedInKmh )
       if( cTIME_OUT > ushDriveTimeOverPalMax  )
         ushDriveTimeOverPalMax++;
 
-    if((unsigned char) 0 == (ucWAState & cWAStateZO)){
+    if((uint8) 0 == (ucWAState & cWAStateZO)){
       if(cTIME_OUT > ushDriveTimeInSec  ){
         ushDriveTimeInSec ++;
         if(cSpeciaLearn == ucLearnMode )
           if(ucSL3MinHistPreFinish() > 0)
-            WAStatusChangedEvent((unsigned short) ucWAState );
+            WAStatusChangedEvent((uint16) ucWAState );
       }
       else if(0 == (ucWAStateHi & cTO)){
         ucWAStateHi |= cTO;
         ucTmp = ucWAState;
         TOXpired ();
-        if(((ucTmp & (unsigned char) 0xF0) == (unsigned char) 0) && ((ucWAState & (unsigned char) 0xF0) > (unsigned char) 0))
+        if(((ucTmp & (uint8) 0xF0) == (uint8) 0) && ((ucWAState & (uint8) 0xF0) > (uint8) 0))
           UpdateALState (cEvNewIDs );
-        if((((unsigned char) 0 == ucNrOfLocatError()) && (cMaxLR  > ucNrOfUKWPinZOM())) || ((((unsigned char) 1 == ucNrOfLocatError() ) && ((unsigned char) 1 == ucNrOfUKWPinZOM())))){
+        if((((uint8) 0 == ucNrOfLocatError()) && (cMaxLR  > ucNrOfUKWPinZOM())) || ((((uint8) 1 == ucNrOfLocatError() ) && ((uint8) 1 == ucNrOfUKWPinZOM())))){
                if((ucNrOfLocatErrorAndPosForce() == 0) || (tWAPar.AL_State != cAL_Stored)){
                   UpdateALState (cEv4WPs );
                }
             }
         else{
-          if(!(((unsigned char) 0 == ucNrOfLocatError()) && ((unsigned char) 4 == ucNrOfLearnError()) )){
+          if(!(((uint8) 0 == ucNrOfLocatError()) && ((uint8) 4 == ucNrOfLearnError()) )){
             UpdateALState (cEvALFailed );
           }
         }
@@ -1242,21 +1239,21 @@ void WATimer1sec(unsigned short ushVSpeedInKmh){
   UpdateDAGLearnState ();
 }
 
-unsigned char * pucGetLearnError(void){
+uint8* pucGetLearnError(void){
   return ucLearnError ;
 }
 
-unsigned char * pucGetLocatError(void){
+uint8* pucGetLocatError(void){
   return ucLocatError;
 }
 
-unsigned short ushGetDriveTimeInSec(void){
+uint16 ushGetDriveTimeInSec(void){
   return ushDriveTimeInSec ;
 }
 
-static unsigned short ushSpeciaLearn(tRFTelType * ptInputWA){
-  unsigned short ushHelp, ushHistID, ushNewID;
-  unsigned char ucCurID, ucIdentifiedWP = 0;
+static uint16 ushSpeciaLearn(tRFTelType * ptInputWA){
+  uint16 ushHelp, ushHistID, ushNewID;
+  uint8 ucCurID, ucIdentifiedWP = 0;
   ucCurID = ucPutInZOM(ptInputWA, &tWAPar);
   if( ucCurID < cSumWE){
     if((ucWAState & cWAStateActive) == 0)
@@ -1265,7 +1262,7 @@ static unsigned short ushSpeciaLearn(tRFTelType * ptInputWA){
 
     (void) ucGetNrOfNewIDsInLM_SL (&ushNewID, (ucNoWheelSensorMounted() > 0) ? ucDefMinCt4ER+3:ucDefMinCt4ER );
     ushHistID = ushIDSetInHistNAlignWP(aulHistoryID,ucDefMinCt4HistER,cSumWE );
-    if(ucAdjABSIface(ucCurID, ptInputWA) > (unsigned char) 0){
+    if(ucAdjABSIface(ucCurID, ptInputWA) > (uint8) 0){
       BuildCmpVal (ucCurID);
     }
     ushHelp = ushHistID | ushNewID;
@@ -1274,20 +1271,20 @@ static unsigned short ushSpeciaLearn(tRFTelType * ptInputWA){
       (void) ushAlignZOM (ushHelp);
       ucIdentifiedWP = ucGenDMnD2(10,4,0xFFFF);
       ushHistID = ushIDSetInHistNAlignWP(aulHistoryID,ucDefMinCt4HistER,cMaxLR );
-      if((unsigned char) 0 ==  ucAssessDAGSLUC(ucNrOfBitSet ((unsigned short) ucIdentifiedWP))){
-        if((unsigned char) 4 != ucNrOfBitSet(ushHistID)){
-          ucWAState &= (unsigned char) ~cWAStateER;
+      if((uint8) 0 ==  ucAssessDAGSLUC(ucNrOfBitSet ((uint16) ucIdentifiedWP))){
+        if((uint8) 4 != ucNrOfBitSet(ushHistID)){
+          ucWAState &= (uint8) ~cWAStateER;
         }
       }
     }
-    if((unsigned char) 0 == (ucWAState & cWAStateZO ))
+    if((uint8) 0 == (ucWAState & cWAStateZO ))
           (void) ucSL3MinHistPreFinish();
   }
   return(GETushWAState());
 }
 
-static unsigned char ucAssessDAGSLUC(unsigned char ucWPs){
-  unsigned char ucIDSlots,ucNewSensors, i,ucRet = 0;
+static uint8 ucAssessDAGSLUC(uint8 ucWPs){
+  uint8 ucIDSlots,ucNewSensors, i,ucRet = 0;
   ucNewSensors = ucGetNrOfNewIDs(&ucIDSlots );
   if(0 == ucNewSensors ){
     ucRet = 1;
@@ -1315,37 +1312,37 @@ static unsigned char ucAssessDAGSLUC(unsigned char ucWPs){
      ucWAState |= (ucRet&0xF0);
     ucWAStateHi &= 0x0F;
      ucWAStateHi |= ((ucRet&0x0F)<<4);
-    ucRet = (unsigned char) 0xFF;
+    ucRet = (uint8) 0xFF;
   }
   return ucRet;
 }
 
-static unsigned char ucGetNrOfNewIDs(unsigned char * p2Slots){
-  unsigned char i,j,ucOldID = 0;
-  *p2Slots = (unsigned char) 0xFF;
+static uint8 ucGetNrOfNewIDs(uint8* p2Slots){
+  uint8 i,j,ucOldID = 0;
+  *p2Slots = (uint8) 0xFF;
   for(i = 0; i < cMaxLR ; i++){
     for(j = 0; j < cMaxLR ; j++){
       if(tZOM [i].ulID == aulHistoryID [j]){
         ucOldID++;
         *p2Slots &= ~(1<<i);
-        *p2Slots &= ~((unsigned char) 0x10<<j);
+        *p2Slots &= ~((uint8) 0x10<<j);
         break;
       }
     }
   }
-  return ( (unsigned char) (cMaxLR-ucOldID) );
+  return ( (uint8) (cMaxLR-ucOldID) );
 }
 
-static unsigned char ucNewZomIDsFit2MissingHistID_WP(unsigned char ucNewNMissing){
-  unsigned char i,j, ucNewCt=0, ucMatchCt=0;
+static uint8 ucNewZomIDsFit2MissingHistID_WP(uint8 ucNewNMissing){
+  uint8 i,j, ucNewCt=0, ucMatchCt=0;
   for(i = 0; i < cMaxLR ; i++){
-    if(((unsigned char) (1<<i) & ucNewNMissing ) > 0){
+    if(((uint8) (1<<i) & ucNewNMissing ) > 0){
       ucNewCt++;
       for( j  = 0; j < cMaxLR; j++){
-        if(((unsigned char) (0x10<<j) & ucNewNMissing ) > 0){
+        if(((uint8) (0x10<<j) & ucNewNMissing ) > 0){
           if(ucGetZOMWP(i) == aucHistoryWP [j]){
             ucMatchCt ++;
-            ucNewNMissing &= ~((unsigned char) (0x10<<j));
+            ucNewNMissing &= ~((uint8) (0x10<<j));
              break;
           }
         }
@@ -1354,7 +1351,7 @@ static unsigned char ucNewZomIDsFit2MissingHistID_WP(unsigned char ucNewNMissing
         for( j  = 0; j < cMaxLR; j++){
           if(cWheelPos_RR  < aucHistoryWP [j]){
             ucMatchCt ++;
-            ucNewNMissing &= ~((unsigned char) (0x10<<j));
+            ucNewNMissing &= ~((uint8) (0x10<<j));
              break;
           }
         }
@@ -1362,15 +1359,15 @@ static unsigned char ucNewZomIDsFit2MissingHistID_WP(unsigned char ucNewNMissing
     }
   }
   if( ucNewCt == ucMatchCt )
-    return ((unsigned char) 1);
+    return ((uint8) 1);
   else
-    return ((unsigned char) 0);
+    return ((uint8) 0);
 }
 
-static unsigned char ucWrZom2History(unsigned char ucNewNMissing){
-  unsigned char i,j,ucRet, ucNewCt = ucNrOfBitSet ((unsigned short) (ucNewNMissing & 0x0F));
+static uint8 ucWrZom2History(uint8 ucNewNMissing){
+  uint8 i,j,ucRet, ucNewCt = ucNrOfBitSet ((uint16) (ucNewNMissing & 0x0F));
   ucRet = 0;
-  if(ucNrOfBitSet ((unsigned short) (ucNewNMissing & 0xF0)) == ucNewCt ){
+  if(ucNrOfBitSet ((uint16) (ucNewNMissing & 0xF0)) == ucNewCt ){
     for( i = 0; i < cMaxLR ; i++){
       if((ucNewNMissing & (1<<i)) > 0){
         for( j = 0; j < cMaxLR; j++)
@@ -1400,13 +1397,13 @@ static unsigned char ucWrZom2History(unsigned char ucNewNMissing){
           }
     }
     if(ucHistInConsist() > 0){
-       GetWADataEE(cHistorySet1, (unsigned char *) aulHistoryID, (unsigned char) sizeof(aulHistoryID));
-      GetWADataEE(cHistoryWPSet1, aucHistoryWP, (unsigned char) sizeof(aucHistoryWP));
+       GetWADataEE(cHistorySet1, (uint8 *) aulHistoryID, (uint8) sizeof(aulHistoryID));
+      GetWADataEE(cHistoryWPSet1, aucHistoryWP, (uint8) sizeof(aucHistoryWP));
       ucRet = 0;
     }
     else{
-      PutWADataEE(cHistorySet1, (unsigned char *) aulHistoryID, (unsigned char) sizeof(aulHistoryID));
-       PutWADataEE(cHistoryWPSet1, aucHistoryWP, (unsigned char) sizeof(aucHistoryWP));
+      PutWADataEE(cHistorySet1, (uint8 *) aulHistoryID, (uint8) sizeof(aulHistoryID));
+       PutWADataEE(cHistoryWPSet1, aucHistoryWP, (uint8) sizeof(aucHistoryWP));
     }
   }
   else
@@ -1415,8 +1412,8 @@ static unsigned char ucWrZom2History(unsigned char ucNewNMissing){
   return ucRet;
 }
 
-unsigned char ucHistInConsist(void){
-  unsigned char i,j, ucRet = 0xF0;
+uint8 ucHistInConsist(void){
+  uint8 i,j, ucRet = 0xF0;
   for( i = 0; i < cMaxLR ; i++){
     if(aulHistoryID [i] < (unsigned long) 1){
       ucRet |= (0x01<<i);
@@ -1440,17 +1437,17 @@ unsigned char ucHistInConsist(void){
   return ucRet;
 }
 
-static unsigned char ucSL3MinHistPreFinish(void){
-  unsigned char ucRet = 0;
-  unsigned short usHelp = 0;
-  if( (unsigned char) 0 == (ucWAState & cWAStateZO)){
-    if((unsigned char) 0 == ucHistInConsist ()){
+static uint8 ucSL3MinHistPreFinish(void){
+  uint8 ucRet = 0;
+  uint16 usHelp = 0;
+  if( (uint8) 0 == (ucWAState & cWAStateZO)){
+    if((uint8) 0 == ucHistInConsist ()){
       usHelp = ushIDSetInHist(aulHistoryID,3,cSumWE );
       if(ucNrOfBitSet (usHelp) == cMaxLR ){
         (void) ushAlignZOM(usHelp);
         ucWAState = (cWAStateZO+cWAStateER);
         RestoreHistory ();
-        ucRet = (unsigned char) 1;
+        ucRet = (uint8) 1;
       }
     }
   }
@@ -1458,27 +1455,27 @@ static unsigned char ucSL3MinHistPreFinish(void){
   return ucRet;
 }
 
-static unsigned char ucSL31Finish(unsigned char ucMinCt4NewID){
-  unsigned short ushNewID = 0;
-  if( (unsigned char) 0 == (ucWAState & cWAStateZO)){
-    if( (unsigned char) 1 == ucGetNrOfNewIDsInLM_SL(&ushNewID,ucMinCt4NewID) ){
+static uint8 ucSL31Finish(uint8 ucMinCt4NewID){
+  uint16 ushNewID = 0;
+  if( (uint8) 0 == (ucWAState & cWAStateZO)){
+    if( (uint8) 1 == ucGetNrOfNewIDsInLM_SL(&ushNewID,ucMinCt4NewID) ){
       if(0 < ui16NewIdFits(ushNewID, ushIDSetInHist(aulHistoryID,3,cSumWE ))){
         ucWAState |= cWAStateER;
         SetWAStateZOChange (ucSetHistory (cWAStateZO,0x0F));
         dblCk4LocEr ();
-        if((unsigned char) 0 == ucNrOfUKWPinHist()){
+        if((uint8) 0 == ucNrOfUKWPinHist()){
           ucWAState |= cWAStateZO;
           ucWAStateHi |= cForcedZO ;
         }
-        return ((unsigned char) 1);
+        return ((uint8) 1);
       }
     }
   }
-  return ( (unsigned char) 0);
+  return ( (uint8) 0);
 }
 
-static unsigned char ucGetNrOfNewIDsInLM_SL(unsigned short * p2Slots, unsigned char ucMinCt){
-  unsigned char i,j,ucNewID = (unsigned char) 0;
+static uint8 ucGetNrOfNewIDsInLM_SL(uint16 * p2Slots, uint8 ucMinCt){
+  uint8 i,j,ucNewID = (uint8) 0;
   *p2Slots = 0;
   for(i = 0; i < cSumWE ; i++){
     if(tZOM [i].ucProbeCt  > 0){
@@ -1501,8 +1498,8 @@ static unsigned char ucGetNrOfNewIDsInLM_SL(unsigned short * p2Slots, unsigned c
   return ucNewID;
 }
 
-static unsigned char ucGetNrOfNewIDsInLM(unsigned short * p2Slots, unsigned char ucMinCt){
-  unsigned char i,j,ucNewID = (unsigned char) 0;
+static uint8 ucGetNrOfNewIDsInLM(uint16 * p2Slots, uint8 ucMinCt){
+  uint8 i,j,ucNewID = (uint8) 0;
   *p2Slots = 0;
   for(i = 0; i < cSumWE ; i++){
     if(tZOM [i].ucProbeCt  > 0){
@@ -1528,17 +1525,17 @@ static unsigned char ucGetNrOfNewIDsInLM(unsigned short * p2Slots, unsigned char
 }
 
 static void CheckAutoDeactivateOverride(void){
-  unsigned short ushHelp;
-  ushHelp = ushCheckERState(ucDefMinCt4ER, ucDefMinCt4HistER, (ushDriveTimeInSec > cHistIDProtectTime ) ? (unsigned char) 1:(unsigned char) 0);
+  uint16 ushHelp;
+  ushHelp = ushCheckERState(ucDefMinCt4ER, ucDefMinCt4HistER, (ushDriveTimeInSec > cHistIDProtectTime ) ? (uint8) 1:(uint8) 0);
   if( ushHelp > 0){
     ucWAState |= cWAStateER;
     (void) ushAlignZOM(ushHelp);
-    SetWAStateZOChange(ucSetHistory((unsigned char)cWAStateER, 0x0F));
+    SetWAStateZOChange(ucSetHistory((uint8)cWAStateER, 0x0F));
   }
 }
 
-static unsigned char ucFinishViaHistory(void){
-  unsigned short ushHelp = ushIDSetInHist(aulHistoryID,ucDefMinCt4HistER,cSumWE);
+static uint8 ucFinishViaHistory(void){
+  uint16 ushHelp = ushIDSetInHist(aulHistoryID,ucDefMinCt4HistER,cSumWE);
   if(cMaxLR == ucNrOfBitSet(ushHelp)){
     if((ucGetERState() < 1) || (0x000F != ushHelp )){
       (void) ushAlignZOM(ushHelp);
@@ -1546,24 +1543,24 @@ static unsigned char ucFinishViaHistory(void){
     }
     (void) ucGenDMnD2(10,4,0xFFFF);
     if( (ucNrOfUKWPinZOM () > ucNrOfUKWPinHist ()) && !( 1 == ucNrOfUKWPinZOM ())){
-      ucWAState &= (unsigned char) ~cWAStateZO;
+      ucWAState &= (uint8) ~cWAStateZO;
      }
     else{
       SetWAStateZOChange (ucSetHistory (cWAStateZO,0x0F));
-      if((unsigned char) 0 == ucNrOfUKWPinHist()){
+      if((uint8) 0 == ucNrOfUKWPinHist()){
         ucWAState |= cWAStateZO;
         if( 1 == ucNrOfUKWPinZOM ())
           ucWAStateHi |= cForcedZO ;
       }
     }
-    return ((unsigned char) 1);
+    return ((uint8) 1);
   }
   else
-    return ((unsigned char) 0);
+    return ((uint8) 0);
 }
 
-static unsigned char ucBadHist2Def(void){
-  unsigned char i, ucBadIDCt = (unsigned char) 0;
+static uint8 ucBadHist2Def(void){
+  uint8 i, ucBadIDCt = (uint8) 0;
   for(i = 0; i < cMaxLR; i++){
     if( aulHistoryID[i] < 1UL ){
       aulHistoryID[i] = (unsigned long) i + 1;
@@ -1573,8 +1570,8 @@ static unsigned char ucBadHist2Def(void){
   return ucBadIDCt;
 }
 
-static unsigned char ucGetNrOfNewIDsInLMwoPAL(unsigned short * p2Slots){
-  unsigned char i,j,ucNewID = (unsigned char) 0;
+static uint8 ucGetNrOfNewIDsInLMwoPAL(uint16 * p2Slots){
+  uint8 i,j,ucNewID = (uint8) 0;
   *p2Slots = 0;
   for(i = 0; i < cSumWE ; i++){
     if(tZOM [i].ucProbeCt  > 0){
@@ -1596,26 +1593,26 @@ static unsigned char ucGetNrOfNewIDsInLMwoPAL(unsigned short * p2Slots){
   return ucNewID;
 }
 
-static unsigned char uc3NewIDsAllocated(unsigned char ucMinCt4NewID){
-  unsigned short ushHistSet = 0, ushNewID = 0;
-  if( (unsigned char) 0 == (ucWAState & cWAStateZO)){
+static uint8 uc3NewIDsAllocated(uint8 ucMinCt4NewID){
+  uint16 ushHistSet = 0, ushNewID = 0;
+  if( (uint8) 0 == (ucWAState & cWAStateZO)){
     ushHistSet = ushIDSetInHist(aulHistoryID,3,cSumWE );
     if(ucNrOfBitSet (ushHistSet) == 0 ){
-      if( (unsigned char) 3 == ucGetNrOfNewIDsInLM_SL(&ushNewID,ucMinCt4NewID)){
+      if( (uint8) 3 == ucGetNrOfNewIDsInLM_SL(&ushNewID,ucMinCt4NewID)){
         ushNewID = ushAlignZOM(ushNewID );
-        if((unsigned char) 3 == ucNrOfBitSet((unsigned short) ucGenDMnD2(10,4,ushNewID))){
-           SetWAStateZOChange (ucSetHistory (cWAStateZO,(unsigned char) ushNewID));
-          return ((unsigned char) 1);
+        if((uint8) 3 == ucNrOfBitSet((uint16) ucGenDMnD2(10,4,ushNewID))){
+           SetWAStateZOChange (ucSetHistory (cWAStateZO,(uint8) ushNewID));
+          return ((uint8) 1);
         }
       }
     }
   }
-  return ( (unsigned char) 0);
+  return ( (uint8) 0);
 }
 
-static unsigned short ushCompLearn(tRFTelType * ptInputWA){
-  unsigned char ucCurID;
-  unsigned short ushHelp;
+static uint16 ushCompLearn(tRFTelType * ptInputWA){
+  uint8 ucCurID;
+  uint16 ushHelp;
   if( (tWAPar.ucWACtrl & ucWACtrlBreakc) == 0){
     ucCurID = ucPutInZOM(ptInputWA, &tWAPar);
     if( ucCurID < cSumWE){
@@ -1624,7 +1621,7 @@ static unsigned short ushCompLearn(tRFTelType * ptInputWA){
           ucWAState |= cWAStateActive;
 
       if(  ucGetERState() == 0 ){
-        ushHelp = ushWhlSetRdy2Freeze ((ucNoWheelSensorMounted() > 0) ? ucDefMinCt4ER+3:ucDefMinCt4ER, ucDefMinCt4HistER, (ushDriveTimeInSec > cHistIDProtectTime ) ? (unsigned char) 1:(unsigned char) 0);     /* get all ERs */
+        ushHelp = ushWhlSetRdy2Freeze ((ucNoWheelSensorMounted() > 0) ? ucDefMinCt4ER+3:ucDefMinCt4ER, ucDefMinCt4HistER, (ushDriveTimeInSec > cHistIDProtectTime ) ? (uint8) 1:(uint8) 0);     /* get all ERs */
         if( ushHelp > 0){
           ucWAState |= cWAStateER;
           (void) ushAlignZOM(ushHelp);
@@ -1632,16 +1629,16 @@ static unsigned short ushCompLearn(tRFTelType * ptInputWA){
         }
 
         if((ucCheckWheelPos(ucCurID, ptInputWA ) == 1) && (ucGetERState()==1)){
-          SetWAStateZOChange(ucSetHistory((unsigned char)cWAStateZO, 0x0F));
+          SetWAStateZOChange(ucSetHistory((uint8)cWAStateZO, 0x0F));
           ucWAState |= cWAStateZO;
         }
         else if( ucGetERState()==1 ){
-          SetWAStateZOChange(ucSetHistory((unsigned char)cWAStateER, 0x0F));
+          SetWAStateZOChange(ucSetHistory((uint8)cWAStateER, 0x0F));
         }
       }
       else{
         if(ucCheckWheelPos(ucCurID,ptInputWA ) == 1){
-          SetWAStateZOChange(ucSetHistory((unsigned char)cWAStateZO, 0x0F));
+          SetWAStateZOChange(ucSetHistory((uint8)cWAStateZO, 0x0F));
           ucWAState |= cWAStateZO;
         }
       }
@@ -1652,16 +1649,16 @@ static unsigned short ushCompLearn(tRFTelType * ptInputWA){
   return GETushWAState();
 }
 
-static unsigned short ushWhlSetRdy2Freeze(unsigned char ucMinCt, unsigned char ucMinCt4HistERc, unsigned char bLearnNewIDsFlag){
-  unsigned char ucNewCt,ucOldCt, ucOtherCt;
-  unsigned short ushNew, ushOld, ushOther, ushRet = 0;
+static uint16 ushWhlSetRdy2Freeze(uint8 ucMinCt, uint8 ucMinCt4HistERc, uint8 bLearnNewIDsFlag){
+  uint8 ucNewCt,ucOldCt, ucOtherCt;
+  uint16 ushNew, ushOld, ushOther, ushRet = 0;
   ushOld = ushIDinLearnModeSetInHist(aulHistoryID,ucMinCt4HistERc,cSumWE);
   ushOld |= ushSetHistIDs2ER (aulHistoryID,ucDefMinCt4HistER,cSumWE);
   ucOldCt = ucNrOfBitSet(ushOld);
   ucNewCt = ucGetNrOfNewIDsInLM (&ushNew,ucMinCt );
-  ucOtherCt = ucGetNrOfNewIDsInLM (&ushOther,(unsigned char) 4 );
+  ucOtherCt = ucGetNrOfNewIDsInLM (&ushOther,(uint8) 4 );
   ucOtherCt -= ucNewCt;
-  ushOther &= ((unsigned short) ~ushNew);
+  ushOther &= ((uint16) ~ushNew);
 
   if(cMaxLR == ucOldCt)
      ushRet = ushOld;
@@ -1673,21 +1670,21 @@ static unsigned short ushWhlSetRdy2Freeze(unsigned char ucMinCt, unsigned char u
   return ushRet;
 }
 
-static unsigned char ucForceAutoLocate(void){
-  unsigned char i,j, ucUK, ucUnusedWP;
+static uint8 ucForceAutoLocate(void){
+  uint8 i,j, ucUK, ucUnusedWP;
   ucUnusedWP = 0x0F;
   ucUK = 0;
 
   if(ui8AnyHistIdMissing () == ((uint8) 0)){
      for(i = 0; i < cMaxLR; i++){
         if( aucHistoryWP[i] > cWheelPos_RR  ){
-           ucUK |= (unsigned char) (0x10<<i);
+           ucUK |= (uint8) (0x10<<i);
         }
         else{
-           ucUnusedWP &= (unsigned char) ~(1<<aucHistoryWP [i]);
+           ucUnusedWP &= (uint8) ~(1<<aucHistoryWP [i]);
         }
      }
-     if(ucNrOfBitSet ((unsigned short) ucUK) == (unsigned char) 1){
+     if(ucNrOfBitSet ((uint16) ucUK) == (uint8) 1){
         for(i = 0; i < cMaxLR; i++){
            if((ucUK & (0x10<<i)) > 0){
               for(j = 0; j < cMaxLR ; j++){
@@ -1701,18 +1698,18 @@ static unsigned char ucForceAutoLocate(void){
         }
      }
      else{
-        ucUK = (unsigned char) 0;
+        ucUK = (uint8) 0;
      }
   }
   return ucUK;
 }
 
-static unsigned char ucCmpHist2ZOMID(unsigned char ucVZS){
-  unsigned char i,j, ucRet = (unsigned char) 0x0F;
+static uint8 ucCmpHist2ZOMID(uint8 ucVZS){
+  uint8 i,j, ucRet = (uint8) 0x0F;
   for(i = 0; i < cMaxLR; i++){
     for(j = 0; j < cMaxLR; j++){
-      if((aulHistoryID [i] == tZOM[j].ulID) && (((ucVZS & (unsigned char) (1<<j)) > 0))){
-        ucRet &= (unsigned char) ~(1<<i);
+      if((aulHistoryID [i] == tZOM[j].ulID) && (((ucVZS & (uint8) (1<<j)) > 0))){
+        ucRet &= (uint8) ~(1<<i);
         break;
       }
     }
@@ -1720,41 +1717,41 @@ static unsigned char ucCmpHist2ZOMID(unsigned char ucVZS){
   return ucRet;
 }
 
-static unsigned char ucNrOfUKWPinZOM(void){
-  unsigned char i, ucRet = 0;
+static uint8 ucNrOfUKWPinZOM(void){
+  uint8 i, ucRet = 0;
   for( i = 0; i < cMaxLR ; i++){
-    if((unsigned char) 0 == (tZOM[i].ucStatus & 0x0F)){
+    if((uint8) 0 == (tZOM[i].ucStatus & 0x0F)){
       ucRet++;
     }
   }
   return ucRet;
 }
 
-static unsigned char ucNrOfUKWPinHist(void){
-  unsigned char i, ucRet = 0;
+static uint8 ucNrOfUKWPinHist(void){
+  uint8 i, ucRet = 0;
   for( i = 0; i < cMaxLR ; i++){
-    if((unsigned char) cWheelPos_RR  < aucHistoryWP [i]){
+    if((uint8) cWheelPos_RR  < aucHistoryWP [i]){
       ucRet++;
     }
   }
   return ucRet;
 }
 
-static unsigned char ucFinalFreeze(unsigned char ucMinCt4HistER, unsigned char ucMinCt){
-  unsigned char ucIdentifiedWP;
-  unsigned short ushNew,ushOld,ushFRS;
-  if((unsigned char) 0 == ucFinishViaHistory()){
+static uint8 ucFinalFreeze(uint8 ucMinCt4HistER, uint8 ucMinCt){
+  uint8 ucIdentifiedWP;
+  uint16 ushNew,ushOld,ushFRS;
+  if((uint8) 0 == ucFinishViaHistory()){
     (void) ucGetNrOfNewIDsInLM (&ushNew,ucMinCt );
     ushOld = ushIDSetInHist(aulHistoryID,ucDefMinCt4HistER,cSumWE);
-    if(( cMaxLR < ucNrOfBitSet (ushNew|ushOld)) && (((unsigned char) 0) == ucGetERState () )){
+    if(( cMaxLR < ucNrOfBitSet (ushNew|ushOld)) && (((uint8) 0) == ucGetERState () )){
       ushNew = ushReduceCorel24(ushNew|ushOld);
       ushOld = 0;
       ushNew = ushAlignZOM(ushNew);
       if(cMaxLR == ucNrOfBitSet (ushNew))
         ucWAState |= cWAStateER;
-      if((unsigned char) 0 == ucNrOfUKWPinZOM ())
+      if((uint8) 0 == ucNrOfUKWPinZOM ())
         ucWAState |=  cWAStateZO;
-      SetWAStateZOChange (ucSetHistory (cWAStateZO,(unsigned char) ushNew));
+      SetWAStateZOChange (ucSetHistory (cWAStateZO,(uint8) ushNew));
       dblCk4LocEr ();
     }
     else{
@@ -1765,8 +1762,8 @@ static unsigned char ucFinalFreeze(unsigned char ucMinCt4HistER, unsigned char u
       ushOld = ushIDSetInHist(aulHistoryID,ucDefMinCt4HistER,cSumWE);
        ushNew = 0;
       (void) ucGetNrOfNewIDsInLM (&ushNew,ucMinCt );
-      ushNew &= ((unsigned short) ucIdentifiedWP);
-      ushOld |= (unsigned short) ucIdentifiedWP ;
+      ushNew &= ((uint16) ucIdentifiedWP);
+      ushOld |= (uint16) ucIdentifiedWP ;
       if(ucNrOfBitSet (ushOld) > cMaxLR ){
         SetWAStateZOChange (ucSetHistory (cWAStateZO,ucIdentifiedWP));
          dblCk4LocEr( );
@@ -1775,32 +1772,32 @@ static unsigned char ucFinalFreeze(unsigned char ucMinCt4HistER, unsigned char u
         ushNew |= ushOld;
         ushNew = ushAlignZOM(ushNew);
         if(ucNrOfBitSet (ushNew) > cMaxLR){
-          SetWAStateZOChange (ucSetHistory (cWAStateZO,(unsigned char)ushOld));
+          SetWAStateZOChange (ucSetHistory (cWAStateZO,(uint8)ushOld));
            dblCk4LocEr ();
         }
         else if(0 < ushNew ){
-          SetWAStateZOChange (ucSetHistory (cWAStateZO,(unsigned char) ushNew));
+          SetWAStateZOChange (ucSetHistory (cWAStateZO,(uint8) ushNew));
           dblCk4LocEr ();
         }
         else
-          return ((unsigned char) 0);
+          return ((uint8) 0);
       }
     }
   }
 
-  ucIdentifiedWP = ((unsigned char) 4 - ucNrOfUKWPinHist());
+  ucIdentifiedWP = ((uint8) 4 - ucNrOfUKWPinHist());
   if(cMaxLR == ucIdentifiedWP){
-    ucWAStateHi &= (unsigned char) ~cTZG;
+    ucWAStateHi &= (uint8) ~cTZG;
   }
-  else if((unsigned char) 0 == ucIdentifiedWP ){
-    ucWAStateHi &= (unsigned char) ~cTZG;
+  else if((uint8) 0 == ucIdentifiedWP ){
+    ucWAStateHi &= (uint8) ~cTZG;
   }
   else{
-    ucWAState &= (unsigned char) ~cWAStateZO;
+    ucWAState &= (uint8) ~cWAStateZO;
     ucWAStateHi |= cTZG;
   }
 
-  return ((unsigned char) 1);
+  return ((uint8) 1);
  }
 
 static void UpdateALState(uint8 ui8Trigger){
@@ -1831,7 +1828,7 @@ static void UpdateALState(uint8 ui8Trigger){
       tWAPar.AL_State = cAL_Unknown;
     break;
   default:
-    if((unsigned char) 0 == ucNrOfUKWPinHist())
+    if((uint8) 0 == ucNrOfUKWPinHist())
       tWAPar.AL_State = cAL_Stored;
     else
       tWAPar.AL_State = cAL_Unknown;
@@ -1839,22 +1836,22 @@ static void UpdateALState(uint8 ui8Trigger){
   }
 
   if(ui8ALState != tWAPar.AL_State)
-    PutWADataEE(cWAParameter, (unsigned char *) &tWAPar , (unsigned char) sizeof(WAParameter));
+    PutWADataEE(cWAParameter, (uint8 *) &tWAPar , (uint8) sizeof(WAParameter));
 }
 
 uint8 ui8GetALState(void){
   return (tWAPar.AL_State);
 }
 
-unsigned char ucGetLearnMode(void){
+uint8 ucGetLearnMode(void){
   return ucLearnMode ;
 }
 
-static unsigned short ucFindNoLearnHistoryIDs(unsigned long *ptHistID, unsigned char ucMinProbeCt, unsigned char ucSlots2Search){
-  unsigned char j, ucRet = (unsigned char) 0xFF;
+static uint16 ucFindNoLearnHistoryIDs(unsigned long *ptHistID, uint8 ucMinProbeCt, uint8 ucSlots2Search){
+  uint8 j, ucRet = (uint8) 0xFF;
   for( j = 0; j < ucSlots2Search; j++){
     if((*ptHistID == ulGetZOMID(j)) && (ucGetZomTelCtLearnBit(j) >= ucMinProbeCt )){
-      ucRet = (unsigned char) 0;
+      ucRet = (uint8) 0;
       break;
     }
     else{
@@ -1866,11 +1863,11 @@ static unsigned short ucFindNoLearnHistoryIDs(unsigned long *ptHistID, unsigned 
   return ucRet;
 }
 
-static unsigned short ucFindMissingHistoryIDs(unsigned long *ptHistID, unsigned char ucMinProbeCt, unsigned char ucSlots2Search){
-  unsigned char j, ucRet = (unsigned char) 0xFF;
+static uint16 ucFindMissingHistoryIDs(unsigned long *ptHistID, uint8 ucMinProbeCt, uint8 ucSlots2Search){
+  uint8 j, ucRet = (uint8) 0xFF;
   for( j = 0; j < ucSlots2Search; j++){
     if((*ptHistID == ulGetZOMID(j)) && (ucGetProbeCt(j) >= ucMinProbeCt )){
-      ucRet = (unsigned char) 0;
+      ucRet = (uint8) 0;
       break;
     }
     else{
@@ -1882,14 +1879,14 @@ static unsigned short ucFindMissingHistoryIDs(unsigned long *ptHistID, unsigned 
   return ucRet;
 }
 
-static unsigned char ucGetMisOrNoLearnError(void){
-  unsigned char i, ucRet = (unsigned char) 0;
+static uint8 ucGetMisOrNoLearnError(void){
+  uint8 i, ucRet = (uint8) 0;
   for(i = 0; i < cMaxLR ; i++){
-    if(ucFindMissingHistoryIDs(&aulHistoryID[i],ucDefMinCt4HistER, cSumWE ) > ((unsigned char) 0) ){
+    if(ucFindMissingHistoryIDs(&aulHistoryID[i],ucDefMinCt4HistER, cSumWE ) > ((uint8) 0) ){
       ucLearnError [i] = SensorMissin ;
       ucRet |= (1<<i);
     }
-    else if(ucFindNoLearnHistoryIDs (&aulHistoryID[i] ,ucDefMinCt4HistER , cSumWE ) > ((unsigned char) 0) ){
+    else if(ucFindNoLearnHistoryIDs (&aulHistoryID[i] ,ucDefMinCt4HistER , cSumWE ) > ((uint8) 0) ){
       ucLearnError [i] = NoLearnSensor ;
       ucRet |= (1<<i);
     }
@@ -1900,8 +1897,8 @@ static unsigned char ucGetMisOrNoLearnError(void){
   return ucRet;
 }
 
-static unsigned char ucGetAnyLocatErrors(unsigned char ucDontTouch){
-  unsigned char i, ucRet = 0;
+static uint8 ucGetAnyLocatErrors(uint8 ucDontTouch){
+  uint8 i, ucRet = 0;
   for( i = 0; i < cMaxLR ; i++){
     if( ucGetLocatError(i) != NoError ){
       ucRet |= (1<<i);
@@ -1926,8 +1923,8 @@ static unsigned char ucGetAnyLocatErrors(unsigned char ucDontTouch){
   return ucRet;
 }
 
-void ClearAlLearNLocatError(unsigned char ucErrType){
-  unsigned char i;
+void ClearAlLearNLocatError(uint8 ucErrType){
+  uint8 i;
   for( i = 0; i < cMaxLR ; i++){
     if(cAll == ucErrType ){
       ucLocatError [i] = NoError ;
@@ -1937,8 +1934,8 @@ void ClearAlLearNLocatError(unsigned char ucErrType){
   ucABSignalMissin = NoError ;
 }
 
-void PutLocatError(unsigned char ucTipicoDiErrori, unsigned char ucZomSlot){
-  unsigned char i;
+void PutLocatError(uint8 ucTipicoDiErrori, uint8 ucZomSlot){
+  uint8 i;
   if( cSumWE > ucZomSlot){
     for( i = 0; i < cMaxLR ;i++){
       if(ulGetZOMID (ucZomSlot) == ulGetID(i)){
@@ -1954,8 +1951,8 @@ void PutLocatError(unsigned char ucTipicoDiErrori, unsigned char ucZomSlot){
   return;
 }
 
-unsigned char ucGetLocatError(unsigned char ucZomSlot){
-  unsigned char i;
+uint8 ucGetLocatError(uint8 ucZomSlot){
+  uint8 i;
   if( cSumWE > ucZomSlot){
     for( i = 0; i < cMaxLR ;i++){
       if(ulGetZOMID (ucZomSlot) == ulGetID(i)){
@@ -1966,9 +1963,9 @@ unsigned char ucGetLocatError(unsigned char ucZomSlot){
   return NoError;
 }
 
-static unsigned char ucNrOfLocatError(void){
-  unsigned char i, ucRet;
-  ucRet = (unsigned char) 0;
+static uint8 ucNrOfLocatError(void){
+  uint8 i, ucRet;
+  ucRet = (uint8) 0;
   for( i = 0; i < cMaxLR ; i++){
     if(( NoError != ucLocatError [i]) && ( AssegnazioneCostretto != ucLocatError[i])){
       ucRet++;
@@ -1977,9 +1974,9 @@ static unsigned char ucNrOfLocatError(void){
   return ucRet;
 }
 
-static unsigned char ucNrOfLocatErrorAndPosForce(void){
-  unsigned char i, ucRet;
-  ucRet = (unsigned char) 0;
+static uint8 ucNrOfLocatErrorAndPosForce(void){
+  uint8 i, ucRet;
+  ucRet = (uint8) 0;
   for( i = 0; i < cMaxLR ; i++){
     if(( NoError != ucLocatError [i]) && ( AssegnazioneCostretto == ucLocatError[i])){
       ucRet++;
@@ -1988,9 +1985,9 @@ static unsigned char ucNrOfLocatErrorAndPosForce(void){
   return ucRet;
 }
 
-static unsigned char ucNrOfLearnError(void){
-  unsigned char i, ucRet;
-  ucRet = (unsigned char) 0;
+static uint8 ucNrOfLearnError(void){
+  uint8 i, ucRet;
+  ucRet = (uint8) 0;
   for( i = 0; i < cMaxLR ; i++){
     if( ucLearnError [i] != NoError ){
       ucRet++;
@@ -2000,9 +1997,9 @@ static unsigned char ucNrOfLearnError(void){
 }
 
 static void TOXpired(void){
-  if((unsigned char) 0 == (ucWAState & cWAStateZO)){
+  if((uint8) 0 == (ucWAState & cWAStateZO)){
     if(cCompleteLearn == ucLearnMode ){
-      if((unsigned char) 0 < ucFinalFreeze(ucDefMinCt4HistER, (ucNoWheelSensorMounted() > 0) ? ucDefMinCt4ER+3:ucDefMinCt4ER))
+      if((uint8) 0 < ucFinalFreeze(ucDefMinCt4HistER, (ucNoWheelSensorMounted() > 0) ? ucDefMinCt4ER+3:ucDefMinCt4ER))
          WAStatusChangedEvent(GETushWAState() );
     }
     else if(cSpeciaLearn == ucLearnMode ){
@@ -2038,12 +2035,12 @@ static void TOXpired(void){
   }
 }
 
-unsigned char ui8GetDAGAutoLearnState(void){
+uint8 ui8GetDAGAutoLearnState(void){
   return ucDAGLearnState;
 }
 
 static void UpdateDAGLearnState(void){
-  unsigned char i, ucMissin = 0;
+  uint8 i, ucMissin = 0;
   if(Autolearn_Learning == ucDAGLearnState){
     if(ucGetERState() > 0){
       ucDAGLearnState = Autolearn_OK ;
@@ -2074,30 +2071,30 @@ void PutABSErrorActive(void){
 #endif
 }
 
-static unsigned char ucTakeOverHistWP(unsigned char ucHistIx,unsigned char ucZomIx){
+static uint8 ucTakeOverHistWP(uint8 ucHistIx,uint8 ucZomIx){
   if(ucHistIx < cMaxLR ){
     if(ucZomIx < cSumWE ){
-      if((aulHistoryID[ucHistIx] == ulGetZOMID(ucZomIx)) && ((unsigned char) 4 > aucHistoryWP [ucHistIx])){
+      if((aulHistoryID[ucHistIx] == ulGetZOMID(ucZomIx)) && ((uint8) 4 > aucHistoryWP [ucHistIx])){
         SetZOMWP(ucZomIx,aucHistoryWP[ucHistIx]);
         tZOM[ucZomIx].ucStatus |= cZOMStatHistER;
-        return ((unsigned char) 0xFF);
+        return ((uint8) 0xFF);
       }
       else{
-        return ((unsigned char) 0);
+        return ((uint8) 0);
       }
     }
     else{
-      return ((unsigned char) 0);
+      return ((uint8) 0);
     }
   }
   else{
-    return ((unsigned char) 0);
+    return ((uint8) 0);
   }
 }
 
-static unsigned short ushIDSetInHistNAlignWP(unsigned long *ptHistSet, unsigned char ucMinProbeCt, unsigned char ucSlots2Search){
-  unsigned char i,j;
-  unsigned short ushRet = 0;
+static uint16 ushIDSetInHistNAlignWP(unsigned long *ptHistSet, uint8 ucMinProbeCt, uint8 ucSlots2Search){
+  uint8 i,j;
+  uint16 ushRet = 0;
   for( i = 0; i < cMaxLR; i++){
     if(ptHistSet[i] == (unsigned long) 0){
       ushRet = 0;
@@ -2107,8 +2104,8 @@ static unsigned short ushIDSetInHistNAlignWP(unsigned long *ptHistSet, unsigned 
       for( j = 0; j < ucSlots2Search; j++){
         if((ptHistSet[i] == ulGetZOMID(j)) && (ucGetProbeCt(j) >= ucMinProbeCt )){
           ushRet |= (1<<j);
-          if((unsigned char) 0 == (tZOM[j].ucStatus & (unsigned char) 0x0F)){
-            if((unsigned char) 0 == ucTakeOverHistWP(i,j)){
+          if((uint8) 0 == (tZOM[j].ucStatus & (uint8) 0x0F)){
+            if((uint8) 0 == ucTakeOverHistWP(i,j)){
                tZOM[j].ucStatus |= cZOMStatHistER;
             }
             else{
@@ -2128,9 +2125,9 @@ static unsigned short ushIDSetInHistNAlignWP(unsigned long *ptHistSet, unsigned 
   return ushRet;
 }
 
-static unsigned short ushSetHistIDs2ER(unsigned long *ptHistSet, unsigned char ucMinProbeCt, unsigned char ucSlots2Search){
-  unsigned char i,j;
-  unsigned short ushRet = 0;
+static uint16 ushSetHistIDs2ER(unsigned long *ptHistSet, uint8 ucMinProbeCt, uint8 ucSlots2Search){
+  uint8 i,j;
+  uint16 ushRet = 0;
   for( i = 0; i < cMaxLR; i++){
     if(ptHistSet[i] == (unsigned long) 0){
       ushRet = 0;
@@ -2154,21 +2151,21 @@ static unsigned short ushSetHistIDs2ER(unsigned long *ptHistSet, unsigned char u
   return ushRet;
 }
 
-static unsigned short ushLearnInOver8(tRFTelType * ptInputWA){
-  unsigned char ucCurID;
-  unsigned short ushHelp;
+static uint16 ushLearnInOver8(tRFTelType * ptInputWA){
+  uint8 ucCurID;
+  uint16 ushHelp;
   ucCurID = ucPutInZOM(ptInputWA, &tWAPar);
   if( ucCurID < cSumWE){
     if((ucWAState & cWAStateActive) == 0)
       if( ucStartWA() == 1 )
         ucWAState |= cWAStateActive;
     if(  ucGetERState() == 0 ){
-      ushHelp = ushWhlSetRdy2Freeze ((ucNoWheelSensorMounted() > 0) ? ucDefMinCt4ER+3:ucDefMinCt4ER, ucDefMinCt4HistER, (ushDriveTimeInSec > cHistIDProtectTime ) ? (unsigned char) 1:(unsigned char) 0);     /* get all ERs */
+      ushHelp = ushWhlSetRdy2Freeze ((ucNoWheelSensorMounted() > 0) ? ucDefMinCt4ER+3:ucDefMinCt4ER, ucDefMinCt4HistER, (ushDriveTimeInSec > cHistIDProtectTime ) ? (uint8) 1:(uint8) 0);     /* get all ERs */
       if( ushHelp > 0){
         ucWAState |= cWAStateER;
         (void) ushAlignZOM(ushHelp);
         ucCurID = ucGetZOMPosOfID( &ptInputWA->AK35def.ulID);
-        SetWAStateZOChange(ucSetHistory((unsigned char)cWAStateER, 0x0F));
+        SetWAStateZOChange(ucSetHistory((uint8)cWAStateER, 0x0F));
         if( ucWACtrlFixc == tWAPar.ucWACtrl ){
             RestoreHistory ();
         }
@@ -2180,14 +2177,14 @@ static unsigned short ushLearnInOver8(tRFTelType * ptInputWA){
   return GETushWAState();
 }
 
-static unsigned char ucPasSupplFilter(tRFTelType * p2Tel){
-  unsigned char i;
-  const unsigned char aucLearnType[] = {cTelTypeSELPAL, cTelTypeSELPAL1, cTelTypeAK35def, cTelTypeAK35defLMA, cTelTypeAK35defLF };
-  unsigned char ucRet = (unsigned char) 0;
+static uint8 ucPasSupplFilter(tRFTelType * p2Tel){
+  uint8 i;
+  const uint8 aucLearnType[] = {cTelTypeSELPAL, cTelTypeSELPAL1, cTelTypeAK35def, cTelTypeAK35defLMA, cTelTypeAK35defLF };
+  uint8 ucRet = (uint8) 0;
 
-    for( i = ((unsigned char) 0); i < sizeof(aucLearnType);  i++){
+    for( i = ((uint8) 0); i < sizeof(aucLearnType);  i++){
       if(aucLearnType[i] == p2Tel->AK35def .ucCmdID ){
-        ucRet = (unsigned char) 0xFF;
+        ucRet = (uint8) 0xFF;
         break;
       }
     }
@@ -2196,8 +2193,8 @@ static unsigned char ucPasSupplFilter(tRFTelType * p2Tel){
 }
 
 static void MergeWPandPWP(void){
-  unsigned char i;
-  for( i = (unsigned char) 0; i < cMaxLR ;i++){
+  uint8 i;
+  for( i = (uint8) 0; i < cMaxLR ;i++){
 #ifndef WAModulTest
     if(aucHistoryWP [i] > cWheelPos_RR  ){
       aucWPorPWP[i] = USEui8PWPofHistCol (i);
@@ -2210,7 +2207,7 @@ static void MergeWPandPWP(void){
   }
 }
 
-unsigned char * GETpucStartAdrWPorPWP(void){
+uint8* GETpucStartAdrWPorPWP(void){
   MergeWPandPWP ();
   return aucWPorPWP;
 }
@@ -2225,29 +2222,29 @@ uint8 GETucWPorPWPofHistCol(uint8 ucCol){
   }
 }
 
-unsigned short GETushWAState(void){
-  return ((unsigned short) (ucWAStateHi << 8) + (unsigned short) ucWAState);
+uint16 GETushWAState(void){
+  return ((uint16) (ucWAStateHi << 8) + (uint16) ucWAState);
 }
 
-unsigned char WAInitByDiag(WAParNCfgType * p2ParNCfg){
-  ucWAState &= (unsigned char) ~(cWAStateZO);
-  ucWAState &= (unsigned char) ~(cWAStateER);
-  ucWAState &= (unsigned char) ~(cWAStateActive);
-  ucWAStateHi = (unsigned char) 0;
+uint8 WAInitByDiag(WAParNCfgType * p2ParNCfg){
+  ucWAState &= (uint8) ~(cWAStateZO);
+  ucWAState &= (uint8) ~(cWAStateER);
+  ucWAState &= (uint8) ~(cWAStateActive);
+  ucWAStateHi = (uint8) 0;
   SetWAStateZOChange(0);
   ushDriveTimeInSec = 0;
   ushDriveTimeOverPalMax = 0;
   ucLearnMode = p2ParNCfg ->ucWACfg ;
   ClearAlLearNLocatError(cAll);
   ClearZOM(cSumWE);
-  GetWADataEE(cWAParameter, (unsigned char *) &tWAPar , (unsigned char) sizeof(WAParameter));
-  if((ucHistInConsist () > (unsigned char) 0) && ((cAL_OK == tWAPar.AL_State ) || (cAL_Stored == tWAPar.AL_State) || (cAL_Error == tWAPar.AL_State))){
+  GetWADataEE(cWAParameter, (uint8 *) &tWAPar , (uint8) sizeof(WAParameter));
+  if((ucHistInConsist () > (uint8) 0) && ((cAL_OK == tWAPar.AL_State ) || (cAL_Stored == tWAPar.AL_State) || (cAL_Error == tWAPar.AL_State))){
     tWAPar.AL_State = cAL_Unknown ;
-    PutWADataEE(cWAParameter, (unsigned char *) &tWAPar , (unsigned char) sizeof(WAParameter));
+    PutWADataEE(cWAParameter, (uint8 *) &tWAPar , (uint8) sizeof(WAParameter));
   }
-  else if(((unsigned char) 0) == ucHistInConsist ()){
+  else if(((uint8) 0) == ucHistInConsist ()){
     tWAPar.AL_State = cAL_OK ;
-    PutWADataEE(cWAParameter, (unsigned char *) &tWAPar , (unsigned char) sizeof(WAParameter));
+    PutWADataEE(cWAParameter, (uint8 *) &tWAPar , (uint8) sizeof(WAParameter));
   }
   ucDAGLearnState = Autolearn_Learning ;
   Very1stABSTickIinit();
@@ -2259,7 +2256,7 @@ static uint8 considerationeDiAssegnazioneCostretto(void){
   uint8 ui8ChangeWPSlot = ucForceAutoLocate ();
   if((uint8) 1 == ucNrOfBitSet ((uint16) ui8ChangeWPSlot )){
     ucWAStateHi |= ui8ChangeWPSlot;
-    PutWADataEE(cHistoryWPSet1, aucHistoryWP, (unsigned char) sizeof(aucHistoryWP));
+    PutWADataEE(cHistoryWPSet1, aucHistoryWP, (uint8) sizeof(aucHistoryWP));
        return (ui8ChangeWPSlot);
   }
   return((uint8) 0);
@@ -2330,19 +2327,19 @@ static uint16 ui16NewIdFits(uint16 ushNewID, uint16 ushHistSet){
 static uint8 ui8AnyHistIdMissing(void){
    uint8 i;
    for(i = 0; i < cMaxLR ; i++){
-      if(ucFindMissingHistoryIDs(&aulHistoryID[i],ucDefMinCt4HistER, cSumWE ) > ((unsigned char) 0) ){
+      if(ucFindMissingHistoryIDs(&aulHistoryID[i],ucDefMinCt4HistER, cSumWE ) > ((uint8) 0) ){
          return ((uint8) 0xFF);
       }
    }
    return ((uint8) 0);
 }
 
-static unsigned short  ushLqiTribute(unsigned short ushCandidate){
-  unsigned char i;
+static uint16  ushLqiTribute(uint16 ushCandidate){
+  uint8 i;
   for(i = 0; i < cSumWE; i++){
     if(((1 << i) & ushCandidate) > 0){
       if(ucGetZomLqi(i) <= ucDAG_LQIParameter()){
-        ushCandidate &= (unsigned short)(~(1 << i));
+        ushCandidate &= (uint16)(~(1 << i));
       }
     }
   }
@@ -2350,7 +2347,7 @@ static unsigned short  ushLqiTribute(unsigned short ushCandidate){
 }
 
 #ifdef WAModulTest
-void TESTPutDriveTimeInSec(unsigned short ushTimeInSec){
+void TESTPutDriveTimeInSec(uint16 ushTimeInSec){
   ushDriveTimeInSec = ushTimeInSec;
 }
 

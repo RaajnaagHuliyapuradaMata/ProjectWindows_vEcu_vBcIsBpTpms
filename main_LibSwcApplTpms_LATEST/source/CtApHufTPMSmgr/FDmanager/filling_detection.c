@@ -199,8 +199,7 @@ void FillingDetectionMFD(uint8 ucRestartAnzeige){
          PUTucOnceCheckMissingRE4FD(0);
          DelWarnOfId(4);
       }
-      else
-      {
+      else{
 
          if(GETucTimer4MsgDispRq() == 0){
 
@@ -267,8 +266,7 @@ void FillingDetectionAFDII(void){
                   }
                }
             }
-            else
-            {
+            else{
 
                if(ushGetCurrentECUParkingTime() >= cT_STANBY ){
                   if((bGetBitFahrzeugzustandFZZ(cKFZPARKING_START_AFD ) == FALSE) && (bGetBitFahrzeugzustandFZZ( cKL_15_EIN ) == TRUE)){
@@ -309,8 +307,7 @@ void FillingDetectionAFDII(void){
                      PUTushZomTioFreeze(0);
                   }
                }
-               else
-               {
+               else{
                   if(((bGetBitBetriebszustandBZ(cZO_FINISH) == TRUE ) || (bGetBitBetriebszustandBZ(cZO_TIMEOUT) == TRUE)) && (GETucFDcheckP2PosOk() >= 1)){
 
                         if(GETucFDcheckP2PosOk() == 1){
@@ -340,22 +337,19 @@ void FillingDetectionAFDII(void){
                }
             }
          }
-         else
-         {
+         else{
             ClearBitCalNotAckState(cCAL_FBM_ACTIV_NAK);
             FD_UpdateComparePressureAfterFBM();
          }
       }
-      else
-      {
+      else{
 
          if((GETushFDtimeout()  == 0 ) && (bGetBitBetriebszustandBZ(cCAL_REQUEST) == TRUE) && (bGETucCalRequestState(cCAL_AUTO_ENABLE2) == TRUE) ){
             FillingDetectionMFD(FALSE);
          }
       }
    }
-   else
-   {
+   else{
       FD_AfdStopp4PWP();
    }
 }
@@ -398,8 +392,7 @@ void FillingDetectionAFDIII(uint8 ucFastDeflation){
                   PUTushSupervisoryTimerFD(cFD_TIME_OUT);
                   PUTucFDtimerStop(FALSE);
                }
-               else
-               {
+               else{
                   if(GetOneReCnt4FD() == TRUE){
 
 #ifdef AVG_PRESS_ENABLED
@@ -420,8 +413,7 @@ void FillingDetectionAFDIII(uint8 ucFastDeflation){
                }
             }
          }
-         else
-         {
+         else{
 
             if((bGETucCalRequestState(cCAL_AUTO_ACTIV) == TRUE) && (bGETucCalRequestState(cCAL_AUTO_ENABLE2) == FALSE)){
                if((bGetBitFahrzeugzustandFZZ( cKFZFAEHRT_20KMH ) == TRUE ) && (bGETucCalRequestState(cCAL_AUTO_ENABLE3) == FALSE)){
@@ -431,15 +423,13 @@ void FillingDetectionAFDIII(uint8 ucFastDeflation){
          }
 
       }
-      else
-      {
+      else{
          ClearBitCalNotAckState(cCAL_FBM_ACTIV_NAK);
          FD_UpdateComparePressureAfterFBM();
       }
 
    }
-   else
-   {
+   else{
       FD_AfdStopp4PWP();
    }
 }
@@ -457,8 +447,7 @@ uint8 ucTmpPiso4Cal;
       PUTushFDtimeout(0);
       PUTucFDtimerStop(TRUE);
    }
-   else
-   {
+   else{
        if(GETucRErecCounter4FDVL() >= 3){
          ucRePosStorageVL4FD=ucColOfID;
          ucTmpPiso4Cal= GetP4NewTempAtCAL(((uint8) GETuiStoragePaverege4CompareValue(ucColOfID)),GETscIdCalTemperatur(ucColOfID), GETscTref());
@@ -471,8 +460,7 @@ uint8 ucTmpPiso4Cal;
                }
              }
          }
-         else
-         {
+         else{
             if((GETucPosComparePressure(cRadPosVL) - ucTmpPiso4Cal) >= cDP_FILL){
                if((ucLTSmode == cLTS30Days) && (GETucCnt4DP_FILL_DFL4LTSlogged() == FALSE)){
                   PUTucCnt4DP_FILL_DFL4LTSlogged();
@@ -501,8 +489,7 @@ uint8 ucTmpPiso4Cal;
       PUTushFDtimeout(0);
       PUTucFDtimerStop(TRUE);
    }
-   else
-   {
+   else{
        if(GETucRErecCounter4FDVR() >= 3){
          ucRePosStorageVR4FD=ucColOfID;
          ucTmpPiso4Cal= GetP4NewTempAtCAL(((uint8) GETuiStoragePaverege4CompareValue(ucColOfID)),GETscIdCalTemperatur(ucColOfID), GETscTref());
@@ -514,8 +501,7 @@ uint8 ucTmpPiso4Cal;
                }
              }
          }
-         else
-         {
+         else{
             if((GETucPosComparePressure(cRadPosVR) - ucTmpPiso4Cal) >= cDP_FILL){
                if((ucLTSmode == cLTS30Days) && (GETucCnt4DP_FILL_DFL4LTSlogged() == FALSE)){
                   PUTucCnt4DP_FILL_DFL4LTSlogged();
@@ -543,8 +529,7 @@ uint8 ucTmpPiso4Cal;
       PUTushFDtimeout(0);
       PUTucFDtimerStop(TRUE);
    }
-   else
-   {
+   else{
        if(GETucRErecCounter4FDHL() >= 3){
          ucRePosStorageHL4FD=ucColOfID;
          ucTmpPiso4Cal= GetP4NewTempAtCAL(((uint8) GETuiStoragePaverege4CompareValue(ucColOfID)),GETscIdCalTemperatur(ucColOfID), GETscTref());
@@ -556,8 +541,7 @@ uint8 ucTmpPiso4Cal;
                }
              }
          }
-         else
-         {
+         else{
             if((GETucPosComparePressure(cRadPosHL) - ucTmpPiso4Cal) >= cDP_FILL){
                if((ucLTSmode == cLTS30Days) && (GETucCnt4DP_FILL_DFL4LTSlogged() == FALSE)){
                   PUTucCnt4DP_FILL_DFL4LTSlogged();
@@ -585,8 +569,7 @@ uint8 ucTmpPiso4Cal;
       PUTushFDtimeout(0);
       PUTucFDtimerStop(TRUE);
    }
-   else
-   {
+   else{
        if(GETucRErecCounter4FDHR() >= 3){
          ucRePosStorageHR4FD=ucColOfID;
          ucTmpPiso4Cal= GetP4NewTempAtCAL(((uint8) GETuiStoragePaverege4CompareValue(ucColOfID)),GETscIdCalTemperatur(ucColOfID), GETscTref());
@@ -598,8 +581,7 @@ uint8 ucTmpPiso4Cal;
                }
              }
          }
-         else
-         {
+         else{
             if((GETucPosComparePressure(cRadPosHR) - ucTmpPiso4Cal) >= cDP_FILL){
                if((ucLTSmode == cLTS30Days) && (GETucCnt4DP_FILL_DFL4LTSlogged() == FALSE)){
                   PUTucCnt4DP_FILL_DFL4LTSlogged();
@@ -627,8 +609,7 @@ void FD_AbortFillingDetection(uint8 ucNotAckState){
          SetState2FillingDetectionStateFD(cFILLING_DETECT_ABORTED);
          SetBitCalNotAckState2Ram(cCAL_P_MIN_TIRE_NAK);
       }
-      else
-      {
+      else{
          if(ucNotAckState != cCAL_AUTO_NEW_ID){
             ClearBitCalRequestState(cCAL_AUTO_NEW_ID);
          }
@@ -645,8 +626,7 @@ void FD_AbortFillingDetection(uint8 ucNotAckState){
       if((FD_TimeoutHandle4AFD() == TRUE) && (bGETucCalRequestState(cCAL_AUTO_ACTIV))){
          FD_Check3ReAndUpdatePifWarnLampOnOffDefOrInf2Re4FinishedAFD();
       }
-      else
-      {
+      else{
 
          SetState2AbortReasonFD(cFD_TIMEOUT);
          SetState2FillingDetectionStateFD(cFILLING_DETECT_ABORTED);
@@ -681,8 +661,7 @@ void FD_CalcAverageP4MFD(uint8 ucREcnt4FD,uint8 ucLastReceivedP, uint8 ucColOfID
          PUTucIdCalPressure(uiPaverage,ucColOfID);
          PUTuiStoragePaverege4CompareValue(uiPaverege4CompareValue,ucColOfID);
       }
-      else
-      {
+      else{
          if(ucREcnt4FD < 250){
             uiPaverage=(uint16)(GETucIdCalPressure(ucColOfID) * (ucREcnt4FD-1));
             uiPaverege4CompareValue=(GETuiStoragePaverege4CompareValue(ucColOfID) * (ucREcnt4FD-1));
@@ -716,14 +695,12 @@ uint8 FD_CheckP4AFDstartReason2_3FA( uint8 ucCurrentPressure,uint8 ucREcnt4FD, s
             SetState2AbortReasonFD(cFD_P_MIN_TIRE);
 
          }
-         else
-         {
+         else{
             if( ucCurrentPressure < (GETucPcalMinVaRelativCodOfRam() - cDP_AUTO)){
 
                SetState2AbortReasonFD(cFD_DP_AUTO);
             }
-            else
-            {
+            else{
                if(scCurrentTireTemp > (GETscOutdoorTemperatureFZZ() + 30)){
                   SetBitCalNotAckState2Ram(cCAL_RE30K2AMBIENT);
                   SetState2AbortReasonFD(cFD_TIRE2HOT);
@@ -735,8 +712,7 @@ uint8 FD_CheckP4AFDstartReason2_3FA( uint8 ucCurrentPressure,uint8 ucREcnt4FD, s
          ClearPlausiFailureFD();
       }
    }
-    else
-   {
+    else{
       if(ucREcnt4FD == 1){
 
          PUTucDpStabiPressure(ucCurrentPressure,ucColOfID);
@@ -746,8 +722,7 @@ uint8 FD_CheckP4AFDstartReason2_3FA( uint8 ucCurrentPressure,uint8 ucREcnt4FD, s
          PUTscIdCalTemperatur(scCurrentTireTemp,ucColOfID);
 #endif
       }
-      else
-      {
+      else{
          if(ucREcnt4FD != 0){
 
             if(ucREcnt4FD == 0xFF){
@@ -759,8 +734,7 @@ uint8 FD_CheckP4AFDstartReason2_3FA( uint8 ucCurrentPressure,uint8 ucREcnt4FD, s
                   ucRtn=FALSE;
                }
             }
-            else
-            {
+            else{
 #ifdef as_16BitP4Average
                uiPaverage=(uint16)(GETucIdCalPressure(ucColOfID) * (ucREcnt4FD-1));
                uiPaverege4CompareValue=(GETuiStoragePaverege4CompareValue(ucColOfID) * (ucREcnt4FD-1));
@@ -803,14 +777,12 @@ uint8 FD_CheckP4AFDstartReason2_3RA( uint8 ucCurrentPressure,uint8 ucREcnt4FD, s
             SetState2AbortReasonFD(cFD_P_MIN_TIRE);
 
          }
-         else
-         {
+         else{
             if( ucCurrentPressure < (GETucPcalMinHaRelativCodOfRam() - cDP_AUTO)){
 
                SetState2AbortReasonFD(cFD_DP_AUTO);
             }
-            else
-            {
+            else{
                if(scCurrentTireTemp > (GETscOutdoorTemperatureFZZ() + 30)){
                   SetBitCalNotAckState2Ram(cCAL_RE30K2AMBIENT);
                   SetState2AbortReasonFD(cFD_TIRE2HOT);
@@ -822,8 +794,7 @@ uint8 FD_CheckP4AFDstartReason2_3RA( uint8 ucCurrentPressure,uint8 ucREcnt4FD, s
          ClearPlausiFailureFD();
       }
    }
-    else
-   {
+    else{
       if(ucREcnt4FD==1){
          PUTucDpStabiPressure(ucCurrentPressure,ucColOfID);
 #ifdef as_16BitP4Average
@@ -832,8 +803,7 @@ uint8 FD_CheckP4AFDstartReason2_3RA( uint8 ucCurrentPressure,uint8 ucREcnt4FD, s
          PUTscIdCalTemperatur(scCurrentTireTemp,ucColOfID);
 #endif
       }
-      else
-      {
+      else{
          if(ucREcnt4FD != 0){
             if(ucREcnt4FD == 0xFF){
                if(ucCurrentPressure < (GETucDpStabiPressure(ucColOfID) - cDP_STABI)){
@@ -844,8 +814,7 @@ uint8 FD_CheckP4AFDstartReason2_3RA( uint8 ucCurrentPressure,uint8 ucREcnt4FD, s
                   ucRtn=FALSE;
                }
             }
-            else
-            {
+            else{
 
 #ifdef as_16BitP4Average
                uiPaverage=(uint16)(GETucIdCalPressure(ucColOfID) * (ucREcnt4FD-1));
@@ -966,8 +935,7 @@ void FD_PlausibilityCheckMFD(sint8 scTemperaturOutside){
 #endif
 
       }
-      else
-      {
+      else{
 
          SetState2FillingDetectionStateFD(cFILLING_UNPLAUSIBLE);
 
@@ -984,8 +952,7 @@ void FD_PlausibilityCheckMFD(sint8 scTemperaturOutside){
             PUTucPosComparePressure(GetP4NewTempAtCAL(((uint8)GETuiStoragePaverege4CompareValue(ucColOfIdHR)),GETscIdCalTemperatur(ucColOfIdHR), GETscTref()),cRadPosHR);
 
           }
-         else
-         {
+         else{
             if((bGetBitBetriebszustandBZ(cCAL_FINISH) != TRUE) && (bGETucCalRequestState(cCAL_AUTO_ACTIV)== TRUE)){
                SetBitBetriebszustandBZ(cCAL_AFD_PLAUSI_ERROR);
                BZ_FZZ_RQ_State4AFD_Finish();
@@ -993,8 +960,7 @@ void FD_PlausibilityCheckMFD(sint8 scTemperaturOutside){
          }
       }
    }
-   else
-   {
+   else{
       SetState2PlausiFailureFD(cFD_FALL_BACK_NOPOS);
       if((bGetBitBetriebszustandBZ(cCAL_FINISH) != TRUE) && (bGETucCalRequestState(cCAL_MANUAL_ACTIV)== TRUE)){
 
@@ -1051,8 +1017,7 @@ void FD_UnplausibleMFD(void){
       PUTucPosComparePressure(GetP4NewTempAtCAL(((uint8)GETuiStoragePaverege4CompareValue(ucColOfIdHR)),GETscIdCalTemperatur(ucColOfIdHR), GETscTref()),cRadPosHR);
 
    }
-   else
-   {
+   else{
       SetState2PlausiFailureFD(cFD_FALL_BACK_NOPOS);
       if((bGetBitBetriebszustandBZ(cCAL_FINISH) != TRUE) && (bGETucCalRequestState(cCAL_MANUAL_ACTIV)== TRUE)){
 
@@ -1086,8 +1051,7 @@ void FD_Check3RePlausiSetMilage4FinishedMFD(void){
 
          FD_UnplausibleMFD();
       }
-      else
-      {
+      else{
          FD_PlausibilityCheckMFD((sint8)(tEnvDataToSend.ucTempOut));
          PUTucOnceCheckMissingRE4FD(TRUE);
       }
@@ -1111,8 +1075,7 @@ void FD_Check3ReAndUpdatePifWarnLampOnOffDefOrInf2Re4FinishedAFD(void){
          if(bGETucCalRequestState(cCAL_AUTO_ENABLE2) == TRUE){
             SetState2FillingDetectionStateFD(cAFD_RUNNING2);
          }
-         else
-         {
+         else{
             if(bGETucCalRequestState(cCAL_AUTO_ENABLE3) == TRUE){
                SetState2FillingDetectionStateFD(cAFD_RUNNING3);
             }
@@ -1125,8 +1088,7 @@ void FD_Check3ReAndUpdatePifWarnLampOnOffDefOrInf2Re4FinishedAFD(void){
          if(GETushWarnstatus1WN() == FALSE){
             FD_UpdatePressure4AfdWarnLampOFF(ucDeflationLTS, GETucCnt4DP_FILL_IFL(), (sint8)(tEnvDataToSend.ucTempOut) );
          }
-         else
-         {
+         else{
             FD_UpdatePressure4AfdWarnLampON(GETucCnt4DP_FILL_IFL(), (sint8)(tEnvDataToSend.ucTempOut) );
          }
 
@@ -1213,14 +1175,12 @@ void FD_UpdatePressure4AfdWarnLampON( uint8 ucAfd_Inflated, sint8 scTemperaturOu
                ucRePosStorageHR4FD=ucColOfIdHR;
             }
          }
-         else
-         {
+         else{
 
             SetState2FillingDetectionStateFD(cFILLING_DETECTED);
          }
       }
-      else
-      {
+      else{
          if((ucAfd_Inflated & 0x0F) == 1){
             SetState2FillingDetectionStateFD(cFILLING_NOT_DETECTED);
 
@@ -1235,13 +1195,11 @@ void FD_UpdatePressure4AfdWarnLampON( uint8 ucAfd_Inflated, sint8 scTemperaturOu
             ucRePosStorageHR4FD=ucColOfIdHR;
 
          }
-         else
-         {
+         else{
             if((GETaucWheelPosWarn(cRadPosVL) != FALSE) || (GETaucWheelPosWarn(cRadPosVR) != FALSE) || (GETaucWheelPosWarn(cRadPosHL) != FALSE) || (GETaucWheelPosWarn(cRadPosHR) != FALSE)){
                SetState2FillingDetectionStateFD(cFD_ACTIV_WARNING);
             }
-            else
-            {
+            else{
                SetState2FillingDetectionStateFD(cFILLING_NOT_DETECTED);
             }
 
@@ -1300,8 +1258,7 @@ void FD_UpdatePressure4AfdWarnLampON( uint8 ucAfd_Inflated, sint8 scTemperaturOu
                DelWarnOfId(4);
                ReplayLastREvalue2Walgo();
             }
-            else
-            {
+            else{
 
                SetState2FillingDetectionStateFD(cFILLING_UNPLAUSIBLE);
                 SetBitBetriebszustandBZ(cCAL_AFD_PLAUSI_ERROR);
@@ -1319,14 +1276,12 @@ void FD_UpdatePressure4AfdWarnLampON( uint8 ucAfd_Inflated, sint8 scTemperaturOu
 
             }
          }
-         else
-         {
+         else{
             ClearBitBetriebszustandBZ(cCAL_AFD_PLAUSI_ERROR);
             BZ_FZZ_RQ_State4AFD_Finish();
          }
    }
-   else
-   {
+   else{
       BZ_FZZ_RQ_State4AFD_Finish();
    }
 }
@@ -1417,8 +1372,7 @@ void FD_UpdatePressure4AfdWarnLampOFF(uint8 ucAfd_Deflated, uint8 ucAfd_Inflated
                ReplayLastREvalue2Walgo();
 
             }
-            else
-            {
+            else{
 
                SetState2FillingDetectionStateFD(cFILLING_UNPLAUSIBLE);
                SetBitBetriebszustandBZ(cCAL_AFD_PLAUSI_ERROR);
@@ -1437,8 +1391,7 @@ void FD_UpdatePressure4AfdWarnLampOFF(uint8 ucAfd_Deflated, uint8 ucAfd_Inflated
 
             }
          }
-         else
-         {
+         else{
 
             SetState2FillingDetectionStateFD(cFILLING_NOT_DETECTED);
 
@@ -1449,8 +1402,7 @@ void FD_UpdatePressure4AfdWarnLampOFF(uint8 ucAfd_Deflated, uint8 ucAfd_Inflated
                   if((ucAfd_Deflated & 0x80) == 0x80){
                      SetState2FillingDetectionStateFD(cFD_LTS30DAYS);
                   }
-                  else
-                  {
+                  else{
                      if(GETulLastCalMileage() == c_FFFFkm){
                         if(FD_Plausibility_CheckP4DPLR_DPABS(ucColOfIdVL,ucColOfIdVR,ucColOfIdHL,ucColOfIdHR) == FALSE){
 
@@ -1459,8 +1411,7 @@ void FD_UpdatePressure4AfdWarnLampOFF(uint8 ucAfd_Deflated, uint8 ucAfd_Inflated
                            ucRtn = FALSE;
                         }
                      }
-                     else
-                     {
+                     else{
                         if(GETulKmStand4AutoCAL() <= (GETulLastCalMileage() + c_100km)){
                            SetState2FillingDetectionStateFD(cFD_MILEAGE2SMALL);
                         }
@@ -1491,8 +1442,7 @@ void FD_UpdatePressure4AfdWarnLampOFF(uint8 ucAfd_Deflated, uint8 ucAfd_Inflated
             ReplayLastREvalue2Walgo();
          }
    }
-   else
-   {
+   else{
       BZ_FZZ_RQ_State4AFD_Finish();
    }
 }
@@ -1546,8 +1496,7 @@ void FD_UpdateComparePressureAtWarning(uint8 ucTPM_WarnDisp_Rq4CmpP){
                      ucStoreCompValueVL=TRUE;
                      ucRtn=TRUE;
                    }
-                  else
-                  {
+                  else{
                      if(ucStoreCompValueVL == TRUE){
                         if(GETucPosComparePressure(cRadPosVL) > ucPcompareVL){
                            if((GETucPosComparePressure(cRadPosVL) - ucPcompareVL) >= cDP_STABI){
@@ -1566,8 +1515,7 @@ void FD_UpdateComparePressureAtWarning(uint8 ucTPM_WarnDisp_Rq4CmpP){
                      ucStoreCompValueVR=TRUE;
                      ucRtn=TRUE;
                   }
-                  else
-                  {
+                  else{
                      if(ucStoreCompValueVR == TRUE){
                         if(GETucPosComparePressure(cRadPosVR) > ucPcompareVR){
                            if((GETucPosComparePressure(cRadPosVR) - ucPcompareVR) >= cDP_STABI){
@@ -1586,8 +1534,7 @@ void FD_UpdateComparePressureAtWarning(uint8 ucTPM_WarnDisp_Rq4CmpP){
                       ucStoreCompValueHL=TRUE;
                      ucRtn=TRUE;
                   }
-                  else
-                  {
+                  else{
                      if(ucStoreCompValueHL == TRUE){
                         if(GETucPosComparePressure(cRadPosHL) > ucPcompareHL){
                            if((GETucPosComparePressure(cRadPosHL) - ucPcompareHL) >= cDP_STABI){
@@ -1606,8 +1553,7 @@ void FD_UpdateComparePressureAtWarning(uint8 ucTPM_WarnDisp_Rq4CmpP){
                       ucStoreCompValueHR=TRUE;
                      ucRtn=TRUE;
                   }
-                  else
-                  {
+                  else{
                      if(ucStoreCompValueHR == TRUE){
                         if(GETucPosComparePressure(cRadPosHR) > ucPcompareHR){
                            if((GETucPosComparePressure(cRadPosHR) - ucPcompareHR) >= cDP_STABI){
@@ -1628,8 +1574,7 @@ void FD_UpdateComparePressureAtWarning(uint8 ucTPM_WarnDisp_Rq4CmpP){
                      SetState2AbortReasonFD(cFD_P_MIN_TIRE);
                      SetState2FillingDetectionStateFD(cFILLING_DETECT_ABORTED);
                   }
-                  else
-                  {
+                  else{
                      if(   GETucCalNotAckStateOfRam() ==  cCAL_P_MIN_TIRE_NAK){
                         ClearCalNotAckState4MFD();
                         ClearAbortReasonFD();
@@ -1644,16 +1589,14 @@ void FD_UpdateComparePressureAtWarning(uint8 ucTPM_WarnDisp_Rq4CmpP){
             }
          }
       }
-      else
-      {
+      else{
          ucStoreCompValueVL=FALSE;
          ucStoreCompValueVR=FALSE;
          ucStoreCompValueHL=FALSE;
          ucStoreCompValueHR=FALSE;
       }
    }
-   else
-   {
+   else{
       FD_AfdStopp4PWP();
    }
 
@@ -1728,15 +1671,13 @@ uint8 FD_UpdateComparePressureAfterFBM(void){
             SetState2AbortReasonFD(cFD_P_MIN_TIRE);
             SetState2FillingDetectionStateFD(cFILLING_DETECT_ABORTED);
          }
-         else
-         {
+         else{
             ClearFillingDetectionStateFD();
             ClearPlausiFailureFD();
             ClearAbortReasonFD();
          }
       }
-      else
-      {
+      else{
          ucRtn = FALSE;
       }
    }
@@ -1969,8 +1910,7 @@ uint8 FD_TimeoutHandle4AFD(void){
             if(FD_CheckP4AFDstartReason2_3FA(ucPvonReDVL,0xFF,scTvonReDVL,ucColOfIdVL) == FALSE){
                ucRtn = FALSE;
             }
-            else
-            {
+            else{
 
                if(ucReCounter4FDVL >= 3){
                   ucTmpPiso4Cal= GetP4NewTempAtCAL(((uint8) GETuiStoragePaverege4CompareValue(ucColOfIdVL)),scTvonReDVL, GETscTref());
@@ -1982,8 +1922,7 @@ uint8 FD_TimeoutHandle4AFD(void){
                         }
                       }
                   }
-                  else
-                  {
+                  else{
                      if((GETucPosComparePressure(cRadPosVL) - ucTmpPiso4Cal) >= cDP_FILL){
                         if(GETucCnt4DP_FILL_DFLloggedFL() == FALSE){
                            INCucCnt4DP_FILL_DFL();
@@ -2011,8 +1950,7 @@ uint8 FD_TimeoutHandle4AFD(void){
             if(FD_CheckP4AFDstartReason2_3FA(ucPvonReDVR,0xFF,scTvonReDVR,ucColOfIdVR) == FALSE){
                ucRtn = FALSE;
             }
-            else
-            {
+            else{
 
                if(ucReCounter4FDVR >= 3){
                   ucTmpPiso4Cal= GetP4NewTempAtCAL(((uint8) GETuiStoragePaverege4CompareValue(ucColOfIdVR)),scTvonReDVR, GETscTref());
@@ -2024,8 +1962,7 @@ uint8 FD_TimeoutHandle4AFD(void){
                         }
                       }
                   }
-                  else
-                  {
+                  else{
                      if((GETucPosComparePressure(cRadPosVR) - ucTmpPiso4Cal) >= cDP_FILL){
                         INCucCnt4DP_FILL_DFL();
                      }
@@ -2051,8 +1988,7 @@ uint8 FD_TimeoutHandle4AFD(void){
             if(FD_CheckP4AFDstartReason2_3RA(ucPvonReDHL,0xFF,scTvonReDHL,ucColOfIdHL) == FALSE){
                ucRtn = FALSE;
             }
-            else
-            {
+            else{
 
                if(ucReCounter4FDHL >= 3){
                   ucTmpPiso4Cal= GetP4NewTempAtCAL(((uint8) GETuiStoragePaverege4CompareValue(ucColOfIdHL)),scTvonReDHL, GETscTref());
@@ -2064,8 +2000,7 @@ uint8 FD_TimeoutHandle4AFD(void){
                         }
                       }
                   }
-                  else
-                  {
+                  else{
                      if((GETucPosComparePressure(cRadPosHL) - ucTmpPiso4Cal) >= cDP_FILL){
                         if(GETucCnt4DP_FILL_DFLloggedRL() == FALSE){
                            INCucCnt4DP_FILL_DFL();
@@ -2095,8 +2030,7 @@ uint8 FD_TimeoutHandle4AFD(void){
             if(FD_CheckP4AFDstartReason2_3RA(ucPvonReDHR,0xFF,scTvonReDHR,ucColOfIdHR) == FALSE){
                ucRtn = FALSE;
             }
-            else
-            {
+            else{
 
                if(ucReCounter4FDHR >= 3){
                   ucTmpPiso4Cal= GetP4NewTempAtCAL(((uint8) GETuiStoragePaverege4CompareValue(ucColOfIdHR)),scTvonReDHR, GETscTref());
@@ -2108,8 +2042,7 @@ uint8 FD_TimeoutHandle4AFD(void){
                         }
                       }
                   }
-                  else
-                  {
+                  else{
                      if((GETucPosComparePressure(cRadPosHR) - ucTmpPiso4Cal) >= cDP_FILL){
                         if(GETucCnt4DP_FILL_DFLloggedRR() == FALSE){
                            INCucCnt4DP_FILL_DFL();
@@ -2172,8 +2105,7 @@ uint8 FD_LoadIdValues4UpdateCompareValue(void){
                   ucPmin|=cFD_Pmin_FL;
                }
             }
-            else
-            {
+            else{
                ucRtn = FALSE;
             }
          }
@@ -2190,8 +2122,7 @@ uint8 FD_LoadIdValues4UpdateCompareValue(void){
                   ucPmin|=cFD_Pmin_FR;
                }
             }
-            else
-            {
+            else{
                ucRtn = FALSE;
             }
          }
@@ -2207,8 +2138,7 @@ uint8 FD_LoadIdValues4UpdateCompareValue(void){
                   ucPmin|=cFD_Pmin_RL;
                }
             }
-            else
-            {
+            else{
                ucRtn = FALSE;
             }
          }
@@ -2224,8 +2154,7 @@ uint8 FD_LoadIdValues4UpdateCompareValue(void){
                   ucPmin|=cFD_Pmin_RR;
                }
             }
-            else
-            {
+            else{
                ucRtn = FALSE;
             }
          }
@@ -2243,8 +2172,7 @@ uint8 FD_LoadIdValues4UpdateCompareValue(void){
                   ucPmin|=cFD_Pmin_FL;
                }
             }
-            else
-            {
+            else{
                ucRtn = FALSE;
             }
 
@@ -2259,8 +2187,7 @@ uint8 FD_LoadIdValues4UpdateCompareValue(void){
                   ucPmin|=cFD_Pmin_FR;
                }
             }
-            else
-            {
+            else{
                ucRtn = FALSE;
             }
 
@@ -2274,8 +2201,7 @@ uint8 FD_LoadIdValues4UpdateCompareValue(void){
                   ucPmin|=cFD_Pmin_RL;
                }
             }
-            else
-            {
+            else{
                ucRtn = FALSE;
             }
 
@@ -2289,8 +2215,7 @@ uint8 FD_LoadIdValues4UpdateCompareValue(void){
                   ucPmin|=cFD_Pmin_RR;
                }
             }
-            else
-            {
+            else{
                ucRtn = FALSE;
             }
          }
@@ -2304,8 +2229,7 @@ uint8 FD_LoadIdValues4UpdateCompareValue(void){
                SetBitCalNotAckState2Ram(cCAL_P_MIN_TIRE_NAK);
             }
          }
-         else
-         {
+         else{
             if((ucRtn == TRUE) && ((GETucCalNotAckStateOfRam() & 0xBF) == FALSE )){
                ClearFillingDetectionStateFD();
                ClearAbortReasonFD();
@@ -2336,8 +2260,7 @@ uint8 FD_Plausibility_CheckP4DPLR_DPABS(uint8 ucZOMPosVL,uint8 ucZOMPosVR,uint8 
          SetState2PlausiFailureFD(cFD_LEFT_RIGHT_DIFFERENCE);
       }
    }
-   else
-   {
+   else{
       uiDP_REL=(GETucIdCalPressure(ucZOMPosVR) * cDP_LR);
       if(uiDP_REL > (GETucIdCalPressure(ucZOMPosVL) *100)){
          ucRtn=FALSE;
@@ -2353,8 +2276,7 @@ uint8 FD_Plausibility_CheckP4DPLR_DPABS(uint8 ucZOMPosVL,uint8 ucZOMPosVR,uint8 
             SetState2PlausiFailureFD(cFD_LEFT_RIGHT_DIFFERENCE);
       }
    }
-   else
-   {
+   else{
       uiDP_REL=(GETucIdCalPressure(ucZOMPosHR) * cDP_LR);
       if(uiDP_REL > (GETucIdCalPressure(ucZOMPosHL)  *100)){
          ucRtn=FALSE;
@@ -2375,8 +2297,7 @@ uint8 FD_Plausibility_CheckP4DPLR_DPABS(uint8 ucZOMPosVL,uint8 ucZOMPosVR,uint8 
                ucP_High= GETucIdCalPressure(ucZOMPosHR);
             }
          }
-         else
-         {
+         else{
             ucP_High= GETucIdCalPressure(ucZOMPosHL);
             if(ucP_High < GETucIdCalPressure(ucZOMPosHR)){
                ucP_High= GETucIdCalPressure(ucZOMPosHR);
@@ -2388,16 +2309,14 @@ uint8 FD_Plausibility_CheckP4DPLR_DPABS(uint8 ucZOMPosVL,uint8 ucZOMPosVR,uint8 
                ucP_Low = GETucIdCalPressure(ucZOMPosHR);
             }
          }
-         else
-         {
+         else{
             ucP_Low = GETucIdCalPressure(ucZOMPosHL);
             if(ucP_Low > GETucIdCalPressure(ucZOMPosHR)){
                ucP_Low = GETucIdCalPressure(ucZOMPosHR);
             }
          }
       }
-      else
-      {
+      else{
 
          ucP_Low = GETucIdCalPressure(ucZOMPosVL);
          ucP_High= GETucIdCalPressure(ucZOMPosVR);
@@ -2406,8 +2325,7 @@ uint8 FD_Plausibility_CheckP4DPLR_DPABS(uint8 ucZOMPosVL,uint8 ucZOMPosVR,uint8 
                ucP_High= GETucIdCalPressure(ucZOMPosHR);
             }
          }
-         else
-         {
+         else{
             ucP_High= GETucIdCalPressure(ucZOMPosHL);
             if(ucP_High < GETucIdCalPressure(ucZOMPosHR)){
                ucP_High= GETucIdCalPressure(ucZOMPosHR);
@@ -2419,8 +2337,7 @@ uint8 FD_Plausibility_CheckP4DPLR_DPABS(uint8 ucZOMPosVL,uint8 ucZOMPosVR,uint8 
                ucP_Low = GETucIdCalPressure(ucZOMPosHR);
             }
          }
-         else
-         {
+         else{
             ucP_Low = GETucIdCalPressure(ucZOMPosHL);
             if(ucP_Low > GETucIdCalPressure(ucZOMPosHR)){
                ucP_Low = GETucIdCalPressure(ucZOMPosHR);
@@ -2433,8 +2350,7 @@ uint8 FD_Plausibility_CheckP4DPLR_DPABS(uint8 ucZOMPosVL,uint8 ucZOMPosVR,uint8 
          SetBitCalNotAckState2Ram(cCAL_DP_ABS_NAK);
          SetState2PlausiFailureFD(cFD_ABSOLUTE_PRESSURE_DIFF);
       }
-      else
-      {
+      else{
          ClearBitBetriebszustandBZ(cCAL_AFD_PLAUSI_ERROR | cCAL_MFD_PLAUSI_ERROR);
          ClearPlausiFailureLeftRightAbsFD();
       }
@@ -2461,8 +2377,7 @@ void FD_CheckResetCondition4ImplausiMsg(uint8 ucZOMPosVL,uint8 ucZOMPosVR,uint8 
          ucRtn=FALSE;
       }
    }
-   else
-   {
+   else{
       uiDP_REL=(GETucIdCalPressure(ucZOMPosVR) * cDP_LR);
       if(uiDP_REL > (GETucIdCalPressure(ucZOMPosVL) *100)){
          ucRtn=FALSE;
@@ -2474,8 +2389,7 @@ void FD_CheckResetCondition4ImplausiMsg(uint8 ucZOMPosVL,uint8 ucZOMPosVR,uint8 
             ucRtn=FALSE;
       }
    }
-   else
-   {
+   else{
       uiDP_REL=(GETucIdCalPressure(ucZOMPosHR) * cDP_LR);
       if(uiDP_REL > (GETucIdCalPressure(ucZOMPosHL)  *100)){
          ucRtn=FALSE;
@@ -2494,8 +2408,7 @@ void FD_CheckResetCondition4ImplausiMsg(uint8 ucZOMPosVL,uint8 ucZOMPosVR,uint8 
                ucP_High= GETucIdCalPressure(ucZOMPosHR);
             }
          }
-         else
-         {
+         else{
             ucP_High= GETucIdCalPressure(ucZOMPosHL);
             if(ucP_High < GETucIdCalPressure(ucZOMPosHR)){
                ucP_High= GETucIdCalPressure(ucZOMPosHR);
@@ -2507,16 +2420,14 @@ void FD_CheckResetCondition4ImplausiMsg(uint8 ucZOMPosVL,uint8 ucZOMPosVR,uint8 
                ucP_Low = GETucIdCalPressure(ucZOMPosHR);
             }
          }
-         else
-         {
+         else{
             ucP_Low = GETucIdCalPressure(ucZOMPosHL);
             if(ucP_Low > GETucIdCalPressure(ucZOMPosHR)){
                ucP_Low = GETucIdCalPressure(ucZOMPosHR);
             }
          }
       }
-      else
-      {
+      else{
 
          ucP_Low = GETucIdCalPressure(ucZOMPosVL);
          ucP_High= GETucIdCalPressure(ucZOMPosVR);
@@ -2525,8 +2436,7 @@ void FD_CheckResetCondition4ImplausiMsg(uint8 ucZOMPosVL,uint8 ucZOMPosVR,uint8 
                ucP_High= GETucIdCalPressure(ucZOMPosHR);
             }
          }
-         else
-         {
+         else{
             ucP_High= GETucIdCalPressure(ucZOMPosHL);
             if(ucP_High < GETucIdCalPressure(ucZOMPosHR)){
                ucP_High= GETucIdCalPressure(ucZOMPosHR);
@@ -2538,8 +2448,7 @@ void FD_CheckResetCondition4ImplausiMsg(uint8 ucZOMPosVL,uint8 ucZOMPosVR,uint8 
                ucP_Low = GETucIdCalPressure(ucZOMPosHR);
             }
          }
-         else
-         {
+         else{
             ucP_Low = GETucIdCalPressure(ucZOMPosHL);
             if(ucP_Low > GETucIdCalPressure(ucZOMPosHR)){
                ucP_Low = GETucIdCalPressure(ucZOMPosHR);
@@ -2550,8 +2459,7 @@ void FD_CheckResetCondition4ImplausiMsg(uint8 ucZOMPosVL,uint8 ucZOMPosVR,uint8 
       if((ucP_High - ucP_Low) > cDP_Abs){
          ucRtn=FALSE;
       }
-      else
-      {
+      else{
          ClearBitBetriebszustandBZ(cCAL_AFD_PLAUSI_ERROR);
          ClearBitBetriebszustandBZ(cCAL_MFD_PLAUSI_ERROR);
          ClearPlausiFailureLeftRightAbsFD();
@@ -2591,8 +2499,7 @@ void FD_AfdStopp4PWP(void){
                SetBitCalNotAckState2Ram(cCAL_FBM_ACTIV_NAK);
          }
       }
-      else
-      {
+      else{
          if(FD_UpdateComparePressureAfterFBM() == TRUE){
             SetBitCalNotAckState2Ram(cCAL_FBM_ACTIV_NAK);
          }
@@ -2614,8 +2521,7 @@ void FD_AfdStopp4PWP(void){
        SetBitCalNotAckState2Ram(cCAL_FBM_ACTIV_NAK);
 #endif
    }
-   else
-   {
+   else{
     if((GetucTPM_WarnDisp_Rq() > 0) && (bGetBitBetriebszustandBZ(cCAL_MFD_PLAUSI_ERROR) || bGetBitBetriebszustandBZ(cCAL_AFD_PLAUSI_ERROR))){
          ClearBitBetriebszustandBZ(cCAL_AFD_PLAUSI_ERROR | cCAL_MFD_PLAUSI_ERROR);
       }
@@ -2671,8 +2577,7 @@ uint8 FD_CheckCurrentPmin(void){
          }
       }
    }
-   else
-   {
+   else{
 
       if(bGetBitBetriebszustandBZ(cER_FINISH)){
          ucRtn = FALSE;
@@ -2702,8 +2607,7 @@ uint8 FD_CheckCurrentPmin(void){
             }
          }
       }
-      else
-      {
+      else{
          ucRtn =FALSE;
       }
    }
@@ -2723,8 +2627,7 @@ uint8 FD_FlowChartFct1(void){
       ucRtn=FALSE;
 
    }
-   else
-   {
+   else{
       if(((GETucOnceCheckMissingRE4FD() == FALSE) && ((ucGetFzzCurrentLearnMode() == cNoLearn) && (bGetBitBetriebszustandBZ(cZO_TIMEOUT) == TRUE))) ||
          ((GETucOnceCheckMissingRE4FD() == FALSE) && (ucGetFzzCurrentLearnMode() != cNoLearn) && (GETushFDtimeout() == 0))){
          for(i = 0; i < cMaxLR; i++){
@@ -2739,8 +2642,7 @@ uint8 FD_FlowChartFct1(void){
             FD_AbortFillingDetection(cCAL_RE_MISSING_NAK);
          }
       }
-      else
-      {
+      else{
          if(GETucOnceCheckMissingRE4FD() == TRUE){
             ucRtn=FALSE;
          }
@@ -2783,8 +2685,7 @@ uint8 FD_FlowChartFct1CheckMissingRE(void){
          FD_AbortFillingDetection(cCAL_RE_MISSING_NAK);
       }
    }
-   else
-   {
+   else{
       if(GETucOnceCheckMissingRE4FD() == TRUE){
          ucRtn=FALSE;
       }
@@ -2932,16 +2833,14 @@ uint8 FD_CheckFDpos2ZomPosAfterZOfinish(void){
                      PUTucPosComparePressure(GetP4NewTempAtCAL(((uint8)GETuiStoragePaverege4CompareValue(ucColOfIdHR)),GETscIdCalTemperatur(ucColOfIdHR), scTfill_Tref),cRadPosHR);
 
                    }
-                  else
-                  {
+                  else{
                      ClearFillingDetectionStateFD();
                      if(GETushWarnstatus1WN() == TRUE){
                         if(Get_FD_STATUS() == FALSE){
                            SetState2FillingDetectionStateFD(cFD_ACTIV_WARNING);
                         }
                      }
-                     else
-                     {
+                     else{
 
                         SetState2FillingDetectionStateFD(cFILLING_UNPLAUSIBLE);
                         SetBitBetriebszustandBZ(cCAL_AFD_PLAUSI_ERROR);
@@ -2961,8 +2860,7 @@ uint8 FD_CheckFDpos2ZomPosAfterZOfinish(void){
 
                    }
                }
-               else
-               {
+               else{
                   if(Get_FD_STATUS() == FALSE){
                      SetState2FillingDetectionStateFD(cFILLING_NOT_DETECTED);
                   }
@@ -2974,13 +2872,11 @@ uint8 FD_CheckFDpos2ZomPosAfterZOfinish(void){
 
                }
             }
-            else
-            {
+            else{
                ucRtn = FALSE;
             }
          }
-         else
-         {
+         else{
             ucRtn = FALSE;
          }
    }
@@ -3059,8 +2955,7 @@ uint8 GETucCnt4DP_FILL_DFL4LTSlogged(void){
    if((ucLockByt4DFL_LTS & 0x80) == 0x80 ){
       return TRUE;
    }
-   else
-   {
+   else{
       return FALSE;
    }
 }
@@ -3091,8 +2986,7 @@ uint8 GETucCnt4DP_FILL_DFLloggedFL(void){
    if((ucCnt4DP_FILL_DFL & cDP_FILL_FL) != cDP_FILL_FL){
       return FALSE;
    }
-   else
-   {
+   else{
       return TRUE;
    }
 }
@@ -3106,8 +3000,7 @@ uint8 GETucCnt4DP_FILL_DFLloggedFR(void){
    if((ucCnt4DP_FILL_DFL & cDP_FILL_FR) != cDP_FILL_FR){
       return FALSE;
    }
-   else
-   {
+   else{
       return TRUE;
    }
 }
@@ -3122,8 +3015,7 @@ uint8 GETucCnt4DP_FILL_DFLloggedRL(void){
    if((ucCnt4DP_FILL_DFL & cDP_FILL_RL) != cDP_FILL_RL){
       return FALSE;
    }
-   else
-   {
+   else{
       return TRUE;
    }
 }
@@ -3137,8 +3029,7 @@ uint8 GETucCnt4DP_FILL_DFLloggedRR(void){
    if((ucCnt4DP_FILL_DFL & cDP_FILL_RR) != cDP_FILL_RR){
       return FALSE;
    }
-   else
-   {
+   else{
       return TRUE;
    }
 }
@@ -3161,8 +3052,7 @@ uint8 GETucCnt4DP_FILL_IFLloggedFL(void){
    if((ucCnt4DP_FILL_IFL & cDP_FILL_FL) != cDP_FILL_FL){
       return FALSE;
    }
-   else
-   {
+   else{
       return TRUE;
    }
 }
@@ -3176,8 +3066,7 @@ uint8 GETucCnt4DP_FILL_IFLloggedFR(void){
    if((ucCnt4DP_FILL_IFL & cDP_FILL_FR) != cDP_FILL_FR){
       return FALSE;
    }
-   else
-   {
+   else{
       return TRUE;
    }
 }
@@ -3192,8 +3081,7 @@ uint8 GETucCnt4DP_FILL_IFLloggedRL(void){
    if((ucCnt4DP_FILL_IFL & cDP_FILL_RL) != cDP_FILL_RL){
       return FALSE;
    }
-   else
-   {
+   else{
       return TRUE;
    }
 }
@@ -3207,8 +3095,7 @@ uint8 GETucCnt4DP_FILL_IFLloggedRR(void){
    if((ucCnt4DP_FILL_IFL & cDP_FILL_RR) != cDP_FILL_RR){
       return FALSE;
    }
-   else
-   {
+   else{
       return TRUE;
    }
 }
@@ -3412,8 +3299,7 @@ uint8 bGETucCalNotAckState( uint8 ucBitMask ){
   if((Rte_Pim_Pim_tCalNvMBlock()->ucCalNotAckState & ucBitMask) !=0){
       return TRUE;
    }
-   else
-   {
+   else{
       return FALSE;
    }
 }
@@ -3469,8 +3355,7 @@ uint8 bGETucCalRequestState( uint8 ucBitMask ){
   if((Rte_Pim_Pim_tCalNvMBlock()->ucCalRequestState & ucBitMask) !=0){
       return TRUE;
    }
-   else
-   {
+   else{
       return FALSE;
    }
 }

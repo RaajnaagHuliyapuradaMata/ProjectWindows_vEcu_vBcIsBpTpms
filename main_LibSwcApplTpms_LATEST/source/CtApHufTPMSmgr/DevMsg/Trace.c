@@ -879,8 +879,7 @@ void GetDebugVar2beLogged(){
      if(tEnvDataToSend.ushVehSpeed<0xFF){
       tDebugEnvDataStruct.ucVspeed = tEnvDataToSend.ushVehSpeed;
     }
-    else
-    {
+    else{
       tDebugEnvDataStruct.ucVspeed = 0xFF;
     }
 

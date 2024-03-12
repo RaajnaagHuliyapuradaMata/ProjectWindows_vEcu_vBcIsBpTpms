@@ -1,103 +1,103 @@
 
 
-#define cInitialState (unsigned char) 0
-#define cNoAxis (unsigned char) 0xCF
-#define cFrontAxis (unsigned char) 0x10
-#define cOtherAxis (unsigned char) 0x20
-#define cBackAxis (unsigned char) 0x20
-#define cNoSpin (unsigned char) 0x3F
-#define cRightSpin (unsigned char) 0x40
-#define cLeftSpin (unsigned char) 0x80
+#define cInitialState (uint8) 0
+#define cNoAxis (uint8) 0xCF
+#define cFrontAxis (uint8) 0x10
+#define cOtherAxis (uint8) 0x20
+#define cBackAxis (uint8) 0x20
+#define cNoSpin (uint8) 0x3F
+#define cRightSpin (uint8) 0x40
+#define cLeftSpin (uint8) 0x80
 
-#define cFL (unsigned char) 0
- #define cFR (unsigned char) 1
-#define cRL (unsigned char) 2
-#define cRR (unsigned char) 3
-#define cTI (unsigned char) 4
+#define cFL (uint8) 0
+ #define cFR (uint8) 1
+#define cRL (uint8) 2
+#define cRR (uint8) 3
+#define cTI (uint8) 4
 
-#define cZOMStatHistER (unsigned char) 0x10
-#define cZOMStatER (unsigned char) 0x20
-#define cZOMStatWPDec (unsigned char) 0x40
+#define cZOMStatHistER (uint8) 0x10
+#define cZOMStatER (uint8) 0x20
+#define cZOMStatWPDec (uint8) 0x40
 
 struct ZOMSlot
 {
   unsigned long ulID;
 
-  unsigned char ucStatus;
+  uint8 ucStatus;
 
-  unsigned char ucProbeCt;
-  unsigned char ucLeftCt;
-  unsigned char ucRightCt;
+  uint8 ucProbeCt;
+  uint8 ucLeftCt;
+  uint8 ucRightCt;
 
 #ifdef CONCEPT4
-  unsigned char ucFCt;
-  unsigned short ushLECt;
-  unsigned short ushSECt;
-  unsigned char ucStarTiHi;
-  unsigned short ushStarTi;
-  unsigned short ushLogTime;
+  uint8 ucFCt;
+  uint16 ushLECt;
+  uint16 ushSECt;
+  uint8 ucStarTiHi;
+  uint16 ushStarTi;
+  uint16 ushLogTime;
 #endif
 #ifdef AEC
-  unsigned char ucXPEvCt;
-  unsigned char ucZPEvCt;
-  unsigned char ucSpeed;
-  unsigned short ushPeakLogT;
-  unsigned short ushBurstStarTime;
-  unsigned char ucBCt;
-  unsigned short ushXPSum;
+  uint8 ucXPEvCt;
+  uint8 ucZPEvCt;
+  uint8 ucSpeed;
+  uint16 ushPeakLogT;
+  uint16 ushBurstStarTime;
+  uint8 ucBCt;
+  uint16 ushXPSum;
  #endif
 #ifdef FPA
-  unsigned char ucFrameCounter;
-   unsigned char ucResetABSRefFlag;
-   unsigned char ucABSRef[4];
-   unsigned short ushMVdN[4];
-   unsigned short ushPosCompVal[4];
-   unsigned short ushMVdN2[4];
-   unsigned short ushPosCompVal2[4];
+  uint8 ucFrameCounter;
+   uint8 ucResetABSRefFlag;
+   uint8 ucABSRef[4];
+   uint16 ushMVdN[4];
+   uint16 ushPosCompVal[4];
+   uint16 ushMVdN2[4];
+   uint16 ushPosCompVal2[4];
  #ifdef Test_LOG_ENABLE
-  unsigned char ucABSComp[4];
-   unsigned char  ucDeltaMin;
-   unsigned short ushRelCmpVal[4];
-   unsigned char ucToothTelCtCorrLearnBit;
-   unsigned char ucToothTelCtCorrNoLearnBit;
-   unsigned char ucToothTelCtNoCorr;
-   unsigned char ucToothTelCtNoLearnMode;
-   unsigned short ushABSRefOffset[4];
-   unsigned short ucTelCtLearnBit;
-   unsigned short ushLqi;
+  uint8 ucABSComp[4];
+   uint8  ucDeltaMin;
+   uint16 ushRelCmpVal[4];
+   uint8 ucToothTelCtCorrLearnBit;
+   uint8 ucToothTelCtCorrNoLearnBit;
+   uint8 ucToothTelCtNoCorr;
+   uint8 ucToothTelCtNoLearnMode;
+   uint16 ushABSRefOffset[4];
+   uint16 ucTelCtLearnBit;
+   uint16 ushLqi;
  #endif
-  unsigned char ucToothTelCt;
+  uint8 ucToothTelCt;
 #if(1)
-  unsigned short ushMVdN3[4];
-   unsigned short ushPosCompVal3[4];
-   unsigned short ushMVdN4[4];
-   unsigned short ushPosCompVal4[4];
+  uint16 ushMVdN3[4];
+   uint16 ushPosCompVal3[4];
+   uint16 ushMVdN4[4];
+   uint16 ushPosCompVal4[4];
  #endif
 #endif
-  unsigned short ushRssiSum;
+  uint16 ushRssiSum;
 };
 
 #ifdef WALLOC_INT
-unsigned char ucGetERState(void);
-unsigned char ucSumCtID(unsigned char ucMinCt, unsigned short *ushRet);
-void SetZOMWP(unsigned char ucIx,unsigned char ucWP);
-unsigned char bCheckHistIDReception(void);
-unsigned char ucGetHistoryState(void);
-unsigned short ushAlignZOM(unsigned short ushERSlot);
-unsigned char ucNrOfBitSet(unsigned short ushTarget);
-void PutLocatError(unsigned char ucTipicoDiErrori, unsigned char ucZomSlot);
-unsigned char ucGetLocatError(unsigned char ucZomSlot);
+uint8 ucGetERState(void);
+uint8 ucSumCtID(uint8 ucMinCt, uint16 *ushRet);
+void SetZOMWP(uint8 ucIx,uint8 ucWP);
+uint8 bCheckHistIDReception(void);
+uint8 ucGetHistoryState(void);
+uint16 ushAlignZOM(uint16 ushERSlot);
+uint8 ucNrOfBitSet(uint16 ushTarget);
+void PutLocatError(uint8 ucTipicoDiErrori, uint8 ucZomSlot);
+uint8 ucGetLocatError(uint8 ucZomSlot);
 
 WAParameter tWAPar;
 struct ZOMSlot tZOM[cSumWE];
 #else
-extern unsigned char ucGetERState(void);
-extern unsigned char ucSumCtID(unsigned char ucMinCt, unsigned short *ushRet);
-extern void SetZOMWP(unsigned char ucIx,unsigned char ucWP);
-extern unsigned short ushAlignZOM(unsigned short ushERSlot);
-extern unsigned char ucNrOfBitSet(unsigned short ushTarget);
-extern void PutLocatError(unsigned char ucTipicoDiErrori, unsigned char ucZomSlot);
-extern unsigned char ucGetLocatError(unsigned char ucZomSlot);
+extern uint8 ucGetERState(void);
+extern uint8 ucSumCtID(uint8 ucMinCt, uint16 *ushRet);
+extern void SetZOMWP(uint8 ucIx,uint8 ucWP);
+extern uint16 ushAlignZOM(uint16 ushERSlot);
+extern uint8 ucNrOfBitSet(uint16 ushTarget);
+extern void PutLocatError(uint8 ucTipicoDiErrori, uint8 ucZomSlot);
+extern uint8 ucGetLocatError(uint8 ucZomSlot);
 
 extern WAParameter tWAPar;
 extern struct ZOMSlot tZOM[cSumWE];

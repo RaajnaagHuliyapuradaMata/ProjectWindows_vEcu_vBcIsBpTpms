@@ -11,7 +11,7 @@ uint8 ui8RoutineActive = (uint8) 0;
 
 void StartRoutine302(uint8 ui8Meffed){
   uint8 i;
-  uint8 * p2Result;
+  uint8* p2Result;
 
   p2Result = (uint8 *) &tResult;
 

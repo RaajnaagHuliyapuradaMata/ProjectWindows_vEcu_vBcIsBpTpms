@@ -9,11 +9,11 @@
 #define cFSYNC_CDD     0x02
 #define cSYNC_CDD      0x03
 #define cREC_CDD       0x04
-#define cPreSync (unsigned char) 0x05
-#define cStart   (unsigned char) 0
-#define cMeasure (unsigned char) 1
-#define cConfirmManchestere (unsigned char) 2
-#define cConfirmBiphase (unsigned char) 3
+#define cPreSync (uint8) 0x05
+#define cStart   (uint8) 0
+#define cMeasure (uint8) 1
+#define cConfirmManchestere (uint8) 2
+#define cConfirmBiphase (uint8) 3
 
 #define cNO_ERROR_CDD            0x00
 #define cSHORT_SYNCBIT_CDD       0x01
@@ -58,17 +58,17 @@
 #endif
  #endif
    #ifdef cG2TEL
- #define cHF_TEL_SIZE            (unsigned char) 10    /* Länge des empfangenen HF-DATENtelegramms in Bytes */
+ #define cHF_TEL_SIZE            (uint8) 10    /* Länge des empfangenen HF-DATENtelegramms in Bytes */
 #else
-#define cHF_TEL_SIZE            (unsigned char) 11    /* Länge des empfangenen HF-DATENtelegramms in Bytes */
+#define cHF_TEL_SIZE            (uint8) 11    /* Länge des empfangenen HF-DATENtelegramms in Bytes */
 #endif
 
-#define cHF_TEL_SIZE_G2         (unsigned char) 10    /* Länge des G2-DATENtelegramms */
-#define cHF_TEL_SIZE_SHORT      (unsigned char) 5     /* alive length */
-#define cNUM_RSSI_VALS_SHORT    (unsigned char) 2     /* nr of RSSI values during short telegram */
+#define cHF_TEL_SIZE_G2         (uint8) 10    /* Länge des G2-DATENtelegramms */
+#define cHF_TEL_SIZE_SHORT      (uint8) 5     /* alive length */
+#define cNUM_RSSI_VALS_SHORT    (uint8) 2     /* nr of RSSI values during short telegram */
 
 /* telegram types */
-#define cTelTypeAK35BeruL       (unsigned char) 0x88
+#define cTelTypeAK35BeruL       (uint8) 0x88
 #define cTelTypeAK35BeruS       0xC1
 #define cTelTypeAK35def         0
 #define cTelTypeAK35defLF       1
@@ -87,8 +87,8 @@
  #define cTelTypeRawAcc          0xE8
 
 #define cTelTypeCorntiFP      0x80
-#define cTelTypeSELPAL        (unsigned char) 0x03
- #define cTelTypeSELPAL1       (unsigned char) 0x23
+#define cTelTypeSELPAL        (uint8) 0x03
+ #define cTelTypeSELPAL1       (uint8) 0x23
 
 #define cTelTypeG4Std           0xA5
 #define cTelTypeG4ATDnT         0x52
@@ -96,16 +96,16 @@
 #define cTelTypeHellOfWorld     0xC3
 #define cTelTypeFPTimes         0xC5
 
-#define cSupplCodeHuf (unsigned char) 0x20
-#define cSupplCodeConti (unsigned char) 0x30
-#define cSupplCodeSchrader (unsigned char) 0x50
+#define cSupplCodeHuf (uint8) 0x20
+#define cSupplCodeConti (uint8) 0x30
+#define cSupplCodeSchrader (uint8) 0x50
 
 #define DUAL_MOD
-#define cMoTypeASK (unsigned char) 0
-#define cMoTypeFSK (unsigned char) 1
+#define cMoTypeASK (uint8) 0
+#define cMoTypeFSK (uint8) 1
 
-#define c433 (unsigned char) 0
-#define c315 (unsigned char) 1
+#define c433 (uint8) 0
+#define c315 (uint8) 1
 
 #ifdef _M_IX86
  #define cByteOffset2HiNibID 7
@@ -117,252 +117,252 @@
 
 typedef struct
 {
-   unsigned char ucTType;
-   unsigned char ucTeLen;
+   uint8 ucTType;
+   uint8 ucTeLen;
 } PreBufHeader;
 
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
+   uint8 ucHeader[sizeof(PreBufHeader)];
    unsigned long ulID;
-   unsigned char ucPressure;
-   unsigned char ucTemperature;
-   unsigned char ucRemainingLifeTime;
-   unsigned char ucState;
-   unsigned char ucSpinDir;
-   unsigned short ushCRC_G3;
+   uint8 ucPressure;
+   uint8 ucTemperature;
+   uint8 ucRemainingLifeTime;
+   uint8 ucState;
+   uint8 ucSpinDir;
+   uint16 ushCRC_G3;
 } PreBufG3only;
 
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
+   uint8 ucHeader[sizeof(PreBufHeader)];
    unsigned long ulID;
-   unsigned char ucPressure;
-   unsigned char ucTemperature;
-   unsigned char ucState;
-   unsigned char ucCheckSum;
+   uint8 ucPressure;
+   uint8 ucTemperature;
+   uint8 ucState;
+   uint8 ucCheckSum;
 } PreBufG36;
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
+   uint8 ucHeader[sizeof(PreBufHeader)];
    unsigned long ulID;
-   unsigned char ucSWRev;
-   unsigned char ucCheckSum;
+   uint8 ucSWRev;
+   uint8 ucCheckSum;
 } PreBufG36SWRev;
 
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned char ucPressure;
-   unsigned char ucTemperature;
-   unsigned char ucCRC8;
+   uint8 ucPressure;
+   uint8 ucTemperature;
+   uint8 ucCRC8;
 } PreBufAK35def;
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned char ucSpinDir;
-   unsigned char ucCRC8;
+   uint8 ucSpinDir;
+   uint8 ucCRC8;
 } PreBufAK35BeruShort;
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned char ucPressure;
-   unsigned char ucTemperature;
-   unsigned char ucRemainingLifeTime;
-   unsigned char ucState;
-   unsigned char ucSpinDir;
-   unsigned char ucCRC8;
+   uint8 ucPressure;
+   uint8 ucTemperature;
+   uint8 ucRemainingLifeTime;
+   uint8 ucState;
+   uint8 ucSpinDir;
+   uint8 ucCRC8;
 } PreBufAK35BeruLong;
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned char ucPressure;
-   unsigned char ucTemperature;
-   unsigned char ucSpinDir;
-   unsigned char ucCRC8;
+   uint8 ucPressure;
+   uint8 ucTemperature;
+   uint8 ucSpinDir;
+   uint8 ucCRC8;
 } PreBufAK35BeruMed;
 
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned char ucTireMSB;
-   unsigned char ucTire4;
-   unsigned char ucTire3;
-   unsigned char ucTire2;
-   unsigned char ucTire1;
-   unsigned char ucTireLSB;
-   unsigned char ucCRC8;
+   uint8 ucTireMSB;
+   uint8 ucTire4;
+   uint8 ucTire3;
+   uint8 ucTire2;
+   uint8 ucTire1;
+   uint8 ucTireLSB;
+   uint8 ucCRC8;
 } PreBufG4ATDnT;
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned char ucP;
-   unsigned char ucT;
-   unsigned char ucFoodPrint;
-   unsigned char ucCRC8;
+   uint8 ucP;
+   uint8 ucT;
+   uint8 ucFoodPrint;
+   uint8 ucCRC8;
 } PreBufG4FoodPrint;
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned short ushdT0;
-   unsigned short ushdT1;
-   unsigned short ushdT2;
-   unsigned short ushdT3;
-   unsigned char ucCRC8;
+   uint16 ushdT0;
+   uint16 ushdT1;
+   uint16 ushdT2;
+   uint16 ushdT3;
+   uint8 ucCRC8;
 } PreBufFPTimes;
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned char ucP;
-   unsigned char ucT;
-   unsigned char ucTelSentnEnergy;
-   unsigned char ucCRC8;
+   uint8 ucP;
+   uint8 ucT;
+   uint8 ucTelSentnEnergy;
+   uint8 ucCRC8;
 } PreBufG4Std;
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned char ucSWVer;
-   unsigned char ucSWVar;
-   unsigned char ucTelSentnEnergy;
-   unsigned char ucFirmRev;
-   unsigned char ucCRC8;
+   uint8 ucSWVer;
+   uint8 ucSWVar;
+   uint8 ucTelSentnEnergy;
+   uint8 ucFirmRev;
+   uint8 ucCRC8;
 } PreBufHellOfWorld;
 
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned char ucP;
-   unsigned char ucT;
-   unsigned char ucFrameID;
-   unsigned char ucCRC8;
+   uint8 ucP;
+   uint8 ucT;
+   uint8 ucFrameID;
+   uint8 ucCRC8;
 } PreBufAKplus;
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned char ucSpin;
-   unsigned char ucXEdgCt;
-   unsigned char ucZEdgCt;
-   unsigned char ucSCtTotal;
-   unsigned char ucXSCtEn;
-   unsigned char ucZSCtEn;
-   unsigned char ucFrameID;
-   unsigned char ucCRC8;
+   uint8 ucSpin;
+   uint8 ucXEdgCt;
+   uint8 ucZEdgCt;
+   uint8 ucSCtTotal;
+   uint8 ucXSCtEn;
+   uint8 ucZSCtEn;
+   uint8 ucFrameID;
+   uint8 ucCRC8;
 } PreBufRLplus;
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned char ucEdge;
-   unsigned char ucCRC8;
+   uint8 ucEdge;
+   uint8 ucCRC8;
 } PreBufEdge;
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned char ucSpin;
-   unsigned short ushXEdgeCt;
-   unsigned char ucXPeakCt;
-   unsigned short ushZEdgeCt;
-   unsigned char ucZPeakCt;
-   unsigned char ucCRC8;
+   uint8 ucSpin;
+   uint16 ushXEdgeCt;
+   uint8 ucXPeakCt;
+   uint16 ushZEdgeCt;
+   uint8 ucZPeakCt;
+   uint8 ucCRC8;
 } PreBufEdgeCnt;
 
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned char ucXPeak;
-   unsigned char ucPEvCt;
-   unsigned char ucCRC8;
+   uint8 ucXPeak;
+   uint8 ucPEvCt;
+   uint8 ucCRC8;
 } PreBufPeak;
 
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned char ucZPeak;
-   unsigned char ucZPEvCt;
-   unsigned char ucCRC8;
+   uint8 ucZPeak;
+   uint8 ucZPEvCt;
+   uint8 ucCRC8;
 } PreBufZPeak;
 
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned char ucXAcc;
-   unsigned char ucZAcc;
-   unsigned char ucCRC8;
+   uint8 ucXAcc;
+   uint8 ucZAcc;
+   uint8 ucCRC8;
 } PreBufRawAcc;
 
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned char ucSnRH;
-   unsigned char ucRL;
-   unsigned char ucCRC8;
+   uint8 ucSnRH;
+   uint8 ucRL;
+   uint8 ucCRC8;
 } PreBufRotatS;
 
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned char ucP;
-   unsigned char ucT;
-   unsigned char ucPAL;
-   unsigned short ushStatusField;
-   unsigned char ucCRC8;
+   uint8 ucP;
+   uint8 ucT;
+   uint8 ucPAL;
+   uint16 ushStatusField;
+   uint8 ucCRC8;
 } PreBufSchraderFP;
 
 typedef struct
 {
-   unsigned char ucHeader[sizeof(PreBufHeader)];
-   unsigned char ucCmdID;
+   uint8 ucHeader[sizeof(PreBufHeader)];
+   uint8 ucCmdID;
    unsigned long ulID;
-   unsigned char ucP;
-   unsigned char ucT;
-   unsigned char ucBat;
-   unsigned char ucAcc;
-   unsigned char ucModeNCode;
-   unsigned char ucCRC8;
+   uint8 ucP;
+   uint8 ucT;
+   uint8 ucBat;
+   uint8 ucAcc;
+   uint8 ucModeNCode;
+   uint8 ucCRC8;
 } PreBufContiFP;
 
 typedef struct
 {
-  unsigned char aucHeader[sizeof(PreBufHeader)];
-  unsigned char aucTelDat[cMaxAK35DataBytes];
-  unsigned char aucRSMesVal[6];
-  unsigned char ucAvg;
-  unsigned short ushTimeStamp;
+  uint8 aucHeader[sizeof(PreBufHeader)];
+  uint8 aucTelDat[cMaxAK35DataBytes];
+  uint8 aucRSMesVal[6];
+  uint8 ucAvg;
+  uint16 ushTimeStamp;
 } PreBufStructure;
 
 typedef union prebuffer
@@ -392,22 +392,22 @@ typedef union prebuffer
   PreBufRotatS RotatS;
 
   PreBufG3only G3only;
-   unsigned char byte[sizeof(PreBufStructure)];
+   uint8 byte[sizeof(PreBufStructure)];
  }tPreBuf;
 
-extern void (*fpDecoder) (unsigned short);
-extern unsigned short ushLaRiTi;
+extern void (*fpDecoder) (uint16);
+extern uint16 ushLaRiTi;
 
 #define  cSeriesTelsOfInterest {cTelTypeAK35BeruMed, cTelTypePeak, cTelTypeRotatS , cTelTypeEdgeCnt, cTelTypeAK35def, cTelTypeAK35defLMA, cTelTypeRawAcc, cTelTypeG4Std, cTelTypeG4ATDnT, cTelTypeG4FoodPrint, cTelTypeHellOfWorld, cTelTypeFPTimes, cTelTypeCorntiFP, cTelTypeSELPAL}
 
 extern void InitCDD(void);
 extern void PreStartCDD(void);
 extern void StartCDD(void);
-extern void CDDecodingCDD(unsigned short);
-extern void ErrorHandlerCDD(unsigned char);
-extern unsigned char GetStateCDD(void);
-extern unsigned char GetErrorCDD(void);
- extern void SetStateCDD(unsigned char);
+extern void CDDecodingCDD(uint16);
+extern void ErrorHandlerCDD(uint8);
+extern uint8 GetStateCDD(void);
+extern uint8 GetErrorCDD(void);
+ extern void SetStateCDD(uint8);
 extern void Safe1ManBit(void);
 extern void Safe0ManBit(void);
 extern void Safe1AK35Bit(void);

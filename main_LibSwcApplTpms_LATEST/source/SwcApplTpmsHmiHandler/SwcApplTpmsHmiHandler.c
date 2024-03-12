@@ -61,7 +61,7 @@ static void    ResetHmiTpmStat         (void);
 
 extern uint8                               GETucPrefFront    (void);
 extern uint8                               GETucPrefRear     (void);
-extern unsigned char                       ucGetHistoryState (void);
+extern uint8                       ucGetHistoryState (void);
 extern FUNC(Std_ReturnType,      DCM_CODE) Dcm_GetSesCtrlType     (P2VAR(Dcm_SesCtrlType, AUTOMATIC, DCM_APPL_DATA) SessionCtrlType);
 extern FUNC(Std_ReturnType,      DEM_CODE) Dem_GetIndicatorStatus (Dem_IndicatorIdType Dem_IndicatorId, P2VAR(Dem_IndicatorStatusType, AUTOMATIC, DEM_APPL_DATA)  Dem_IndicatorStatus);
 extern FUNC(Std_ReturnType, ECUM_API_CODE) EcuM_GetState          (P2VAR(EcuM_StateType, AUTOMATIC, ECUM_APPL_DATA) state);
@@ -160,8 +160,7 @@ void UpdateTireStatMsgDisp(){
       if(bPosOfAvlSensorKnown() && (cAL_Error != ui8GetALState ())){
          tTireStat.TPM_MsgDisp_Rq = I_C04_TPM_MSGDISP_RQ_WE_MISS;
       }
-      else
-      {
+      else{
          tTireStat.TPM_MsgDisp_Rq = I_C04_TPM_MSGDISP_RQ_ERROR;
       }
    }
@@ -214,8 +213,7 @@ void UpdateTireStatPressDisp(void){
          tTireStat.TPM_Stat= I_C03_TPM_STAT_ACTIVE;
          tTireStat.Press_Disp_Avl = TRUE;
       }
-      else
-      {
+      else{
          tTireStat.TPM_Stat= I_C03_TPM_STAT_ERROR;
          tTireStat.Press_Disp_Avl = FALSE;
       }
@@ -249,41 +247,25 @@ void UpdateTireStatPressDisp(void){
 
 void UpdateTireTempStat(void){
    if(tTireStat.Press_Disp_Avl == TRUE){
-      if(ui8OvrHeatWrnIsActive() == I_C03_TIRE_TEMP_WARNDISP_REDUCE_SPEED) {
-         tTireTemp.Tire_Temp_WarnDisp_Rq = I_C03_TIRE_TEMP_WARNDISP_REDUCE_SPEED;
-      }else if(ui8OvrHeatWrnIsActive() == I_C03_TIRE_TEMP_WARNDISP_OVERHEAT){
-         tTireTemp.Tire_Temp_WarnDisp_Rq = I_C03_TIRE_TEMP_WARNDISP_OVERHEAT;
-      }else{
-         tTireTemp.Tire_Temp_WarnDisp_Rq = I_C03_TIRE_TEMP_WARNDISP_NO_MESS;
-      }
-      if(ui8GetTempColeurWP_FL() == I_C02_TIRE_TEMP_HOT){
-         tTireTemp.Tire_Temp_Stat_FL = I_C02_TIRE_TEMP_HOT;
-      }else if(ui8GetTempColeurWP_FL() == I_C02_TIRE_TEMP_WARM){
-         tTireTemp.Tire_Temp_Stat_FL = I_C02_TIRE_TEMP_WARM;
-      }else{
-         tTireTemp.Tire_Temp_Stat_FL = I_C02_TIRE_TEMP_NORMAL;
-      }
-      if(ui8GetTempColeurWP_FR() == I_C02_TIRE_TEMP_HOT){
-         tTireTemp.Tire_Temp_Stat_FR = I_C02_TIRE_TEMP_HOT;
-      }else if(ui8GetTempColeurWP_FR() == I_C02_TIRE_TEMP_WARM){
-         tTireTemp.Tire_Temp_Stat_FR = I_C02_TIRE_TEMP_WARM;
-      }else{
-         tTireTemp.Tire_Temp_Stat_FR = I_C02_TIRE_TEMP_NORMAL;
-      }
-      if(ui8GetTempColeurWP_RL() == I_C02_TIRE_TEMP_HOT){
-         tTireTemp.Tire_Temp_Stat_RL = I_C02_TIRE_TEMP_HOT;
-      }else if(ui8GetTempColeurWP_RL() == I_C02_TIRE_TEMP_WARM){
-         tTireTemp.Tire_Temp_Stat_RL = I_C02_TIRE_TEMP_WARM;
-      }else{
-         tTireTemp.Tire_Temp_Stat_RL = I_C02_TIRE_TEMP_NORMAL;
-      }
-      if(ui8GetTempColeurWP_RR() == I_C02_TIRE_TEMP_HOT){
-         tTireTemp.Tire_Temp_Stat_RR = I_C02_TIRE_TEMP_HOT;
-      }else if(ui8GetTempColeurWP_RR() == I_C02_TIRE_TEMP_WARM){
-         tTireTemp.Tire_Temp_Stat_RR = I_C02_TIRE_TEMP_WARM;
-      }else{
-         tTireTemp.Tire_Temp_Stat_RR = I_C02_TIRE_TEMP_NORMAL;
-      }
+           if(ui8OvrHeatWrnIsActive() == I_C03_TIRE_TEMP_WARNDISP_REDUCE_SPEED) {tTireTemp.Tire_Temp_WarnDisp_Rq = I_C03_TIRE_TEMP_WARNDISP_REDUCE_SPEED;}
+      else if(ui8OvrHeatWrnIsActive() == I_C03_TIRE_TEMP_WARNDISP_OVERHEAT)     {tTireTemp.Tire_Temp_WarnDisp_Rq = I_C03_TIRE_TEMP_WARNDISP_OVERHEAT;}
+      else                                                                      {tTireTemp.Tire_Temp_WarnDisp_Rq = I_C03_TIRE_TEMP_WARNDISP_NO_MESS;}
+
+           if(ui8GetTempColeurWP_FL() == I_C02_TIRE_TEMP_HOT)  {tTireTemp.Tire_Temp_Stat_FL = I_C02_TIRE_TEMP_HOT;}
+      else if(ui8GetTempColeurWP_FL() == I_C02_TIRE_TEMP_WARM) {tTireTemp.Tire_Temp_Stat_FL = I_C02_TIRE_TEMP_WARM;}
+      else                                                     {tTireTemp.Tire_Temp_Stat_FL = I_C02_TIRE_TEMP_NORMAL;}
+
+           if(ui8GetTempColeurWP_FR() == I_C02_TIRE_TEMP_HOT)  {tTireTemp.Tire_Temp_Stat_FR = I_C02_TIRE_TEMP_HOT;}
+      else if(ui8GetTempColeurWP_FR() == I_C02_TIRE_TEMP_WARM) {tTireTemp.Tire_Temp_Stat_FR = I_C02_TIRE_TEMP_WARM;}
+      else                                                     {tTireTemp.Tire_Temp_Stat_FR = I_C02_TIRE_TEMP_NORMAL;}
+
+           if(ui8GetTempColeurWP_RL() == I_C02_TIRE_TEMP_HOT)  {tTireTemp.Tire_Temp_Stat_RL = I_C02_TIRE_TEMP_HOT;}
+      else if(ui8GetTempColeurWP_RL() == I_C02_TIRE_TEMP_WARM) {tTireTemp.Tire_Temp_Stat_RL = I_C02_TIRE_TEMP_WARM;}
+      else                                                     {tTireTemp.Tire_Temp_Stat_RL = I_C02_TIRE_TEMP_NORMAL;}
+
+           if(ui8GetTempColeurWP_RR() == I_C02_TIRE_TEMP_HOT)  {tTireTemp.Tire_Temp_Stat_RR = I_C02_TIRE_TEMP_HOT;}
+      else if(ui8GetTempColeurWP_RR() == I_C02_TIRE_TEMP_WARM) {tTireTemp.Tire_Temp_Stat_RR = I_C02_TIRE_TEMP_WARM;}
+      else                                                     {tTireTemp.Tire_Temp_Stat_RR = I_C02_TIRE_TEMP_NORMAL;}
    }
    else{
       tTireTemp.Tire_Temp_WarnDisp_Rq = I_C03_TIRE_TEMP_WARNDISP_NO_MESS;
@@ -347,8 +329,7 @@ void UpdateMalfuncLamp(void){
       if(ucStatus>0){
          tTpmLmpOnRq.TPM_MalfLmp_On_Rq = TRUE;
       }
-      else
-      {
+      else{
          tTpmLmpOnRq.TPM_MalfLmp_On_Rq = FALSE;
       }
    }
@@ -558,8 +539,7 @@ void ResetHmiTpmStat(void){
       if(bPosOfAvlSensorKnown() && (cAL_Error != ui8GetALState ())){
          tTireStat.TPM_Stat = I_C03_TPM_STAT_WAIT;
       }
-      else
-      {
+      else{
          tTireStat.TPM_Stat = I_C03_TPM_STAT_ACTIVE;
       }
    }
@@ -593,8 +573,7 @@ static void GetLastReceivedPress(void){
          else if(USEui8PWPofHistCol(i) == cRadPosHR){
             tTireStat.TirePress_RR = ucGetLastReceivedPress(ulGetID(i));
          }
-         else
-         {
+         else{
          }
       }
    }
@@ -637,8 +616,7 @@ static void GetLastReceivedTemp(void){
          else if(USEui8PWPofHistCol(i) == cRadPosHR){
             tTireTemp.TireTemp_RR = ucGetLastReceivedTemp(ulGetID(i));
          }
-         else
-         {
+         else{
          }
       }
    }

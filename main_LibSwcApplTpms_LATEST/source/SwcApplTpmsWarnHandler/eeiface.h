@@ -1,8 +1,8 @@
 #ifndef EEIFACE_H
 #define EEIFACE_H
 
-extern void GetDataEE(unsigned char, unsigned char *, unsigned char);
-extern void PutDataEE(unsigned char, const unsigned char *, unsigned char);
+extern void GetDataEE(uint8, uint8 *, uint8);
+extern void PutDataEE(uint8, const uint8 *, uint8);
 
 #ifndef pb_ModulTest_02062003
 

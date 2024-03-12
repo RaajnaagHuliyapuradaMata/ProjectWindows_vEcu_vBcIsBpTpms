@@ -17,8 +17,8 @@
   .word 0x07FD00
 #pragma endasm
 
-#define RB_DATA_LEN (unsigned char) 24
-#define RB_RS_BUF_LEN (unsigned char) 6
+#define RB_DATA_LEN (uint8) 24
+#define RB_RS_BUF_LEN (uint8) 6
 
 enum eModiRE
 {
@@ -59,45 +59,45 @@ enum eModiRE
  #define cG3onlyTeLen 13
  #define cG3NfzAliveLen 7
 
-#define cG35BeruLTeLen (unsigned char) 13
-#define cG35BeruMedTeLen (unsigned char) 11
-#define cG35BeruSTeLen (unsigned char) 9
-#define cG35AKdefTeLen (unsigned char) 10
+#define cG35BeruLTeLen (uint8) 13
+#define cG35BeruMedTeLen (uint8) 11
+#define cG35BeruSTeLen (uint8) 9
+#define cG35AKdefTeLen (uint8) 10
 
-#define cBeruTel (unsigned char) 0
-#define cAKTel (unsigned char) 1
-#define cBiPhaseRaw (unsigned char) 2
-#define cManchesterRaw (unsigned char) 3
-#define cAK35Multi (unsigned char) 4
+#define cBeruTel (uint8) 0
+#define cAKTel (uint8) 1
+#define cBiPhaseRaw (uint8) 2
+#define cManchesterRaw (uint8) 3
+#define cAK35Multi (uint8) 4
 
-#define cTelGen (unsigned char) 1
- #define cREG2Sim (unsigned char) 4
-#define cREG3LkwSim (unsigned char) 0x10
-#define cREG3onlySim  (unsigned char) 0x20
-#define cREG35Sim (unsigned char) 0x40
-#define cHFNoise (unsigned char) 0x80
+#define cTelGen (uint8) 1
+ #define cREG2Sim (uint8) 4
+#define cREG3LkwSim (uint8) 0x10
+#define cREG3onlySim  (uint8) 0x20
+#define cREG35Sim (uint8) 0x40
+#define cHFNoise (uint8) 0x80
 
-#define cFsel433 (unsigned char) 0x01
-#define cFsel315 (unsigned char) 0x02
- #define cFSK (unsigned char) 0x40
+#define cFsel433 (uint8) 0x01
+#define cFsel315 (uint8) 0x02
+ #define cFSK (uint8) 0x40
 
-#define cCWHi (unsigned char) 0x20
-#define cCWLo (unsigned char) 0x10
+#define cCWHi (uint8) 0x20
+#define cCWLo (uint8) 0x10
 
-#define cTransRadStren (unsigned char) 0x0C
-#define cTransRadLo (unsigned char) 0
-#define cTransRadMed (unsigned char) 0x04
-#define cTransRadHi (unsigned char) 0x08
-#define cTrandRadOverDose (unsigned char) 0x0C
+#define cTransRadStren (uint8) 0x0C
+#define cTransRadLo (uint8) 0
+#define cTransRadMed (uint8) 0x04
+#define cTransRadHi (uint8) 0x08
+#define cTrandRadOverDose (uint8) 0x0C
 
-#define cFsel433 (unsigned char) 0x01
-#define cFsel315 (unsigned char) 0x02
+#define cFsel433 (uint8) 0x01
+#define cFsel315 (uint8) 0x02
 
-#define cRSSI_STRONG (unsigned char) 100
-#define cRSSI_MED (unsigned char) 60
-#define cRSSI_LOW (unsigned char) 26
+#define cRSSI_STRONG (uint8) 100
+#define cRSSI_MED (uint8) 60
+#define cRSSI_LOW (uint8) 26
 
-                 #define cMAXANZ_BURST_BYTES (unsigned char) 8
+                 #define cMAXANZ_BURST_BYTES (uint8) 8
 
 enum eBefehl
 {
@@ -119,38 +119,38 @@ typedef void (* fp2VoidFctVoid) (void);
 
 struct BeruLType
 {
-    unsigned short ushPreamble;
-    unsigned char ucCmdId;
+    uint16 ushPreamble;
+    uint8 ucCmdId;
     unsigned long ulID;
-    unsigned char ucP;
-    unsigned char ucT;
-    unsigned char ucRBL;
-    unsigned char ucStatus;
-    unsigned char ucSpin;
+    uint8 ucP;
+    uint8 ucT;
+    uint8 ucRBL;
+    uint8 ucStatus;
+    uint8 ucSpin;
 };
 struct BeruMedType
 {
-    unsigned short ushPreamble;
-    unsigned char ucCmdId;
+    uint16 ushPreamble;
+    uint8 ucCmdId;
     unsigned long ulID;
-    unsigned char ucP;
-    unsigned char ucT;
-    unsigned char ucSpin;
+    uint8 ucP;
+    uint8 ucT;
+    uint8 ucSpin;
 };
 struct BeruSType
 {
-    unsigned short ushPreamble;
-    unsigned char ucCmdId;
+    uint16 ushPreamble;
+    uint8 ucCmdId;
     unsigned long ulID;
-    unsigned char ucSpin;
+    uint8 ucSpin;
 };
 struct AKdefType
 {
-    unsigned short ushPreamble;
-    unsigned char ucCmdId;
+    uint16 ushPreamble;
+    uint8 ucCmdId;
     unsigned long ulID;
-    unsigned char ucP;
-    unsigned char ucT;
+    uint8 ucP;
+    uint8 ucT;
 };
 union SendBufType
 {
@@ -158,62 +158,62 @@ union SendBufType
     struct BeruMedType tBeruMed;
     struct BeruSType tBeruS;
     struct AKdefType tAKdef;
-    unsigned char ucByte[20];
+    uint8 ucByte[20];
 };
 extern union SendBufType uSendBuf[cANZAHL_RAEDER];
 
  struct FreeRFTelType
 {
-  unsigned char ucCode;
-   unsigned char ucRepeat;
-  unsigned char ucTimeDist;
-   unsigned char ucTeLen;
-  unsigned char ucCoRec;
-  unsigned char ucRSAnt[7];
-   unsigned char ucTelByte[20];
+  uint8 ucCode;
+   uint8 ucRepeat;
+  uint8 ucTimeDist;
+   uint8 ucTeLen;
+  uint8 ucCoRec;
+  uint8 ucRSAnt[7];
+   uint8 ucTelByte[20];
 };
 
 typedef union
 {
   struct FreeRFTelType Tel;
-  unsigned char ucRawByte[sizeof (struct FreeRFTelType)];
+  uint8 ucRawByte[sizeof (struct FreeRFTelType)];
 }tFreeRFTelType;
 
 extern tFreeRFTelType tFRF;
 
-extern unsigned char ucTSSSendBuffer    [cANZAHL_RAEDER][20];
+extern uint8 ucTSSSendBuffer    [cANZAHL_RAEDER][20];
  struct ReceiverType
 {
-  unsigned char ucPar;
-  unsigned char ucOpMod;
-  unsigned char ucSensType;
-  unsigned char ucETU;
+  uint8 ucPar;
+  uint8 ucOpMod;
+  uint8 ucSensType;
+  uint8 ucETU;
    unsigned long ulFilterID;
-  unsigned char ucAntSense;
+  uint8 ucAntSense;
 };
- #define cExtRecON (unsigned char) 0x20
+ #define cExtRecON (uint8) 0x20
 
 typedef union
 {
   struct ReceiverType ParDat ;
-  unsigned char ucRawByte[sizeof (struct ReceiverType)] ;
+  uint8 ucRawByte[sizeof (struct ReceiverType)] ;
 }tReceiverType;
 
 extern tReceiverType tRec;
 
 struct LFCfgtype
 {
-  unsigned char ucLen;
-  unsigned short ushWkUpID;
-  unsigned char aucDat2Send[12];
-  unsigned char ucRep;
-  unsigned char ucSendCyle;
-  unsigned char OpMode;
+  uint8 ucLen;
+  uint16 ushWkUpID;
+  uint8 aucDat2Send[12];
+  uint8 ucRep;
+  uint8 ucSendCyle;
+  uint8 OpMode;
 };
 typedef union
 {
   struct LFCfgtype Dat;
-  unsigned char ucByte[sizeof(struct LFCfgtype)];
+  uint8 ucByte[sizeof(struct LFCfgtype)];
 }tLFCfgType;
 extern tLFCfgType tLFCfg;
 
@@ -227,7 +227,7 @@ typedef struct
 typedef union
 {
  tRecRFTelData AK35Data;
- unsigned char ucByteAccess[(unsigned char) sizeof(tRecRFTelData)];
+ uint8 ucByteAccess[(uint8) sizeof(tRecRFTelData)];
 }tRecRFTelDecl;
 
 volatile tRecRFTelDecl tRecRFTel;
@@ -247,48 +247,48 @@ extern struct tTrigselStatesDecl tTrigselStates;
 
 struct tREControlDataDecl
 {
-  unsigned char bLFCode0Received       : 1;
-  unsigned char bLFCode2Received       : 1;
-  unsigned char bLFCode3Received       : 1;
-  unsigned char bLFCode4Received       : 1;
-  unsigned char bLFCode5Received       : 1;
-  unsigned char bLFCode6Received       : 1;
-  unsigned char bLFCode7Received       : 1;
-  unsigned char bTransmissionReqired   : 1;
+  uint8 bLFCode0Received       : 1;
+  uint8 bLFCode2Received       : 1;
+  uint8 bLFCode3Received       : 1;
+  uint8 bLFCode4Received       : 1;
+  uint8 bLFCode5Received       : 1;
+  uint8 bLFCode6Received       : 1;
+  uint8 bLFCode7Received       : 1;
+  uint8 bTransmissionReqired   : 1;
 
-  unsigned char bLFCode12Received      : 1;
-  unsigned char bDataAvailable         : 1;
-  unsigned char bDataChanged           : 1;
-  unsigned char bModeChanged           : 1;
-  unsigned char bTxTimerElapsed        : 1;
-  unsigned char bGoToSleepTimerElapsed : 1;
-  unsigned char bModeTCResponseSent    : 1;
-  unsigned char bSleepTimerToggled     : 1;
+  uint8 bLFCode12Received      : 1;
+  uint8 bDataAvailable         : 1;
+  uint8 bDataChanged           : 1;
+  uint8 bModeChanged           : 1;
+  uint8 bTxTimerElapsed        : 1;
+  uint8 bGoToSleepTimerElapsed : 1;
+  uint8 bModeTCResponseSent    : 1;
+  uint8 bSleepTimerToggled     : 1;
 
-  unsigned char bTimer_ta              : 1;
-  unsigned char bTimer_tm              : 1;
-  unsigned char bData_a                : 1;
-  unsigned char bTimerMode23           : 1;
-  unsigned char bTimer_tr              : 1;
-   unsigned char bData_M4               : 1;
-   unsigned char bData_r                : 1;
+  uint8 bTimer_ta              : 1;
+  uint8 bTimer_tm              : 1;
+  uint8 bData_a                : 1;
+  uint8 bTimerMode23           : 1;
+  uint8 bTimer_tr              : 1;
+   uint8 bData_M4               : 1;
+   uint8 bData_r                : 1;
 
-  unsigned char bData_m;
+  uint8 bData_m;
 
   enum eModiRE  ucREState;
   enum eModiRE  ucLastREState;
   enum eModiRE  ucLastLastREState;
 
-  unsigned short ushAktuTelSendInterval;
-  unsigned short ushAktuInterval_ta;
-  unsigned short ushAktuInterval_tm;
-  unsigned short ushAktuInterval_tr;
-   unsigned short ushCurrent_tw;
+  uint16 ushAktuTelSendInterval;
+  uint16 ushAktuInterval_ta;
+  uint16 ushAktuInterval_tm;
+  uint16 ushAktuInterval_tr;
+   uint16 ushCurrent_tw;
 
-  unsigned char ucM4TelCt;
-   unsigned char ucM4DelCt;
+  uint8 ucM4TelCt;
+   uint8 ucM4DelCt;
 
-  unsigned char ucTelType;
+  uint8 ucTelType;
 };
 
 extern struct tREControlDataDecl tREControlData[cANZAHL_RAEDER];

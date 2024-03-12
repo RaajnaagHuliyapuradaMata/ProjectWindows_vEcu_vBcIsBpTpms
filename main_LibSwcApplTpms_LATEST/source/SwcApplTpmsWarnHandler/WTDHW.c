@@ -1,39 +1,69 @@
+/******************************************************************************/
+/* File              : WTDHW.c                                                */
+/* Author            : Nagaraja HULIYAPURADA MATA                             */
+/* Copyright (c)2024 : All rights reserved.                                   */
+/******************************************************************************/
 
+/******************************************************************************/
+/* #INCLUDES                                                                  */
+/******************************************************************************/
+#include "Std_Types.hpp"
 
-#include "global.h"
-#include "uswarn.h"
-#include "WnTypePar.h"
-#include "uswarn_Ifx.h"
+#include "infRteSwcApplTpmsWarnHandler.hpp"
 
-#define P_GRAD ((uint8) 8)
- #define cFPLStarTimeInSec ((uint8) 120)
+/******************************************************************************/
+/* #DEFINES                                                                   */
+/******************************************************************************/
+#define P_GRAD            ((uint8) 8)
+#define cFPLStarTimeInSec ((uint8) 120)
 
-static uint8 ui8GradSurpassed(uint8 ui8Ix, uint8 ui8P);
-static void RewindFPLTimer(uint8 ui8Ix);
-static uint8 ui8FPLTime(uint8 ui8Ix);
+#define ucDP_TOLERANCEc   ((uint8) (200 / ucPResInMBarc))
 
-static uint8 aucLastPressureM1DHW[ucSumWEc];
-static uint8 aui8DpEvCt[ucSumWEc ];
-static uint8 ui8FPLTimer[ucSumWEc] = {(uint8) 0,(uint8) 0,(uint8) 0,(uint8) 0};
+/******************************************************************************/
+/* MACROS                                                                     */
+/******************************************************************************/
+
+/******************************************************************************/
+/* TYPEDEFS                                                                   */
+/******************************************************************************/
+
+/******************************************************************************/
+/* CONSTS                                                                     */
+/******************************************************************************/
+
+/******************************************************************************/
+/* PARAMS                                                                     */
+/******************************************************************************/
+
+/******************************************************************************/
+/* OBJECTS                                                                    */
+/******************************************************************************/
+static uint8 aucLastPressureM1DHW [ucSumWEc];
+static uint8 aui8DpEvCt           [ucSumWEc];
+static uint8 ui8FPLTimer          [ucSumWEc] = {(uint8) 0, (uint8) 0, (uint8) 0, (uint8) 0};
+
+/******************************************************************************/
+/* FUNCTIONS                                                                  */
+/******************************************************************************/
+static void  RewindFPLTimer   (uint8 ui8Ix);
+static uint8 ui8FPLTime       (uint8 ui8Ix);
+static uint8 ui8GradSurpassed (uint8 ui8Ix, uint8 ui8P);
 
 void ResetM1Pressure(uint8 i){
   if(i < ucSumWEc){
     aucLastPressureM1DHW[i] = 0;
   }
-  else
-  {
+  else{
     for( i = 0; i < ucSumWEc; i++ ){
       aucLastPressureM1DHW[i] = 0;
     }
   }
 }
 
-uint8 * pui8GetLastM1Pressure(void){
-  return (aucLastPressureM1DHW);
-}
+uint8* pui8GetLastM1Pressure(void){return aucLastPressureM1DHW;}
 
-uint8 bDHW( struct LocalWarnDat *ptLWD, uint8 ucWarnCfg){
-  uint8 ui8CompRes,ui8Ret;
+uint8 bDHW(struct LocalWarnDat* ptLWD, uint8 ucWarnCfg){
+  uint8 ui8CompRes;
   uint16 ushHelp;
   ushHelp = (uint16) ptLWD->tHFD.tHF.scTWE + ush273Kelvinc;
   ui8CompRes = ucPfT((uint16) (ptLWD->tSD.ushMSoll - ushMIso(ucDP_TOLERANCEc, ptLWD->tSD.scTSoll )), ushHelp) ;
@@ -45,7 +75,6 @@ uint8 bDHW( struct LocalWarnDat *ptLWD, uint8 ucWarnCfg){
     }
   }
 
-  ui8Ret = (uint8) 0;
   if((uint8) 0 < aucLastPressureM1DHW[ptLWD->tHFD.tHF.ucId]){
     if( ptLWD->tHFD .tHF.ucP < aucLastPressureM1DHW[ptLWD->tHFD.tHF.ucId] ){
       if(ui8GradSurpassed(ptLWD->tHFD.tHF.ucId, ptLWD->tHFD .tHF.ucP) > (uint8) 0){
@@ -62,8 +91,7 @@ uint8 bDHW( struct LocalWarnDat *ptLWD, uint8 ucWarnCfg){
             else
               return ((uint8) 0);
         }
-        else
-        {
+        else{
           aui8DpEvCt [ptLWD->tHFD.tHF.ucId]++;
           return ((uint8) 0);
         }
@@ -72,11 +100,13 @@ uint8 bDHW( struct LocalWarnDat *ptLWD, uint8 ucWarnCfg){
   }
 
    aucLastPressureM1DHW[ptLWD->tHFD.tHF.ucId] = ptLWD->tHFD.tHF.ucP;
-  aui8DpEvCt [ptLWD->tHFD.tHF.ucId] = 0;
-  RewindFPLTimer (ptLWD->tHFD.tHF.ucId);
-  ClearWarnBitWN(ptLWD->tHFD.tHF.ucId, ucDHWIxc);
-  ptLWD->ucCurWarnLevel = aucLastPressureM1DHW[ptLWD->tHFD.tHF.ucId];
-  return((uint8) 0);
+   aui8DpEvCt [ptLWD->tHFD.tHF.ucId] = 0;
+   RewindFPLTimer (ptLWD->tHFD.tHF.ucId);
+   ClearWarnBitWN(ptLWD->tHFD.tHF.ucId, ucDHWIxc);
+   ptLWD->ucCurWarnLevel = aucLastPressureM1DHW[ptLWD->tHFD.tHF.ucId];
+
+   ucWarnCfg = ucWarnCfg;
+   return((uint8) 0);
 }
 
 void CtFPLTimer(void){
@@ -111,16 +141,18 @@ static uint8 ui8GradSurpassed(uint8 ui8Ix, uint8 ui8P){
       }
     }
   }
-
   return ui8Ret;
 }
 
 static uint8 ui8FPLTime(uint8 ui8Ix){
   uint8 ui8TDif = (uint8) 0;
-
   if(ucSumWEc > ui8Ix){
     ui8TDif = cFPLStarTimeInSec - ui8FPLTimer[ui8Ix];
   }
-
   return((cFPLStarTimeInSec == ui8TDif) ? (uint8) 0:ui8TDif);
 }
+
+/******************************************************************************/
+/* EOF                                                                        */
+/******************************************************************************/
+

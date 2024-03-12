@@ -23,7 +23,7 @@ extern BaType GETtSensorBatInfOfRam(uint8 idx);
 
 extern void ClearAllBatStatCounts(void);
 
-extern void PrepareLoBat4Obsolescence(uint8 * p2dat);
+extern void PrepareLoBat4Obsolescence(uint8* p2dat);
 extern void ClearAllParaApartId(void);
 
 #endif

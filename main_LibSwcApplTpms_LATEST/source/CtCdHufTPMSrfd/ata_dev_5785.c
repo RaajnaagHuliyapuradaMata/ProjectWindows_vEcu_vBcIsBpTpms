@@ -157,8 +157,7 @@ uint8 rf_ata5785_init(void){
     return TRUE;  /*CR_1211_150_021*/
 
   }
-   else
-  {
+   else{
 
 #ifdef MCAL_F1L
     Spi_Cancel(SPI_ZERO); /*@RENESAS BSW F1L out of order */
@@ -469,15 +468,15 @@ void rf_ata5785_write_sram(const uint8 data[]){
 
   union
   {
-    unsigned short   ui;
+    uint16   ui;
     uint8  uc[2];
   } addr;
 
  #define SRAM_BUFFER_SIZE 32
 
-  addr.ui = (unsigned short) data[0];
+  addr.ui = (uint16) data[0];
   addr.ui<<= 8;
-  addr.ui += (unsigned short) data[1];
+  addr.ui += (uint16) data[1];
   length = data[2];
   offset = 3;
 
@@ -503,8 +502,7 @@ void rf_ata5785_write_sram(const uint8 data[]){
       release_ata5785();
       length = 0;
     }
-    else
-    {
+    else{
       select_ata5785();
       ptr=0x07;
       Spi_WriteIB(0, (uint8 *) &ptr );
@@ -540,8 +538,7 @@ void rf_ata5785_write_sram(const uint8 data[]){
       release_ata5785();
       length = 0;
     }
-    else
-    {
+    else{
       select_ata5785();
       ptr=0x07;
       active_xfer_spi(ptr);
@@ -629,8 +626,7 @@ uint8 check_sensor_type(void){
    {
      tmp=1;
    }
-   else
-   {
+   else{
    rf.mode = 0xA2;
    rf.channel = 0x84;
 
@@ -699,8 +695,7 @@ uint8 check_sensor_type(void){
    {
      tmp=1;
    }
-   else
-   {
+   else{
    rf.mode = 0xA2;
    rf.channel = 0x84;
     csig0_4ATAinit();
@@ -788,8 +783,7 @@ void SetServNPath( uint8 ui8SrvNPath ){
     if(ui8SrvNPath == rf.channel){
         rf.mode = 0x12;
      }
-    else
-    {
+    else{
         rf.mode = 0xB2;
          rf.channel = ui8SrvNPath;
     }
@@ -919,8 +913,7 @@ uint8 ptr;
   if(ataInitialized == fp2IniState){
     return TRUE;
   }
-  else
-  {
+  else{
     return FALSE;
   }
 }
@@ -981,8 +974,7 @@ static void ataIniWtResetEvent(void){
       rf_ata5785_write_sram(rf_idCtrl_cfg);
     }
   }
-  else
-  {
+  else{
     tOCtIn50msec = (uint8) 3;
     fp2IniState = ataIni1st;
     csig0_disable();
@@ -1052,8 +1044,7 @@ static void ataIniStartService(void){
   if(GetPort4Frequenz433() == TRUE){
     SetServNPath(0x83);
   }
-  else
-  {
+  else{
     SetServNPath(0x84);
   }
 

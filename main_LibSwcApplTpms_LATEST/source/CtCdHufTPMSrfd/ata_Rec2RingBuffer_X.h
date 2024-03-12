@@ -8,13 +8,13 @@
 
 #define cBUFFER_SIZE           10
 
-#define cOVERWRITE_MODE        (unsigned char) 0x01
-#define cSAVE_ERROR_TEL        (unsigned char) 0x02
-#define cWRITE_MODE            (unsigned char) 0x04
-#define cREAD_ACCESS_ACTIVE    (unsigned char) 0x08
-#define cERROR_TEL_IN_BUFFER   (unsigned char) 0x10
-#define cMODE2_TEL_IN_BUFFER   (unsigned char) 0x20
-#define cSAVE_MODE2_ONLY       (unsigned char) 0x40
+#define cOVERWRITE_MODE        (uint8) 0x01
+#define cSAVE_ERROR_TEL        (uint8) 0x02
+#define cWRITE_MODE            (uint8) 0x04
+#define cREAD_ACCESS_ACTIVE    (uint8) 0x08
+#define cERROR_TEL_IN_BUFFER   (uint8) 0x10
+#define cMODE2_TEL_IN_BUFFER   (uint8) 0x20
+#define cSAVE_MODE2_ONLY       (uint8) 0x40
 
 typedef struct {
     uint32 ulTimeInMsec;
@@ -36,9 +36,9 @@ extern void PutRB(struct rfstruct * tRfBuf);
 extern void ChkAtaRecive(void);
 extern uint8 ChkAtaError(void);
  extern void GetRB(void);
-extern unsigned char GetBufferStateRB(void);
-extern void ConfigRingBufferCC(unsigned char);
-extern unsigned char GetBitBufferConditionRegisterRB(unsigned char ucBitMask);
+extern uint8 GetBufferStateRB(void);
+extern void ConfigRingBufferCC(uint8);
+extern uint8 GetBitBufferConditionRegisterRB(uint8 ucBitMask);
 extern uint8 ui8GetComptoirRepare(void);
 extern uint8 ui8GetErrorCnt(void);
 extern uint8 ui8GetAtaErrRecNVM(void);

@@ -83,8 +83,7 @@ extern void Dem_SetEventExData(uint8);
 
    if(!bSensorDefect){
     putTelInfo2Table(ulTelID, ucTelP,  ucTelT, ulTime);
-   }else
-   {
+   }else{
     putTelInfo2Table(ulTelID, (uint8)0x00,  (uint8)0x00, ulTime);
    }
  }
@@ -158,8 +157,7 @@ extern void Dem_SetEventExData(uint8);
         bAutoLearnCycleCompleted = TRUE;
         UpdateMissingSensorsDTCs();
       }
-      else
-      {
+      else{
        }
     }
     UpdateDisturbedSensorsDTCs();
@@ -177,8 +175,7 @@ extern void Dem_SetEventExData(uint8);
         ucFailureState = FAILURE_MODE_noWE;
       }
 
-      else
-      {
+      else{
         ucFailureState = FAILURE_MODE_ok;
       }
 
@@ -232,8 +229,7 @@ extern void Dem_SetEventExData(uint8);
     if(ucCntrMiss>0){
       ucFailureState=FAILURE_MODE_soWE;
     }
-    else
-    {
+    else{
       ucFailureState = FAILURE_MODE_RfInterference;
     }
 
@@ -258,8 +254,7 @@ extern void Dem_SetEventExData(uint8);
       if( (ucCntrMiss < cMaxLR)  ){
         Dem_SetEventStatus( Dem_DTC_0x551c00, DEM_EVENT_STATUS_PASSED);
       }
-      else
-      {
+      else{
         Dem_SetEventStatus( Dem_DTC_0x551c00, DEM_EVENT_STATUS_FAILED);
       }
       for(i=0; i<cMaxLR; i++){
@@ -284,8 +279,7 @@ extern void Dem_SetEventExData(uint8);
 
           }
         }
-        else
-        {
+        else{
           switch (i){
             case 0:
               Dem_SetEventExData( Dem_DTC_0xd16209);
@@ -418,8 +412,7 @@ extern void Dem_SetEventExData(uint8);
    if(ucPos<cMaxLR){
       return tTelStatStruct[ucPos].ushMuteCntr;
    }
-   else
-   {
+   else{
      return 0xFFFF;
    }
  }
@@ -428,8 +421,7 @@ extern void Dem_SetEventExData(uint8);
    if(ucPos<cMaxLR){
       return tTelStatStruct[ucPos].ucSensorState;
    }
-   else
-   {
+   else{
      return 0;
    }
  }
@@ -449,8 +441,7 @@ extern void Dem_SetEventExData(uint8);
      if( ushGetRxBlocksSum(ucColOfID) < MAX_NUM_BLOCKS){
        PutRxBlocksSum((ushGetRxBlocksSum(ucColOfID) + 1), ucColOfID);
      }
-     else
-     {
+     else{
        PutRxBlocksSum((MAX_NUM_BLOCKS >> 1), ucColOfID);
        PutMissedBlocksSum((ushGetMissedBlocksSum(ucColOfID) >> 1), ucColOfID);
      }
@@ -465,8 +456,7 @@ extern void Dem_SetEventExData(uint8);
     if( ushGetMissedBlocksSum(ucColOfID) < MAX_NUM_BLOCKS){
       PutMissedBlocksSum((ushGetMissedBlocksSum(ucColOfID) + 1), ucColOfID);
     }
-    else
-    {
+    else{
       PutMissedBlocksSum((MAX_NUM_BLOCKS >> 1), ucColOfID);
       PutRxBlocksSum((ushGetMissedBlocksSum(ucColOfID) >> 1), ucColOfID);
     }
@@ -494,8 +484,7 @@ extern void Dem_SetEventExData(uint8);
         }
       }
     }
-    else
-    {
+    else{
       while (ulID != tTelStatStructV2[ucIDPosInRFStatTable].ulTelID){
         ucIDPosInRFStatTable++;
 
@@ -584,13 +573,11 @@ extern void Dem_SetEventExData(uint8);
       if(tTelStatStructV2[i].ucLastValidP>0x01){
         return  (uint8)( (tTelStatStructV2[i].ucLastValidP < MAX_RAW_IN_VAL_P) ? (tTelStatStructV2[i].ucLastValidP-AKA_OFFSET) : MAX_OUT_VAL_P);
        }
-      else
-      {
+      else{
         return 0x00;
        }
     }
-    else
-    {
+    else{
       return 0xFF;
      }
   }
@@ -622,13 +609,11 @@ extern void Dem_SetEventExData(uint8);
       if(tTelStatStructV2[i].ucLastValidT>0x01){
         return  (uint8)( (tTelStatStructV2[i].ucLastValidT < MAX_RAW_IN_VAL_T) ? (tTelStatStructV2[i].ucLastValidT-AKA_OFFSET) : MAX_OUT_VAL_T);
        }
-      else
-      {
+      else{
         return 0x00;
        }
     }
-    else
-    {
+    else{
       return 0xFF;
      }
   }
@@ -645,8 +630,7 @@ extern void Dem_SetEventExData(uint8);
     if(i<cTableSize){
       return  tTelStatStructV2[i].ulLastTime;
      }
-    else
-    {
+    else{
       return 0xFFFFFFFF;
     }
   }
@@ -663,8 +647,7 @@ extern void Dem_SetEventExData(uint8);
     if(i<cTableSize){
       return  tTelStatStructV2[i].ucRxBlocs;
      }
-    else
-    {
+    else{
       return 0x00;
     }
   }
@@ -694,13 +677,11 @@ uint8 ucGetAvgPress4FD(uint32 ulTelID){
     if(tTelStatStructV2[i].uiAvgP>0x01){
       return  (uint8)( ((tTelStatStructV2[i].uiAvgP < MAX_RAW_IN_VAL_AVG_P) ? (tTelStatStructV2[i].uiAvgP) : MAX_OUT_VAL_AVG_P) /(tTelStatStructV2[i].ucAvgCnt));
      }
-    else
-    {
+    else{
       return 0x00;
      }
   }
-  else
-  {
+  else{
     return 0xFF;
    }
 }
@@ -719,8 +700,7 @@ uint8 ucGetAvgCntr4FD(uint32 ulTelID){
   if( (i<cTableSize) && (tTelStatStructV2[i].uiAvgP>0x00)  ){
     return tTelStatStructV2[i].ucAvgCnt;
   }
-  else
-  {
+  else{
     return 0x00;
    }
 }
@@ -774,8 +754,7 @@ void UpdateSensorStateAtClamp15Off(void){
       else if(ucCntrDisturb > 0){
         ucFailureState = FAILURE_MODE_RfInterference;
       }
-      else
-      {
+      else{
         ucFailureState = FAILURE_MODE_ok;
         ClearTPM_MsgDispRqSensorsMissing();
         ClearTPM_StatSensorsMissing();

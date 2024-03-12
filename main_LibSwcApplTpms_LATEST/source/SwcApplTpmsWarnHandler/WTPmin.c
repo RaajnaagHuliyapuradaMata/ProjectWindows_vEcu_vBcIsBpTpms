@@ -4,14 +4,13 @@
 
 uint8 bPMin( struct LocalWarnDat *ptLWD, uint8 ucWarnCfg ){
    uint8 ucPCompare, ucRet;
-   ucPCompare = tDAG_PPara .ui8_P_MIN_TIRE ;
+   ucPCompare = tDAG_PPara.ui8_P_MIN_TIRE ;
 
    ptLWD->ucCurWarnLevel = ucPCompare;
    if(ptLWD->tHFD.tHF.ucP < ucPCompare){
       ucRet = ucSetWarnBitWN(ptLWD->tHFD.tHF.ucId, ucPMinIxc);
    }
-   else
-   {
+   else{
       if(ucGetWarnBitWN(ptLWD->tHFD.tHF.ucId, ucPMinIxc) == 1){
          if((ui8SWTimerExpired() > 0) || ( ushWarnOutTM != cNORMAL )){
             ucPCompare += ucHWResetHyst ;
@@ -20,13 +19,11 @@ uint8 bPMin( struct LocalWarnDat *ptLWD, uint8 ucWarnCfg ){
             ClearWarnBitWN(ptLWD->tHFD.tHF.ucId, ucPMinIxc);
             ucRet = 0;
          }
-         else
-         {
+         else{
             ucRet = 1;
          }
       }
-      else
-      {
+      else{
          ucRet = 0;
       }
    }

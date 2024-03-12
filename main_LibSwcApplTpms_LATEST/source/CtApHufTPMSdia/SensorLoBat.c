@@ -39,7 +39,7 @@ static void ClearBatInfo(BaType * pt2BatInfo){
 static uint16 GETui16Odometer(void){
     uint32 ui32OdoVal;
     uint16 ui16RetVal = 0;
-    uint8 * p2RetVal = (uint8 *) &ui16RetVal;
+    uint8* p2RetVal = (uint8 *) &ui16RetVal;
 
     ui32OdoVal = GETulKmStand4AutoCAL() >> 4;
 
@@ -67,8 +67,7 @@ static uint8 GETui8AmbienTemp(void){
   if(cMAXWU4BATINFO == i){
     return ((uint8) 0xFF);
   }
-  else
-  {
+  else{
     return ((uint8) 0);
   }
 }
@@ -80,8 +79,7 @@ static uint8 GETui8AmbienTemp(void){
   for( i = 0; i < cMAXWU4BATINFO ; i++){
     if(i == idx)
       continue;
-    else
-    {
+    else{
       tbatinfo = GETtSensorBatInfOfRam (i);
       if( cOK != tbatinfo.ui8Status ){
         break;
@@ -92,8 +90,7 @@ static uint8 GETui8AmbienTemp(void){
   if(cMAXWU4BATINFO == i){
     return ((uint8) 0xFF);
   }
-  else
-  {
+  else{
     return ((uint8) 0);
   }
 }
@@ -103,8 +100,7 @@ static uint8 GETui8AmbienTemp(void){
   if(cMAXWU4BATINFO > idx){
     return ( *((BaType*) ((uint8 *)&Rte_Pim_Pim_tDiagNvMBlock2()->tSensorBatInfo + (idx * sizeof (BaType )))) );
   }
-  else
-  {
+  else{
     ClearBatInfo (&tLocalBatInfo);
     return (tLocalBatInfo );
   }
@@ -161,8 +157,7 @@ static void PUTtSensorBatInfo2NVM(void){
           Dem_SetEventStatus( Dem_DTC_0x559916, DEM_EVENT_STATUS_PASSED);
         }
       }
-      else
-      {
+      else{
             if(bForceInit){
                if(ui8All4SensorsOK (idx) > ((uint8) 0)){
                   Dem_SetEventStatus( Dem_DTC_0x559916, DEM_EVENT_STATUS_PASSED);
@@ -189,8 +184,7 @@ static void PUTtSensorBatInfo2NVM(void){
         }
       }
     }
-    else
-    {
+    else{
       if(cLoBatRxInCurCycle != ui8SensorBatCtrl [idx]  ){
         ui8SensorBatCtrl [idx] = cLoBatRxInCurCycle;
         tLocalBatInfo .ui8Status = cNOK;
@@ -248,7 +242,7 @@ void ClearAllBatStatCounts(void){
   PUTtSensorBatInfo2NVM ();
 }
 
-void PrepareLoBat4Obsolescence(uint8 * p2dat){
+void PrepareLoBat4Obsolescence(uint8* p2dat){
 
   uint8 i;
   BaType tbatinfo;
@@ -259,13 +253,11 @@ void PrepareLoBat4Obsolescence(uint8 * p2dat){
       if(ucGetSensorState(i) == SENSOR_STATE_MISSING){
         p2dat[1] = 0x00;
        }
-      else
-      {
+      else{
         p2dat[1] = tbatinfo.ui8LifeInPercent;
       }
     }
-    else
-    {
+    else{
       p2dat[1] = 0x0F;
      }
 

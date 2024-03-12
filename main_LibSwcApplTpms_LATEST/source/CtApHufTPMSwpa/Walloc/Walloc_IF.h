@@ -18,20 +18,20 @@ typedef tPreBuf tRFTelType;
 
 #define cMaxTeLen sizeof(tRFTelType)
 
-extern void GetWADataEE(unsigned char, unsigned char *, unsigned char);
-extern void PutWADataEE(unsigned char, unsigned char *, unsigned char);
+extern void GetWADataEE(uint8, uint8 *, uint8);
+extern void PutWADataEE(uint8, uint8 *, uint8);
 
-extern void WAStatusChangedEvent(unsigned short);
-extern unsigned short ushGetABSingleTick(unsigned char ucIx);
-extern unsigned char ucGetABSTick(unsigned short * );
+extern void WAStatusChangedEvent(uint16);
+extern uint16 ushGetABSingleTick(uint8 ucIx);
+extern uint8 ucGetABSTick(uint16 * );
 
-extern unsigned char ucGetSpeed(void);
-extern unsigned char ucNoWheelSensorMounted(void);
+extern uint8 ucGetSpeed(void);
+extern uint8 ucNoWheelSensorMounted(void);
 
 extern void SetWaData2NvmFlag(void);
 
-extern unsigned char bGetABSSignalDTCActive(void);
+extern uint8 bGetABSSignalDTCActive(void);
 
-extern unsigned char ucDAG_LQIParameter(void);
+extern uint8 ucDAG_LQIParameter(void);
 
 #endif

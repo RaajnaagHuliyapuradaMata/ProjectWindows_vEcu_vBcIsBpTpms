@@ -175,8 +175,7 @@ uint8 bResetAbsRefPoint()
    if(ushCumAbsStickDiffOffset < (8*20/cAbsSignalPeriodicity)){
       return 0;
    }
-   else
-   {
+   else{
        ushCumAbsStickDiffOffset = 0;
       ushAbsStickPrevStop = 0xFFFF;
       return 1;

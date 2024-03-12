@@ -14,19 +14,19 @@
 
 struct rfstruct
 {
-   unsigned char rom;
-   unsigned char level;
-   unsigned char rssilvl;
-   unsigned char events[4];
-   unsigned char buffer[RF_DAT_BUF_LEN];
-   unsigned char rssibuf[RF_RS_BUF_LEN];
-   unsigned char mode;
-   unsigned char channel;
+   uint8 rom;
+   uint8 level;
+   uint8 rssilvl;
+   uint8 events[4];
+   uint8 buffer[RF_DAT_BUF_LEN];
+   uint8 rssibuf[RF_RS_BUF_LEN];
+   uint8 mode;
+   uint8 channel;
 };
 
 extern uint8 ucIRQ_ATA_activ;
 extern struct rfstruct  rf;
-extern unsigned char ucMISOdata[4];
+extern uint8 ucMISOdata[4];
 
 void csig0_disable(void);
 void csig0_enable(void);
@@ -36,20 +36,20 @@ void WaitHard(unsigned long ulTicks);
 void rf_ata5785_deinit(void);
 uint8 rf_ata5785_init( void );
 void rf_ata5785_init_demo( void );
-unsigned char rf_ata5785_read_version( void );
-void rf_ata5785_get_events( unsigned char buf[] );
-void rf_ata5785_set_mode( unsigned char mode, unsigned char channel );
-unsigned char rf_ata5785_read_rx_level( void );
-unsigned char rf_ata5785_read_rssi_level( void );
-void rf_ata5785_read_rx_buf( unsigned char buf[], unsigned char *len );
-void rf_ata5785_read_rssi_buf( unsigned char buf[], unsigned char *len );
-void rf_ata5785_write_tx_buf( unsigned char buf[], unsigned char len );
-void rf_ata5785_write_sram(const unsigned char data[]);
-void rf_ata5785_set_watchdog(const unsigned char data[] );
-unsigned char check_sensor_type(void);
-void SetServNPath( unsigned char ui8SrvNPath );
-unsigned char rf_ata5785_read_SM_state( void );
-unsigned char rf_ata5785_read_error_code( void );
+uint8 rf_ata5785_read_version( void );
+void rf_ata5785_get_events( uint8 buf[] );
+void rf_ata5785_set_mode( uint8 mode, uint8 channel );
+uint8 rf_ata5785_read_rx_level( void );
+uint8 rf_ata5785_read_rssi_level( void );
+void rf_ata5785_read_rx_buf( uint8 buf[], uint8 *len );
+void rf_ata5785_read_rssi_buf( uint8 buf[], uint8 *len );
+void rf_ata5785_write_tx_buf( uint8 buf[], uint8 len );
+void rf_ata5785_write_sram(const uint8 data[]);
+void rf_ata5785_set_watchdog(const uint8 data[] );
+uint8 check_sensor_type(void);
+void SetServNPath( uint8 ui8SrvNPath );
+uint8 rf_ata5785_read_SM_state( void );
+uint8 rf_ata5785_read_error_code( void );
 void rf_ata5785_OFF_command( void );
 void rf_ata5785_StartInitSM(void);
 uint8 rf_ata5785_InitSM(void);

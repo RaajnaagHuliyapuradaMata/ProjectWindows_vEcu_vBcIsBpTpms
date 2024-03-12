@@ -5,7 +5,6 @@ extern uint16 GETushFDtimeout(void);
 extern void DECushFDtimeout(void);
 extern void PUTucFDtimerStop(uint8);
 extern uint16 GETucFDtimerStop(void);
-extern uint8 GETucMinWarnThresholdOfRam(void);
 extern sint8 KweightCalculation(sint8, sint8);
 extern void ClearAllReCnt4FD(void);
 extern uint8 GetOneReCnt4FD(void);
