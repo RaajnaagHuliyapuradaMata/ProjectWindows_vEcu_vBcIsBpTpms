@@ -59,7 +59,7 @@ extern uint8   ucGetLastReceivedTemp  (uint32 ulTelID);
 #define cAL_Error   ((uint8)   3)
 extern uint8         ui8GetALState      (void);
 extern uint8 USEui8PWPofHistCol (uint8 ui8HistCol);
-extern unsigned long ulGetID            (uint8 ucIx);
+extern uint32 ulGetID            (uint8 ucIx);
 extern uint8 ucGetColOfWP       (uint8 ucIx);
 extern uint8 ucGetWPOfCol       (uint8 ucIx);
 

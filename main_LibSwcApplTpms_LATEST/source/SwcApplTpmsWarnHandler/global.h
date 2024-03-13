@@ -4,8 +4,6 @@
 #define ucIxWnCfgc 1
 #define ucIxGlobWrnLvl 0
 
-extern const uint8 ucBitNoc[ucSumWEc];
-
 extern uint8 bGETucCalRequestState( uint8 ucBitMask );
 extern void ClearBitCalRequestState( uint8 ucBitMask );
 extern void ClearCalRequestStateAtMFDfinish( void );

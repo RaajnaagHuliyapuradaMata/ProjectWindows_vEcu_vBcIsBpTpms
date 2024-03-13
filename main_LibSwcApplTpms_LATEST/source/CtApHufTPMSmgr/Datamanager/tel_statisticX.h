@@ -1,14 +1,14 @@
 
 
 #ifndef _TEL_STATISTIC_X_H
-# define _TEL_STATISTIC_X_H
+#define _TEL_STATISTIC_X_H
 
 #include "Platform_Types.h"
 
 #define FAILURE_MODE_ok 0U
 #define FAILURE_MODE_soWE 1U
- #define FAILURE_MODE_noWE 2U
- #define FAILURE_MODE_RfInterference 3U
+#define FAILURE_MODE_noWE 2U
+#define FAILURE_MODE_RfInterference 3U
 
 #define SENSOR_STATE_UNKNOWN 0u
 #define SENSOR_STATE_OK 1U

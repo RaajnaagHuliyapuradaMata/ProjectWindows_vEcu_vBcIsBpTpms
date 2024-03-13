@@ -1,8 +1,4 @@
-
-
-#ifndef _CDDECODER_X_H
-#define _CDDECODER_X_H
-#include "Compiler_Cfg.h"
+#pragma once
 
 #define cRESET_CDD     0x00
 #define cPRESTART_CDD  0x01
@@ -58,7 +54,7 @@
 #endif
  #endif
    #ifdef cG2TEL
- #define cHF_TEL_SIZE            (uint8) 10    /* Länge des empfangenen HF-DATENtelegramms in Bytes */
+#define cHF_TEL_SIZE            (uint8) 10    /* Länge des empfangenen HF-DATENtelegramms in Bytes */
 #else
 #define cHF_TEL_SIZE            (uint8) 11    /* Länge des empfangenen HF-DATENtelegramms in Bytes */
 #endif
@@ -84,11 +80,11 @@
 #define cTelTypeEdgeCnt         0xE5
 #define cTelTypePeak            0xE6
 #define cTelTypeRotatS          0xE7
- #define cTelTypeRawAcc          0xE8
+#define cTelTypeRawAcc          0xE8
 
 #define cTelTypeCorntiFP      0x80
 #define cTelTypeSELPAL        (uint8) 0x03
- #define cTelTypeSELPAL1       (uint8) 0x23
+#define cTelTypeSELPAL1       (uint8) 0x23
 
 #define cTelTypeG4Std           0xA5
 #define cTelTypeG4ATDnT         0x52
@@ -108,7 +104,7 @@
 #define c315 (uint8) 1
 
 #ifdef _M_IX86
- #define cByteOffset2HiNibID 7
+#define cByteOffset2HiNibID 7
   #else
 #define cByteOffset2HiNibID 3
  #endif
@@ -124,7 +120,7 @@ typedef struct
 typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucPressure;
    uint8 ucTemperature;
    uint8 ucRemainingLifeTime;
@@ -136,7 +132,7 @@ typedef struct
 typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucPressure;
    uint8 ucTemperature;
    uint8 ucState;
@@ -145,7 +141,7 @@ typedef struct
 typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucSWRev;
    uint8 ucCheckSum;
 } PreBufG36SWRev;
@@ -154,7 +150,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucPressure;
    uint8 ucTemperature;
    uint8 ucCRC8;
@@ -163,7 +159,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucSpinDir;
    uint8 ucCRC8;
 } PreBufAK35BeruShort;
@@ -171,7 +167,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucPressure;
    uint8 ucTemperature;
    uint8 ucRemainingLifeTime;
@@ -183,7 +179,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucPressure;
    uint8 ucTemperature;
    uint8 ucSpinDir;
@@ -194,7 +190,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucTireMSB;
    uint8 ucTire4;
    uint8 ucTire3;
@@ -207,7 +203,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucP;
    uint8 ucT;
    uint8 ucFoodPrint;
@@ -217,7 +213,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint16 ushdT0;
    uint16 ushdT1;
    uint16 ushdT2;
@@ -228,7 +224,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucP;
    uint8 ucT;
    uint8 ucTelSentnEnergy;
@@ -238,7 +234,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucSWVer;
    uint8 ucSWVar;
    uint8 ucTelSentnEnergy;
@@ -250,7 +246,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucP;
    uint8 ucT;
    uint8 ucFrameID;
@@ -260,7 +256,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucSpin;
    uint8 ucXEdgCt;
    uint8 ucZEdgCt;
@@ -274,7 +270,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucEdge;
    uint8 ucCRC8;
 } PreBufEdge;
@@ -282,7 +278,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucSpin;
    uint16 ushXEdgeCt;
    uint8 ucXPeakCt;
@@ -295,7 +291,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucXPeak;
    uint8 ucPEvCt;
    uint8 ucCRC8;
@@ -305,7 +301,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucZPeak;
    uint8 ucZPEvCt;
    uint8 ucCRC8;
@@ -315,7 +311,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucXAcc;
    uint8 ucZAcc;
    uint8 ucCRC8;
@@ -325,7 +321,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucSnRH;
    uint8 ucRL;
    uint8 ucCRC8;
@@ -335,7 +331,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucP;
    uint8 ucT;
    uint8 ucPAL;
@@ -347,7 +343,7 @@ typedef struct
 {
    uint8 ucHeader[sizeof(PreBufHeader)];
    uint8 ucCmdID;
-   unsigned long ulID;
+   uint32 ulID;
    uint8 ucP;
    uint8 ucT;
    uint8 ucBat;
@@ -412,5 +408,3 @@ extern void Safe1ManBit(void);
 extern void Safe0ManBit(void);
 extern void Safe1AK35Bit(void);
 extern void Safe0AK35Bit(void);
-
-#endif

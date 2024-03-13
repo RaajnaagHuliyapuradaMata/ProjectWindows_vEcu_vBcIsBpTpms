@@ -86,9 +86,6 @@ extern uint8 ui8GetSoftWrnOfWP(uint8 ui8WP);
 #define GETbWrnPreSoft_UK() ( (aucWheelPosWarn[4] & ((uint8) (1<<ucSoftTIxc)) ) == ((uint8) (1<<ucSoftTIxc))  )
 #define GETbWrnPreSoft_WP(Pos) ( (aucWheelPosWarn[Pos] & ((uint8) (1<<ucSoftTIxc)) ) == ((uint8) (1<<ucSoftTIxc))  )
 
-extern uint16 ushWarnOutTM;
-
-#define GETushWarnstatus1WN()  ( ushWarnOutTM )
 #define GETucLoWarnstatus1WN() ( (uint8) ushWarnOutTM )
 #define GETucHiWarnstatus1WN() ( (uint8) (ushWarnOutTM >> 8) )
 

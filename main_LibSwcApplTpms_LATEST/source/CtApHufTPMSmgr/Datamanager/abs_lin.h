@@ -20,7 +20,7 @@
 #define cDEBUG_ERROR_OVERFLOW_ABSCNTHR        ((uint8) 0x10)
 
 #define PAL
-# define cTimeOverflowValue 0xFFFFU
+#define cTimeOverflowValue 0xFFFFU
 
 #ifdef PAL
 #define cPalTimingRange 1260

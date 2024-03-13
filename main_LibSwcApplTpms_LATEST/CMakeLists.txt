@@ -29,11 +29,15 @@ add_executable(
    ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler/USWarn.c
    ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler/uswarn_If.c
    ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler/WTDHW.c
+   ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler/WTEcE.c
+   ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler/WTPmin.c
+   ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler/WTSFactor.c
+
+#  ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWpa/FPA.c
+
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSdia
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSwnh
-#  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSwpa
-#  ${PROJECT_SOURCE_DIR}/source/CtCdHufTPMSohds
 #  ${PROJECT_SOURCE_DIR}/source/CtCdHufTPMSrfd
    ${PROJECT_SOURCE_DIR}/source/wrappers/main.c
 )
@@ -43,6 +47,7 @@ target_include_directories(
 
    "${PROJECT_SOURCE_DIR}/source/SwcApplTpmsHmiHandler"
    "${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler"
+   "${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWpa"
    "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSdia"
    "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr/Datamanager"
    "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr/DevMsg"
@@ -51,8 +56,6 @@ target_include_directories(
    "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr/Interfaces"
    "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr"
    "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr/Statemanager"
-   "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSwpa/Walloc"
-   "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSwpa/CtCdHufTPMSohds"
    "${PROJECT_SOURCE_DIR}/source/CtCdHufTPMSrfd"
    "${PROJECT_SOURCE_DIR}/source/stubs"
 )

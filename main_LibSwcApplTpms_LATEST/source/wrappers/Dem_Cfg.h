@@ -22,9 +22,9 @@
 #if ! defined (V_USE_DUMMY_STATEMENT)
 # error "The define V_USE_DUMMY_STATEMENT shall be defined either in Compiler_Cfg.h or as parameter for the Compiler"
 #elif   (V_USE_DUMMY_STATEMENT == STD_OFF)
-# define DEM_IGNORE_UNUSED_ARG(arg)
+#define DEM_IGNORE_UNUSED_ARG(arg)
 #else
-# define DEM_IGNORE_UNUSED_ARG(arg)           ((void)(arg))
+#define DEM_IGNORE_UNUSED_ARG(arg)           ((void)(arg))
 #endif
 
 #define DEM_CONFIG_VARIANT                   1
@@ -63,7 +63,7 @@ typedef VAR(uint16, TYPEDEF) Dem_TimeBasedDebounceTimerType;
       #error "The magic number of the generated file <C:\_TSS\DAG\MFA2\Target\Appl\GenData\Dem_Cfg.h> is different. Please check time and date of generated files!"
   #endif
 #else
-  #define MAGIC_NUMBER 268053767
+#define MAGIC_NUMBER 268053767
 #endif
 #endif
 

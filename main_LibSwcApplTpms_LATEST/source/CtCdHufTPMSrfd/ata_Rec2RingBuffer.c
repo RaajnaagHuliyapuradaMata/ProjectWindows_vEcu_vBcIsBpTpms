@@ -8,7 +8,7 @@
 
 extern void csig0_4ATAinit(void);
 extern DT_auRfStruct aucRfStruct;
- #define cMODE1_TEL   (uint8) 0x01
+#define cMODE1_TEL   (uint8) 0x01
 #define cDefConfRBuf (uint8) 0x00
 
 #define cATAok       (uint8) 0x00

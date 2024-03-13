@@ -11,7 +11,7 @@
 #define LB_LIMIT (uint8) 15
 #define cLoBatRxInCurCycle (uint8) 0xFF
 #define cMaxRxOkEvents (uint8) 10
- #define cNOK ((uint8) 1)
+#define cNOK ((uint8) 1)
 #define cOK ((uint8) 0x80)
 #define cDtcWasCleared ((uint8) 0)
 
@@ -249,7 +249,7 @@ void PrepareLoBat4Obsolescence(uint8* p2dat){
 
   for( i = 0; i < 4; i++){
     tbatinfo = GETtSensorBatInfOfRam (i);
-    if((unsigned long) 4 < tbatinfo .ui32ID  ){
+    if((uint32) 4 < tbatinfo .ui32ID  ){
       if(ucGetSensorState(i) == SENSOR_STATE_MISSING){
         p2dat[1] = 0x00;
        }

@@ -16,8 +16,8 @@
 extern uint8   bAwakeIgnOn;
 
 #define cMIN_TIME_SNA_ERROR   ((uint8) 60)
- #define cMIN_TIME_AFTER_IGN_START ((uint8) 10)
- #define cMIN_TIME_AFTER_ENG_START ((uint8) 10)
+#define cMIN_TIME_AFTER_IGN_START ((uint8) 10)
+#define cMIN_TIME_AFTER_ENG_START ((uint8) 10)
 
 static uint16 ushVehicleSpeed = 0;
 static sint8 scOutdoorTemperature = 0;

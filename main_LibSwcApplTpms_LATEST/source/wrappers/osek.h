@@ -76,13 +76,13 @@ extern "C"
 
 typedef uint8  osuint8;
 typedef uint16 osuint16;
-typedef unsigned long  osuint32;
+typedef uint32  osuint32;
 typedef signed   char  osint8;
 typedef signed   short osint16;
 typedef signed   long  osint32;
 
 #ifndef osbool
- #define osbool osuint8
+#define osbool osuint8
 #endif
 
 typedef osbool osBoolArrayBaseType;
@@ -271,7 +271,7 @@ typedef osuint32                 PhysicalTimeType;
 #ifdef _MSC_VER
 typedef unsigned __int64         osTPTimeStampType;
 #else
-typedef unsigned long long       osTPTimeStampType;
+typedef uint32 long       osTPTimeStampType;
 #endif
 typedef osTPTimeStampType*       osTPTimeStampRefType;
 typedef osuint32                 osTPTimeType;
@@ -680,7 +680,7 @@ typedef struct {
 extern const tsConfigBlock osConfigBlock;
 
 #if osdORTIDebug
- #define osdTestMacros 1
+#define osdTestMacros 1
 #endif
 
 #ifndef osdTestMacros
@@ -877,8 +877,8 @@ osqFunc1 osuint16 osqFunc2 osGetConfigBlockVersion(void);
 #define osRTEDisableLevel()   osDisableLevel()
 #define osRTEEnableLevel()    osEnableLevel()
 
- #define osRTEDisableGlobal()  osDisableGlobal()
- #define osRTEEnableGlobal()   osEnableGlobal()
+#define osRTEDisableGlobal()  osDisableGlobal()
+#define osRTEEnableGlobal()   osEnableGlobal()
 
 #ifndef osdEnableAllInterruptsNotUsed
 osqFunc1 void osqFunc2 osEnableAllInterrupts(void);
@@ -1110,60 +1110,60 @@ void osPsysCallApplShutdownHook(StatusType Param0Error, ApplicationType Param1ap
 #define osdIntAPIDisableAll 0x80U
 
 #if(STATUS_LEVEL == EXTENDED_STATUS)
-   #define osSetIntAPIStatus(x) (osOwnCcb->LockIsNotNeeded.ossIntAPIStatus = (x))
-   #define osIncIntAPIStatus() (osOwnCcb->LockIsNotNeeded.ossIntAPIStatus++)
-   #define osDecIntAPIStatus() (osOwnCcb->LockIsNotNeeded.ossIntAPIStatus--)
+#define osSetIntAPIStatus(x) (osOwnCcb->LockIsNotNeeded.ossIntAPIStatus = (x))
+#define osIncIntAPIStatus() (osOwnCcb->LockIsNotNeeded.ossIntAPIStatus++)
+#define osDecIntAPIStatus() (osOwnCcb->LockIsNotNeeded.ossIntAPIStatus--)
 #else
-   #define osSetIntAPIStatus(x)
-   #define osIncIntAPIStatus()
-   #define osDecIntAPIStatus()
+#define osSetIntAPIStatus(x)
+#define osIncIntAPIStatus()
+#define osDecIntAPIStatus()
 #endif
 
 #ifndef osdEnableAllInterruptsNotUsed
    #if((osdSC == SC2) ||  (osdSC == SC1))
-      #define EnableAllInterrupts() (osEnableAllInterrupts())
+#define EnableAllInterrupts() (osEnableAllInterrupts())
    #else
-      #define EnableAllInterrupts() (osPsysEnableAllInterrupts())
+#define EnableAllInterrupts() (osPsysEnableAllInterrupts())
    #endif
 #endif
 
 #ifndef osdDisableAllInterruptsNotUsed
    #if((osdSC == SC2) || (osdSC == SC1))
-      #define DisableAllInterrupts() (osDisableAllInterrupts())
+#define DisableAllInterrupts() (osDisableAllInterrupts())
    #else
-      #define DisableAllInterrupts() (osPsysDisableAllInterrupts())
+#define DisableAllInterrupts() (osPsysDisableAllInterrupts())
    #endif
 #endif
 
 #ifndef osdResumeOSInterruptsNotUsed
    #if((osdSC== SC2) || (osdSC== SC1))
-      #define ResumeOSInterrupts() (osResumeOSInterrupts())
+#define ResumeOSInterrupts() (osResumeOSInterrupts())
    #else
-      #define ResumeOSInterrupts() (osPsysResumeOSInterrupts())
+#define ResumeOSInterrupts() (osPsysResumeOSInterrupts())
    #endif
 #endif
 
 #ifndef osdSuspendOSInterruptsNotUsed
    #if((osdSC == SC2) || (osdSC == SC1))
-      #define SuspendOSInterrupts() (osSuspendOSInterrupts())
+#define SuspendOSInterrupts() (osSuspendOSInterrupts())
    #else
-      #define SuspendOSInterrupts() (osPsysSuspendOSInterrupts())
+#define SuspendOSInterrupts() (osPsysSuspendOSInterrupts())
    #endif
 #endif
 
 #ifndef osdResumeAllInterruptsNotUsed
    #if((osdSC== SC2) || (osdSC== SC1))
-      #define ResumeAllInterrupts() (osResumeAllInterrupts())
+#define ResumeAllInterrupts() (osResumeAllInterrupts())
    #else
-      #define ResumeAllInterrupts() (osPsysResumeAllInterrupts())
+#define ResumeAllInterrupts() (osPsysResumeAllInterrupts())
    #endif
 #endif
 
 #ifndef osdSuspendAllInterruptsNotUsed
    #if((osdSC == SC2) || (osdSC == SC1))
-      #define SuspendAllInterrupts() (osSuspendAllInterrupts())
+#define SuspendAllInterrupts() (osSuspendAllInterrupts())
    #else
-      #define SuspendAllInterrupts() (osPsysSuspendAllInterrupts())
+#define SuspendAllInterrupts() (osPsysSuspendAllInterrupts())
    #endif
 #endif
 
@@ -1346,20 +1346,20 @@ osqFunc1 StatusType osqFunc2 osWaitEvent(EventMaskType mask);
 #ifndef osdGetCounterValueNotUsed
 
  #if((osdSC == SC3) || (osdSC == SC4))
-  #define GetCounterValue(x, y) (osPsysGetCounterValue((x), (y)))
+#define GetCounterValue(x, y) (osPsysGetCounterValue((x), (y)))
  #else
-  #define GetCounterValue(x, y) (osGetCounterValue((x), (y)))
+#define GetCounterValue(x, y) (osGetCounterValue((x), (y)))
  #endif
 
 #endif
 
 #ifndef osdGetElapsedValueNotUsed
- #define GetElapsedCounterValue(x,y,z) GetElapsedValue((x),(y),(z))
+#define GetElapsedCounterValue(x,y,z) GetElapsedValue((x),(y),(z))
 
  #if((osdSC == SC3) || (osdSC == SC4))
-  #define GetElapsedValue(x, y, z) (osPsysGetElapsedValue((x), (y), (z)))
+#define GetElapsedValue(x, y, z) (osPsysGetElapsedValue((x), (y), (z)))
  #else
-  #define GetElapsedValue(x, y, z) (osGetElapsedValue((x), (y), (z)))
+#define GetElapsedValue(x, y, z) (osGetElapsedValue((x), (y), (z)))
  #endif
 
 #endif
@@ -1554,72 +1554,72 @@ typedef struct
 osqROM0 extern osqROM1 const osqROM2 osVersionVariantCodingType osqROM3 oskVersionVariant;
 
 #if CC == BCC1
-   #define osdVariantCC 0U
+#define osdVariantCC 0U
 #elif CC == BCC2
-   #define osdVariantCC 1U
+#define osdVariantCC 1U
 #elif CC == ECC1
-   #define osdVariantCC 2U
+#define osdVariantCC 2U
 #elif CC == ECC2
-   #define osdVariantCC 3U
+#define osdVariantCC 3U
 #else
 #error wrong conformance class
 #endif
 
 #if STATUS_LEVEL == EXTENDED_STATUS
-   #define osdVariantStatus 1U
+#define osdVariantStatus 1U
 #else
-   #define osdVariantStatus 0U
+#define osdVariantStatus 0U
 #endif
 
 #if osdNonPreempt
-   #define osdVariantSchedule 0U
+#define osdVariantSchedule 0U
 #elif osdFullPreempt
-   #define osdVariantSchedule 1U
+#define osdVariantSchedule 1U
 #elif osdMixedPreempt
-   #define osdVariantSchedule 2U
+#define osdVariantSchedule 2U
 #else
 #error wrong scheduling policy
 #endif
 
 #if osdStackCheck
-   #define osdVariantStackcheck 1U
+#define osdVariantStackcheck 1U
 #else
-   #define osdVariantStackcheck 0U
+#define osdVariantStackcheck 0U
 #endif
 
 #if osdEnableAssertions
-   #define osdVariantAssertionsEnabled 1U
+#define osdVariantAssertionsEnabled 1U
 #else
-   #define osdVariantAssertionsEnabled 0U
+#define osdVariantAssertionsEnabled 0U
 #endif
 
 #if(osdSC== SC1)
-   #define osdVariantSC 0U
+#define osdVariantSC 0U
 #elif(osdSC== SC2)
-   #define osdVariantSC 1U
+#define osdVariantSC 1U
 #elif(osdSC== SC3)
-   #define osdVariantSC 2U
+#define osdVariantSC 2U
 #elif(osdSC== SC4)
-   #define osdVariantSC 3U
+#define osdVariantSC 3U
 #else
 #error wrong scalability class
 #endif
 
 #if(osdNumberOfScheduleTables>0)
-   #define osdVariantFeaturesUsed_ST 1U
+#define osdVariantFeaturesUsed_ST 1U
 #else
-   #define osdVariantFeaturesUsed_ST 0U
+#define osdVariantFeaturesUsed_ST 0U
 #endif
 #if(osdNumberOfHiResSchedTabs>0)
-   #define osdVariantFeaturesUsed_HRST 1U
+#define osdVariantFeaturesUsed_HRST 1U
 #else
-   #define osdVariantFeaturesUsed_HRST 0U
+#define osdVariantFeaturesUsed_HRST 0U
 #endif
-   #define osdVariantFeaturesUsed_Sync 0U
+#define osdVariantFeaturesUsed_Sync 0U
 #if(osdTimingProtectionUsed)
-   #define osdVariantFeaturesUsed_TP   1U
+#define osdVariantFeaturesUsed_TP   1U
 #else
-   #define osdVariantFeaturesUsed_TP   0U
+#define osdVariantFeaturesUsed_TP   0U
 #endif
 
 #if osdORTIEnabled
@@ -1635,9 +1635,9 @@ osqROM0 extern osqROM1 const osqROM2 osVersionVariantCodingType osqROM3 oskVersi
 #define osdVariantDerivative  0
 
 #if((defined(__NoFloat__)) || (defined(__SoftwareFloat__)))
-   #define osdVariantFPUSupport 0
+#define osdVariantFPUSupport 0
 #else
-   #define osdVariantFPUSupport 1
+#define osdVariantFPUSupport 1
 #endif
 
 #ifndef osdTerminateApplicationNotUsed
@@ -1665,10 +1665,10 @@ osqROM0 extern osqROM1 const osqROM2 osVersionVariantCodingType osqROM3 oskVersi
 #if(osdStackCheck == 1)
    #if(osdSC == SC3) || (osdSC == SC4)
       #if(osdMPUSupportInSVMode == 0)
-         #define osdSoftwareStackCheck
+#define osdSoftwareStackCheck
       #endif
    #else
-      #define osdSoftwareStackCheck
+#define osdSoftwareStackCheck
    #endif
 #endif
 

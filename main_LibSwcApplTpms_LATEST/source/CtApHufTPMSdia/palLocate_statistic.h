@@ -1,7 +1,7 @@
 
 
 #ifndef _PAL_LOCATE_STATISTIC_H
-# define _PAL_LOCATE_STATISTIC_H
+#define _PAL_LOCATE_STATISTIC_H
 
 #include "Platform_Types.h"
 

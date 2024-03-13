@@ -276,20 +276,20 @@ extern osqTcbRAM1 osqTcbRAM2 osCtrlVarType osqTcbRAM3 osCtrlVarsCore0;
 #endif
 
 #if osdLib
-   #define osrRTSize                     oskRTSize
-   #define osrNumberOfPriorities         oskNumberOfPriorities
-   #define osrNumberOfAppModes           oskNumberOfAppModes
-   #define osrNumberOfAllTasks           oskNumberOfAllTasks
-   #define osrNumberOfAllResources       oskNumberOfAllResources
-   #define osrNumberOfTaskResources      oskNumberOfTaskResources
-   #define osrNumberOfInterruptResources oskNumberOfInterruptResources
-   #define osrNumberOfInternalResources  oskNumberOfInternalResources
-   #define osrNumberOfExtendedTasks      oskNumberOfExtendedTasks
-   #define osrNumberOfAlarms             oskNumberOfAlarms
-   #define osrNumberOfScheduleTables     oskNumberOfScheduleTables
-   #define osrNumberOfSemaphores         oskNumberOfSemaphores
-   #define osrSystemTimer                oskSystemTimer
-   #define osrNumberOfCounters           oskNumberOfCounters
+#define osrRTSize                     oskRTSize
+#define osrNumberOfPriorities         oskNumberOfPriorities
+#define osrNumberOfAppModes           oskNumberOfAppModes
+#define osrNumberOfAllTasks           oskNumberOfAllTasks
+#define osrNumberOfAllResources       oskNumberOfAllResources
+#define osrNumberOfTaskResources      oskNumberOfTaskResources
+#define osrNumberOfInterruptResources oskNumberOfInterruptResources
+#define osrNumberOfInternalResources  oskNumberOfInternalResources
+#define osrNumberOfExtendedTasks      oskNumberOfExtendedTasks
+#define osrNumberOfAlarms             oskNumberOfAlarms
+#define osrNumberOfScheduleTables     oskNumberOfScheduleTables
+#define osrNumberOfSemaphores         oskNumberOfSemaphores
+#define osrSystemTimer                oskSystemTimer
+#define osrNumberOfCounters           oskNumberOfCounters
 
    extern const osRTSizeType               oskRTSize;
    extern const osAppModeIndexType         oskNumberOfAppModes;
@@ -318,19 +318,19 @@ extern osqTcbRAM1 osqTcbRAM2 osCtrlVarType osqTcbRAM3 osCtrlVarsCore0;
    extern const osVersionVariantCodingType oskLibVersionVariant;
 
 #else
-   #define osrRTSize                      osdRTSize
-   #define osrNumberOfPriorities          osdNumberOfPriorities
-   #define osrNumberOfAppModes            osdNumberOfAppModes
-   #define osrNumberOfAllTasks            osdNumberOfAllTasks
-   #define osrNumberOfAllResources        osdNumberOfAllResources
-   #define osrNumberOfTaskResources       osdNumberOfTaskResources
-   #define osrNumberOfInterruptResources  osdNumberOfInterruptResources
-   #define osrNumberOfInternalResources   osdNumberOfInternalResources
-   #define osrNumberOfExtendedTasks       osdNumberOfExtendedTasks
-   #define osrNumberOfAlarms              osdNumberOfAlarms
-   #define osrNumberOfScheduleTables      osdNumberOfScheduleTables
-   #define osrNumberOfSemaphores          osdNumberOfSemaphores
-   #define osrNumberOfCounters            osdNumberOfCounters
+#define osrRTSize                      osdRTSize
+#define osrNumberOfPriorities          osdNumberOfPriorities
+#define osrNumberOfAppModes            osdNumberOfAppModes
+#define osrNumberOfAllTasks            osdNumberOfAllTasks
+#define osrNumberOfAllResources        osdNumberOfAllResources
+#define osrNumberOfTaskResources       osdNumberOfTaskResources
+#define osrNumberOfInterruptResources  osdNumberOfInterruptResources
+#define osrNumberOfInternalResources   osdNumberOfInternalResources
+#define osrNumberOfExtendedTasks       osdNumberOfExtendedTasks
+#define osrNumberOfAlarms              osdNumberOfAlarms
+#define osrNumberOfScheduleTables      osdNumberOfScheduleTables
+#define osrNumberOfSemaphores          osdNumberOfSemaphores
+#define osrNumberOfCounters            osdNumberOfCounters
 
 #endif
 

@@ -38,7 +38,7 @@ static uint8 ucGetTDL100(void);
 static uint16 ushGetTDL210(void);
 
 #define cMinStretch (uint8) 0x30
- #define cFPARefWidth 1
+#define cFPARefWidth 1
 
 #define cMinCt4Dec (uint8) 14
 
@@ -153,7 +153,7 @@ uint8 ucConceptFixPos0(uint8 ucID, tRFTelType * ptInputWA){
 }
 
 static void GenCmpVal(uint8 ucID){
-  unsigned long ulTmp;
+  uint32 ulTmp;
   uint16 ushdN, ushTmp, ushdN2;
   uint8 i;
 
@@ -197,18 +197,18 @@ static void GenCmpVal(uint8 ucID){
 
           }
           ushTmp = tZOM[ucID].ushMVdN[i];
-           ulTmp = (unsigned long) ushTmp << 7;
-          ulTmp -= (unsigned long) ushTmp;
-          ulTmp += (unsigned long) ushdN;
-          ulTmp += (unsigned long) 64;
+           ulTmp = (uint32) ushTmp << 7;
+          ulTmp -= (uint32) ushTmp;
+          ulTmp += (uint32) ushdN;
+          ulTmp += (uint32) 64;
            ulTmp >>= 7;
           tZOM[ucID].ushMVdN[i] = (uint16) ulTmp;
 
           ushTmp = tZOM[ucID].ushMVdN2[i];
-           ulTmp = (unsigned long) ushTmp << 7;
-          ulTmp -= (unsigned long) ushTmp;
-          ulTmp += (unsigned long) ushdN2;
-          ulTmp += (unsigned long) 64;
+           ulTmp = (uint32) ushTmp << 7;
+          ulTmp -= (uint32) ushTmp;
+          ulTmp += (uint32) ushdN2;
+          ulTmp += (uint32) 64;
            ulTmp >>= 7;
           tZOM[ucID].ushMVdN2[i] = (uint16) ulTmp;
         }
@@ -269,7 +269,7 @@ static void GenCmpVal(uint8 ucID){
 }
 
 static void GenCmpVal1(uint8 ucID){
-  unsigned long ulTmp;
+  uint32 ulTmp;
   uint16 ushdN, ushTmp, ushdN2;
   uint8 i;
 
@@ -313,18 +313,18 @@ static void GenCmpVal1(uint8 ucID){
 
           }
           ushTmp = tZOM[ucID].ushMVdN[i];
-           ulTmp = (unsigned long) ushTmp << 7;
-          ulTmp -= (unsigned long) ushTmp;
-          ulTmp += (unsigned long) ushdN;
-          ulTmp += (unsigned long) 64;
+           ulTmp = (uint32) ushTmp << 7;
+          ulTmp -= (uint32) ushTmp;
+          ulTmp += (uint32) ushdN;
+          ulTmp += (uint32) 64;
            ulTmp >>= 7;
           tZOM[ucID].ushMVdN[i] = (uint16) ulTmp;
 
           ushTmp = tZOM[ucID].ushMVdN2[i];
-           ulTmp = (unsigned long) ushTmp << 7;
-          ulTmp -= (unsigned long) ushTmp;
-          ulTmp += (unsigned long) ushdN2;
-          ulTmp += (unsigned long) 64;
+           ulTmp = (uint32) ushTmp << 7;
+          ulTmp -= (uint32) ushTmp;
+          ulTmp += (uint32) ushdN2;
+          ulTmp += (uint32) 64;
            ulTmp >>= 7;
           tZOM[ucID].ushMVdN2[i] = (uint16) ulTmp;
         }
@@ -391,7 +391,7 @@ static void GenCmpVal1(uint8 ucID){
 }
 
 static void GenCmpVal2(uint8 ucID){
-  unsigned long ulTmp;
+  uint32 ulTmp;
   uint16 ushdN, ushTmp;
   uint8 i;
 
@@ -437,10 +437,10 @@ static void GenCmpVal2(uint8 ucID){
 
           }
           ushTmp = tZOM[ucID].ushMVdN[i];
-           ulTmp = (unsigned long) ushTmp << 7;
-          ulTmp -= (unsigned long) ushTmp;
-          ulTmp += (unsigned long) ushdN;
-          ulTmp += (unsigned long) 64;
+           ulTmp = (uint32) ushTmp << 7;
+          ulTmp -= (uint32) ushTmp;
+          ulTmp += (uint32) ushdN;
+          ulTmp += (uint32) 64;
            ulTmp >>= 7;
           tZOM[ucID].ushMVdN[i] = (uint16) ulTmp;
          }
@@ -495,7 +495,7 @@ static void GenCmpVal2(uint8 ucID){
 }
 
 static void GenCmpVal3(uint8 ucID){
-  unsigned long ulTmp;
+  uint32 ulTmp;
   uint16 ushdN, ushTmp, ushdN2, ushdN3, ushdN4;
   uint8 i;
 
@@ -541,34 +541,34 @@ static void GenCmpVal3(uint8 ucID){
 #endif
           }
           ushTmp = tZOM[ucID].ushMVdN[i];
-           ulTmp = (unsigned long) ushTmp << 7;
-          ulTmp -= (unsigned long) ushTmp;
-          ulTmp += (unsigned long) ushdN;
-          ulTmp += (unsigned long) 64;
+           ulTmp = (uint32) ushTmp << 7;
+          ulTmp -= (uint32) ushTmp;
+          ulTmp += (uint32) ushdN;
+          ulTmp += (uint32) 64;
            ulTmp >>= 7;
           tZOM[ucID].ushMVdN[i] = (uint16) ulTmp;
 
           ushTmp = tZOM[ucID].ushMVdN2[i];
-           ulTmp = (unsigned long) ushTmp << 7;
-          ulTmp -= (unsigned long) ushTmp;
-          ulTmp += (unsigned long) ushdN2;
-          ulTmp += (unsigned long) 64;
+           ulTmp = (uint32) ushTmp << 7;
+          ulTmp -= (uint32) ushTmp;
+          ulTmp += (uint32) ushdN2;
+          ulTmp += (uint32) 64;
            ulTmp >>= 7;
           tZOM[ucID].ushMVdN2[i] = (uint16) ulTmp;
 #if(1)
           ushTmp = tZOM[ucID].ushMVdN3[i];
-           ulTmp = (unsigned long) ushTmp << 7;
-          ulTmp -= (unsigned long) ushTmp;
-          ulTmp += (unsigned long) ushdN3;
-          ulTmp += (unsigned long) 64;
+           ulTmp = (uint32) ushTmp << 7;
+          ulTmp -= (uint32) ushTmp;
+          ulTmp += (uint32) ushdN3;
+          ulTmp += (uint32) 64;
            ulTmp >>= 7;
           tZOM[ucID].ushMVdN3[i] = (uint16) ulTmp;
 
         ushTmp = tZOM[ucID].ushMVdN4[i];
-           ulTmp = (unsigned long) ushTmp << 7;
-          ulTmp -= (unsigned long) ushTmp;
-          ulTmp += (unsigned long) ushdN4;
-          ulTmp += (unsigned long) 64;
+           ulTmp = (uint32) ushTmp << 7;
+          ulTmp -= (uint32) ushTmp;
+          ulTmp += (uint32) ushdN4;
+          ulTmp += (uint32) 64;
            ulTmp >>= 7;
           tZOM[ucID].ushMVdN4[i] = (uint16) ulTmp;
 #endif
@@ -666,11 +666,11 @@ static void GenCmpVal3(uint8 ucID){
 static uint8 ucGenDMnD(void){
   union
    {
-    unsigned long ulTmp;
+    uint32 ulTmp;
     uint8 ucSort[4];
   } tTmp;
 
-  unsigned long ulCmpSum;
+  uint32 ulCmpSum;
   uint8 i,j, ucRelCmpVal[4][4], ucTmp, ucMinIx, ucRet = 0;
 
   for( i = 0; i < cMaxLR; i++){
@@ -726,7 +726,7 @@ static uint8 ucGenDMnD(void){
       for( j = 0; j < cSumABSig; j++){
         if(tZOM[i].ushPosCompVal[j] < tZOM[i].ushPosCompVal2[j]){
           if(tZOM[i].ushPosCompVal[j] > 0){
-            tTmp.ulTmp =  (unsigned long) tZOM[i].ushPosCompVal[j] * 100;
+            tTmp.ulTmp =  (uint32) tZOM[i].ushPosCompVal[j] * 100;
             tTmp.ulTmp /= ulCmpSum;
             ucRelCmpVal[i][j] = (uint8) tTmp.ulTmp;
           }
@@ -735,7 +735,7 @@ static uint8 ucGenDMnD(void){
         }
         else{
           if(tZOM[i].ushPosCompVal2[j] > 0){
-            tTmp.ulTmp =  (unsigned long) tZOM[i].ushPosCompVal2[j] * 100;
+            tTmp.ulTmp =  (uint32) tZOM[i].ushPosCompVal2[j] * 100;
             tTmp.ulTmp /= ulCmpSum;
             ucRelCmpVal[i][j] = (uint8) tTmp.ulTmp;
           }
@@ -755,7 +755,7 @@ static uint8 ucGenDMnD(void){
 #endif
     }
 
-    tTmp.ulTmp = (unsigned long) 0;
+    tTmp.ulTmp = (uint32) 0;
     ucTmp = cMaxLR;
     for(i = 0; i < cMaxLR; i++){
       SortBiggest1st(ucRelCmpVal[i],tTmp.ucSort,cSumABSig);
@@ -1081,7 +1081,7 @@ void TESTPrintToothZOM_HL(void){
   }
 }
 void TESTPrintToothZOMAsLine(void){
-  unsigned long ulID;
+  uint32 ulID;
 
   ulID = ulGetRatIDatWP(0);
     TESTPrintFPAZOMSlot(ucGetZOMPosOfID( &ulID));

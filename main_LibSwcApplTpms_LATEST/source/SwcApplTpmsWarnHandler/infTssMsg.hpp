@@ -16,8 +16,6 @@
 #define ucWPRLc             ((uint8) 2)
 #define ucWPRRc             ((uint8) 3)
 
-#define cNORMAL ((uint8) 0)
-
 #define ucNewPositionsc     2
 #define ucPutWarnVectorSetc 9
 

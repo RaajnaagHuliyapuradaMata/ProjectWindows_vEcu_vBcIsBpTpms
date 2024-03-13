@@ -10,7 +10,7 @@
 #define cLeftSpin (uint8) 0x80
 
 #define cFL (uint8) 0
- #define cFR (uint8) 1
+#define cFR (uint8) 1
 #define cRL (uint8) 2
 #define cRR (uint8) 3
 #define cTI (uint8) 4
@@ -21,7 +21,7 @@
 
 struct ZOMSlot
 {
-  unsigned long ulID;
+  uint32 ulID;
 
   uint8 ucStatus;
 

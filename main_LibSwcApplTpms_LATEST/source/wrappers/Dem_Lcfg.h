@@ -351,7 +351,7 @@ extern FUNC(uint8, DEM_CODE) DemCfg_GetIsEventTimeBasedDebounce(Dem_EventIdType 
       #error "The magic number of the generated file <C:\_TSS\DAG\MFA2\Target\Appl\GenData\Dem_Lcfg.h> is different. Please check time and date of generated files!"
   #endif
 #else
-  #define MAGIC_NUMBER 268053767
+#define MAGIC_NUMBER 268053767
 #endif
 #endif
 

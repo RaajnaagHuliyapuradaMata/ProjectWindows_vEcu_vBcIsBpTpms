@@ -1,20 +1,57 @@
-#include "uswarn.h"
-#include "WnTypePar.h"
-#include "USWTime.h"
+/******************************************************************************/
+/* File              : WTPmin.c                                               */
+/* Author            : Nagaraja HULIYAPURADA MATA                             */
+/* Copyright (c)2024 : All rights reserved.                                   */
+/******************************************************************************/
 
-uint8 bPMin( struct LocalWarnDat *ptLWD, uint8 ucWarnCfg ){
-   uint8 ucPCompare, ucRet;
-   ucPCompare = tDAG_PPara.ui8_P_MIN_TIRE ;
+/******************************************************************************/
+/* #INCLUDES                                                                  */
+/******************************************************************************/
+#include "Std_Types.hpp"
+
+#include "infRteSwcApplTpmsWarnHandler.hpp"
+#include "infCtrl.hpp"
+
+/******************************************************************************/
+/* #DEFINES                                                                   */
+/******************************************************************************/
+
+/******************************************************************************/
+/* MACROS                                                                     */
+/******************************************************************************/
+
+/******************************************************************************/
+/* TYPEDEFS                                                                   */
+/******************************************************************************/
+
+/******************************************************************************/
+/* CONSTS                                                                     */
+/******************************************************************************/
+
+/******************************************************************************/
+/* PARAMS                                                                     */
+/******************************************************************************/
+
+/******************************************************************************/
+/* OBJECTS                                                                    */
+/******************************************************************************/
+
+/******************************************************************************/
+/* FUNCTIONS                                                                  */
+/******************************************************************************/
+uint8 bPMin(struct LocalWarnDat* ptLWD, uint8 ucWarnCfg){
+   uint8 ucPCompare = tDAG_PPara.ui8_P_MIN_TIRE;
+   uint8 ucRet;
 
    ptLWD->ucCurWarnLevel = ucPCompare;
    if(ptLWD->tHFD.tHF.ucP < ucPCompare){
       ucRet = ucSetWarnBitWN(ptLWD->tHFD.tHF.ucId, ucPMinIxc);
    }
    else{
-      if(ucGetWarnBitWN(ptLWD->tHFD.tHF.ucId, ucPMinIxc) == 1){
-         if((ui8SWTimerExpired() > 0) || ( ushWarnOutTM != cNORMAL )){
+      if(1 == ucGetWarnBitWN(ptLWD->tHFD.tHF.ucId, ucPMinIxc)){
+         if((ui8SWTimerExpired() > 0) || (cNORMAL != ushWarnOutTM)){
             ucPCompare += ucHWResetHyst ;
-          }
+         }
          if(ptLWD->tHFD.tHF.ucP > ucPCompare){
             ClearWarnBitWN(ptLWD->tHFD.tHF.ucId, ucPMinIxc);
             ucRet = 0;
@@ -27,5 +64,11 @@ uint8 bPMin( struct LocalWarnDat *ptLWD, uint8 ucWarnCfg ){
          ucRet = 0;
       }
    }
-   return(ucRet);
+   UNUSED(ucWarnCfg);
+   return ucRet;
 }
+
+/******************************************************************************/
+/* EOF                                                                        */
+/******************************************************************************/
+

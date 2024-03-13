@@ -78,9 +78,9 @@
 #endif
 
 #if(OHDSCANSLAVE_DEV_ERROR_DETECT == STD_ON)
-  #define OHDSCanSlave_ReportError(apiID, errorID) Det_ReportError( OHDSCANSLAVE_REPORTERROR_MODULEID ,0u , apiID, errorID)
+#define OHDSCanSlave_ReportError(apiID, errorID) Det_ReportError( OHDSCANSLAVE_REPORTERROR_MODULEID ,0u , apiID, errorID)
 #else
-  #define OHDSCanSlave_ReportError(apiID, errorID)
+#define OHDSCanSlave_ReportError(apiID, errorID)
 #endif
 
 #define OHDSCanSlave_SetStatusBit_SyncLost()               (OHDSCanSlave_StatusByte |= (uint8) (0x02u))

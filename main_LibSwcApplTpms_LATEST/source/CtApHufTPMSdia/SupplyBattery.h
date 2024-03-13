@@ -1,7 +1,7 @@
 
 
 #ifndef _SUPPLYBATTERY_H
-# define _SUPPLYBATTERY_H
+#define _SUPPLYBATTERY_H
 
 #include "Platform_Types.h"
 

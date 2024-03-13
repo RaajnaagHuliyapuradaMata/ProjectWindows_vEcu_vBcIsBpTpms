@@ -17,7 +17,7 @@
 #include "filling_detectionX.h"
 
 #define M_MAX 540U
- #define MAX_NUM_BLOCKS 1000U
+#define MAX_NUM_BLOCKS 1000U
 #define T_MAX_PAL 39U
 
 #define AKA_OFFSET 0x02U

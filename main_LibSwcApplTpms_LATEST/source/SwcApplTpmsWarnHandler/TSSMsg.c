@@ -19,11 +19,6 @@
 /******************************************************************************/
 #define ucMaxPosc 4
 #define ucCbIdTMc ((uint16) 5)
-
-#define cSOFT_WARNING   ((uint8) 1)
-#define cHARD_WARNING   ((uint8) 2)
-#define cFAST_DEFLATION ((uint8) 3)
-
 #define ucTssMsgOutc        6
 #define ucAllDAGWarningBits ((uint8) 0x1F)
 
@@ -69,33 +64,28 @@ static void  TSSMsgOut                (const uint8* ptData);
 static void  IdWarn2WP                (const uint8* p2WP);
 static uint8 ucTSSMsgService          (      uint8* pucData);
 
-extern       uint8  ui8HWTimerExpired (void);
-extern       uint8  ui8SWTimerExpired (void);
-extern       uint8  ui8KL15OFFnXsec   (void);
-extern       uint8  ui8NoHoldOff      (void);
-extern       uint8  ui8CalActive      (void);
-extern       uint8  ui8MfdCalActive   (void);
-extern       uint8  ui8KL15OFF        (void);
+extern uint8 ui8HWTimerExpired        (void);
+extern uint8 ui8KL15OFFnXsec          (void);
+extern uint8 ui8NoHoldOff             (void);
+extern uint8 ui8CalActive             (void);
+extern uint8 ui8MfdCalActive          (void);
+extern uint8 ui8KL15OFF               (void);
 
 static uint8 ucAnyHWActive(void){
-  if(((aucWarnAtPosTM[ucSumWEc] & (1<<ucPMinIxc)) > 0) || (((aucWarnAtPosTM[ucSumWEc] & (1<<ucEcEIxc)) > 0) && (ui8HWTimerExpired() > (uint8) 0)) )
-    return ((uint8) 1);
-  else
-    return ((uint8) 0);
+  if(((aucWarnAtPosTM[ucSumWEc] & (1<<ucPMinIxc)) > 0) || (((aucWarnAtPosTM[ucSumWEc] & (1<<ucEcEIxc)) > 0) && (ui8HWTimerExpired() > (uint8)0))) return ((uint8)1);
+  else                                                                                                                                            return ((uint8)0);
 }
 
 static uint8 ucAnySWActive(void){
-  if(((aucWarnAtPosTM[ucSumWEc] & (1<<ucSFactorIxc)) > 0) && (ui8SWTimerExpired () > (uint8) 0))
-    return ((uint8) 1);
-  else
-    return ((uint8) 0);
+  if(((aucWarnAtPosTM[ucSumWEc] & (1<<ucSFactorIxc)) > 0) && (ui8SWTimerExpired () > (uint8) 0)) return ((uint8)1);
+  else                                                                                           return ((uint8)0);
 }
 
-static void TSSMsgOut(const uint8 *ptData){
-  union TssMsgAccess{
-    struct TssMsg tTssMsg;
-    uint8 ucByte[sizeof(struct TssMsg)];
-  }tTMD;
+static void TSSMsgOut(const uint8* ptData){
+   union TssMsgAccess{
+      struct TssMsg tTssMsg;
+      uint8 ucByte[sizeof(struct TssMsg)];
+   }tTMD;
    uint8 i;
 
    for(i=0; i < (uint8) sizeof(struct TssMsg) ;i++){
@@ -104,46 +94,45 @@ static void TSSMsgOut(const uint8 *ptData){
    if(tTMD.tTssMsg.ucId < ucSumWEc){
       aucWarnAtPosTM[tTMD.tTssMsg.ucId] = tTMD.tTssMsg.ucWarning;
       IdWarn2WP (GETpui82SysWP());
-    }
+   }
 }
 
 static uint8 ucTSSMsgService(uint8* pucData){
    uint8 i, ucRet = 0;
 
-   switch (*pucData){
-   case (uint16) ucNewPositionsc:
-            IdWarn2WP (GETpui82SysWP());
-             ucRet = 0;
-      break;
+   switch(*pucData){
+      case (uint16) ucNewPositionsc:
+         IdWarn2WP (GETpui82SysWP());
+         ucRet = 0;
+         break;
 
-   case (uint16) ucPutWarnVectorSetc:
+      case (uint16) ucPutWarnVectorSetc:
          pucData++;
          for(i=0;i<ucSumWEc;i++){
             aucWarnAtPosTM[i] = pucData[i];
          }
-      break;
+         break;
 
-   default:
-      ucRet = 0xff;
-      break;
+      default:
+         ucRet = 0xff;
+         break;
    }
    return ucRet;
 }
 
 static void TSSMsgInit(void){
-  uint8 i;
-
-  GetDataEE(ucCbIdTMc,&ucGlobalWarnStatus , 1);
-  for(i = 0; i < (ucSumWEc + 1);i++){
-    aucWarnAtPosTM[i] = 0;
-    aucWheelPosWarn[i] = 0;
-  }
-  if(cFAST_DEFLATION == ucGlobalWarnStatus){
-    ucGlobalWarnStatus = cHARD_WARNING;
-    PutDataEE(ucCbIdTMc, &ucGlobalWarnStatus , 1);
-  }
-  ushWarnOutTM = ucGlobalWarnStatus;
-  ucTPM_WarnDisp_Rq = cNORMAL;
+   uint8 i;
+   GetDataEE(ucCbIdTMc,&ucGlobalWarnStatus , 1);
+   for(i = 0; i < (ucSumWEc + 1);i++){
+      aucWarnAtPosTM[i]  = 0;
+      aucWheelPosWarn[i] = 0;
+   }
+   if(cFAST_DEFLATION == ucGlobalWarnStatus){
+      ucGlobalWarnStatus = cHARD_WARNING;
+      PutDataEE(ucCbIdTMc, &ucGlobalWarnStatus , 1);
+   }
+   ushWarnOutTM = ucGlobalWarnStatus;
+   ucTPM_WarnDisp_Rq = cNORMAL;
 }
 
 uint8 ucTSSMsgManagerTM(uint8 ucAction, uint8* ptData){
@@ -158,45 +147,44 @@ uint8 ucTSSMsgManagerTM(uint8 ucAction, uint8* ptData){
 }
 
 static void GenTPM_WarnDisp_Rq(void){
-  if(ui8KL15OFFnXsec() > 0){
-    ucTPM_WarnDisp_Rq = cNORMAL;
-  }
-  switch (ucTPM_WarnDisp_Rq){
-  case cNORMAL:
-    if(cFAST_DEFLATION == ushWarnOutTM)
-      ucTPM_WarnDisp_Rq = cFAST_DEFLATION;
-    else if((cHARD_WARNING == ushWarnOutTM) && (ui8NoHoldOff () > (uint8) 0) )
-      ucTPM_WarnDisp_Rq = cHARD_WARNING;
-    else if((cSOFT_WARNING == ushWarnOutTM) && (ui8NoHoldOff () > (uint8) 0) )
-      ucTPM_WarnDisp_Rq = cSOFT_WARNING;
-    break;
-
-  case cSOFT_WARNING:
-    if(cFAST_DEFLATION == ushWarnOutTM)
-      ucTPM_WarnDisp_Rq = cFAST_DEFLATION;
-    else if(cHARD_WARNING == ushWarnOutTM)
-      ucTPM_WarnDisp_Rq = cHARD_WARNING;
-    else if(cNORMAL == ushWarnOutTM )
+   if(ui8KL15OFFnXsec() > 0){
       ucTPM_WarnDisp_Rq = cNORMAL;
-    break;
+   }
+   switch(ucTPM_WarnDisp_Rq){
+      case cNORMAL:
+         if(cFAST_DEFLATION == ushWarnOutTM)
+         ucTPM_WarnDisp_Rq = cFAST_DEFLATION;
+         else if((cHARD_WARNING == ushWarnOutTM) && (ui8NoHoldOff () > (uint8) 0) )
+         ucTPM_WarnDisp_Rq = cHARD_WARNING;
+         else if((cSOFT_WARNING == ushWarnOutTM) && (ui8NoHoldOff () > (uint8) 0) )
+         ucTPM_WarnDisp_Rq = cSOFT_WARNING;
+         break;
 
-  case cHARD_WARNING:
-    if(cFAST_DEFLATION == ushWarnOutTM)
-      ucTPM_WarnDisp_Rq = cFAST_DEFLATION;
-    else if(cNORMAL == ushWarnOutTM )
-      ucTPM_WarnDisp_Rq = cNORMAL;
-    break;
+      case cSOFT_WARNING:
+         if(cFAST_DEFLATION == ushWarnOutTM)
+         ucTPM_WarnDisp_Rq = cFAST_DEFLATION;
+         else if(cHARD_WARNING == ushWarnOutTM)
+         ucTPM_WarnDisp_Rq = cHARD_WARNING;
+         else if(cNORMAL == ushWarnOutTM )
+         ucTPM_WarnDisp_Rq = cNORMAL;
+         break;
 
-  case cFAST_DEFLATION :
-    if(cNORMAL == ushWarnOutTM )
-      ucTPM_WarnDisp_Rq = cNORMAL;
+      case cHARD_WARNING:
+         if(cFAST_DEFLATION == ushWarnOutTM)
+         ucTPM_WarnDisp_Rq = cFAST_DEFLATION;
+         else if(cNORMAL == ushWarnOutTM )
+         ucTPM_WarnDisp_Rq = cNORMAL;
+         break;
 
-    break;
+      case cFAST_DEFLATION :
+         if(cNORMAL == ushWarnOutTM )
+         ucTPM_WarnDisp_Rq = cNORMAL;
+         break;
 
-  default:
-    ucTPM_WarnDisp_Rq = cNORMAL;
-    break;
-  }
+      default:
+         ucTPM_WarnDisp_Rq = cNORMAL;
+         break;
+   }
 }
 
 static void GenDAGlobalWarningLevel(void){

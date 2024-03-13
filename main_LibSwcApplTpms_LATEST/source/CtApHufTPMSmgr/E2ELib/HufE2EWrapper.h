@@ -1,7 +1,7 @@
 
 
 #ifndef _HUFE2EWRAPPER_H
-# define _HUFE2EWRAPPER_H
+#define _HUFE2EWRAPPER_H
 
 #include "Platform_Types.h"
 #include "Compiler_Cfg.h"

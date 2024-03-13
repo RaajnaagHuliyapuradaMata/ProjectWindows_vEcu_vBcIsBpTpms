@@ -9,7 +9,7 @@
 #define cWP_FL  (uint8) 0x01
 
 struct InputWA{
-  unsigned long ulID;
+  uint32 ulID;
   uint8 ucStatus;
   uint8 ucRssi;
 };
@@ -89,7 +89,7 @@ typedef struct{
  ucDefAL_State \
 }
 
-#define cWAHistIDSetDefInit {(unsigned long) 0,(unsigned long) 0,(unsigned long) 0,(unsigned long) 0}
+#define cWAHistIDSetDefInit {(uint32) 0,(uint32) 0,(uint32) 0,(uint32) 0}
 #define cWAHistWPSetDefInit {(uint8) 8,(uint8) 8,(uint8) 8,(uint8) 8}
 #define cSumABSig (uint8) 4
 #define cABSStickError (uint16) 0xFFFF
@@ -120,23 +120,23 @@ extern void WATimer1sec(uint16 ushVSpeedInKmh);
 extern uint8* pucGetLearnError(void);
 extern uint8* pucGetLocatError(void);
 extern uint16 ushGetDriveTimeInSec(void);
-extern uint8 ucGetColOfID(unsigned long *);
+extern uint8 ucGetColOfID(uint32 *);
 extern uint8 ucGetWPOfCol(uint8);
 extern uint8 ucGetColOfWP(uint8);
-extern unsigned long ulGetID(uint8 ucIx);
-extern uint8 ucSetID(unsigned long *pt2ID, uint8 *pt2Pos, uint8 ucSum);
+extern uint32 ulGetID(uint8 ucIx);
+extern uint8 ucSetID(uint32 *pt2ID, uint8 *pt2Pos, uint8 ucSum);
 extern uint8 bCheckHistIDReception(void);
 extern uint8 ucSetAutolocationOveride(uint8 ucPalOverideFlag);
-extern uint8 ucSet4HistIDs(unsigned long *pt2ID, uint8 *pt2Pos);
-extern uint8 ucSet1HistID(unsigned long *pt2ID, uint8 *pt2Pos, uint8 ucIdx);
+extern uint8 ucSet4HistIDs(uint32 *pt2ID, uint8 *pt2Pos);
+extern uint8 ucSet1HistID(uint32 *pt2ID, uint8 *pt2Pos, uint8 ucIdx);
 extern void RdWAPara( WAParameter *);
 extern void WrWAPara( WAParameter *);
 extern void ChangeWAPara(void);
 uint8 ucCheckAutolocationOverideCondition();
 uint8 ucReadAutolocationOverideFlag(void);
 extern uint8* GETpucStartAdrWP(void);
-extern unsigned long ulGetZOMID(uint8  ucIdx);
-extern uint8 ucGetZOMPosOfID(unsigned long *pt2ID);
+extern uint32 ulGetZOMID(uint8  ucIdx);
+extern uint8 ucGetZOMPosOfID(uint32 *pt2ID);
 extern uint8 ucGetZomStatus(uint8  ucIdx);
 extern uint8 ucGetZomToothTelCtCorrLearnBit(uint8  ucIdx);
 extern uint8 ucGetZomToothTelCtCorrNoLearnBit(uint8  ucIdx);

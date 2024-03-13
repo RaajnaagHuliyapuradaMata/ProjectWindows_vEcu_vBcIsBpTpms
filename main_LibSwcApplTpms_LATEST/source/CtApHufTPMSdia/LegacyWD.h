@@ -3,7 +3,7 @@
 
 #ifndef LegacyWD_H
 #define LegacyWD_H
- #define WDTime4sec
+#define WDTime4sec
 
 extern void TriggerLegacyWD1(void);
 extern void InitLegacyWD1(void);

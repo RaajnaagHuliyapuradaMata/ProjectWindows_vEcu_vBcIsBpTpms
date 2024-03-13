@@ -54,7 +54,7 @@ static void release_ata5785(void){
     WaitHard(17);
 }
 
-void WaitHard(unsigned long ulTicks){
+void WaitHard(uint32 ulTicks){
     ulTicks=(ulTicks*12);
     while(ulTicks !=0){
      ulTicks--;
@@ -472,7 +472,7 @@ void rf_ata5785_write_sram(const uint8 data[]){
     uint8  uc[2];
   } addr;
 
- #define SRAM_BUFFER_SIZE 32
+#define SRAM_BUFFER_SIZE 32
 
   addr.ui = (uint16) data[0];
   addr.ui<<= 8;

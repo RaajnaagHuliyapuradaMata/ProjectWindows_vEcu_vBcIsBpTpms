@@ -2,7 +2,7 @@
 
 #ifndef ATA_DEV_8515_H
 #define ATA_DEV_8515_H
- #define RF_PORT  PORTD
+#define RF_PORT  PORTD
 #define RF_PIN   PIND
 #define RF_DDR   DDRD
 
@@ -32,7 +32,7 @@ void csig0_disable(void);
 void csig0_enable(void);
 void csig0_4ATAinit(void);
 
-void WaitHard(unsigned long ulTicks);
+void WaitHard(uint32 ulTicks);
 void rf_ata5785_deinit(void);
 uint8 rf_ata5785_init( void );
 void rf_ata5785_init_demo( void );

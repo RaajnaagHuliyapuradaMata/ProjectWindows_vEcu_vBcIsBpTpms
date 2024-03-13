@@ -17,12 +17,12 @@
 
 #if defined(RTE_VENDOR_ID)
 # if(RTE_VENDOR_ID == 0x1Eu)
-#   define DEM_USE_RTE_FROM_VECTOR  STD_ON
-# else
-#   define DEM_USE_RTE_FROM_VECTOR  STD_OFF
-# endif
+#define DEM_USE_RTE_FROM_VECTOR  STD_ON
 #else
-#  define DEM_USE_RTE_FROM_VECTOR  STD_OFF
+#define DEM_USE_RTE_FROM_VECTOR  STD_OFF
+#endif
+#else
+#define DEM_USE_RTE_FROM_VECTOR  STD_OFF
 #endif
 
 #if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_DTCStatusMaskType)))
@@ -42,9 +42,9 @@ typedef uint8 Dem_DTCKindType;
 #if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_EventIdType)))
 # if(DEM_MAX_NUMBER_OF_EVENTS <= 255)
 typedef uint8  Dem_EventIdType;
-# else
+#else
 typedef uint16 Dem_EventIdType;
-# endif
+#endif
 #endif
 
 typedef P2VAR(Dem_EventIdType, TYPEDEF, DEM_VAR_NOINIT) Dem_EventIdPtrType;
@@ -100,9 +100,9 @@ typedef uint8 Dem_MaxExtendedDataRecordType[];
 #if(DEM_SUPPORT_SUPPRESS_DTC == STD_ON)
 # if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_SuppressDTCStatusType)))
 typedef uint8 Dem_SuppressDTCStatusType;
-# define DEM_SUPPRESS_DTC_OFF                              0u
-# define DEM_SUPPRESS_DTC_ON                               1u
-# endif
+#define DEM_SUPPRESS_DTC_OFF                              0u
+#define DEM_SUPPRESS_DTC_ON                               1u
+#endif
 #endif
 
 typedef uint8 Dem_EnableConditionStateType;

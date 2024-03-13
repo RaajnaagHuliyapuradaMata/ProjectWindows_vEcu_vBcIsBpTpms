@@ -989,7 +989,7 @@ void GetDebugVar2beLogged(){
          tDebugEnvDataStruct.ushAbsResetFlag |= (((uint16)ucGetZomResetAbsRefFlag(i))<<i);
 
          if(tDebugEnvDataStruct.ushAbsResetFlag!=0)
-            tDebugEnvDataStruct.ushAbsResetFlag= tDebugEnvDataStruct.ushAbsResetFlag;
+            tDebugEnvDataStruct.ushAbsResetFlag = tDebugEnvDataStruct.ushAbsResetFlag;
       }
 
     Rte_Call_PP_GetWarningVectors_OP_GETaucWheelPosWarn((uint8)cRadPosVL, &tdebugTelStructPosFL.ucWheelStat);

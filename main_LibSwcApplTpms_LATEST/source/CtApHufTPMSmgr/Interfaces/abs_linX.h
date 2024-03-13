@@ -8,9 +8,9 @@
 #define cABS_ERROR           ((uint8) 0x01)
 
 #if ABS_SIG_SIZE_ONEBYTE
-# define cAbsOverflowValue (uint16)0xFFU
+#define cAbsOverflowValue (uint16)0xFFU
 #else
-# define cAbsOverflowValue (uint16)0xFFFFU
+#define cAbsOverflowValue (uint16)0xFFFFU
 #endif
 
 extern void InitABS( void );

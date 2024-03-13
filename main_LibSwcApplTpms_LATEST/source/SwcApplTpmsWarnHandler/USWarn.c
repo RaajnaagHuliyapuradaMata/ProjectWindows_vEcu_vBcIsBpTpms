@@ -44,7 +44,8 @@ static union U{
 /******************************************************************************/
 /* CONSTS                                                                     */
 /******************************************************************************/
-const uint8 ucBitNoc[ucSumWEc] = {1, 2, 4, 8};
+static const uint8 ucBitNoc[ucSumWEc] = {1, 2, 4, 8};
+static const uint8 ucMaxWarnTypeWNc   = 4;
 
 /******************************************************************************/
 /* PARAMS                                                                     */
@@ -92,7 +93,7 @@ uint8 ucSetWarnBitWN(uint8 ucIdX, uint8 ucWarnTypeIx){
          SetX8BitWM(&aucWarnBitsWN[ucWarnTypeIx], ucIdX);
          PutDataEE(ucWarnTypeArrayIdWNc, aucWarnBitsWN, ucMaxWarnTypeWNc);
       }
-      return((uint8) 1);
+      return((uint8)1);
    }
    else{
       return((uint8) 0xff);
@@ -121,12 +122,12 @@ void ClearWarnBitWN(uint8 ucIdX, uint8 ucWarnTypeIx){
 
 uint8 ucGetWarnBitWN(uint8 ucIdX, uint8 ucWarnTypeIx){
    if((ucWarnTypeIx < ucMaxWarnTypeWNc) && (ucIdX < ucSumWEc)){return(bGetX8BitWM(&aucWarnBitsWN[ucWarnTypeIx], ucIdX));}
-   else                                                       {return((uint8) 0xff);}
+   else                                                       {return((uint8)0xff);}
 }
 
 uint8 ucGetWarnType(uint8 ucWarnTypeIx){
   if((ucWarnTypeIx < ucMaxWarnTypeWNc)){return(aucWarnBitsWN[ucWarnTypeIx]);}
-  else                                 {return((uint8) 0);}
+  else                                 {return((uint8)0);}
 }
 
 static uint8 bGetX8BitWM(const uint8* ptByte, uint8 ucBitNo){
@@ -164,7 +165,7 @@ uint8 ucPfT(uint16 ushM, uint16 ushTabs){
 uint16 ushMIso(uint8 ucP, sint8 scT){
    uint32 ulHelp;
    uint16 ushHelp;
-   if(ucP == 0){
+   if(0 == ucP){
       ushHelp = 0;
    }
    else{
@@ -175,7 +176,7 @@ uint16 ushMIso(uint8 ucP, sint8 scT){
       ulHelp += 5;
       ushHelp = (uint16) (ulHelp/10);
    }
-   return(ushHelp);
+   return ushHelp;
 }
 
 uint16 ui16MIsoRel(uint8 ucPrel, sint8 scT){
@@ -186,10 +187,10 @@ uint16 ui16MIsoRel(uint8 ucPrel, sint8 scT){
       ushHelp = 0;
    }
    else{
-      ulHelp = (uint32) ushGSFc *10;
+      ulHelp  = (uint32) ushGSFc * 10;
       ulHelp *=  pAbs ;
       ushHelp = (uint16) scT + ush273Kelvinc;
-      ulHelp = ulHelp / ((uint32) ushHelp);
+      ulHelp  = ulHelp / ((uint32) ushHelp);
       ulHelp += 5;
       ushHelp = (uint16) (ulHelp/10);
    }
@@ -271,7 +272,7 @@ static uint8 ucUSWDiagService(uint8* ptData){
       default:
          break;
    }
-   return (ucRet);
+   return ucRet;
 }
 
 static uint8 ucGenWNVector(const uint8* ptData){
@@ -302,10 +303,10 @@ static uint8 ucGenWNVector(const uint8* ptData){
       }
       UpdateDAGWrnLvl(tLWD.tHFD.tHF.ucId);
    }
-   return(ucRet);
+   return ucRet;
 }
 
-uint8 ucWarnManagerWN(uint8 ucAction, uint8 *ptData){
+uint8 ucWarnManagerWN(uint8 ucAction, uint8* ptData){
    uint8 ucRet;
    switch(ucAction){
       case (uint16) ucPorInitc:
@@ -315,7 +316,7 @@ uint8 ucWarnManagerWN(uint8 ucAction, uint8 *ptData){
          ucRet = (uint8) 0;
          break;
 
-      case (uint16) ucComparec :
+      case (uint16) ucComparec:
          ucRet = ucGenWNVector(ptData);
          break;
 
@@ -327,14 +328,14 @@ uint8 ucWarnManagerWN(uint8 ucAction, uint8 *ptData){
          ucRet = 0xFF;
          break;
    }
-   return(ucRet);
+   return ucRet;
 }
 
-static uint8 ui8GetWrnLvlDHW    (void){return tU.tWrnLvl .ucDAGDHW;}
-static uint8 ui8GetWrnLvlSoft   (void){return tU.tWrnLvl .ucDAGSoft;}
-static uint8 ui8GetWrnLvlHard   (void){return tU.tWrnLvl .ucDAGHard;}
-static uint8 ui8GetWrnLvlPMin   (void){return tU.tWrnLvl .ucPMin;}
-static uint8 ui8GetResetLvlSoft (void){return tU.tWrnLvl .ucDAGResetSoft;}
+static uint8 ui8GetWrnLvlDHW    (void){return tU.tWrnLvl.ucDAGDHW;}
+static uint8 ui8GetWrnLvlSoft   (void){return tU.tWrnLvl.ucDAGSoft;}
+static uint8 ui8GetWrnLvlHard   (void){return tU.tWrnLvl.ucDAGHard;}
+static uint8 ui8GetWrnLvlPMin   (void){return tU.tWrnLvl.ucPMin;}
+static uint8 ui8GetResetLvlSoft (void){return tU.tWrnLvl.ucDAGResetSoft;}
 
 static void ConvDAG_FPL2HW(void){
    uint8 i;
@@ -354,19 +355,19 @@ uint8 ui8GetPRelComp2Tref(sint8 i8Tcur, uint8 ui8Ix){
    GetRatValOfId (ui8Ix, &tRatVal);
    tRatVal.ushMSoll = ui16MIsoRel (tRatVal.ucPSoll , tRatVal.scTSoll);
    ui8Pcomp = ucPfT(tRatVal.ushMSoll,(uint16) i8Tcur + ush273Kelvinc);
-   return(ui8Pcomp);
+   return ui8Pcomp;
 }
 
 sint8 i8GetTref(uint8 ui8Ix){
    struct SollDat tRatVal;
    GetRatValOfId(ui8Ix, &tRatVal);
-   return(tRatVal.scTSoll);
+   return tRatVal.scTSoll;
 }
 
 uint8 ui8GetPRefRel(uint8 ui8Ix){
    struct SollDat tRatVal;
    GetRatValOfId (ui8Ix, &tRatVal);
-   return(tRatVal.ucPSoll);
+   return tRatVal.ucPSoll;
 }
 
 void USWPostInit(void){
@@ -380,18 +381,18 @@ uint8 ui8GenPWP(uint8* p2PWP){
       for(i = 0; i < cMaxLR; i++){
          p2PWP[i] = ui8PWP[i];
       }
-      return(1);
+      return 1;
    }
    else{
-      return(0);
+      return 0;
    }
 }
 
 static uint8 ui8GenAllPWP(uint8* p2PWP){
-   uint8 i, j, ui8PoSeq[4],ui8SortedCol[cMaxLR], ui8WPinUse = (uint8) 0, ui8PWPCt = (uint8) 0, ui8AlloCol = (uint8) 0;
+   uint8 i, j, ui8PoSeq[4],ui8SortedCol[cMaxLR], ui8WPinUse = (uint8)0, ui8PWPCt = (uint8)0, ui8AlloCol = (uint8)0;
    for(i = 0; i < cMaxLR; i++){
       if(*(pui8GetLastM1Pressure() + i) < (uint8) 1){
-         return(0);
+         return 0;
       }
    }
    for(i = 0; i < cMaxLR; i++){
@@ -431,7 +432,7 @@ static uint8 ui8GenAllPWP(uint8* p2PWP){
          }
       }
    }
-   return(ui8PWPCt);
+   return ui8PWPCt;
 }
 
 void DelWarnOfId(uint8 ui8HistColOfID){
@@ -475,7 +476,7 @@ static void UpdateDAGWrnLvl(uint8 ui8ColOfId){
    }
 }
 
-uint8 ui8GETDAGClrWrnThresOfIdCol(uint8 ui8ColOfId){return(ui8DAGWrnLvl[ui8ColOfId][4]);}
+uint8 ui8GETDAGClrWrnThresOfIdCol(uint8 ui8ColOfId){return ui8DAGWrnLvl[ui8ColOfId][4];}
 
 /******************************************************************************/
 /* EOF                                                                        */

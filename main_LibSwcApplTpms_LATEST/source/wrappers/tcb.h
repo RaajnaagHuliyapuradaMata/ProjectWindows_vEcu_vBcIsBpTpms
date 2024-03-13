@@ -150,33 +150,33 @@
 #if osdProtectionHook
 
  #if(osdTimingProtectionUsed && osdProtReactKillTaskIsrAllowed)
-  #define osdKillTaskIsrPossible 1
+#define osdKillTaskIsrPossible 1
  #endif
 
  #if((osdSC == SC4) && (defined osdTimingProtectionUsed) && (osdProtReactKillApplAllowed || osdProtReactKillApplRestAllowed))
   #ifndef osdKillTaskIsrPossible
-   #define osdKillTaskIsrPossible 1
+#define osdKillTaskIsrPossible 1
   #endif
-  #define osdKillApplPossible 1
+#define osdKillApplPossible 1
  #endif
 
 #endif
 
 #if((osdSC == SC3) || (osdSC == SC4)) && (!defined osdTerminateApplicationNotUsed)
  #ifndef osdKillTaskIsrPossible
-  #define osdKillTaskIsrPossible 1
+#define osdKillTaskIsrPossible 1
  #endif
  #ifndef osdKillApplPossible
-  #define osdKillApplPossible 1
+#define osdKillApplPossible 1
  #endif
 #endif
 
 #ifndef osdKillTaskIsrPossible
- #define osdKillTaskIsrPossible 0
+#define osdKillTaskIsrPossible 0
 #endif
 
 #ifndef osdKillApplPossible
- #define osdKillApplPossible 0
+#define osdKillApplPossible 0
 #endif
 
 #define osdNumberOfProcesses (osdNumberOfAllTasks+osdNumberOfCat2ISRs)

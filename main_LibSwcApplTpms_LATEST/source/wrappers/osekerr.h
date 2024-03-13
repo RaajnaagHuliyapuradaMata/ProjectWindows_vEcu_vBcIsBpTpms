@@ -463,275 +463,275 @@
 #define osdErrCTIntAPIDisabled        0xE303U
 
 #if osdParameterAccessMacros && osdErrorHook
-   #define osSaveActivateTask_TaskID(x)                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType = (x));
-   #define osSaveChainTask_TaskID(x)                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType = (x));
-   #define osSaveGetTaskID_TaskID(x)                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskRefType = (x));
-   #define osSaveGetTaskState_TaskID(x)                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType = (x));
-   #define osSaveGetTaskState_State(y)                       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTaskStateRefType = (y));
-   #define osSaveGetResource_ResID(x)                        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osResourceType = (x));
-   #define osSaveReleaseResource_ResID(x)                    (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osResourceType = (x));
-   #define osSaveGetSemaphore_SemaID(x)                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osOsSemaphoreType = (x));
-   #define osSaveReleaseSemaphore_SemaID(x)                  (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osOsSemaphoreType = (x));
-   #define osSaveSetEvent_TaskID(x)                          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType = (x));
-   #define osSaveSetEvent_Mask(y)                            (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osEventMaskType = (y));
-   #define osSaveGetEvent_TaskID(x)                          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType = (x));
-   #define osSaveGetEvent_Event(y)                           (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osEventMaskRefType = (y));
-   #define osSaveClearEvent_Mask(x)                          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osEventMaskType = (x));
-   #define osSaveWaitEvent_Mask(x)                           (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osEventMaskType = (x));
-   #define osSaveGetAlarmBase_AlarmID(x)                     (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType = (x));
-   #define osSaveGetAlarmBase_Info(y)                        (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osAlarmBaseRefType = (y));
-   #define osSaveSetRelAlarm_AlarmID(x)                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType = (x)) ;
-   #define osSaveSetRelAlarm_increment(y)                    (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType = (y));
-   #define osSaveSetRelAlarm_cycle(z)                        (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osTickType = (z));
-   #define osSaveSetAbsAlarm_AlarmID(x)                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType = (x));
-   #define osSaveSetAbsAlarm_start(y)                        (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType = (y));
-   #define osSaveSetAbsAlarm_cycle(z)                        (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osTickType = (z));
-   #define osSaveCancelAlarm_AlarmID(x)                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType = (x));
-   #define osSaveGetAlarm_AlarmID(x)                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType = (x));
-   #define osSaveGetAlarm_Tick(y)                            (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickRefType = (y));
-   #define osSaveIncrementCounter_CounterID(x)               (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osCounterType = (x));
-   #define osSaveGetCounterValue_CounterID(x)                (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osCounterType = (x));
-   #define osSaveGetCounterValue_Value(x)                    (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickRefType = (x));
-   #define osSaveGetElapsedValue_CounterID(x)                (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osCounterType = (x));
-   #define osSaveGetElapsedValue_Value(x)                    (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickRefType = (x));
-   #define osSaveGetElapsedValue_ElapsedValue(x)             (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osTickRefType = (x));
+#define osSaveActivateTask_TaskID(x)                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType = (x));
+#define osSaveChainTask_TaskID(x)                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType = (x));
+#define osSaveGetTaskID_TaskID(x)                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskRefType = (x));
+#define osSaveGetTaskState_TaskID(x)                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType = (x));
+#define osSaveGetTaskState_State(y)                       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTaskStateRefType = (y));
+#define osSaveGetResource_ResID(x)                        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osResourceType = (x));
+#define osSaveReleaseResource_ResID(x)                    (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osResourceType = (x));
+#define osSaveGetSemaphore_SemaID(x)                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osOsSemaphoreType = (x));
+#define osSaveReleaseSemaphore_SemaID(x)                  (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osOsSemaphoreType = (x));
+#define osSaveSetEvent_TaskID(x)                          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType = (x));
+#define osSaveSetEvent_Mask(y)                            (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osEventMaskType = (y));
+#define osSaveGetEvent_TaskID(x)                          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType = (x));
+#define osSaveGetEvent_Event(y)                           (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osEventMaskRefType = (y));
+#define osSaveClearEvent_Mask(x)                          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osEventMaskType = (x));
+#define osSaveWaitEvent_Mask(x)                           (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osEventMaskType = (x));
+#define osSaveGetAlarmBase_AlarmID(x)                     (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType = (x));
+#define osSaveGetAlarmBase_Info(y)                        (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osAlarmBaseRefType = (y));
+#define osSaveSetRelAlarm_AlarmID(x)                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType = (x)) ;
+#define osSaveSetRelAlarm_increment(y)                    (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType = (y));
+#define osSaveSetRelAlarm_cycle(z)                        (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osTickType = (z));
+#define osSaveSetAbsAlarm_AlarmID(x)                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType = (x));
+#define osSaveSetAbsAlarm_start(y)                        (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType = (y));
+#define osSaveSetAbsAlarm_cycle(z)                        (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osTickType = (z));
+#define osSaveCancelAlarm_AlarmID(x)                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType = (x));
+#define osSaveGetAlarm_AlarmID(x)                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType = (x));
+#define osSaveGetAlarm_Tick(y)                            (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickRefType = (y));
+#define osSaveIncrementCounter_CounterID(x)               (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osCounterType = (x));
+#define osSaveGetCounterValue_CounterID(x)                (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osCounterType = (x));
+#define osSaveGetCounterValue_Value(x)                    (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickRefType = (x));
+#define osSaveGetElapsedValue_CounterID(x)                (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osCounterType = (x));
+#define osSaveGetElapsedValue_Value(x)                    (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickRefType = (x));
+#define osSaveGetElapsedValue_ElapsedValue(x)             (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osTickRefType = (x));
 
-   #define osSaveStartScheduleTableRel_ScheduleTableID(x)    (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType = (x));
-   #define osSaveStartScheduleTableRel_Offset(y)             (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType = (y));
-   #define osSaveStartScheduleTableAbs_ScheduleTableID(x)    (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType = (x));
-   #define osSaveStartScheduleTableAbs_Tickvalue(y)          (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType = (y));
-   #define osSaveStopScheduleTable_ScheduleTableID(x)        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType = (x));
-   #define osSaveNextScheduleTable_ScheduleTableID_current(x) (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType = (x));
-   #define osSaveNextScheduleTable_ScheduleTableID_next(y)   (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osScheduleTableType = (y));
-   #define osSaveGetScheduleTableStatus_ScheduleID(x)        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType = (x));
-   #define osSaveGetScheduleTableStatus_ScheduleStatus(y)    (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osScheduleTableStatusRefType = (y));
+#define osSaveStartScheduleTableRel_ScheduleTableID(x)    (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType = (x));
+#define osSaveStartScheduleTableRel_Offset(y)             (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType = (y));
+#define osSaveStartScheduleTableAbs_ScheduleTableID(x)    (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType = (x));
+#define osSaveStartScheduleTableAbs_Tickvalue(y)          (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType = (y));
+#define osSaveStopScheduleTable_ScheduleTableID(x)        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType = (x));
+#define osSaveNextScheduleTable_ScheduleTableID_current(x) (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType = (x));
+#define osSaveNextScheduleTable_ScheduleTableID_next(y)   (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osScheduleTableType = (y));
+#define osSaveGetScheduleTableStatus_ScheduleID(x)        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType = (x));
+#define osSaveGetScheduleTableStatus_ScheduleStatus(y)    (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osScheduleTableStatusRefType = (y));
 
 #if((osdSC == SC3) || (osdSC == SC4))
-   #define osSaveCallTrustedFunction_FunctionIndex(x)        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osFunctionIndexType = (x));
-   #define osSaveCallTrustedFunction_FunctionParams(y)       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTrustedFunctionParameterRefType = (y));
-   #define osSaveTerminateApplication_RestartOption(x)       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osRestartType = (x));
-   #define osSaveTerminateApplication_Application(x)         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osApplicationType = (x));
-   #define osSaveGetApplicationState_Application(x)          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osApplicationType = (x));
-   #define osSaveGetApplicationState_Value(x)                (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osApplicationStateRefType = (x));
+#define osSaveCallTrustedFunction_FunctionIndex(x)        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osFunctionIndexType = (x));
+#define osSaveCallTrustedFunction_FunctionParams(y)       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTrustedFunctionParameterRefType = (y));
+#define osSaveTerminateApplication_RestartOption(x)       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osRestartType = (x));
+#define osSaveTerminateApplication_Application(x)         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osApplicationType = (x));
+#define osSaveGetApplicationState_Application(x)          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osApplicationType = (x));
+#define osSaveGetApplicationState_Value(x)                (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osApplicationStateRefType = (x));
 #endif
 
 #if(osdTimingProtectionUsed != 0)
-   #define osSaveosGetTaskMaxExecutionTime_TaskID(x)           (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType     = (x));
-   #define osSaveosGetTaskMaxExecutionTime_MaxTime(y)          (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTimeRefType  = (y));
-   #define osSaveosGetISRMaxExecutionTime_ISRID(x)             (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osISRType      = (x));
-   #define osSaveosGetISRMaxExecutionTime_MaxTime(y)           (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTimeRefType  = (y));
-   #define osSaveosGetTaskMinInterArrivalTime_TaskID(x)        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType     = (x));
-   #define osSaveosGetTaskMinInterArrivalTime_MinTime(y)       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osUnionTPTimeStampRefType  = (y));
-   #define osSaveosGetISRMinInterArrivalTime_ISRID(x)          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osISRType      = (x));
-   #define osSaveosGetISRMinInterArrivalTime_MinTime(y)        (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osUnionTPTimeStampRefType  = (y));
-   #define osSaveosGetTaskMaxBlockingTime_TaskID(x)            (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType     = (x));
-   #define osSaveosGetTaskMaxBlockingTime_BlockType(y)         (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osBlockType    = (y));
-   #define osSaveosGetTaskMaxBlockingTime_ResourceID(z)        (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osResourceType = (z));
-   #define osSaveosGetTaskMaxBlockingTime_MaxTime(z1)          (osOwnCcb->LockIsNotNeeded.ossAPIParam4                = (z1));
-   #define osSaveosGetISRMaxBlockingTime_ISRID(x)              (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osISRType      = (x));
-   #define osSaveosGetISRMaxBlockingTime_BlockType(y)          (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osBlockType    = (y));
-   #define osSaveosGetISRMaxBlockingTime_ResourceID(z)         (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osResourceType = (z));
-   #define osSaveosGetISRMaxBlockingTime_MaxTime(z1)           (osOwnCcb->LockIsNotNeeded.ossAPIParam4                = (z1));
+#define osSaveosGetTaskMaxExecutionTime_TaskID(x)           (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType     = (x));
+#define osSaveosGetTaskMaxExecutionTime_MaxTime(y)          (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTimeRefType  = (y));
+#define osSaveosGetISRMaxExecutionTime_ISRID(x)             (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osISRType      = (x));
+#define osSaveosGetISRMaxExecutionTime_MaxTime(y)           (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTimeRefType  = (y));
+#define osSaveosGetTaskMinInterArrivalTime_TaskID(x)        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType     = (x));
+#define osSaveosGetTaskMinInterArrivalTime_MinTime(y)       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osUnionTPTimeStampRefType  = (y));
+#define osSaveosGetISRMinInterArrivalTime_ISRID(x)          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osISRType      = (x));
+#define osSaveosGetISRMinInterArrivalTime_MinTime(y)        (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osUnionTPTimeStampRefType  = (y));
+#define osSaveosGetTaskMaxBlockingTime_TaskID(x)            (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType     = (x));
+#define osSaveosGetTaskMaxBlockingTime_BlockType(y)         (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osBlockType    = (y));
+#define osSaveosGetTaskMaxBlockingTime_ResourceID(z)        (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osResourceType = (z));
+#define osSaveosGetTaskMaxBlockingTime_MaxTime(z1)          (osOwnCcb->LockIsNotNeeded.ossAPIParam4                = (z1));
+#define osSaveosGetISRMaxBlockingTime_ISRID(x)              (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osISRType      = (x));
+#define osSaveosGetISRMaxBlockingTime_BlockType(y)          (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osBlockType    = (y));
+#define osSaveosGetISRMaxBlockingTime_ResourceID(z)         (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osResourceType = (z));
+#define osSaveosGetISRMaxBlockingTime_MaxTime(z1)           (osOwnCcb->LockIsNotNeeded.ossAPIParam4                = (z1));
 #endif
 #else
 
-   #define osSaveActivateTask_TaskID(x)
-   #define osSaveChainTask_TaskID(x)
-   #define osSaveGetTaskID_TaskID(x)
-   #define osSaveGetTaskState_TaskID(x)
-   #define osSaveGetTaskState_State(y)
-   #define osSaveGetResource_ResID(x)
-   #define osSaveReleaseResource_ResID(x)
-   #define osSaveGetSemaphore_SemaID(x)
-   #define osSaveReleaseSemaphore_SemaID(x)
-   #define osSaveSetEvent_TaskID(x)
-   #define osSaveSetEvent_Mask(y)
-   #define osSaveGetEvent_TaskID(x)
-   #define osSaveGetEvent_Event(y)
-   #define osSaveClearEvent_Mask(x)
-   #define osSaveWaitEvent_Mask(x)
-   #define osSaveGetAlarmBase_AlarmID(x)
-   #define osSaveGetAlarmBase_Info(y)
-   #define osSaveSetRelAlarm_AlarmID(x)
-   #define osSaveSetRelAlarm_increment(y)
-   #define osSaveSetRelAlarm_cycle(z)
-   #define osSaveSetAbsAlarm_AlarmID(x)
-   #define osSaveSetAbsAlarm_start(y)
-   #define osSaveSetAbsAlarm_cycle(z)
-   #define osSaveCancelAlarm_AlarmID(x)
-   #define osSaveGetAlarm_AlarmID(x)
-   #define osSaveGetAlarm_Tick(y)
-   #define osSaveIncrementCounter_CounterID(x)
-   #define osSaveGetCounterValue_CounterID(x)
-   #define osSaveGetCounterValue_Value(x)
-   #define osSaveGetElapsedValue_CounterID(x)
-   #define osSaveGetElapsedValue_Value(x)
-   #define osSaveGetElapsedValue_ElapsedValue(x)
-   #define osSaveStartScheduleTableRel_ScheduleTableID(x)
-   #define osSaveStartScheduleTableRel_Offset(y)
-   #define osSaveStartScheduleTableAbs_ScheduleTableID(x)
-   #define osSaveStartScheduleTableAbs_Tickvalue(y)
-   #define osSaveStopScheduleTable_ScheduleTableID(x)
-   #define osSaveNextScheduleTable_ScheduleTableID_current(x)
-   #define osSaveNextScheduleTable_ScheduleTableID_next(y)
-   #define osSaveGetScheduleTableStatus_ScheduleID(x)
-   #define osSaveGetScheduleTableStatus_ScheduleStatus(y)
+#define osSaveActivateTask_TaskID(x)
+#define osSaveChainTask_TaskID(x)
+#define osSaveGetTaskID_TaskID(x)
+#define osSaveGetTaskState_TaskID(x)
+#define osSaveGetTaskState_State(y)
+#define osSaveGetResource_ResID(x)
+#define osSaveReleaseResource_ResID(x)
+#define osSaveGetSemaphore_SemaID(x)
+#define osSaveReleaseSemaphore_SemaID(x)
+#define osSaveSetEvent_TaskID(x)
+#define osSaveSetEvent_Mask(y)
+#define osSaveGetEvent_TaskID(x)
+#define osSaveGetEvent_Event(y)
+#define osSaveClearEvent_Mask(x)
+#define osSaveWaitEvent_Mask(x)
+#define osSaveGetAlarmBase_AlarmID(x)
+#define osSaveGetAlarmBase_Info(y)
+#define osSaveSetRelAlarm_AlarmID(x)
+#define osSaveSetRelAlarm_increment(y)
+#define osSaveSetRelAlarm_cycle(z)
+#define osSaveSetAbsAlarm_AlarmID(x)
+#define osSaveSetAbsAlarm_start(y)
+#define osSaveSetAbsAlarm_cycle(z)
+#define osSaveCancelAlarm_AlarmID(x)
+#define osSaveGetAlarm_AlarmID(x)
+#define osSaveGetAlarm_Tick(y)
+#define osSaveIncrementCounter_CounterID(x)
+#define osSaveGetCounterValue_CounterID(x)
+#define osSaveGetCounterValue_Value(x)
+#define osSaveGetElapsedValue_CounterID(x)
+#define osSaveGetElapsedValue_Value(x)
+#define osSaveGetElapsedValue_ElapsedValue(x)
+#define osSaveStartScheduleTableRel_ScheduleTableID(x)
+#define osSaveStartScheduleTableRel_Offset(y)
+#define osSaveStartScheduleTableAbs_ScheduleTableID(x)
+#define osSaveStartScheduleTableAbs_Tickvalue(y)
+#define osSaveStopScheduleTable_ScheduleTableID(x)
+#define osSaveNextScheduleTable_ScheduleTableID_current(x)
+#define osSaveNextScheduleTable_ScheduleTableID_next(y)
+#define osSaveGetScheduleTableStatus_ScheduleID(x)
+#define osSaveGetScheduleTableStatus_ScheduleStatus(y)
 
 #if((osdSC== SC3) || (osdSC== SC4))
-   #define osSaveCallTrustedFunction_FunctionIndex(x)
-   #define osSaveCallTrustedFunction_FunctionParams(y)
-   #define osSaveTerminateApplication_RestartOption(x)
-   #define osSaveTerminateApplication_Application(x)
-   #define osSaveGetApplicationState_Application(x)
-   #define osSaveGetApplicationState_Value(x)
+#define osSaveCallTrustedFunction_FunctionIndex(x)
+#define osSaveCallTrustedFunction_FunctionParams(y)
+#define osSaveTerminateApplication_RestartOption(x)
+#define osSaveTerminateApplication_Application(x)
+#define osSaveGetApplicationState_Application(x)
+#define osSaveGetApplicationState_Value(x)
 #endif
 
-   #define osSaveosGetTaskMaxExecutionTime_TaskID(x)
-   #define osSaveosGetTaskMaxExecutionTime_MaxTime(y)
-   #define osSaveosGetISRMaxExecutionTime_ISRID(x)
-   #define osSaveosGetISRMaxExecutionTime_MaxTime(y)
-   #define osSaveosGetTaskMinInterArrivalTime_TaskID(x)
-   #define osSaveosGetTaskMinInterArrivalTime_MinTime(y)
-   #define osSaveosGetISRMinInterArrivalTime_ISRID(x)
-   #define osSaveosGetISRMinInterArrivalTime_MinTime(y)
-   #define osSaveosGetTaskMaxBlockingTime_TaskID(x)
-   #define osSaveosGetTaskMaxBlockingTime_BlockType(y)
-   #define osSaveosGetTaskMaxBlockingTime_ResourceID(z)
-   #define osSaveosGetTaskMaxBlockingTime_MaxTime(z1)
-   #define osSaveosGetISRMaxBlockingTime_ISRID(x)
-   #define osSaveosGetISRMaxBlockingTime_BlockType(y)
-   #define osSaveosGetISRMaxBlockingTime_ResourceID(z)
-   #define osSaveosGetISRMaxBlockingTime_MaxTime(z1)
+#define osSaveosGetTaskMaxExecutionTime_TaskID(x)
+#define osSaveosGetTaskMaxExecutionTime_MaxTime(y)
+#define osSaveosGetISRMaxExecutionTime_ISRID(x)
+#define osSaveosGetISRMaxExecutionTime_MaxTime(y)
+#define osSaveosGetTaskMinInterArrivalTime_TaskID(x)
+#define osSaveosGetTaskMinInterArrivalTime_MinTime(y)
+#define osSaveosGetISRMinInterArrivalTime_ISRID(x)
+#define osSaveosGetISRMinInterArrivalTime_MinTime(y)
+#define osSaveosGetTaskMaxBlockingTime_TaskID(x)
+#define osSaveosGetTaskMaxBlockingTime_BlockType(y)
+#define osSaveosGetTaskMaxBlockingTime_ResourceID(z)
+#define osSaveosGetTaskMaxBlockingTime_MaxTime(z1)
+#define osSaveosGetISRMaxBlockingTime_ISRID(x)
+#define osSaveosGetISRMaxBlockingTime_BlockType(y)
+#define osSaveosGetISRMaxBlockingTime_ResourceID(z)
+#define osSaveosGetISRMaxBlockingTime_MaxTime(z1)
 
 #endif
 
  #if osdErrorHook
   #if osdGetServiceIdMacros
 
-   #define OSServiceId_ActivateTask          0x1100U
-   #define OSServiceId_TerminateTask         0x1200U
-   #define OSServiceId_ChainTask             0x1300U
-   #define OSServiceId_Schedule              0x1400U
-   #define OSServiceId_GetTaskState          0x1500U
-   #define OSServiceId_GetTaskID             0x1600U
+#define OSServiceId_ActivateTask          0x1100U
+#define OSServiceId_TerminateTask         0x1200U
+#define OSServiceId_ChainTask             0x1300U
+#define OSServiceId_Schedule              0x1400U
+#define OSServiceId_GetTaskState          0x1500U
+#define OSServiceId_GetTaskID             0x1600U
 
-   #define OSServiceId_EnableAllInterrupts   0x2400U
-   #define OSServiceId_DisableAllInterrupts  0x2500U
-   #define OSServiceId_ResumeOSInterrupts    0x2A00U
-   #define OSServiceId_SuspendOSInterrupts   0x2900U
-   #define OSServiceId_ResumeAllInterrupts   0x2C00U
-   #define OSServiceId_SuspendAllInterrupts  0x2B00U
-   #define OSServiceId_GetISRID              0x2200U
+#define OSServiceId_EnableAllInterrupts   0x2400U
+#define OSServiceId_DisableAllInterrupts  0x2500U
+#define OSServiceId_ResumeOSInterrupts    0x2A00U
+#define OSServiceId_SuspendOSInterrupts   0x2900U
+#define OSServiceId_ResumeAllInterrupts   0x2C00U
+#define OSServiceId_SuspendAllInterrupts  0x2B00U
+#define OSServiceId_GetISRID              0x2200U
 
-   #define OSServiceId_GetResource           0x3100U
-   #define OSServiceId_ReleaseResource       0x3200U
+#define OSServiceId_GetResource           0x3100U
+#define OSServiceId_ReleaseResource       0x3200U
 
-   #define OSServiceId_SetEvent              0x4100U
-   #define OSServiceId_ClearEvent            0x4200U
-   #define OSServiceId_GetEvent              0x4300U
-   #define OSServiceId_WaitEvent             0x4400U
+#define OSServiceId_SetEvent              0x4100U
+#define OSServiceId_ClearEvent            0x4200U
+#define OSServiceId_GetEvent              0x4300U
+#define OSServiceId_WaitEvent             0x4400U
 
-   #define OSServiceId_GetAlarmBase          0x5100U
-   #define OSServiceId_GetAlarm              0x5200U
-   #define OSServiceId_SetRelAlarm           0x5300U
-   #define OSServiceId_SetAbsAlarm           0x5400U
-   #define OSServiceId_CancelAlarm           0x5500U
+#define OSServiceId_GetAlarmBase          0x5100U
+#define OSServiceId_GetAlarm              0x5200U
+#define OSServiceId_SetRelAlarm           0x5300U
+#define OSServiceId_SetAbsAlarm           0x5400U
+#define OSServiceId_CancelAlarm           0x5500U
 
-   #define OSServiceId_StartScheduleTableRel      0x7100U
-   #define OSServiceId_StartScheduleTableAbs      0x7200U
-   #define OSServiceId_StopScheduleTable          0x7300U
-   #define OSServiceId_GetScheduleTableStatus     0x7400U
-   #define OSServiceId_NextScheduleTable          0x7500U
-   #define OSServiceId_SyncScheduleTable          0x7700U
-   #define OSServiceId_SetScheduleTableAsync      0x7800U
-   #define OSServiceId_StartScheduleTableSynchron 0x7C00U
+#define OSServiceId_StartScheduleTableRel      0x7100U
+#define OSServiceId_StartScheduleTableAbs      0x7200U
+#define OSServiceId_StopScheduleTable          0x7300U
+#define OSServiceId_GetScheduleTableStatus     0x7400U
+#define OSServiceId_NextScheduleTable          0x7500U
+#define OSServiceId_SyncScheduleTable          0x7700U
+#define OSServiceId_SetScheduleTableAsync      0x7800U
+#define OSServiceId_StartScheduleTableSynchron 0x7C00U
 
-   #define OSServiceId_IncrementCounter         0x8100U
-   #define OSServiceId_GetCounterValue          0x8300U
-   #define OSServiceId_GetElapsedValue          0x8400U
+#define OSServiceId_IncrementCounter         0x8100U
+#define OSServiceId_GetCounterValue          0x8300U
+#define OSServiceId_GetElapsedValue          0x8400U
 
-   #define OSServiceId_osGetTaskMinInterArrivalTime 0x9000U
-   #define OSServiceId_osGetTaskMaxExecutionTime    0x9800U
-   #define OSServiceId_osGetISRMaxExecutionTime     0x9900U
-   #define OSServiceId_osGetTaskMaxBlockingTime     0x9A00U
-   #define OSServiceId_osGetISRMaxBlockingTime      0x9B00U
-   #define OSServiceId_osGetISRMinInterArrivalTime  0x9F00U
+#define OSServiceId_osGetTaskMinInterArrivalTime 0x9000U
+#define OSServiceId_osGetTaskMaxExecutionTime    0x9800U
+#define OSServiceId_osGetISRMaxExecutionTime     0x9900U
+#define OSServiceId_osGetTaskMaxBlockingTime     0x9A00U
+#define OSServiceId_osGetISRMaxBlockingTime      0x9B00U
+#define OSServiceId_osGetISRMinInterArrivalTime  0x9F00U
 
-   #define OSServiceId_GetApplicationState        0xB100U
-   #define OSServiceId_AllowAccess                0xB200U
-   #define OSServiceId_TerminateApplication       0xB400U
+#define OSServiceId_GetApplicationState        0xB100U
+#define OSServiceId_AllowAccess                0xB200U
+#define OSServiceId_TerminateApplication       0xB400U
 
-   #define OSServiceId_GetSemaphore          0xC100U
-   #define OSServiceId_ReleaseSemaphore      0xC200U
+#define OSServiceId_GetSemaphore          0xC100U
+#define OSServiceId_ReleaseSemaphore      0xC200U
 
-   #define OSServiceId_CallTrustedFunction        0xE300U
+#define OSServiceId_CallTrustedFunction        0xE300U
 
-   #define OSErrorGetServiceId()       ((OSServiceIdType) (osOwnCcb->LockIsNotNeeded.ossLastError & 0xFF00U))
+#define OSErrorGetServiceId()       ((OSServiceIdType) (osOwnCcb->LockIsNotNeeded.ossLastError & 0xFF00U))
 
   #endif
 
-    #define OSErrorGetosCANError()      osOwnCcb->LockIsNotNeeded.ossLastError
+#define OSErrorGetosCANError()      osOwnCcb->LockIsNotNeeded.ossLastError
 
   #if osdParameterAccessMacros
 
-   #define OSError_ActivateTask_TaskID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType)
-   #define OSError_ChainTask_TaskID()                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType)
-   #define OSError_GetTaskID_TaskID()                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskRefType)
-   #define OSError_GetTaskState_TaskID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType)
-   #define OSError_GetTaskState_State()                       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTaskStateRefType)
+#define OSError_ActivateTask_TaskID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType)
+#define OSError_ChainTask_TaskID()                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType)
+#define OSError_GetTaskID_TaskID()                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskRefType)
+#define OSError_GetTaskState_TaskID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType)
+#define OSError_GetTaskState_State()                       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTaskStateRefType)
 
-   #define OSError_GetResource_ResID()                        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osResourceType)
-   #define OSError_ReleaseResource_ResID()                    (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osResourceType)
-   #define OSError_GetSemaphore_SemaID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osOsSemaphoreType)
-   #define OSError_ReleaseSemaphore_SemaID()                  (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osOsSemaphoreType)
+#define OSError_GetResource_ResID()                        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osResourceType)
+#define OSError_ReleaseResource_ResID()                    (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osResourceType)
+#define OSError_GetSemaphore_SemaID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osOsSemaphoreType)
+#define OSError_ReleaseSemaphore_SemaID()                  (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osOsSemaphoreType)
 
-   #define OSError_SetEvent_TaskID()                          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType)
-   #define OSError_SetEvent_Mask()                            (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osEventMaskType)
-   #define OSError_GetEvent_TaskID()                          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType)
-   #define OSError_GetEvent_Event()                           (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osEventMaskRefType)
-   #define OSError_ClearEvent_Mask()                          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osEventMaskType)
-   #define OSError_WaitEvent_Mask()                           (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osEventMaskType)
+#define OSError_SetEvent_TaskID()                          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType)
+#define OSError_SetEvent_Mask()                            (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osEventMaskType)
+#define OSError_GetEvent_TaskID()                          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType)
+#define OSError_GetEvent_Event()                           (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osEventMaskRefType)
+#define OSError_ClearEvent_Mask()                          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osEventMaskType)
+#define OSError_WaitEvent_Mask()                           (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osEventMaskType)
 
-   #define OSError_GetAlarmBase_AlarmID()                     (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType)
-   #define OSError_GetAlarmBase_Info()                        (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osAlarmBaseRefType)
-   #define OSError_SetRelAlarm_AlarmID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType)
-   #define OSError_SetRelAlarm_increment()                    (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType)
-   #define OSError_SetRelAlarm_cycle()                        (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osTickType)
-   #define OSError_SetAbsAlarm_AlarmID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType)
-   #define OSError_SetAbsAlarm_start()                        (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType)
-   #define OSError_SetAbsAlarm_cycle()                        (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osTickType)
-   #define OSError_CancelAlarm_AlarmID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType)
-   #define OSError_GetAlarm_AlarmID()                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType)
-   #define OSError_GetAlarm_Tick()                            (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickRefType)
+#define OSError_GetAlarmBase_AlarmID()                     (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType)
+#define OSError_GetAlarmBase_Info()                        (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osAlarmBaseRefType)
+#define OSError_SetRelAlarm_AlarmID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType)
+#define OSError_SetRelAlarm_increment()                    (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType)
+#define OSError_SetRelAlarm_cycle()                        (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osTickType)
+#define OSError_SetAbsAlarm_AlarmID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType)
+#define OSError_SetAbsAlarm_start()                        (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType)
+#define OSError_SetAbsAlarm_cycle()                        (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osTickType)
+#define OSError_CancelAlarm_AlarmID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType)
+#define OSError_GetAlarm_AlarmID()                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osAlarmType)
+#define OSError_GetAlarm_Tick()                            (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickRefType)
 
-   #define OSError_StartScheduleTableRel_ScheduleTableID()    (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType)
-   #define OSError_StartScheduleTableRel_Offset()             (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType)
-   #define OSError_StartScheduleTableAbs_ScheduleTableID()    (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType)
-   #define OSError_StartScheduleTableAbs_Tickvalue()          (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType)
-   #define OSError_StopScheduleTable_ScheduleTableID()        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType)
-   #define OSError_NextScheduleTable_ScheduleTableID_current()(osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType)
-   #define OSError_NextScheduleTable_ScheduleTableID_next()   (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osScheduleTableType)
-   #define OSError_IncrementCounter_CounterID()               (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osCounterType)
-   #define OSError_GetScheduleTableStatus_ScheduleID()        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType)
-   #define OSError_GetScheduleTableStatus_ScheduleStatus()    (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osScheduleTableStatusRefType)
+#define OSError_StartScheduleTableRel_ScheduleTableID()    (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType)
+#define OSError_StartScheduleTableRel_Offset()             (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType)
+#define OSError_StartScheduleTableAbs_ScheduleTableID()    (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType)
+#define OSError_StartScheduleTableAbs_Tickvalue()          (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickType)
+#define OSError_StopScheduleTable_ScheduleTableID()        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType)
+#define OSError_NextScheduleTable_ScheduleTableID_current()(osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType)
+#define OSError_NextScheduleTable_ScheduleTableID_next()   (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osScheduleTableType)
+#define OSError_IncrementCounter_CounterID()               (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osCounterType)
+#define OSError_GetScheduleTableStatus_ScheduleID()        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType)
+#define OSError_GetScheduleTableStatus_ScheduleStatus()    (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osScheduleTableStatusRefType)
 
    #if((osdSC== SC3) || (osdSC== SC4))
-    #define OSError_CallTrustedFunction_FunctionIndex()        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osFunctionIndexType)
-    #define OSError_CallTrustedFunction_FunctionParams()       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTrustedFunctionParameterRefType)
-    #define OSError_TerminateApplication_RestartOption()       (osOwnCcb->LockIsNotNeeded.ossAPIParam1.RestartType)
+#define OSError_CallTrustedFunction_FunctionIndex()        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osFunctionIndexType)
+#define OSError_CallTrustedFunction_FunctionParams()       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTrustedFunctionParameterRefType)
+#define OSError_TerminateApplication_RestartOption()       (osOwnCcb->LockIsNotNeeded.ossAPIParam1.RestartType)
    #endif
 
    #if((osdSC == SC3) || (osdSC == SC4))
-    #define OSError_GetApplicationState_Application()          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osApplicationType)
-    #define OSError_GetApplicationState_Value()                (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osApplicationStateRefType)
+#define OSError_GetApplicationState_Application()          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osApplicationType)
+#define OSError_GetApplicationState_Value()                (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osApplicationStateRefType)
    #endif
 
-   #define OSError_GetCounterValue_CounterID()                 (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osCounterType)
-   #define OSError_GetCounterValue_Value()                     (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickRefType)
+#define OSError_GetCounterValue_CounterID()                 (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osCounterType)
+#define OSError_GetCounterValue_Value()                     (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickRefType)
 
-   #define OSError_GetElapsedValue_CounterID()                 (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osCounterType)
-   #define OSError_GetElapsedValue_Value()                     (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickRefType)
-   #define OSError_GetElapsedValue_ElapsedValue()              (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osTickRefType)
+#define OSError_GetElapsedValue_CounterID()                 (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osCounterType)
+#define OSError_GetElapsedValue_Value()                     (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickRefType)
+#define OSError_GetElapsedValue_ElapsedValue()              (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osTickRefType)
 
   #endif
  #endif

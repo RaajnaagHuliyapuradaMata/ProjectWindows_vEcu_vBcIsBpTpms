@@ -1,6 +1,6 @@
 
 #if !defined(OHDSCANSLAVE_CBK_H)
-# define OHDSCANSLAVE_CBK_H
+#define OHDSCANSLAVE_CBK_H
 
 #define OHDS_START_SEC_CODE
 #include "MemMap.h"

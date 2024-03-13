@@ -9,10 +9,10 @@
 #include "Gpt.h"
 
 #define cT_SpecialLearn         (uint16) 300
- #define ECU_TIMER_CHANNEL       0U
+#define ECU_TIMER_CHANNEL       0U
 #define ECU_TIMER_MAX           0xFFFFFFFFU
 #define ECU_TIMER_S_PER_TICK    4U
- #define ECU_TIMER_FREQ_KHZ      250u
+#define ECU_TIMER_FREQ_KHZ      250u
 
 static uint32 ulGlobalTime = 0;
 static uint32  ucLastTicks = 0;

@@ -1,5 +1,5 @@
 #ifndef _HMI_HANDLER_X_H
-# define _HMI_HANDLER_X_H
+#define _HMI_HANDLER_X_H
 
 #include "Platform_Types.h"
 #include "Compiler_Cfg.h"

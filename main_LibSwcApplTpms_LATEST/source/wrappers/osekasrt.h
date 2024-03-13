@@ -21,32 +21,32 @@
 #define osd_FILE_Cast
 
 #if osdErrorHook
- #define osAssertFailed_(x) osOwnCcb->LockIsNotNeeded.ossLastError = (osuint16) (x); osAssertFailed()
+#define osAssertFailed_(x) osOwnCcb->LockIsNotNeeded.ossLastError = (osuint16) (x); osAssertFailed()
 #else
- #define osAssertFailed_(x) osAssertFailed()
+#define osAssertFailed_(x) osAssertFailed()
 #endif
 
 #if((STATUS_LEVEL == EXTENDED_STATUS) && (osdEnableAssertions))
-    #define osSysErrAssertFailed(x)  {\
+#define osSysErrAssertFailed(x)  {\
                                     osDisableGlobal();\
                                     osAssertFailed_(x);\
                                  }
 
-    #define osSysErrAssert(p, x) if((p) == 0)\
+#define osSysErrAssert(p, x) if((p) == 0)\
                                  {\
                                     osSysErrAssertFailed(x)\
                                  }
 #else
-   #define osSysErrAssert(p, x)
-   #define osSysErrAssertFailed(x)
+#define osSysErrAssert(p, x)
+#define osSysErrAssertFailed(x)
 #endif
 
 #if osdErrorHook
-   #define osAPIError(x, y)                                    \
+#define osAPIError(x, y)                                    \
       osOwnCcb->LockIsNotNeeded.ossLastError = (osuint16) (y); \
       osErrorHook((StatusType) (x))
 #else
-   #define osAPIError(x, y)
+#define osAPIError(x, y)
 #endif
 
 #endif

@@ -20,17 +20,6 @@
 /* TYPEDEFS                                                                   */
 /******************************************************************************/
 typedef struct{
-   uint8  ui8_P_MIN_F;
-   uint8  ui8_P_MIN_R;
-   uint8  ui8_P_MIN_TIRE;
-   uint16 ui16_T_SOFT;
-   uint8  ui8_PERCENT_SOFT;
-   uint16 ui16_T_HARD;
-   uint8  ui8_PERCENT_HARD;
-   uint16 ui16_CONSTANT_DELAY;
-}PWarnParaType;
-
-typedef struct{
    uint16 ui16_V1;
    uint16 ui16_V2;
    uint16 ui16_V3;
@@ -52,7 +41,6 @@ typedef struct{
 /******************************************************************************/
 /* OBJECTS                                                                    */
 /******************************************************************************/
-extern PWarnParaType    tDAG_PPara;
 extern TempWarnParaType tDAG_TemPara;
 
 /******************************************************************************/

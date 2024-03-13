@@ -171,7 +171,7 @@
       #error "The magic number of the generated file <C:\_TSS\DAG\MFA2\Target\Appl\GenData\v_cfg.h> is different. Please check time and date of generated files!"
   #endif
 #else
-  #define MAGIC_NUMBER 268053767
+#define MAGIC_NUMBER 268053767
 #endif
 #endif
 
