@@ -21,4 +21,3 @@ extern uint8 ucNoWheelSensorMounted(void);
 extern void SetWaData2NvmFlag(void);
 extern uint8 bGetABSSignalDTCActive(void);
 extern uint8 ucDAG_LQIParameter(void);
-

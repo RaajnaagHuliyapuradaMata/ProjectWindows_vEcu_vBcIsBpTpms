@@ -85,7 +85,6 @@ uint8  ucStartFilterSTWT     (       uint16        x                ){UNUSED(x);
 uint8  ucStartFilterHDWT     (       uint16        x                ){UNUSED(x); return 0;}
 void   GetDataEE             (       uint8         x,           uint8* y,    uint8 z)     {UNUSED(x);     UNUSED(y);    UNUSED(z);}
 void   PutDataEE             (       uint8         x,     const uint8* y,    uint8 z)     {UNUSED(x);     UNUSED(y);    UNUSED(z);}
-void   SortBiggest1st        (       uint8*        ptVal,       uint8* ptIx, uint8 ucMax) {UNUSED(ptVal); UNUSED(ptIx); UNUSED(ucMax);}
 
 /******************************************************************************/
 /* Wrappers for uswarn_If.c                                                   */

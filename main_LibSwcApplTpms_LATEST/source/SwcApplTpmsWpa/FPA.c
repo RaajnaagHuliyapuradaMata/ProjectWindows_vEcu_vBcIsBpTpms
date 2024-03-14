@@ -693,7 +693,7 @@ uint8 ucGenDMnD2(uint8 ucDifDblWPinPC, uint8 ucDifWPinPc, uint16 ushSlotFilter){
       ucTmp = (uint8) 0;
        for(i = 0; i < cMaxLR; i++){
         if((ushPoSlots & (1<<i)) > 0){
-          SortBiggest1st(ucRelCmpVal[i],tTmp.ucSort,cSumABSig);
+          SortBiggest1st(ucRelCmpVal[i], tTmp.ucSort, cSumABSig);
            if((ucRelCmpVal[i][tTmp.ucSort[cSumABSig-2]] - ucRelCmpVal[i][tTmp.ucSort[cSumABSig-1]]) > ucDifWPinPc){
              for( j = 0; j < cMaxLR; j++)
                if( j != tTmp.ucSort[cSumABSig-1])
@@ -921,7 +921,7 @@ void ProvideFPAlgo2MT_DAG(void){
   for(i = 0; i < cSumWE; i++){
     if(0 == tZOM[i].ushPosCompVal2[0])
       continue;
-    SortBiggest1st(ucRelCmpVal[i],tTmp.ucSort,cSumABSig);
+    SortBiggest1st(ucRelCmpVal[i], tTmp.ucSort, cSumABSig);
      tZOM[i].ucDeltaMin = (ucRelCmpVal[i][tTmp.ucSort[cSumABSig-2]] - ucRelCmpVal[i][tTmp.ucSort[cSumABSig-1]]);
       ucRelCmpVal[i][tTmp.ucSort[cSumABSig-2]] = (ucRelCmpVal[i][tTmp.ucSort[cSumABSig-2]]) > 2 ? ucRelCmpVal[i][tTmp.ucSort[cSumABSig-2]] : 2;
     ucRelCmpVal[i][tTmp.ucSort[cSumABSig-1]] = (ucRelCmpVal[i][tTmp.ucSort[cSumABSig-1]]) > 2 ? ucRelCmpVal[i][tTmp.ucSort[cSumABSig-1]] : 2;
@@ -991,7 +991,7 @@ uint16 ushReduceCorel24(uint16 ushCandidate){
     }
 #endif
     MakeReLine(ucSlot,aucReLine);
-    SortBiggest1st(aucReLine,aucSortedShares,4);
+    SortBiggest1st(aucReLine, aucSortedShares, 4);
 
     if(((aucReLine[aucSortedShares[2]] - aucReLine[aucSortedShares[3]]) > 4) && (15 > aucReLine[aucSortedShares[3]])){
       *pucPcVal = aucReLine[aucSortedShares[3]];
