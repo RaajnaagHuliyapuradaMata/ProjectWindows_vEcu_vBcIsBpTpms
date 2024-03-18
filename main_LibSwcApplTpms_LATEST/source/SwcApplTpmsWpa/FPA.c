@@ -54,7 +54,6 @@ extern uint8 TESTucGetFpaWPOfZomSlot(uint8 ucSlot);
 
 #define RE1562
 #define SPEEDWEIGHT
-
 #define FULLTURNINABSTICKS 134
 #define HALFTURNINABSTICKS ((uint16) (FULLTURNINABSTICKS/2))
 #define QUARTURNINABSTICKS ((uint16) (HALFTURNINABSTICKS/2))
@@ -63,9 +62,7 @@ extern uint8 TESTucGetFpaWPOfZomSlot(uint8 ucSlot);
 #define MINUS_ABSigOFL_MOD_ZAHN  (FULLTURNINABSTICKS - ABSigOFL_MOD_ZAHN)
 
 static uint16 ush1stABSTickFL;
-
 uint16 (*fp2ushABSingleTick) (uint8 ucPos);
-
 uint16 ushCuRotatsIn05msec = 0;
 
 uint8 ucFPActive(void){
@@ -77,7 +74,7 @@ uint8 ucFPActive(void){
     }
   }
   ucRet  =  (ucRet == cMaxLR) ? (uint8) 1:(uint8) 0;
-  return(ucRet);
+  return ucRet;
 }
 
 uint8 ucConceptFixPos0(uint8 ucID, tRFTelType * ptInputWA){
@@ -140,7 +137,6 @@ uint8 ucConceptFixPos0(uint8 ucID, tRFTelType * ptInputWA){
          tZOM[ucID].ucABSComp[3] = FULLTURNINABSTICKS;
  #endif
         return (0);
-
      }
      else if(ptInputWA->SchraderFP.ucPAL == 0x01){
  #ifdef Test_LOG_ENABLE
@@ -149,7 +145,7 @@ uint8 ucConceptFixPos0(uint8 ucID, tRFTelType * ptInputWA){
          tZOM[ucID].ucABSComp[2] = FULLTURNINABSTICKS;
          tZOM[ucID].ucABSComp[3] = FULLTURNINABSTICKS;
  #endif
-        return (0);
+        return 0;
 
      }
      else if(ptInputWA->SchraderFP.ucPAL == 0xFF){
@@ -159,7 +155,7 @@ uint8 ucConceptFixPos0(uint8 ucID, tRFTelType * ptInputWA){
           tZOM[ucID].ucABSComp[2] = FULLTURNINABSTICKS;
           tZOM[ucID].ucABSComp[3] = FULLTURNINABSTICKS;
  #endif
-         return (0);
+         return 0;
      }
      fp2ushABSingleTick =  ushGetABSingleTickPAL;
   }
@@ -170,7 +166,7 @@ uint8 ucConceptFixPos0(uint8 ucID, tRFTelType * ptInputWA){
          tZOM[ucID].ucABSComp[2] = FULLTURNINABSTICKS;
          tZOM[ucID].ucABSComp[3] = FULLTURNINABSTICKS;
  #endif
-   return (0);
+   return 0;
   }
 
   if(!(fp2ushABSingleTick == ((void *)0)) && (fp2ushABSingleTick(0) != cABSStickError)){
@@ -188,19 +184,14 @@ uint8 ucConceptFixPos0(uint8 ucID, tRFTelType * ptInputWA){
          GenCmpVal(ucID);
 #endif
    }
-
   else{
-    if(fp2ushABSingleTick == ((void *)0))
-      return ((uint8) 0);
-
-    PutABSErrorActive ();
-    return ((uint8) 0);
+    if(((void*)0) == fp2ushABSingleTick)
+       return((uint8)0);
+    PutABSErrorActive();
+    return((uint8)0);
   }
-
-  if(ucNrOfBitSet ((uint16) ucGenDMnD2(10,4,0xFFFF)) == 4)
-      return(1);
-  else
-    return(0);
+  if(4 == ucNrOfBitSet((uint16)ucGenDMnD2(10,4,0xFFFF))) return 1;
+  else                                                   return 0;
 }
 
 static void GenCmpVal(uint8 ucID){
@@ -311,7 +302,6 @@ static void GenCmpVal(uint8 ucID){
 
 void RebuildABSRef(uint8 ucWP){
   uint8 i;
-
   for(i = 0; i < cSumWE ;i++){
     if(tZOM[i].ucToothTelCt > 0){
 #ifdef Test_LOG_ENABLE
@@ -327,20 +317,17 @@ void RebuildABSRef(uint8 ucWP){
 
 void ReNewABSRef(void){
   uint8 i;
-
   for(i = 0; i < cSumWE ;i++){
      if(tZOM[i].ucToothTelCt != 0)
       tZOM[i].ucResetABSRefFlag = 1;
   }
 }
 
-void SortBiggest1st(uint8 *ptVal, uint8 *ptIx, uint8 ucMax){
-  uint8 i,j, ucBuffer;
-
+void SortBiggest1st(uint8* ptVal, uint8* ptIx, uint8 ucMax){
+  uint8 i, j, ucBuffer;
   for(i=0;i<ucMax;i++){
     ptIx[i] = i;
   }
-
   for(i = 1; i < ucMax; i++){
     for(j = i; j >= 1; j--){
       if(ptVal[ptIx[j]] > ptVal[ptIx[j-1]]){
@@ -355,81 +342,44 @@ void SortBiggest1st(uint8 *ptVal, uint8 *ptIx, uint8 ucMax){
   }
 }
 
-void Very1stABSTickIinit(void){
-  ush1stABSTickFL = 0;
-}
+void Very1stABSTickIinit(void){ush1stABSTickFL = 0;}
 
 #if 0
-static uint16 ushMinStretch4Decision(void){
-  return ( 24000 );
-}
+static uint16 ushMinStretch4Decision(void){return 24000;}
 #endif
 
- uint16 ushGetABSingleTickFr2(uint8 ucIx){
-   return (ushGetABSingleTick (ucIx)-((uint16) ucGetTDL100()));
-}
-uint16 ushGetABSingleTickFr3(uint8 ucIx){
- return (ushGetABSingleTick (ucIx) - ushGetTDL210());
-}
-uint16 ushGetABSingleTickN90(uint8 ucIx){
-  return (ushGetABSingleTick (ucIx)- QUARTURNINABSTICKS);
-}
-uint16 ushGetABSingleTickN90Fr2(uint8 ucIx){
-  return (ushGetABSingleTick (ucIx)-((uint16) ucGetTDL100() + QUARTURNINABSTICKS));
-}
-uint16 ushGetABSingleTickN90Fr3(uint8 ucIx){
-  return (ushGetABSingleTick (ucIx)-(ushGetTDL210() + QUARTURNINABSTICKS));
-}
-uint16 ushGetABSingleTickTDL(uint8 ucIx){
-  return ( ushGetABSingleTick (ucIx) + (uint16) ucGetTDL(cRE15_4_2 ) );
-}
+uint16 ushGetABSingleTickFr2        (uint8 ucIx){return(ushGetABSingleTick(ucIx) - ((uint16) ucGetTDL100()));}
+uint16 ushGetABSingleTickFr3        (uint8 ucIx){return(ushGetABSingleTick(ucIx) - ushGetTDL210());}
+uint16 ushGetABSingleTickN90        (uint8 ucIx){return(ushGetABSingleTick(ucIx) - QUARTURNINABSTICKS);}
+uint16 ushGetABSingleTickN90Fr2     (uint8 ucIx){return(ushGetABSingleTick(ucIx) - ((uint16) ucGetTDL100() + QUARTURNINABSTICKS));}
+uint16 ushGetABSingleTickN90Fr3     (uint8 ucIx){return(ushGetABSingleTick(ucIx) - (ushGetTDL210() + QUARTURNINABSTICKS));}
+uint16 ushGetABSingleTickTDL        (uint8 ucIx){return(ushGetABSingleTick(ucIx) + (uint16) ucGetTDL(cRE15_4_2 ) );}
 
 #if defined(RE1562)
-uint16 ushGetABSingleTickTDLn180(uint8 ucIx){
-  return ( ushGetABSingleTick (ucIx) + (uint16) ucGetTDL(cRE15_4_2 ) - HALFTURNINABSTICKS);
-}
+uint16 ushGetABSingleTickTDLn180    (uint8 ucIx){return(ushGetABSingleTick(ucIx) + (uint16)ucGetTDL(cRE15_4_2) - HALFTURNINABSTICKS);}
 #endif
 
-uint16 ushGetABSingleTickTDL_HS(uint8 ucIx){
-  return ( ushGetABSingleTick (ucIx) + (uint16) ucGetTDL(cHSrange ) );
-}
-uint16 ushGetABSingleTickTDL_LS(uint8 ucIx){
-  return ( ushGetABSingleTick (ucIx) + (uint16) ucGetTDL(cLSrange ) );
-}
-uint16 ushGetABSingleTickTDL_HSn180(uint8 ucIx){
-  return ( ushGetABSingleTick (ucIx) + (uint16) ucGetTDL(cHSrange ) - (uint16) ucGetTDL(cIFS ));
-}
-uint16 ushGetABSingleTickTDL_LSn180(uint8 ucIx){
-  return ( ushGetABSingleTick (ucIx) + (uint16) ucGetTDL(cLSrange ) - (uint16) ucGetTDL(cIFS ));
-}
- uint16 ushGetABSingleTickPAL(uint8 ucIx){
-  return ( ushGetABSingleTick (ucIx));
-}
+uint16 ushGetABSingleTickTDL_HS     (uint8 ucIx){return(ushGetABSingleTick(ucIx) + (uint16)ucGetTDL(cHSrange));}
+uint16 ushGetABSingleTickTDL_LS     (uint8 ucIx){return(ushGetABSingleTick(ucIx) + (uint16)ucGetTDL(cLSrange));}
+uint16 ushGetABSingleTickTDL_HSn180 (uint8 ucIx){return(ushGetABSingleTick(ucIx) + (uint16)ucGetTDL(cHSrange) - (uint16)ucGetTDL(cIFS));}
+uint16 ushGetABSingleTickTDL_LSn180 (uint8 ucIx){return(ushGetABSingleTick(ucIx) + (uint16)ucGetTDL(cLSrange) - (uint16)ucGetTDL(cIFS));}
+uint16 ushGetABSingleTickPAL        (uint8 ucIx){return(ushGetABSingleTick(ucIx));}
+
 static uint8 ucGetTDL(uint8 ucCorType){
-  uint16 ushVtmp;
-  uint8 ucIx;
-  uint8* puCTab;
-          static const uint8 cucCvHS[] =     {27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   25,   22,   21,   24,   25,   25,   25,   25,   25,   25,   25};
-   static const uint8 cucIFS[] =      {46,   47,   47,   47,   47,   47,   47,   47,   47,   47,   47,   47, 47,   46,   46,   45,   45,   45,   43,   45,   45,   46,   46,   48,   49,   47,   47,   49,   49,   48,   49,   46,   48,   50,   50,   50,   50,   50,   50,   50};
-   static const uint8 cucCvLS[] =     {48,   48,   46,   42,   39,   36,   34,   33,   31,   30,   30,   28,   26,   26,   24,   24,   25,   22,   21,   24,   25,   24,   26,   21,   18,   19,   22,   30,   30,   30,   30,   30,   30,   30,   30,   30,   30,   30,   30,   30};
-      static const uint8 cucTDLatV[] = { 48,   48,   48,   46,   42,   39,   37,   36,   34,   34,   32,   31,   31,   29,   29,   29,   29,   28,   28,   28,   28,   28,   28,   28,   27,   27,   27,   27,   27, 27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27 };
-     switch ( ucCorType ){
-  case cRE15_4_2:
-    puCTab = (uint8 *) cucTDLatV;
-    break;
-  case cHSrange:
-    puCTab = (uint8 *) cucCvHS;
-    break;
-  case cLSrange:
-    puCTab = (uint8 *) cucCvLS;
-    break;
-  case cIFS:
-    puCTab = (uint8 *) cucIFS;
-    break;
-  default:
-    puCTab = (uint8 *) cucTDLatV;
-    break;
-  }
+   uint16 ushVtmp;
+   uint8  ucIx;
+   uint8* puCTab;
+   static const uint8 cucCvHS[]   = {27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   25,   22,   21,   24,   25,   25,   25,   25,   25,   25,   25};
+   static const uint8 cucIFS[]    = {46,   47,   47,   47,   47,   47,   47,   47,   47,   47,   47,   47,   47,   46,   46,   45,   45,   45,   43,   45,   45,   46,   46,   48,   49,   47,   47,   49,   49,   48,   49,   46,   48,   50,   50,   50,   50,   50,   50,   50};
+   static const uint8 cucCvLS[]   = {48,   48,   46,   42,   39,   36,   34,   33,   31,   30,   30,   28,   26,   26,   24,   24,   25,   22,   21,   24,   25,   24,   26,   21,   18,   19,   22,   30,   30,   30,   30,   30,   30,   30,   30,   30,   30,   30,   30,   30};
+   static const uint8 cucTDLatV[] = {48,   48,   48,   46,   42,   39,   37,   36,   34,   34,   32,   31,   31,   29,   29,   29,   29,   28,   28,   28,   28,   28,   28,   28,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27,   27};
+   switch(ucCorType){
+      case cRE15_4_2: puCTab = (uint8*) cucTDLatV; break;
+      case cHSrange:  puCTab = (uint8*) cucCvHS;   break;
+      case cLSrange:  puCTab = (uint8*) cucCvLS;   break;
+      case cIFS:      puCTab = (uint8*) cucIFS;    break;
+      default:        puCTab = (uint8*) cucTDLatV; break;
+   }
    if(ushCuRotatsIn05msec > 0){
     ushVtmp = (ushCuRotatsIn05msec>>1) + 48000;
     ushVtmp /= ushCuRotatsIn05msec;
@@ -448,7 +398,7 @@ static uint8 ucGetTDL(uint8 ucCorType){
       ucIx = sizeof(cucTDLatV) - (uint8) 1;
   }
 
-  return(puCTab[ucIx]);
+  return puCTab[ucIx];
 }
 static uint8 ucGetTDL100(void){
   uint16 ushVtmp;
@@ -463,7 +413,7 @@ static uint8 ucGetTDL100(void){
       ucIx = (uint8) 25;
   }
 
-  return(cucTDL100atV[ucIx]);
+  return cucTDL100atV[ucIx];
 }
 static uint16 ushGetTDL210(void){
   uint16 ushVtmp;
@@ -478,7 +428,7 @@ static uint16 ushGetTDL210(void){
       ucIx = (uint8) 25;
   }
 
-  return(cushTDL210atV[ucIx]);
+  return cushTDL210atV[ucIx];
 }
 
 uint8 ucFPDecPossible(uint16 * p2ushSlots,uint8 ucCtLimit){
@@ -502,19 +452,18 @@ uint8 ucFPDecPossible(uint16 * p2ushSlots,uint8 ucCtLimit){
     }
   }
 
-  return ( ucRdyCt );
+  return ucRdyCt;
 }
 
-uint8 ucAdjABSIface(uint8 ucID, tRFTelType * ptInputWA){
-  fp2ushABSingleTick = ((void *)0);
-
-  if(ptInputWA->Header .ucTType == cTelTypeG4Std )
+uint8 ucAdjABSIface(uint8 ucID, tRFTelType* ptInputWA){
+  fp2ushABSingleTick = ((void*)0);
+  if(ptInputWA->Header .ucTType == cTelTypeG4Std)
     fp2ushABSingleTick = ushGetABSingleTickTDL;
    else if(ptInputWA->Header .ucTType == cTelTypeRotatS ){
     ushCuRotatsIn05msec = (((uint16) (ptInputWA->RotatS .ucSnRH & 0x0F)) << 8) + (uint16) ptInputWA->RotatS .ucRL;
-    if( (ptInputWA->RotatS .ucSnRH & 0x80) == 0x80 )
+    if((ptInputWA->RotatS .ucSnRH & 0x80) == 0x80)
 #ifdef RE1562
-      if( (ptInputWA->RotatS .ucSnRH & 0x20) == 0x20 )
+      if((ptInputWA->RotatS .ucSnRH & 0x20) == 0x20)
          fp2ushABSingleTick = ushGetABSingleTickTDL_HSn180;
       else{
         fp2ushABSingleTick = ushGetABSingleTickTDL_LSn180;
@@ -525,7 +474,7 @@ uint8 ucAdjABSIface(uint8 ucID, tRFTelType * ptInputWA){
 #endif
     else
 #ifdef RE1562
-      if( (ptInputWA->RotatS .ucSnRH & 0x20) == 0x20 )
+      if((ptInputWA->RotatS .ucSnRH & 0x20) == 0x20)
          fp2ushABSingleTick = ushGetABSingleTickTDL_HS;
       else{
         fp2ushABSingleTick = ushGetABSingleTickTDL_LS;
@@ -535,76 +484,75 @@ uint8 ucAdjABSIface(uint8 ucID, tRFTelType * ptInputWA){
       fp2ushABSingleTick = ushGetABSingleTickTDL;
 #endif
   }
-  else if(ptInputWA->Header .ucTType == cTelTypeCorntiFP ){
+  else if(ptInputWA->Header .ucTType == cTelTypeCorntiFP){
     if((ptInputWA->ContiFP .ucModeNCode & 0x0C) == 0x08){
       if((ptInputWA->ContiFP .ucModeNCode & 0x03) == 0x02)
-        fp2ushABSingleTick = ushGetABSingleTickFr2 ;
+        fp2ushABSingleTick = ushGetABSingleTickFr2;
       else if((ptInputWA->ContiFP .ucModeNCode & 0x03) == 0x03)
-        fp2ushABSingleTick = ushGetABSingleTickFr3 ;
+        fp2ushABSingleTick = ushGetABSingleTickFr3;
       else
-        fp2ushABSingleTick = ushGetABSingleTick ;
+        fp2ushABSingleTick = ushGetABSingleTick;
     }
     else if((ptInputWA->ContiFP .ucModeNCode & 0x0C) == 0x0C){
       if((ptInputWA->ContiFP .ucModeNCode & 0x03) == 0x02)
-        fp2ushABSingleTick = ushGetABSingleTickN90Fr2 ;
+        fp2ushABSingleTick = ushGetABSingleTickN90Fr2;
       else if((ptInputWA->ContiFP .ucModeNCode & 0x03) == 0x03)
-        fp2ushABSingleTick = ushGetABSingleTickN90Fr3 ;
+        fp2ushABSingleTick = ushGetABSingleTickN90Fr3;
       else
-        fp2ushABSingleTick = ushGetABSingleTickN90  ;
+        fp2ushABSingleTick = ushGetABSingleTickN90;
     }
-    ptInputWA->Header .ucTType = cTelTypeAK35def ;
-     ptInputWA->AK35def .ucCmdID = cTelTypeAK35def ;
+      ptInputWA->Header.ucTType  = cTelTypeAK35def;
+      ptInputWA->AK35def.ucCmdID = cTelTypeAK35def;
   }
-  else if(ptInputWA->Header .ucTType == cTelTypeSELPAL ||  ptInputWA->Header .ucTType == cTelTypeSELPAL1){
-    if(ptInputWA->SchraderFP.ucPAL == 0x0){
- #ifdef Test_LOG_ENABLE
+  else if(
+         cTelTypeSELPAL  == ptInputWA->Header.ucTType
+      || cTelTypeSELPAL1 == ptInputWA->Header.ucTType
+  ){
+    if(0x0 == ptInputWA->SchraderFP.ucPAL){
+#ifdef Test_LOG_ENABLE
       tZOM[ucID].ucABSComp[0] = FULLTURNINABSTICKS;
-       tZOM[ucID].ucABSComp[1] = FULLTURNINABSTICKS;
-       tZOM[ucID].ucABSComp[2] = FULLTURNINABSTICKS;
-       tZOM[ucID].ucABSComp[3] = FULLTURNINABSTICKS;
- #endif
-      return (0);
+      tZOM[ucID].ucABSComp[1] = FULLTURNINABSTICKS;
+      tZOM[ucID].ucABSComp[2] = FULLTURNINABSTICKS;
+      tZOM[ucID].ucABSComp[3] = FULLTURNINABSTICKS;
+#endif
+      return 0;
     }
-    else if(ptInputWA->SchraderFP.ucPAL == 0x01){
- #ifdef Test_LOG_ENABLE
+    else if(0x01 == ptInputWA->SchraderFP.ucPAL){
+#ifdef Test_LOG_ENABLE
       tZOM[ucID].ucABSComp[0] = FULLTURNINABSTICKS;
-       tZOM[ucID].ucABSComp[1] = FULLTURNINABSTICKS;
-       tZOM[ucID].ucABSComp[2] = FULLTURNINABSTICKS;
-       tZOM[ucID].ucABSComp[3] = FULLTURNINABSTICKS;
- #endif
-      return (0);
-
+      tZOM[ucID].ucABSComp[1] = FULLTURNINABSTICKS;
+      tZOM[ucID].ucABSComp[2] = FULLTURNINABSTICKS;
+      tZOM[ucID].ucABSComp[3] = FULLTURNINABSTICKS;
+#endif
+      return 0;
     }
-    else if(ptInputWA->SchraderFP.ucPAL == 0xFF){
- #ifdef Test_LOG_ENABLE
+    else if(0xFF == ptInputWA->SchraderFP.ucPAL){
+#ifdef Test_LOG_ENABLE
       tZOM[ucID].ucABSComp[0] = FULLTURNINABSTICKS;
-       tZOM[ucID].ucABSComp[1] = FULLTURNINABSTICKS;
-       tZOM[ucID].ucABSComp[2] = FULLTURNINABSTICKS;
-       tZOM[ucID].ucABSComp[3] = FULLTURNINABSTICKS;
- #endif
-      return (0);
+      tZOM[ucID].ucABSComp[1] = FULLTURNINABSTICKS;
+      tZOM[ucID].ucABSComp[2] = FULLTURNINABSTICKS;
+      tZOM[ucID].ucABSComp[3] = FULLTURNINABSTICKS;
+#endif
+      return 0;
     }
     fp2ushABSingleTick =  ushGetABSingleTickPAL;
   }
-  else if(ptInputWA->Header .ucTType == cTelTypeAK35def){
+  else if(cTelTypeAK35def == ptInputWA->Header.ucTType){
 #ifdef Test_LOG_ENABLE
-    tZOM[ucID].ucABSComp[0] = FULLTURNINABSTICKS;
-     tZOM[ucID].ucABSComp[1] = FULLTURNINABSTICKS;
-     tZOM[ucID].ucABSComp[2] = FULLTURNINABSTICKS;
-     tZOM[ucID].ucABSComp[3] = FULLTURNINABSTICKS;
- #endif
-    return (0);
-  }
+      tZOM[ucID].ucABSComp[0] = FULLTURNINABSTICKS;
+      tZOM[ucID].ucABSComp[1] = FULLTURNINABSTICKS;
+      tZOM[ucID].ucABSComp[2] = FULLTURNINABSTICKS;
+      tZOM[ucID].ucABSComp[3] = FULLTURNINABSTICKS;
+#endif
+      return 0;
+   }
 
-  if(!(fp2ushABSingleTick == ((void *)0)) && (fp2ushABSingleTick(0) != cABSStickError))
-    return ((uint8) 1);
+        if(!(((void*)0) == fp2ushABSingleTick) && (cABSStickError != fp2ushABSingleTick(0))) return((uint8)1);
+   else if(  ((void*)0) == fp2ushABSingleTick)                                               return((uint8)0);
    else{
-     if(fp2ushABSingleTick == ((void *)0))
-      return ((uint8) 0);
-
-    PutABSErrorActive ();
-    return ((uint8) 0);
-  }
+      PutABSErrorActive();
+      return((uint8)0);
+   }
 }
 
 void BuildCmpVal(uint8 ucID){
@@ -803,10 +751,11 @@ uint8 ucGenDMnD2(uint8 ucDifDblWPinPC, uint8 ucDifWPinPc, uint16 ushSlotFilter){
         tZOM[i].ucRelCmpVal[j] = (uint8) 0;
   }
 #endif
+
 #ifdef WAModulTest
   ucRet = (TESTucPrepareFPAFinalResult ()) & ushPoSlots;
 #endif
-  return (ucRet);
+  return ucRet;
 }
 
 uint8 ucGetCorER(uint16 * p2Slots ){
@@ -852,27 +801,25 @@ uint8 ucGetCorER(uint16 * p2Slots ){
         *p2Slots &= ~(1<<i);
      }
   }
-  return (ucErCt );
+  return ucErCt;
 }
 
 uint8 ucCorLine(uint8  p2Line[], const uint8 ucMaxDev){
   uint8 i;
   const uint8 ucDefMeanVal = 0x19;
 
-  for(i = 0; i < cMaxLR ; i++){
+  for(i = 0; i < cMaxLR; i++){
     if( ucDefMeanVal > p2Line[i] ){
-      if( (ucDefMeanVal - p2Line[i]) > ucMaxDev)
+      if((ucDefMeanVal - p2Line[i]) > ucMaxDev)
         break;
     }
     else
-      if( (p2Line[i] - ucDefMeanVal) > ucMaxDev)
+      if((p2Line[i] - ucDefMeanVal) > ucMaxDev)
         break;
   }
 
-  if(cMaxLR == i)
-    return ((uint8) 0);
-  else
-    return ((uint8) 1);
+  if(cMaxLR == i) return((uint8)0);
+  else            return((uint8)1);
 }
 
 void ProvideFPAlgo2MT_DAG(void){
@@ -971,7 +918,7 @@ uint16 ushReduceCorel24(uint16 ushCandidate){
     }
   }
 
-  return (ushCandidate);
+  return(ushCandidate);
 }
 
   uint8 GETuCorWPofSlot(uint8 ucSlot, uint8* pucWP, uint8* pucPcVal){
@@ -987,7 +934,7 @@ uint16 ushReduceCorel24(uint16 ushCandidate){
     else{
       *pucWP = 1<<TESTucGetFpaWPOfZomSlot (ucSlot);
       *pucPcVal = (uint8) 5;
-      return (0xFF);
+      return(0xFF);
     }
 #endif
     MakeReLine(ucSlot,aucReLine);
@@ -996,10 +943,10 @@ uint16 ushReduceCorel24(uint16 ushCandidate){
     if(((aucReLine[aucSortedShares[2]] - aucReLine[aucSortedShares[3]]) > 4) && (15 > aucReLine[aucSortedShares[3]])){
       *pucPcVal = aucReLine[aucSortedShares[3]];
       *pucWP = (uint8) (1<<aucSortedShares[3]);
-      return ((uint8) 0xFF);
+      return((uint8)0xFF);
     }
   }
-  return ((uint8) 0);
+  return((uint8)0);
 }
 
  static void MakeReLine(uint8 ucSlot, uint8* pucLine){
