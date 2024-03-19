@@ -120,7 +120,7 @@ extern void WATimer1sec(uint16 ushVSpeedInKmh);
 extern uint8* pucGetLearnError(void);
 extern uint8* pucGetLocatError(void);
 extern uint16 ushGetDriveTimeInSec(void);
-extern uint8 ucGetColOfID(uint32 *);
+extern uint8 ucGetColOfID(uint32*);
 extern uint8 ucGetWPOfCol(uint8);
 extern uint8 ucGetColOfWP(uint8);
 extern uint32 ulGetID(uint8 ucIx);
@@ -186,10 +186,4 @@ uint8 ui8PWPresent(void);
 #ifdef FD_CONTROLS_FALLBACK
 extern  uint8 ui8GetPPWP(uint8* p2P, uint8* p2PWP, uint8 ui8MinRefPF, uint8 ui8MinRefPR);
 extern void Wr4PWP2NVM(uint8* p24PWP);
-#endif
-
-#ifdef WAModulTest
-void TESTPutDriveTimeInSec(uint16 ushTimeInSec);
-void SetALState(uint8 ui8State);
-
 #endif

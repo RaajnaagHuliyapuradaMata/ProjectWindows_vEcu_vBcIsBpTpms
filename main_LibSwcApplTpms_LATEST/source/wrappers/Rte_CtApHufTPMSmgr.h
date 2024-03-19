@@ -15,12 +15,8 @@ extern "C"
 #include "Rte_Type.h"
 
 #ifndef RTE_CORE
-#define RTE_START_SEC_VAR_NOINIT_UNSPECIFIED
-#include "MemMap.h"
 extern VAR(DT_ushWAState, RTE_VAR_NOINIT) Rte_CpApHufTPMSwpa_PP_WAState_DE_ushWAState;
 extern VAR(DT_ushWarnOut, RTE_VAR_NOINIT) Rte_CpApHufTPMSwnh_PP_WarnOut_DE_ushWarnOut;
-#define RTE_STOP_SEC_VAR_NOINIT_UNSPECIFIED
-#include "MemMap.h"
 #endif
 
 #ifndef RTE_CORE
@@ -41,15 +37,9 @@ extern VAR(DT_ushWarnOut, RTE_VAR_NOINIT) Rte_CpApHufTPMSwnh_PP_WarnOut_DE_ushWa
 #endif
 
 #ifndef RTE_CORE
-#define RTE_START_SEC_VAR_NOINIT_UNSPECIFIED
-#include "MemMap.h"
 extern VAR(Boolean, RTE_VAR_NOINIT) Rte_Irv_CpApHufTPMSmgr_IRV_TpmActvRq_TpmMsgDispRq;
-#define RTE_STOP_SEC_VAR_NOINIT_UNSPECIFIED
-#include "MemMap.h"
 #endif
 
-#define RTE_START_SEC_CODE
-#include "MemMap.h"
 #ifdef RTE_PTR2ARRAYBASETYPE_PASSING
 FUNC(Std_ReturnType, RTE_CODE) Rte_Read_CtApHufTPMSmgr_PP_RfStructIn_DE_auRfStruct(P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_VAR) data);
 #else
@@ -91,8 +81,6 @@ FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_P_TPM_Lmp_On_Rq_old_TPM_
 FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_P_Tire_Stat_V2_Tire_Stat_V2(P2CONST(REC_Tire_Stat_V2, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_DATA) data);
 FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_P_Tire_Temp_V2_Tire_Temp_V2(P2CONST(REC_Tire_Temp_V2, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_DATA) data);
 FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_P_WakeupRsn_TPM_WakeupRsn_TPM(c08_WakeupRsn_TPM data);
-#define RTE_STOP_SEC_CODE
-#include "MemMap.h"
 
 #ifndef RTE_CORE
 #define Rte_Read_PP_RfStructIn_DE_auRfStruct Rte_Read_CtApHufTPMSmgr_PP_RfStructIn_DE_auRfStruct
@@ -124,263 +112,119 @@ FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_P_WakeupRsn_TPM_WakeupRs
 #define Rte_Write_P_Tire_Temp_V2_Tire_Temp_V2 Rte_Write_CtApHufTPMSmgr_P_Tire_Temp_V2_Tire_Temp_V2
 #define Rte_Write_P_WakeupRsn_TPM_WakeupRsn_TPM Rte_Write_CtApHufTPMSmgr_P_WakeupRsn_TPM_WakeupRsn_TPM
 
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_ReceiveData2Alloc_Operation(P2CONST(DT_tData2Alloc, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_DATA) tData2Alloc);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_Data2Walloc_OP_SendData2Walloc(arg1) (RCtApHufTPMSwpa_ReceiveData2Alloc_Operation(arg1), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWNH_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWNH_APPL_CODE) RCtApHufTPMSwnh_ReceiveData2Warn_Operatation(P2CONST(DT_tData2Warn, AUTOMATIC, RTE_CTAPHUFTPMSWNH_APPL_DATA) tData2Warn);
-#define RTE_STOP_SEC_CTAPHUFTPMSWNH_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_Data2Warn_OP_SendTelData2WarnHdlr(arg1) (RCtApHufTPMSwnh_ReceiveData2Warn_Operatation(arg1), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetRecHistIDs_Operation(P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucRecHistID);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetRecHistIDs_OP_GetRecHistIDs(arg1) (RCtApHufTPMSwpa_GetRecHistIDs_Operation(arg1), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetHistID_Operation(UInt8 ucCol, P2VAR(UInt32, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ulID);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetWANonVolatileData_OP_GetHistID(arg1, arg2) (RCtApHufTPMSwpa_GetHistID_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetHistWPOfID_Operation(UInt32 ulID, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucZomPos);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetWANonVolatileData_OP_GetHistWPOfID(arg1, arg2) (RCtApHufTPMSwpa_GetHistWPOfID_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetHistWPOfCol_Operation(UInt8 ucCol, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucWP);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetWANonVolatileData_OP_GetWPOfCol(arg1, arg2) (RCtApHufTPMSwpa_GetHistWPOfCol_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetWaTOErrorCode_Operation(P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucWaToErr, UInt8 ucColOfID);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetWaTOErrorCode_OP_GetWaTOErrorCode(arg1, arg2) (RCtApHufTPMSwpa_GetWaTOErrorCode_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWNH_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWNH_APPL_CODE) RCtApHufTPMSwnh_GETaucWheelPosWarn_Operation(UInt8 pos, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWNH_APPL_VAR) ucWheelPosWarn);
-#define RTE_STOP_SEC_CTAPHUFTPMSWNH_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetWarningVectors_OP_GETaucWheelPosWarn(arg1, arg2) (RCtApHufTPMSwnh_GETaucWheelPosWarn_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWNH_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWNH_APPL_CODE) RCtApHufTPMSwnh_GETucHiWarnstatus1WN_Operation(P2VAR(UInt16, AUTOMATIC, RTE_CTAPHUFTPMSWNH_APPL_VAR) ushWarnOUtTM);
-#define RTE_STOP_SEC_CTAPHUFTPMSWNH_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetWarningVectors_OP_GETushWarnstatus1WN(arg1) (RCtApHufTPMSwnh_GETucHiWarnstatus1WN_Operation(arg1), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsSumCorrFL_Operation(UInt8 ucIdx, P2VAR(UInt16, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ushAbsSumCorr);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetAbsSumCorrFL(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsSumCorrFL_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsSumCorrFR_Operation(UInt8 ucIdx, P2VAR(UInt16, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ushAbsSumCorr);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetAbsSumCorrFR(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsSumCorrFR_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsSumCorrRL_Operation(UInt8 ucIdx, P2VAR(UInt16, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ushAbsSumCorr);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetAbsSumCorrRL(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsSumCorrRL_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsSumCorrRR_Operation(UInt8 ucIdx, P2VAR(UInt16, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ushAbsSumCorr);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetAbsSumCorrRR(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsSumCorrRR_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsCompFL_Operation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucAbsCompStick);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetZomAbsCompFL(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsCompFL_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsCompFR_Operation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucAbsCompStick);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetZomAbsCompFR(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsCompFR_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsCompRL_Operation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucAbsCompStick);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetZomAbsCompRL(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsCompRL_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsCompRR_Operation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucAbsCompStick);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetZomAbsCompRR(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsCompRR_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsLinFL_Operation(UInt8 ucIdx, P2VAR(UInt16, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ushAbsLinStick);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetZomAbsLinFL(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsLinFL_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsLinFR_Operation(UInt8 ucIdx, P2VAR(UInt16, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ushAbsLinStick);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetZomAbsLinFR(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsLinFR_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsLinRL_Operation(UInt8 ucIdx, P2VAR(UInt16, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ushAbsLinStick);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetZomAbsLinRL(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsLinRL_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsLinRR_Operation(UInt8 ucIdx, P2VAR(UInt16, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ushAbsLinStick);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetZomAbsLinRR(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsLinRR_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomID_Operation(UInt8 ucIdx, P2VAR(UInt32, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucZomID);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetZomID(arg1, arg2) (RCtApHufTPMSwpa_GetZomID_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomPosOfID_Operation(UInt32 ulID, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucPos);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetZomPosOfID(arg1, arg2) (RCtApHufTPMSwpa_GetZomPosOfID_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomStatisticTelCtr_Opetation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucRetVal);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetZomStatisticTelCounter(arg1, arg2) (RCtApHufTPMSwpa_GetZomStatisticTelCtr_Opetation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomStatus_Operation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucZomStatus);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetZomStatus(arg1, arg2) (RCtApHufTPMSwpa_GetZomStatus_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomToothTelCtCorrLearnBit_Opetation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucRetVal);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetZomToothTelCtCorrLearnBit(arg1, arg2) (RCtApHufTPMSwpa_GetZomToothTelCtCorrLearnBit_Opetation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomToothTelCtCorrNoLearnBit_Opetation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucRetVal);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetZomToothTelCtCorrNoLearnBit(arg1, arg2) (RCtApHufTPMSwpa_GetZomToothTelCtCorrNoLearnBit_Opetation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomToothTelCtNoCorr_Opetation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucRetVal);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetZomToothTelCtrNoCorr(arg1, arg2) (RCtApHufTPMSwpa_GetZomToothTelCtNoCorr_Opetation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomToothTelCtCorrNoLearnMode_Opetation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucRetVal);
-#define RTE_STOP_SEC_CTAPHUFTPMSWPA_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PP_GetZomData_OP_GetZomToothTelCtrNoLearnMode(arg1, arg2) (RCtApHufTPMSwpa_GetZomToothTelCtCorrNoLearnMode_Opetation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_NVM_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_NVM_APPL_CODE) NvM_GetErrorStatus(NvM_BlockIdType parg0, P2VAR(NvM_RequestResultType, AUTOMATIC, RTE_NVM_APPL_VAR) ErrorStatus);
-#define RTE_STOP_SEC_NVM_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSmgr_Pim_tCalNvMBlock_GetErrorStatus(arg1) (NvM_GetErrorStatus((NvM_BlockIdType)17, arg1), ((Std_ReturnType)RTE_E_OK))
-#define RTE_START_SEC_NVM_APPL_CODE
-#include "MemMap.h"
 FUNC(void, RTE_NVM_APPL_CODE) NvM_SetRamBlockStatus(NvM_BlockIdType parg0, Boolean RamBlockStatus);
-#define RTE_STOP_SEC_NVM_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSmgr_Pim_tCalNvMBlock_SetRamBlockStatus(arg1) (NvM_SetRamBlockStatus((NvM_BlockIdType)17, arg1), ((Std_ReturnType)RTE_E_OK))
 #define Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSmgr_Pim_tCodNvMBlock_GetErrorStatus(arg1) (NvM_GetErrorStatus((NvM_BlockIdType)18, arg1), ((Std_ReturnType)RTE_E_OK))
 #define Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSmgr_Pim_tCodNvMBlock_SetRamBlockStatus(arg1) (NvM_SetRamBlockStatus((NvM_BlockIdType)18, arg1), ((Std_ReturnType)RTE_E_OK))
 
-#define RTE_START_SEC_NVM_APPL_CODE
-#include "MemMap.h"
 #ifdef RTE_PTR2ARRAYBASETYPE_PASSING
 FUNC(Std_ReturnType, RTE_NVM_APPL_CODE) NvM_WriteBlock(NvM_BlockIdType parg0, P2CONST(UInt8, AUTOMATIC, RTE_NVM_APPL_DATA) DstPtr);
 #else
 FUNC(Std_ReturnType, RTE_NVM_APPL_CODE) NvM_WriteBlock(NvM_BlockIdType parg0, P2CONST(NvM_DestPtr, AUTOMATIC, RTE_NVM_APPL_DATA) DstPtr);
 #endif
-#define RTE_STOP_SEC_NVM_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSmgr_Pim_tCodNvMBlock_WriteBlock(arg1) (NvM_WriteBlock((NvM_BlockIdType)18, arg1))
-#define RTE_START_SEC_OHDSCANSLAVE_APPL_CODE
-#include "MemMap.h"
 FUNC(Std_ReturnType, RTE_OHDSCANSLAVE_APPL_CODE) OHDSCanSlave_GetOperatingHours(P2VAR(DC_U32, AUTOMATIC, RTE_OHDSCANSLAVE_APPL_VAR) value, P2VAR(DC_U8, AUTOMATIC, RTE_OHDSCANSLAVE_APPL_VAR) valueMsb, P2VAR(DC_U8, AUTOMATIC, RTE_OHDSCANSLAVE_APPL_VAR) status);
-#define RTE_STOP_SEC_OHDSCANSLAVE_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_R_OHDS_GetOperatingHours_GetOperatingHours OHDSCanSlave_GetOperatingHours
-#define RTE_START_SEC_COMM_APPL_CODE
-#include "MemMap.h"
 FUNC(Std_ReturnType, RTE_COMM_APPL_CODE) ComM_GetCurrentComMode(ComM_UserHandleType parg0, P2VAR(ComM_ModeType, AUTOMATIC, RTE_COMM_APPL_VAR) ComMode);
-#define RTE_STOP_SEC_COMM_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_UR_ComMUser_HMI_GetCurrentComMode(arg1) (ComM_GetCurrentComMode((ComM_UserHandleType)0, arg1))
-#define RTE_START_SEC_COMM_APPL_CODE
-#include "MemMap.h"
 FUNC(Std_ReturnType, RTE_COMM_APPL_CODE) ComM_GetRequestedComMode(ComM_UserHandleType parg0, P2VAR(ComM_ModeType, AUTOMATIC, RTE_COMM_APPL_VAR) ComMode);
-#define RTE_STOP_SEC_COMM_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_UR_ComMUser_HMI_GetRequestedMode(arg1) (ComM_GetRequestedComMode((ComM_UserHandleType)0, arg1))
-#define RTE_START_SEC_COMM_APPL_CODE
-#include "MemMap.h"
 FUNC(Std_ReturnType, RTE_COMM_APPL_CODE) ComM_RequestComMode(ComM_UserHandleType parg0, ComM_ModeType ComMode);
-#define RTE_STOP_SEC_COMM_APPL_CODE
-#include "MemMap.h"
 
 #define Rte_Call_UR_ComMUser_HMI_RequestComMode(arg1) (ComM_RequestComMode((ComM_UserHandleType)0, arg1))
 #define Rte_IrvWrite_RCtApHufTPMSmgr_RdTpmActvRq_IRV_TpmActvRq_TpmMsgDispRq(data) (Rte_Irv_CpApHufTPMSmgr_IRV_TpmActvRq_TpmMsgDispRq = (data))
@@ -388,32 +232,22 @@ FUNC(Std_ReturnType, RTE_COMM_APPL_CODE) ComM_RequestComMode(ComM_UserHandleType
 #define Rte_IrvWrite_RCtApHufTPMSmgr_WrTpmMsgDispRq_IRV_TpmActvRq_TpmMsgDispRq(data) (Rte_Irv_CpApHufTPMSmgr_IRV_TpmActvRq_TpmMsgDispRq = (data))
 
 #ifndef RTE_MICROSAR_PIM_EXPORT
-#define RTE_START_SEC_CONST_DEFAULT_RTE_CDATA_GROUP_UNSPECIFIED
-#include "MemMap.h"
 extern CONST(DT_tCalNvMBlock, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSmgr_Cal_tCalNvMBlock_DefaultValue;
 extern CONST(DT_tCodNvMBlock, RTE_CONST_DEFAULT_RTE_CDATA_GROUP) Rte_CtApHufTPMSmgr_Cal_tCodNvMBlock_DefaultValue;
-#define RTE_STOP_SEC_CONST_DEFAULT_RTE_CDATA_GROUP_UNSPECIFIED
-#include "MemMap.h"
 #endif
 
 #define Rte_CData_Cal_tCalNvMBlock_DefaultValue() (&Rte_CtApHufTPMSmgr_Cal_tCalNvMBlock_DefaultValue)
 #define Rte_CData_Cal_tCodNvMBlock_DefaultValue() (&Rte_CtApHufTPMSmgr_Cal_tCodNvMBlock_DefaultValue)
 
 #ifndef RTE_MICROSAR_PIM_EXPORT
-#define RTE_START_SEC_VAR_DEFAULT_RTE_PIM_GROUP_UNSPECIFIED
-#include "MemMap.h"
 extern VAR(DT_tCalNvMBlock, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSmgr_Pim_tCalNvMBlock;
 extern VAR(DT_tCodNvMBlock, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSmgr_Pim_tCodNvMBlock;
-#define RTE_STOP_SEC_VAR_DEFAULT_RTE_PIM_GROUP_UNSPECIFIED
-#include "MemMap.h"
 #endif
 
 #define Rte_Pim_Pim_tCalNvMBlock()   (&Rte_CpApHufTPMSmgr_Pim_tCalNvMBlock)
 #define Rte_Pim_Pim_tCodNvMBlock()   (&Rte_CpApHufTPMSmgr_Pim_tCodNvMBlock)
 #endif
 
-#define RTE_START_SEC_CTAPHUFTPMSMGR_APPL_CODE
-#include "MemMap.h"
 #ifndef RTE_CORE
 #define RTE_RUNNABLE_RCtApHufTPMSmgr_ControlEcuStandbyTimer RCtApHufTPMSmgr_ControlEcuStandbyTimer
 #define RTE_RUNNABLE_RCtApHufTPMSmgr_GenInternalClock RCtApHufTPMSmgr_GenInternalClock
@@ -479,8 +313,6 @@ FUNC(void, RTE_CTAPHUFTPMSMGR_APPL_CODE) RCtApHufTPMSmgr_TimeOutWhlPlsCnt(void);
 FUNC(void, RTE_CTAPHUFTPMSMGR_APPL_CODE) RCtApHufTPMSmgr_WrBusMsg(void);
 FUNC(void, RTE_CTAPHUFTPMSMGR_APPL_CODE) RCtApHufTPMSmgr_WrDisplayMsg(void);
 FUNC(void, RTE_CTAPHUFTPMSMGR_APPL_CODE) RCtApHufTPMSmgr_WrTpmMsgDispRq(void);
-#define RTE_STOP_SEC_CTAPHUFTPMSMGR_APPL_CODE
-#include "MemMap.h"
 
 #ifndef RTE_CORE
 #define RTE_E_ComM_UserRequest_E_MODE_LIMITATION (2U)

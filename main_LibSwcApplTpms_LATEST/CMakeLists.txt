@@ -32,7 +32,10 @@ add_executable(
    ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler/WTEcE.c
    ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler/WTPmin.c
    ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler/WTSFactor.c
+   ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWpa/SwcApplTpmsWpa.c
    ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWpa/FPA.c
+   ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWpa/WAlloc.c
+   ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWpa/Walloc_IF.c
 
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSdia
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr
@@ -57,4 +60,5 @@ target_include_directories(
    "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr/Statemanager"
    "${PROJECT_SOURCE_DIR}/source/CtCdHufTPMSrfd"
    "${PROJECT_SOURCE_DIR}/source/stubs"
+   "${PROJECT_SOURCE_DIR}/source/wrappers"
 )

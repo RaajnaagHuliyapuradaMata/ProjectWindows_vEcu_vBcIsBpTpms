@@ -1,5 +1,13 @@
-#define FPA_INT
+/******************************************************************************/
+/* File              : FPA.c                                                  */
+/* Author            : Nagaraja HULIYAPURADA MATA                             */
+/* Copyright (c)2024 : All rights reserved.                                   */
+/******************************************************************************/
 
+/******************************************************************************/
+/* #INCLUDES                                                                  */
+/******************************************************************************/
+#define FPA_INT
 #include "Std_Types.hpp"
 
 #include "WallocX.h"
@@ -7,15 +15,52 @@
 #include "walloc.h"
 #include "FPA.h"
 
-#define cWheelPos_RR  0x03 //TBD: Move to RTE
+/******************************************************************************/
+/* #DEFINES                                                                   */
+/******************************************************************************/
+#define RE1562
+#define SPEEDWEIGHT
+#define cWheelPos_RR                                                        0x03 //TBD: Move to RTE
+#define cMinStretch                                               ((uint8) 0x30)
+#define cFPARefWidth                                                           1
+#define cRE15_4_2                                                              0
+#define cHSrange                                                               1
+#define cLSrange                                                               2
+#define cIFS                                                                   3
+#define FULLTURNINABSTICKS                                                   134
+#define HALFTURNINABSTICKS                     ((uint16) (FULLTURNINABSTICKS/2))
+#define QUARTURNINABSTICKS                     ((uint16) (HALFTURNINABSTICKS/2))
+#define ABSigOFL_MOD_ZAHN               (cAbsOverflowValue % FULLTURNINABSTICKS)
+#define MINUS_ABSigOFL_MOD_ZAHN         (FULLTURNINABSTICKS - ABSigOFL_MOD_ZAHN)
 
+/******************************************************************************/
+/* MACROS                                                                     */
+/******************************************************************************/
+
+/******************************************************************************/
+/* TYPEDEFS                                                                   */
+/******************************************************************************/
+
+/******************************************************************************/
+/* CONSTS                                                                     */
+/******************************************************************************/
+
+/******************************************************************************/
+/* PARAMS                                                                     */
+/******************************************************************************/
+
+/******************************************************************************/
+/* OBJECTS                                                                    */
+/******************************************************************************/
+static uint16 ush1stABSTickFL;
+uint16 (*fp2ushABSingleTick) (uint8 ucPos);
+uint16 ushCuRotatsIn05msec = 0;
+
+/******************************************************************************/
+/* FUNCTIONS                                                                  */
+/******************************************************************************/
 #ifdef FPA
-static void GenCmpVal(uint8 ucID);
-
-#if 0
-static uint16 ushMinStretch4Decision(void);
-#endif
-
+static void   GenCmpVal(uint8 ucID);
 static uint16 ushGetABSingleTickFr2(uint8 ucIx);
 static uint16 ushGetABSingleTickFr3(uint8 ucIx);
 static uint16 ushGetABSingleTickN90(uint8 ucIx);
@@ -24,50 +69,23 @@ static uint16 ushGetABSingleTickN90Fr3(uint8 ucIx);
 static uint16 ushGetABSingleTickTDL(uint8 ucIx);
 
 #if defined(RE1562)
+#else
 static uint16 ushGetABSingleTickTDLn180(uint8 ucIx);
 #endif
 
+static void   MakeReLine(uint8 ucSlot, uint8* pucLine);
+static uint8  ucGetTDL(uint8 ucCorType);
+static uint8  ucGetTDL100(void);
+static uint8  ucBestFit(uint8 ucSlot1, uint8 ucSlot2, uint8 ucPCVal1,  uint8 ucPCVal2);
 static uint16 ushGetABSingleTickTDL_HS(uint8 ucIx);
 static uint16 ushGetABSingleTickTDL_LS(uint8 ucIx);
 static uint16 ushGetABSingleTickTDL_HSn180(uint8 ucIx);
 static uint16 ushGetABSingleTickTDL_LSn180(uint8 ucIx);
 static uint16 ushGetABSingleTickPAL(uint8 ucIx);
-static uint8 ucGetTDL(uint8 ucCorType);
-static uint8 ucGetTDL100(void);
 static uint16 ushGetTDL210(void);
-static void MakeReLine(uint8 ucSlot, uint8* pucLine);
-static uint8 ucBestFit(uint8 ucSlot1, uint8 ucSlot2, uint8 ucPCVal1,  uint8 ucPCVal2);
-
-#ifdef WAModulTest
-extern uint8 TESTucPrepareFPAResult(void);
-extern uint8 TESTucPrepareFPAFinalResult(void);
-extern uint8 TESTucGetFpaWPOfZomSlot(uint8 ucSlot);
-#endif
-
-#define cMinStretch (uint8) 0x30
-#define cFPARefWidth 1
-
-#define cRE15_4_2 0
-#define cHSrange 1
-#define cLSrange 2
-#define cIFS 3
-
-#define RE1562
-#define SPEEDWEIGHT
-#define FULLTURNINABSTICKS 134
-#define HALFTURNINABSTICKS ((uint16) (FULLTURNINABSTICKS/2))
-#define QUARTURNINABSTICKS ((uint16) (HALFTURNINABSTICKS/2))
-
-#define ABSigOFL_MOD_ZAHN (cAbsOverflowValue % FULLTURNINABSTICKS)
-#define MINUS_ABSigOFL_MOD_ZAHN  (FULLTURNINABSTICKS - ABSigOFL_MOD_ZAHN)
-
-static uint16 ush1stABSTickFL;
-uint16 (*fp2ushABSingleTick) (uint8 ucPos);
-uint16 ushCuRotatsIn05msec = 0;
 
 uint8 ucFPActive(void){
   uint8 i, ucRet = 0;
-
   for(i = 0; i < cMaxLR; i++){
     if(tZOM[i].ucToothTelCt > 0){
       ucRet++;
@@ -77,10 +95,8 @@ uint8 ucFPActive(void){
   return ucRet;
 }
 
-uint8 ucConceptFixPos0(uint8 ucID, tRFTelType * ptInputWA){
-
+uint8 ucConceptFixPos0(uint8 ucID, tRFTelType* ptInputWA){
   fp2ushABSingleTick = ((void *)0);
-
   if(ptInputWA->Header .ucTType == cTelTypeG4Std )
     fp2ushABSingleTick = ushGetABSingleTickTDL;
    else if(ptInputWA->Header .ucTType == cTelTypeRotatS ){
@@ -111,19 +127,19 @@ uint8 ucConceptFixPos0(uint8 ucID, tRFTelType * ptInputWA){
   else if(ptInputWA->Header .ucTType == cTelTypeCorntiFP ){
       if((ptInputWA->ContiFP .ucModeNCode & 0x0C) == 0x08){
         if((ptInputWA->ContiFP .ucModeNCode & 0x03) == 0x02)
-          fp2ushABSingleTick = ushGetABSingleTickFr2 ;
+          fp2ushABSingleTick = ushGetABSingleTickFr2;
         else if((ptInputWA->ContiFP .ucModeNCode & 0x03) == 0x03)
-          fp2ushABSingleTick = ushGetABSingleTickFr3 ;
+          fp2ushABSingleTick = ushGetABSingleTickFr3;
         else
-          fp2ushABSingleTick = ushGetABSingleTick ;
+          fp2ushABSingleTick = ushGetABSingleTick;
       }
       else if((ptInputWA->ContiFP .ucModeNCode & 0x0C) == 0x0C){
         if((ptInputWA->ContiFP .ucModeNCode & 0x03) == 0x02)
-          fp2ushABSingleTick = ushGetABSingleTickN90Fr2 ;
+          fp2ushABSingleTick = ushGetABSingleTickN90Fr2;
         else if((ptInputWA->ContiFP .ucModeNCode & 0x03) == 0x03)
-          fp2ushABSingleTick = ushGetABSingleTickN90Fr3 ;
+          fp2ushABSingleTick = ushGetABSingleTickN90Fr3;
         else
-          fp2ushABSingleTick = ushGetABSingleTickN90  ;
+          fp2ushABSingleTick = ushGetABSingleTickN90;
       }
     ptInputWA->Header .ucTType = cTelTypeAK35def ;
      ptInputWA->AK35def .ucCmdID = cTelTypeAK35def ;
@@ -165,10 +181,9 @@ uint8 ucConceptFixPos0(uint8 ucID, tRFTelType * ptInputWA){
          tZOM[ucID].ucABSComp[1] = FULLTURNINABSTICKS;
          tZOM[ucID].ucABSComp[2] = FULLTURNINABSTICKS;
          tZOM[ucID].ucABSComp[3] = FULLTURNINABSTICKS;
- #endif
+#endif
    return 0;
   }
-
   if(!(fp2ushABSingleTick == ((void *)0)) && (fp2ushABSingleTick(0) != cABSStickError)){
       GenCmpVal(ucID);
 
@@ -198,23 +213,17 @@ static void GenCmpVal(uint8 ucID){
   uint32 ulTmp;
   uint16 ushdN, ushTmp, ushdN2;
   uint8 i;
-
   if((tZOM[ucID].ucToothTelCt > (cFPARefWidth-1))  && (tZOM[ucID].ucResetABSRefFlag !=1)){
     if((uint8) (128 + cFPARefWidth + 1) > tZOM[ucID].ucToothTelCt)
       tZOM[ucID].ucToothTelCt++;
-
     ushTmp = fp2ushABSingleTick(0);
-
     for(i = 0; i < cSumABSig; i++){
-
       ushTmp = FULLTURNINABSTICKS;
       ushdN =  fp2ushABSingleTick(i);
       ushdN %= ushTmp;
-
       if( ushdN < tZOM[ucID].ucABSRef [i])
        ushdN += ushTmp;
       ushdN -= (uint16) tZOM[ucID].ucABSRef [i];
-
       ushTmp >>= 1;
        ushdN = ( ushdN > ushTmp) ? (ushdN - ushTmp):(ushdN + ushTmp);
       ushdN2 = (ushdN+HALFTURNINABSTICKS)% FULLTURNINABSTICKS;
@@ -229,7 +238,6 @@ static void GenCmpVal(uint8 ucID){
             tZOM[ucID].ushMVdN[i] >>= 7;
             tZOM[ucID].ushMVdN2[i] +=64;
             tZOM[ucID].ushMVdN2[i] >>= 7;
-
           }
           ushTmp = tZOM[ucID].ushMVdN[i];
            ulTmp = (uint32) ushTmp << 7;
@@ -238,7 +246,6 @@ static void GenCmpVal(uint8 ucID){
           ulTmp += (uint32) 64;
            ulTmp >>= 7;
           tZOM[ucID].ushMVdN[i] = (uint16) ulTmp;
-
           ushTmp = tZOM[ucID].ushMVdN2[i];
            ulTmp = (uint32) ushTmp << 7;
           ulTmp -= (uint32) ushTmp;
@@ -252,7 +259,6 @@ static void GenCmpVal(uint8 ucID){
         tZOM[ucID].ushMVdN[i] = ushdN;
         tZOM[ucID].ushMVdN2[i] = ushdN2;
       }
-
       if(tZOM[ucID].ucToothTelCt < (uint8) (128 + cFPARefWidth)){
          ushTmp =  tZOM[ucID].ushMVdN[i] / ((uint16) (tZOM[ucID].ucToothTelCt - cFPARefWidth));
         if( ushdN > ushTmp )
@@ -343,11 +349,6 @@ void SortBiggest1st(uint8* ptVal, uint8* ptIx, uint8 ucMax){
 }
 
 void Very1stABSTickIinit(void){ush1stABSTickFL = 0;}
-
-#if 0
-static uint16 ushMinStretch4Decision(void){return 24000;}
-#endif
-
 uint16 ushGetABSingleTickFr2        (uint8 ucIx){return(ushGetABSingleTick(ucIx) - ((uint16) ucGetTDL100()));}
 uint16 ushGetABSingleTickFr3        (uint8 ucIx){return(ushGetABSingleTick(ucIx) - ushGetTDL210());}
 uint16 ushGetABSingleTickN90        (uint8 ucIx){return(ushGetABSingleTick(ucIx) - QUARTURNINABSTICKS);}
@@ -356,6 +357,7 @@ uint16 ushGetABSingleTickN90Fr3     (uint8 ucIx){return(ushGetABSingleTick(ucIx)
 uint16 ushGetABSingleTickTDL        (uint8 ucIx){return(ushGetABSingleTick(ucIx) + (uint16) ucGetTDL(cRE15_4_2 ) );}
 
 #if defined(RE1562)
+#else
 uint16 ushGetABSingleTickTDLn180    (uint8 ucIx){return(ushGetABSingleTick(ucIx) + (uint16)ucGetTDL(cRE15_4_2) - HALFTURNINABSTICKS);}
 #endif
 
@@ -390,21 +392,19 @@ static uint8 ucGetTDL(uint8 ucCorType){
     if((ushVtmp >  ((uint16) ucGetSpeed() + 20)) || (ushVtmp <  ((uint16) ucGetSpeed() - 20)))
        ushVtmp =  (uint16) ucGetSpeed();
    ushVtmp =  (uint16) ucGetSpeed();
-
   ucIx = (uint8) ((((ushVtmp * 10)/5)+5)/10);
    if(ucIx > 0){
     ucIx--;
     if(ucIx > (sizeof(cucTDLatV) - (uint8) 1))
       ucIx = sizeof(cucTDLatV) - (uint8) 1;
   }
-
   return puCTab[ucIx];
 }
+
 static uint8 ucGetTDL100(void){
   uint16 ushVtmp;
   uint8 ucIx;
    static const uint8 cucTDL100atV[] = {6,12,18,24,30,36,42,48,55,61,67,73,79,85,91,97,103,109,115,121,127,133,139,145,152,158};
-
   ushVtmp =  (uint16) ucGetSpeed();
   ucIx = (uint8) ((((ushVtmp * 10)/5)+5)/10);
    if(ucIx > 0){
@@ -412,14 +412,13 @@ static uint8 ucGetTDL100(void){
     if(ucIx > (uint8) 25)
       ucIx = (uint8) 25;
   }
-
   return cucTDL100atV[ucIx];
 }
+
 static uint16 ushGetTDL210(void){
   uint16 ushVtmp;
   uint8 ucIx;
    static const uint16 cushTDL210atV[] = {13,25,38,51,64,76,89,102,115,127,140,153,165,178,191,204,216,229,242,255,267,280,293,305,318, 331};
-
   ushVtmp =  (uint16) ucGetSpeed();
   ucIx = (uint8) ((((ushVtmp * 10)/5)+5)/10);
    if(ucIx > 0){
@@ -427,13 +426,11 @@ static uint16 ushGetTDL210(void){
     if(ucIx > (uint8) 25)
       ucIx = (uint8) 25;
   }
-
   return cushTDL210atV[ucIx];
 }
 
 uint8 ucFPDecPossible(uint16 * p2ushSlots,uint8 ucCtLimit){
   uint8 i, ucRdyCt = (uint8) 0;
-
   *p2ushSlots = 0;
   for( i = 0; i < cSumWE; i++){
     if( tZOM[i].ushPosCompVal2[0] > 0)
@@ -451,7 +448,6 @@ uint8 ucFPDecPossible(uint16 * p2ushSlots,uint8 ucCtLimit){
       PutLocatError (TooFewPalTels, i);
     }
   }
-
   return ucRdyCt;
 }
 
@@ -624,7 +620,7 @@ uint8 ucGenDMnD2(uint8 ucDifDblWPinPC, uint8 ucDifWPinPc, uint16 ushSlotFilter){
             else
               ucRelCmpVal[i][j] = (uint8) 1;
           }
- #ifdef pb_ModulTest_050104
+#ifdef pb_ModulTest_050104
           tZOM[i].ucRelCmpVal[j] = ucRelCmpVal[i][j];
 #endif
         }
@@ -752,23 +748,18 @@ uint8 ucGenDMnD2(uint8 ucDifDblWPinPC, uint8 ucDifWPinPc, uint16 ushSlotFilter){
   }
 #endif
 
-#ifdef WAModulTest
-  ucRet = (TESTucPrepareFPAFinalResult ()) & ushPoSlots;
-#endif
   return ucRet;
 }
 
 uint8 ucGetCorER(uint16 * p2Slots ){
   uint8 i,j, aucReLine[4],ucErCt = 0;
   uint32 ulCmpSum, ulTmp;
-
   for(i = 0; i < cSumWE; i++){
     if((*p2Slots & (1<<i)) > 0){
       if( cMinCt4Dec  <= tZOM[i].ucToothTelCt){
         ulCmpSum = 0;
          for( j = 0; j < cMaxLR; j++)
           ulCmpSum += ((tZOM[i].ushPosCompVal2 [j] < tZOM[i].ushPosCompVal [j]) ? tZOM[i].ushPosCompVal2 [j]:tZOM[i].ushPosCompVal [j]);
-
         for( j = 0; j < cMaxLR; j++){
           if(tZOM[i].ushPosCompVal[j] < tZOM[i].ushPosCompVal2[j]){
             if(tZOM[i].ushPosCompVal[j] > 0){
@@ -790,7 +781,6 @@ uint8 ucGetCorER(uint16 * p2Slots ){
           }
           if(0 == aucReLine[j])
             aucReLine[j] = 1;
-
         }
         if(ucCorLine(aucReLine, 8) > 0)
           ucErCt++;
@@ -807,7 +797,6 @@ uint8 ucGetCorER(uint16 * p2Slots ){
 uint8 ucCorLine(uint8  p2Line[], const uint8 ucMaxDev){
   uint8 i;
   const uint8 ucDefMeanVal = 0x19;
-
   for(i = 0; i < cMaxLR; i++){
     if( ucDefMeanVal > p2Line[i] ){
       if((ucDefMeanVal - p2Line[i]) > ucMaxDev)
@@ -817,7 +806,6 @@ uint8 ucCorLine(uint8  p2Line[], const uint8 ucMaxDev){
       if((p2Line[i] - ucDefMeanVal) > ucMaxDev)
         break;
   }
-
   if(cMaxLR == i) return((uint8)0);
   else            return((uint8)1);
 }
@@ -826,19 +814,16 @@ void ProvideFPAlgo2MT_DAG(void){
   union{
     uint32 ulTmp;
     uint8 ucSort[4];
-  } tTmp;
-
+  }tTmp;
   uint32 ulCmpSum;
   uint8  ucRelCmpVal[cSumWE][4];
   uint8 i,j ;
-
   for(i = 0; i < cSumWE; i++){
     if(0 == tZOM[i].ushPosCompVal2[0])
       continue;
     ulCmpSum = 0;
      for( j = 0; j < cSumABSig; j++)
       ulCmpSum += ((tZOM[i].ushPosCompVal2 [j] < tZOM[i].ushPosCompVal [j]) ? tZOM[i].ushPosCompVal2 [j]:tZOM[i].ushPosCompVal [j]);
-
     for( j = 0; j < cSumABSig; j++){
       if(tZOM[i].ushPosCompVal[j] < tZOM[i].ushPosCompVal2[j]){
         if(tZOM[i].ushPosCompVal[j] > 0){
@@ -917,29 +902,16 @@ uint16 ushReduceCorel24(uint16 ushCandidate){
       }
     }
   }
-
-  return(ushCandidate);
+  return ushCandidate;
 }
 
-  uint8 GETuCorWPofSlot(uint8 ucSlot, uint8* pucWP, uint8* pucPcVal){
+uint8 GETuCorWPofSlot(uint8 ucSlot, uint8* pucWP, uint8* pucPcVal){
   uint8 aucReLine[4], aucSortedShares[4];
-
   *pucWP = (uint8) 0;
   *pucPcVal = (uint8) 100;
-
   if( cMinCt4Dec  <= tZOM[ucSlot].ucToothTelCt){
-#ifdef WAModulTest
-    if( TESTucGetFpaWPOfZomSlot(ucSlot) > 3 )
-       return (0);
-    else{
-      *pucWP = 1<<TESTucGetFpaWPOfZomSlot (ucSlot);
-      *pucPcVal = (uint8) 5;
-      return(0xFF);
-    }
-#endif
     MakeReLine(ucSlot,aucReLine);
     SortBiggest1st(aucReLine, aucSortedShares, 4);
-
     if(((aucReLine[aucSortedShares[2]] - aucReLine[aucSortedShares[3]]) > 4) && (15 > aucReLine[aucSortedShares[3]])){
       *pucPcVal = aucReLine[aucSortedShares[3]];
       *pucWP = (uint8) (1<<aucSortedShares[3]);
@@ -1021,74 +993,57 @@ static uint8 ucBestFit(uint8 ucSlot1, uint8 ucSlot2, uint8 ucPCVal1,  uint8 ucPC
 
 #ifdef pb_ModulTest_050104
 void TESTPrintToothZOM_HL(void){
-  uint8 i,j;
-  uint8 aucWPSeq[][3] = {"FL","RL","FR","RR"};
-
-  for(i = 0; i < 4;i++){
-    printf(";ID[%s];Status[%s];ucFPATelCt[%s]",aucWPSeq[i],aucWPSeq[i],aucWPSeq[i]);
-    for( j  = 0; j < 4 ; j++)
-      printf(";dN[%s][%d]",aucWPSeq[i],j);
-    for( j  = 0; j < 4 ; j++)
-      printf(";MVdN[%s][%d]",aucWPSeq[i],j);
-    for( j  = 0; j < 4 ; j++)
-      printf(";CmpVal[%s][%d]",aucWPSeq[i],j);
-    for( j  = 0; j < 4 ; j++)
-      printf(";MVdN2[%s][%d]",aucWPSeq[i],j);
-    for( j  = 0; j < 4 ; j++)
-      printf(";CmpVal2[%s][%d]",aucWPSeq[i],j);
-    for( j  = 0; j < 4 ; j++)
-      printf(";RelCmp[%s][%d]",aucWPSeq[i],j);
-  }
+   uint8 i,j;
+   uint8 aucWPSeq[][3] = {"FL","RL","FR","RR"};
+   for(i = 0; i < 4;i++){
+   printf(";ID[%s];Status[%s];ucFPATelCt[%s]", aucWPSeq[i], aucWPSeq[i], aucWPSeq[i]);
+      for(j = 0; j < 4; j++)printf(";dN[%s][%d]",      aucWPSeq[i],j);
+      for(j = 0; j < 4; j++)printf(";MVdN[%s][%d]",    aucWPSeq[i],j);
+      for(j = 0; j < 4; j++)printf(";CmpVal[%s][%d]",  aucWPSeq[i],j);
+      for(j = 0; j < 4; j++)printf(";MVdN2[%s][%d]",   aucWPSeq[i],j);
+      for(j = 0; j < 4; j++)printf(";CmpVal2[%s][%d]", aucWPSeq[i],j);
+      for(j = 0; j < 4; j++)printf(";RelCmp[%s][%d]",  aucWPSeq[i],j);
+   }
 }
+
 void TESTPrintToothZOMAsLine(void){
-  uint32 ulID;
-
-  ulID = ulGetRatIDatWP(0);
-    TESTPrintFPAZOMSlot(ucGetZOMPosOfID( &ulID));
-
-    ulID = ulGetRatIDatWP(2);
-    TESTPrintFPAZOMSlot(ucGetZOMPosOfID( &ulID));
-
-    ulID = ulGetRatIDatWP(1);
-    TESTPrintFPAZOMSlot(ucGetZOMPosOfID( &ulID));
-
-    ulID = ulGetRatIDatWP(3);
-    TESTPrintFPAZOMSlot(ucGetZOMPosOfID( &ulID));
-
-  printf(";");
-
+   uint32 ulID = ulGetRatIDatWP(0);
+   TESTPrintFPAZOMSlot(ucGetZOMPosOfID( &ulID));
+   ulID = ulGetRatIDatWP(2);
+   TESTPrintFPAZOMSlot(ucGetZOMPosOfID( &ulID));
+   ulID = ulGetRatIDatWP(1);
+   TESTPrintFPAZOMSlot(ucGetZOMPosOfID( &ulID));
+   ulID = ulGetRatIDatWP(3);
+   TESTPrintFPAZOMSlot(ucGetZOMPosOfID( &ulID));
+   printf(";");
 }
+
 void TESTPrintFPAZOMSlot(uint8 ucSlot){
-  uint8 j;
-
-  printf(";%lu;0x%02X;%d",tZOM[ucSlot].ulID,tZOM[ucSlot].ucStatus,tZOM[ucSlot].ucToothTelCt );
-  for( j  = 0; j < 4 ; j++)
-    printf(";%d",tZOM[ucSlot].ucCurdN[j]);
-  for( j  = 0; j < 4 ; j++)
-    printf(";%d", tZOM[ucSlot].ushMVdN [j]);
-  for( j  = 0; j < 4 ; j++)
-    printf(";%d", tZOM[ucSlot].ushPosCompVal [j]);
-  for( j  = 0; j < 4 ; j++)
-    printf(";%d", tZOM[ucSlot].ushMVdN2 [j]);
-  for( j  = 0; j < 4 ; j++)
-    printf(";%d", tZOM[ucSlot].ushPosCompVal2 [j]);
-  for( j  = 0; j < 4 ; j++)
-    printf(";%d",tZOM[ucSlot].ucRelCmpVal [j]);
+   uint8 j;
+   printf(";%lu;0x%02X;%d",tZOM[ucSlot].ulID,tZOM[ucSlot].ucStatus,tZOM[ucSlot].ucToothTelCt);
+   for(j = 0; j < 4; j++)printf(";%d", tZOM[ucSlot].ucCurdN        [j]);
+   for(j = 0; j < 4; j++)printf(";%d", tZOM[ucSlot].ushMVdN        [j]);
+   for(j = 0; j < 4; j++)printf(";%d", tZOM[ucSlot].ushPosCompVal  [j]);
+   for(j = 0; j < 4; j++)printf(";%d", tZOM[ucSlot].ushMVdN2       [j]);
+   for(j = 0; j < 4; j++)printf(";%d", tZOM[ucSlot].ushPosCompVal2 [j]);
+   for(j = 0; j < 4; j++)printf(";%d", tZOM[ucSlot].ucRelCmpVal    [j]);
 }
+
 void TESTPrinToothZOMSummary(uint8 i){
   uint8 j;
-
   if(i < 4){
       printf(" %d; 0x%02X; %d; %d;",tZOM[i].ulID,tZOM[i].ucStatus ,tZOM[i].ucProbeCt ,tZOM[i].ucToothTelCt);
-      for( j = 0; j < cMaxLR; j++)
-        printf("%d;",tZOM[i].ucRelCmpVal[j]);
-      for( j = 0; j < cMaxLR; j++)
-        printf("%d;",tZOM[i].ushPosCompVal[j]);
+      for(j = 0; j < cMaxLR; j++)printf("%d;", tZOM[i].ucRelCmpVal[j]);
+      for(j = 0; j < cMaxLR; j++)printf("%d;", tZOM[i].ushPosCompVal[j]);
   }
   else
-    for( j = 0; j < 3; j++)
+    for(j = 0; j < 3; j++)
      printf(" %d; %d; %d; %d;",0,0,0,0);
 }
 #endif
 #endif
+
+/******************************************************************************/
+/* EOF                                                                        */
+/******************************************************************************/
 

@@ -104,7 +104,7 @@ void PutABS(uint16 ushTime, const uint16 ushCnt[] ){
    ucAbsIndex++;
 }
 
-uint8 GetLinABS( uint16 ushCnt[] ){
+uint8 GetLinABS(uint16 ushCnt[]){
    uint8 ucRet;
 
    if( ucAbsState == ccABS_STATE_LinABS_AVL){

@@ -675,9 +675,8 @@ uint8 GetGlobWarnState4MM(void){
 }
 
 uint8  bGetABSSignalDTCActive(void){
-  uint8 ucEventStatus0, ucEventStatus1, ucEventStatus2, ucEventStatus3, ucEventStatus4;
-
-  Dem_GetEventStatus(Dem_DTC_0xc12287, &ucEventStatus0);
+   uint8 ucEventStatus0, ucEventStatus1, ucEventStatus2, ucEventStatus3, ucEventStatus4;
+   Dem_GetEventStatus(Dem_DTC_0xc12287, &ucEventStatus0);
    Dem_GetEventStatus(Dem_DTC_0xd41008, &ucEventStatus1);
    Dem_GetEventStatus(Dem_DTC_0xd41108, &ucEventStatus2);
    Dem_GetEventStatus(Dem_DTC_0xd41208, &ucEventStatus3);

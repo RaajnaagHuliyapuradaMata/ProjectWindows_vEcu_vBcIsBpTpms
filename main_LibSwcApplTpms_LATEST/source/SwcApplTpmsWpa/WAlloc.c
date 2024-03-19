@@ -1,86 +1,117 @@
+/******************************************************************************/
+/* File              : WAlloc.c                                               */
+/* Author            : Nagaraja HULIYAPURADA MATA                             */
+/* Copyright (c)2024 : All rights reserved.                                   */
+/******************************************************************************/
 
-
+/******************************************************************************/
+/* #INCLUDES                                                                  */
+/******************************************************************************/
 #define WALLOC_INT
- #include "WallocX.h"
+#include "Std_Types.hpp"
+
+#include "WallocX.h"
 #include "Walloc_IF.h"
 #include "walloc.h"
 #include "AEC.h"
 #include "FPA.h"
 #include "tss_stdX.h"
-#define cSLHistAssignTimeInSec 180
-#define cTIME_OUT            540
-#define cHistIDProtectTime  240
-#define c5MinDriveTimeInSec 300
 
-#define cAll (uint8) 0
-#define cLearnOnly (uint8) 1
+/******************************************************************************/
+/* #DEFINES                                                                   */
+/******************************************************************************/
+#define cWheelPos_RR                                                        0x03 //TBD: Move to RTE
+#define cSLHistAssignTimeInSec                                               180
+#define cTIME_OUT                                                            540
+#define cHistIDProtectTime                                                   240
+#define c5MinDriveTimeInSec                                                  300
+#define cAll                                                         ((uint8) 0)
+#define cLearnOnly                                                   ((uint8) 1)
+#define cWPER                                                               0x10
 
-static uint16 ushIDSetInHist(uint32 *ptHistSet, uint8 ucMinProbeCt, uint8 ucSlots2Search);
-static uint16 ushIDinLearnModeSetInHist(uint32 *ptHistSet, uint8 ucMinProbeCt, uint8 ucSlots2Search);
-static uint16 ushSpeciaLearn(tRFTelType * ptInputWA);
-static uint8 ucAssessDAGSLUC(uint8 ucWPs);
-static uint8 ucNewZomIDsFit2MissingHistID_WP(uint8 ucNewNMissing);
-static uint8 ucGetNrOfNewIDs(uint8* p2Slots);
-static uint8 ucWrZom2History(uint8 ucNewNMissing);
-static uint8 ucSL3MinHistPreFinish(void);
-static uint8 ucSL31Finish(uint8 ucMinCt4NewID);
-static uint8 ucGetNrOfNewIDsInLM_SL(uint16 * p2Slots, uint8 ucMinCt);
-static uint8 ucGetNrOfNewIDsInLM(uint16 * p2Slots, uint8 ucMinCt);
-static uint8 ucGetNrOfNewIDsInLMwoPAL(uint16 * p2Slots);
-static uint8 uc3NewIDsAllocated(uint8 ucMinCt4NewID);
-static uint16 ushCompLearn(tRFTelType * ptInputWA);
-static uint16 ushWhlSetRdy2Freeze(uint8 ucMinCt, uint8 ucMinCt4HistERc, uint8 bLearnNewIDsFlag);
-static uint8 ucForceAutoLocate(void);
-static uint8 ucCmpHist2ZOMID(uint8 ucVZS);
-static uint8 ucNrOfUKWPinZOM(void);
-static uint8 ucNrOfUKWPinHist(void);
-static void CheckAutoDeactivateOverride(void);
-static uint8 ucFinishViaHistory(void);
-static uint8 ucBadHist2Def(void);
-static uint8 ucFinalFreeze(uint8 ucMinCt4HistER, uint8 ucMinCt);
-static void UpdateALState(uint8 ui8Trigger);
-static uint16 ucFindNoLearnHistoryIDs(uint32 *ptHistID, uint8 ucMinProbeCt, uint8 ucSlots2Search);
-static uint16 ucFindMissingHistoryIDs(uint32 *ptHistID, uint8 ucMinProbeCt, uint8 ucSlots2Search);
-static uint8 ucGetMisOrNoLearnError(void);
-static uint8 ucGetAnyLocatErrors(uint8 ucDontTouch);
-static void ClearAlLearNLocatError(uint8 ucErrType);
-static void TOXpired(void);
-static void UpdateDAGLearnState(void);
-static uint8 ucTakeOverHistWP(uint8 ucHistIx,uint8 ucZomIx);
-static uint16 ushIDSetInHistNAlignWP(uint32 *ptHistSet, uint8 ucMinProbeCt, uint8 ucSlots2Search);
-static uint16 ushSetHistIDs2ER(uint32 *ptHistSet, uint8 ucMinProbeCt, uint8 ucSlots2Search);
-static uint16 ushLearnInOver8(tRFTelType * ptInputWA);
-static uint8 ucPasSupplFilter(tRFTelType * p2Tel);
-static void MergeWPandPWP(void);
-static uint8 ucNrOfLocatError(void);
-static uint8 ucNrOfLocatErrorAndPosForce(void);
-static uint8 ucNrOfLearnError(void);
-static uint8 considerationeDiAssegnazioneCostretto(void);
-static void dblCk4LocEr(void);
-static uint16 ui16NewIdFits(uint16 ushNewID, uint16 ushHistSet);
-static uint8 ui8AnyHistIdMissing(void);
-static uint16  ushLqiTribute(uint16 ushCandidate);
+/******************************************************************************/
+/* MACROS                                                                     */
+/******************************************************************************/
 
-static const uint8 ucWACtrlFixc = 0x01;
+/******************************************************************************/
+/* TYPEDEFS                                                                   */
+/******************************************************************************/
+
+/******************************************************************************/
+/* CONSTS                                                                     */
+/******************************************************************************/
 static const uint8 ucWACtrlBreakc = 0x02;
-static uint8 ucWAState;
+static const uint8 ucWACtrlFixc   = 0x01;
+
+/******************************************************************************/
+/* PARAMS                                                                     */
+/******************************************************************************/
+
+/******************************************************************************/
+/* OBJECTS                                                                    */
+/******************************************************************************/
 static uint32 aulHistoryID[cMaxLR];
-static uint8 aucHistoryWP[cMaxLR];
-static uint8 ucLearnError[cMaxLR] = {NoError,NoError,NoError,NoError};
-static uint8 ucLocatError[cMaxLR] = {NoError,NoError,NoError,NoError};
-static uint8 ucABSignalMissin = NoError ;
-
-#define cWPER 0x10
-
-static uint16 ushDriveTimeInSec = 0;
+static uint8  aucHistoryWP[cMaxLR];
+static uint8  aucWPorPWP[cMaxLR]     = {4, 4, 4, 4};
+static uint16 ushDriveTimeInSec      = 0;
 static uint16 ushDriveTimeOverPalMax = 0;
-static uint8 ucLearnMode = cNoLearn;
-static uint8 ucWAStateHi = 0;
-static uint8 ucDAGLearnState = Autolearn_Learning ;
+static uint8  ucLearnError[cMaxLR]   = {NoError, NoError, NoError, NoError};
+static uint8  ucLocatError[cMaxLR]   = {NoError, NoError, NoError, NoError};
+static uint8  ucABSignalMissin       = NoError;
+static uint8  ucDAGLearnState        = Autolearn_Learning;
+static uint8  ucLearnMode            = cNoLearn;
+static uint8  ucWAStateHi            = 0;
+static uint8  ucWAState;
 
-static uint8 aucWPorPWP[cMaxLR] = {4,4,4,4};
+/******************************************************************************/
+/* FUNCTIONS                                                                  */
+/******************************************************************************/
+static void   dblCk4LocEr                           (void);
+static void   MergeWPandPWP                         (void);
+static void   TOXpired                              (void);
+static void   UpdateDAGLearnState                   (void);
+static void   ClearAlLearNLocatError                (uint8 ucErrType);
+static void   UpdateALState                         (uint8 ui8Trigger);
+static uint8  considerationeDiAssegnazioneCostretto (void);
+static uint8  ucBadHist2Def                         (void);
+static uint8  ucFinishViaHistory                    (void);
+static uint8  ucForceAutoLocate                     (void);
+static uint8  ucGetMisOrNoLearnError                (void);
+static uint8  ucNrOfLearnError                      (void);
+static uint8  ucNrOfLocatError                      (void);
+static uint8  ucNrOfLocatErrorAndPosForce           (void);
+static uint8  ucNrOfUKWPinHist                      (void);
+static uint8  ucNrOfUKWPinZOM                       (void);
+static uint8  ucSL3MinHistPreFinish                 (void);
+static uint8  ui8AnyHistIdMissing                   (void);
+static uint8  uc3NewIDsAllocated                    (uint8       ucMinCt4NewID);
+static uint8  ucAssessDAGSLUC                       (uint8       ucWPs);
+static uint8  ucCmpHist2ZOMID                       (uint8       ucVZS);
+static uint8  ucGetAnyLocatErrors                   (uint8       ucDontTouch);
+static uint8  ucNewZomIDsFit2MissingHistID_WP       (uint8       ucNewNMissing);
+static uint8  ucFinalFreeze                         (uint8       ucMinCt4HistER, uint8 ucMinCt);
+static uint8  ucGetNrOfNewIDs                       (uint8*      p2Slots);
+static uint8  ucGetNrOfNewIDsInLM                   (uint16*     p2Slots, uint8 ucMinCt);
+static uint8  ucGetNrOfNewIDsInLM_SL                (uint16*     p2Slots, uint8 ucMinCt);
+static uint8  ucPasSupplFilter                      (tRFTelType* p2Tel);
+static uint8  ucSL31Finish                          (uint8       ucMinCt4NewID);
+static uint8  ucTakeOverHistWP                      (uint8       ucHistIx, uint8 ucZomIx);
+static uint8  ucWrZom2History                       (uint8       ucNewNMissing);
+static uint16 ushLqiTribute                         (uint16      ushCandidate);
+static uint16 ushCompLearn                          (tRFTelType* ptInputWA);
+static uint16 ushLearnInOver8                       (tRFTelType* ptInputWA);
+static uint16 ushSpeciaLearn                        (tRFTelType* ptInputWA);
+static uint16 ui16NewIdFits                         (uint16      ushNewID,  uint16 ushHistSet);
+static uint16 ushWhlSetRdy2Freeze                   (uint8       ucMinCt,   uint8  ucMinCt4HistERc, uint8 bLearnNewIDsFlag);
+static uint16 ucFindMissingHistoryIDs               (uint32*     ptHistID,  uint8  ucMinProbeCt,    uint8 ucSlots2Search);
+static uint16 ucFindNoLearnHistoryIDs               (uint32*     ptHistID,  uint8  ucMinProbeCt,    uint8 ucSlots2Search);
+static uint16 ushIDinLearnModeSetInHist             (uint32*     ptHistSet, uint8  ucMinProbeCt,    uint8 ucSlots2Search);
+static uint16 ushIDSetInHist                        (uint32*     ptHistSet, uint8  ucMinProbeCt,    uint8 ucSlots2Search);
+static uint16 ushIDSetInHistNAlignWP                (uint32*     ptHistSet, uint8  ucMinProbeCt,    uint8 ucSlots2Search);
+static uint16 ushSetHistIDs2ER                      (uint32*     ptHistSet, uint8  ucMinProbeCt,    uint8 ucSlots2Search);
+
 uint8 ucNrOfBitSet(uint16 ushTarget){
-  uint8 i, ucHits= 0;
+  uint8 i, ucHits = 0;
   for(i = 0; i < 16; i ++){
     if((ushTarget & (1<<i)) > 0){
       ucHits++;
@@ -90,8 +121,8 @@ uint8 ucNrOfBitSet(uint16 ushTarget){
 }
 
 static void SetWAStateZOChange(uint8 ucChangedPos){
-  ucWAState &= 0x0F;
-  ucWAState |= (uint8) ((ucChangedPos&0x0F)<<4);
+  ucWAState   &= 0x0F;
+  ucWAState   |= (uint8) ((ucChangedPos&0x0F)<<4);
   ucWAStateHi &= 0x0F;
   ucWAStateHi |= (uint8) (ucChangedPos&0xF0);
 }
@@ -116,32 +147,6 @@ static void ClearZOM(uint8 ucIx){
   }
 }
 
-static uint8 ucSetWP(void){
-  uint8 i, ucRet = 1;
-  for(i = 0; i < cMaxLR; i++){
-    tZOM[i].ucStatus &= cNoWPos;
-    switch (tZOM[i].ucStatus){
-    case 0x50:      tZOM[i].ucStatus |= cWP_FR;      break;
-    case 0x60:      tZOM[i].ucStatus |= cWP_RR;      break;
-    case 0x90:      tZOM[i].ucStatus |= cWP_FL;      break;
-    case 0xA0:      tZOM[i].ucStatus |= cWP_RL;      break;
-    default:
-      {
-        ucRet = 0;
-        break;
-      }
-    }
-  }
-  return ucRet;
-}
-
-static void ResetWP(void){
-  uint8 i;
-  for(i = 0; i < cMaxLR; i++){
-    tZOM[i].ucStatus &= cNoWPos;
-  }
-}
-
 static void PutulZOMID(uint8 ucIx,uint32 *p2ID){
   if(ucIx < cSumWE){
     tZOM[ucIx].ulID = *p2ID;
@@ -149,31 +154,18 @@ static void PutulZOMID(uint8 ucIx,uint32 *p2ID){
 }
 
 static uint8 ucGetZOMWP(uint8 ucIx){
-  if(ucIx < cSumWE){
-    switch(tZOM[ucIx].ucStatus & ~cNoWPos){
-    case 0x01:      return ( (uint8) 0);
-    case 0x02:      return ( (uint8) 1);
-    case 0x04:      return ( (uint8) 2);
-    case 0x08:      return ( (uint8) 3);
-    default:        return ( (uint8) 4);
-    }
-  }
-  else{
-    return ( (uint8) 4);
-  }
-}
-
-static void ResetAxis(void){
-  uint8 i;
-  for(i = 0; i < cSumWE; i++){
-    tZOM[i].ucStatus &= cNoAxis;
-#ifdef CONCEPT4
-    tZOM[i].ushLECt = 0;
-    tZOM[i].ushSECt = 0;
-    tZOM[i].ucFCt = 0;
-#endif
-  }
-  ucWAState &= (uint8) ~(cWAStateER);
+   if(ucIx < cSumWE){
+      switch(tZOM[ucIx].ucStatus & ~cNoWPos){
+         case 0x01: return((uint8)0);
+         case 0x02: return((uint8)1);
+         case 0x04: return((uint8)2);
+         case 0x08: return((uint8)3);
+         default:   return((uint8)4);
+      }
+   }
+   else{
+      return((uint8)4);
+   }
 }
 
 static uint8 ucGetProbeCt(uint8 ucIx){
@@ -257,18 +249,6 @@ static uint8 ucLowestProbe(uint16 ushException){
   return( ucMinIx );
 }
 
-static uint8 bWPExistInHist(uint8 *p2HistoryWP, uint8 ucWP){
-  uint8 i;
-  uint8 ucRetVal = 0;
-  for(i=0; i<cMaxLR; i++){
-    if(p2HistoryWP[i] == ucWP){
-      ucRetVal= 1;
-      break;
-    }
-  }
-  return ucRetVal;
-}
-
 uint8 bCheckHistIDReception(void){
   uint16 ushHelp;
   ushHelp = ushIDSetInHist(aulHistoryID, 1, cSumWE);
@@ -276,79 +256,20 @@ uint8 bCheckHistIDReception(void){
   else    return 0;
 }
 
-static uint16 ushCheckERState(uint8 ucMinCt, uint8 ucMinCt4HistERc, uint8 bLearnNewIDsFlag){
-  uint16 ushRet = 0;
-  const uint8 ucMinCt4ERResetc = 6;
-  ushRet = ushIDinLearnModeSetInHist(aulHistoryID,ucMinCt4HistERc,cSumWE);
-  if(ucNrOfBitSet(ushRet) < cMaxLR){
-    if(bLearnNewIDsFlag == 1){
-      if(ucSumCtID(ucMinCt4ERResetc, &ushRet) > ((uint8) cMaxLR)){
-        ClearZOM(cSumWE);
-#ifdef AEC
-        ResetACM();
-#endif
-        ushRet = 0;
-      }
-      else{
-        if(ucSumCtID(ucMinCt, &ushRet) != cMaxLR){
-          ushRet = 0;
-        }
-      }
-    }
-    else{
-      ushRet = 0;
-    }
-  }
-  return(ushRet);
-}
-
 static uint8 ucCheckWheelPos(uint8 ucID, tRFTelType * ptInputWA){
   uint8 ucRet = 0;
   uint16 ushTmp = 0x000F;
-#ifdef AEC
-  if( ptInputWA->Header .ucTType == cTelTypePeak )
-    Concept5pb8(ucID, ptInputWA);
-  else
-#endif
- #ifdef FPA
+#ifdef FPA
    if((ucWAStateHi & cTO) > (uint8) 0){
     if(ucAdjABSIface(ucID, ptInputWA) > (uint8) 0)
        BuildCmpVal (ucID);
    }
    else
     ucRet = ucConceptFixPos0(ucID, ptInputWA);
-
   if((uint8) 0 == ucRet)
     if((uint8) cMaxLR == ucFPDecPossible (&ushTmp, cMinCt4Dec ))
       if((uint8) 0 == ucNrOfUKWPinZOM() )
         ucRet = (uint8) 1;
-#endif
- #ifdef AEC
-  if  (ucDirectionDetection((uint8) 1) == 0x0F){
- #ifdef CONCEPT4
-    if(((tZOM[ucID].ucStatus & 0x30) == 0) && (ptInputWA->Header .ucTType == cTelTypeEdgeCnt))
-      Concept4Op2(ucID,ushGetTruECt(ptInputWA,ucID) );
-#endif
-    if(ucAxisDetection() == 1){
-      if(ucWPConsistent() == 1){
-
-        if(ucSetWP() == 1){
-          ucRet = 1;
-        }
-        else{
-
-          ResetAxis();
-        }
-      }
-      else{
-        ResetAxis();
-      }
-    }
-  }
-  else{
-    if(ucRet == 0)
-       ResetWP();
-  }
 #endif
   return((uint8) ucRet);
 }
@@ -517,9 +438,9 @@ static void Put2Slot(tRFTelType *ptInputWA, uint8 ucIx){
   return;
 }
 
-static uint8 ucPutInZOM(tRFTelType *ptInputWA, WAParameter *ptWAPar){
+static uint8 ucPutInZOM(tRFTelType* ptInputWA, WAParameter* ptWAPar){
   uint8 ucIx;
-  ucIx = ucGetZOMPosOfID( &ptInputWA->AK35def.ulID );
+  ucIx = ucGetZOMPosOfID(&ptInputWA->AK35def.ulID);
   if(ucIx < cSumWE){
     Put2Slot(ptInputWA, ucIx);
   }
@@ -547,6 +468,7 @@ static uint8 ucPutInZOM(tRFTelType *ptInputWA, WAParameter *ptWAPar){
       }
     }
   }
+  UNUSED(ptWAPar);
   return ucIx;
 }
 
@@ -592,7 +514,7 @@ uint8 ucSetHistory(uint8 ucType, uint8 ucVZS){
     for(i = 0; i < cMaxLR; i++){
       if((ucRet & (0x01 << i)) > 0){
         ucNrUK = ucGetColOfWP(ucGetZOMWP(i));
-        if((ucGetZOMWP(i) <= cWheelPos_RR  )  && ((ucNew & ((1<<ucNrUK)&0x0F)) > 0)){
+        if((ucGetZOMWP(i) <= cWheelPos_RR)  && ((ucNew & ((1<<ucNrUK)&0x0F)) > 0)){
           aulHistoryID[ucNrUK] = ulGetZOMID(i);
           ucNew &= (uint8) (~(uint8) (1 << ucNrUK));
           ucChangedHistSlots |= (uint8) (1 << ucNrUK);
@@ -1524,16 +1446,6 @@ static uint8 ucGetNrOfNewIDsInLM(uint16 * p2Slots, uint8 ucMinCt){
   return ucNewID;
 }
 
-static void CheckAutoDeactivateOverride(void){
-  uint16 ushHelp;
-  ushHelp = ushCheckERState(ucDefMinCt4ER, ucDefMinCt4HistER, (ushDriveTimeInSec > cHistIDProtectTime ) ? (uint8) 1:(uint8) 0);
-  if( ushHelp > 0){
-    ucWAState |= cWAStateER;
-    (void) ushAlignZOM(ushHelp);
-    SetWAStateZOChange(ucSetHistory((uint8)cWAStateER, 0x0F));
-  }
-}
-
 static uint8 ucFinishViaHistory(void){
   uint16 ushHelp = ushIDSetInHist(aulHistoryID,ucDefMinCt4HistER,cSumWE);
   if(cMaxLR == ucNrOfBitSet(ushHelp)){
@@ -1568,29 +1480,6 @@ static uint8 ucBadHist2Def(void){
     }
   }
   return ucBadIDCt;
-}
-
-static uint8 ucGetNrOfNewIDsInLMwoPAL(uint16 * p2Slots){
-  uint8 i,j,ucNewID = (uint8) 0;
-  *p2Slots = 0;
-  for(i = 0; i < cSumWE ; i++){
-    if(tZOM [i].ucProbeCt  > 0){
-      for(j = 0; j < cMaxLR ; j++){
-        if(tZOM [i].ulID == aulHistoryID [j]){
-          break;
-        }
-      }
-      if( cMaxLR == j ){
-        if(tZOM[i].ucToothTelCtNoLearnMode > 0){
-          ucNewID++;
-          *p2Slots |= 1<<i;
-        }
-      }
-    }
-    else
-      break;
-   }
-  return ucNewID;
 }
 
 static uint8 uc3NewIDsAllocated(uint8 ucMinCt4NewID){
@@ -1739,11 +1628,13 @@ static uint8 ucNrOfUKWPinHist(void){
 
 static uint8 ucFinalFreeze(uint8 ucMinCt4HistER, uint8 ucMinCt){
   uint8 ucIdentifiedWP;
-  uint16 ushNew,ushOld,ushFRS;
+  uint16 ushNew;
+  uint16 ushOld;
+//  uint16 ushFRS;
   if((uint8) 0 == ucFinishViaHistory()){
-    (void) ucGetNrOfNewIDsInLM (&ushNew,ucMinCt );
+    (void) ucGetNrOfNewIDsInLM(&ushNew,ucMinCt);
     ushOld = ushIDSetInHist(aulHistoryID,ucDefMinCt4HistER,cSumWE);
-    if(( cMaxLR < ucNrOfBitSet (ushNew|ushOld)) && (((uint8) 0) == ucGetERState () )){
+    if((cMaxLR < ucNrOfBitSet (ushNew|ushOld)) && (((uint8) 0) == ucGetERState())){
       ushNew = ushReduceCorel24(ushNew|ushOld);
       ushOld = 0;
       ushNew = ushAlignZOM(ushNew);
@@ -1784,7 +1675,6 @@ static uint8 ucFinalFreeze(uint8 ucMinCt4HistER, uint8 ucMinCt){
       }
     }
   }
-
   ucIdentifiedWP = ((uint8) 4 - ucNrOfUKWPinHist());
   if(cMaxLR == ucIdentifiedWP){
     ucWAStateHi &= (uint8) ~cTZG;
@@ -1796,9 +1686,9 @@ static uint8 ucFinalFreeze(uint8 ucMinCt4HistER, uint8 ucMinCt){
     ucWAState &= (uint8) ~cWAStateZO;
     ucWAStateHi |= cTZG;
   }
-
-  return ((uint8) 1);
- }
+   UNUSED(ucMinCt4HistER);
+  return((uint8)1);
+}
 
 static void UpdateALState(uint8 ui8Trigger){
   uint8 ui8ALState = tWAPar.AL_State;
@@ -1919,7 +1809,7 @@ static uint8 ucGetAnyLocatErrors(uint8 ucDontTouch){
       }
     }
   }
-
+   UNUSED(ucDontTouch);
   return ucRet;
 }
 
@@ -2063,12 +1953,9 @@ static void UpdateDAGLearnState(void){
 }
 
 void PutABSErrorActive(void){
-#ifdef WAModulTest
-#else
   if(bGetABSSignalDTCActive() == TRUE){
     ucABSignalMissin = ABSignalMissin ;
   }
-#endif
 }
 
 static uint8 ucTakeOverHistWP(uint8 ucHistIx,uint8 ucZomIx){
@@ -2194,14 +2081,11 @@ static uint8 ucPasSupplFilter(tRFTelType * p2Tel){
 
 static void MergeWPandPWP(void){
   uint8 i;
-  for( i = (uint8) 0; i < cMaxLR ;i++){
-#ifndef WAModulTest
+  for(i = (uint8) 0; i < cMaxLR ;i++){
     if(aucHistoryWP [i] > cWheelPos_RR  ){
       aucWPorPWP[i] = USEui8PWPofHistCol (i);
     }
-    else
-#endif
-    {
+    else{
       aucWPorPWP[i] = aucHistoryWP[i];
     }
   }
@@ -2346,12 +2230,7 @@ static uint16  ushLqiTribute(uint16 ushCandidate){
   return ushCandidate;
 }
 
-#ifdef WAModulTest
-void TESTPutDriveTimeInSec(uint16 ushTimeInSec){
-  ushDriveTimeInSec = ushTimeInSec;
-}
+/******************************************************************************/
+/* EOF                                                                        */
+/******************************************************************************/
 
-void SetALState(uint8 ui8State){
-  tWAPar .AL_State = ui8State;
-}
-#endif

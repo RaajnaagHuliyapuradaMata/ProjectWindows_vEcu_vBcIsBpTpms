@@ -1,5 +1,3 @@
-
-
 #ifndef _RTE_H
 #define _RTE_H
 
@@ -12,8 +10,6 @@
 #define RTE_AR_MAJOR_VERSION (0x02U)
 #define RTE_AR_MINOR_VERSION (0x05U)
 #define RTE_AR_PATCH_VERSION (0x00U)
-
-#include "Std_Types.h"
 
 #ifdef RTE_ENABLE_USER_DATATYPES
 #include "Rte_UserTypes.h"
