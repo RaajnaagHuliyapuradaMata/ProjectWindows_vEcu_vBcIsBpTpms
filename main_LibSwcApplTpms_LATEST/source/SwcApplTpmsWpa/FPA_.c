@@ -77,7 +77,7 @@ uint8 ucConceptFixPos0(uint8 ucID, tRFTelType * ptInputWA){
    else if(ptInputWA->Header .ucTType == cTelTypeRotatS ){
     ushCuRotatsIn05msec = (((uint16) (ptInputWA->RotatS .ucSnRH & 0x0F)) << 8) + (uint16) ptInputWA->RotatS .ucRL;
     if( (ptInputWA->RotatS .ucSnRH & 0x80) == 0x80 )
- #ifdef RE1562
+#ifdef RE1562
       if( (ptInputWA->RotatS .ucSnRH & 0x20) == 0x20 )
          fp2ushABSingleTick = ushGetABSingleTickTDL_HSn180;
       else{
@@ -88,7 +88,7 @@ uint8 ucConceptFixPos0(uint8 ucID, tRFTelType * ptInputWA){
       fp2ushABSingleTick = ushGetABSingleTickTDLn180;
 #endif
     else
- #ifdef RE1562
+#ifdef RE1562
       if( (ptInputWA->RotatS .ucSnRH & 0x20) == 0x20 )
          fp2ushABSingleTick = ushGetABSingleTickTDL_HS;
       else{
@@ -422,7 +422,7 @@ static void GenCmpVal2(uint8 ucID){
 #endif
       if(tZOM[ucID].ucToothTelCt > cFPARefWidth + 1){
         if(tZOM[ucID].ucToothTelCt < (uint8) (128 + cFPARefWidth)){
- #if(1)
+#if(1)
          ushTmp =ushGetMean(tZOM[ucID].ushMVdN[i], ushdN);
 
          tZOM[ucID].ushMVdN[i] = ushGetMean(tZOM[ucID].ushMVdN[i], ushTmp);
@@ -452,7 +452,7 @@ static void GenCmpVal2(uint8 ucID){
       /*______________________________________________________________________________________________________________________________________________________________________*/
       /*Sum of current differences of dN pos i n and the corresponding mean value of dN pos i n.*/
       if(tZOM[ucID].ucToothTelCt < (uint8) (128 + cFPARefWidth)){
- #if(1)
+#if(1)
         ushTmp =  tZOM[ucID].ushMVdN[i];
 #else
       ushTmp =  tZOM[ucID].ushMVdN[i] / ((uint16) (tZOM[ucID].ucToothTelCt - cFPARefWidth));
@@ -1130,7 +1130,7 @@ void TESTPrinToothZOMSummary(uint8 i){
      printf(" %d; %d; %d; %d;",0,0,0,0);
 }
 #endif
- #endif
+#endif
 
 static uint16 ushGetMean(uint16 a, uint16 b){
 

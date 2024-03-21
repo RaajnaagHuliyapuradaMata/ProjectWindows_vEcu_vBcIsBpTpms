@@ -9,6 +9,5 @@
 #else
 extern void ResetTSSMsg(void);
 #endif
-
 #endif
 

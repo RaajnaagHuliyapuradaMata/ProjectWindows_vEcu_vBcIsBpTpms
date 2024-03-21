@@ -36,9 +36,9 @@ add_executable(
    ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWpa/FPA.c
    ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWpa/WAlloc.c
    ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWpa/Walloc_IF.c
+   ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsManager/SwcApplTpmsManager.c
 
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSdia
-#  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSwnh
 #  ${PROJECT_SOURCE_DIR}/source/CtCdHufTPMSrfd
    ${PROJECT_SOURCE_DIR}/source/wrappers/main.c
@@ -51,13 +51,13 @@ target_include_directories(
    "${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWarnHandler"
    "${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWpa"
    "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSdia"
-   "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr/Datamanager"
-   "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr/DevMsg"
-   "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr/E2ELib"
-   "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr/FDmanager"
-   "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr/Interfaces"
-   "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr"
-   "${PROJECT_SOURCE_DIR}/source/CtApHufTPMSmgr/Statemanager"
+   "${PROJECT_SOURCE_DIR}/source/SwcApplTpmsManager"
+   "${PROJECT_SOURCE_DIR}/source/SwcApplTpmsManager/Datamanager"
+   "${PROJECT_SOURCE_DIR}/source/SwcApplTpmsManager/DevMsg"
+   "${PROJECT_SOURCE_DIR}/source/SwcApplTpmsManager/E2ELib"
+   "${PROJECT_SOURCE_DIR}/source/SwcApplTpmsManager/FDmanager"
+   "${PROJECT_SOURCE_DIR}/source/SwcApplTpmsManager/Interfaces"
+   "${PROJECT_SOURCE_DIR}/source/SwcApplTpmsManager/Statemanager"
    "${PROJECT_SOURCE_DIR}/source/CtCdHufTPMSrfd"
    "${PROJECT_SOURCE_DIR}/source/stubs"
    "${PROJECT_SOURCE_DIR}/source/wrappers"

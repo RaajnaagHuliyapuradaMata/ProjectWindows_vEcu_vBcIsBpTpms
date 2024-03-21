@@ -15,11 +15,11 @@
 #include "Rte_UserTypes.h"
 #endif
 
-# if !defined (TYPEDEF) && defined (AUTOMATIC)
+#if !defined (TYPEDEF) && defined (AUTOMATIC)
 #define TYPEDEF AUTOMATIC
 #endif
 
-# if !defined (FUNC_P2CONST)
+#if !defined (FUNC_P2CONST)
 #define FUNC_P2CONST(rettype, ptrclass, memclass) FUNC(P2CONST(rettype, AUTOMATIC, ptrclass), memclass)
 #endif
 
@@ -50,5 +50,4 @@
 #define RTE_MAGIC_NUMBER 1513305418
 #endif
 #endif
-
 #endif

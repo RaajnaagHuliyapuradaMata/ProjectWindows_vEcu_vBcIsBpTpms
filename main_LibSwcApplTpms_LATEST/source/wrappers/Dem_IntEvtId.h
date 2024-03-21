@@ -1,0 +1,37 @@
+#pragma once
+
+#define DEM_EVENT_INVALID                    0
+#define Dem_DTC_0xd41308                     1
+#define Dem_DTC_0xd41208                     2
+#define Dem_DTC_0xd41108                     3
+#define Dem_DTC_0xd41008                     4
+#define Dem_DTC_0xd16509                     5
+#define Dem_DTC_0xd16409                     6
+#define Dem_DTC_0xd16309                     7
+#define Dem_DTC_0xd16209                     8
+#define Dem_DTC_0xc42308                     9
+#define Dem_DTC_0xc41608                     10
+#define Dem_DTC_0xc16887                     11
+#define Dem_DTC_0xc15587                     12
+#define Dem_DTC_0xc14187                     13
+#define Dem_DTC_0xc12287                     14
+#define Dem_DTC_0xc10087                     15
+#define Dem_CANSM_E_BUSOFF_Network_0         16
+#define Dem_DTC_0xa27900                     17
+#define Dem_DTC_0xa10e00                     18
+#define Dem_DTC_0xa10d00                     19
+#define Dem_DTC_0xa10b00                     20
+#define Dem_DTC_0xa10a00                     21
+#define Dem_DTC_0x620904                     22
+#define Dem_DTC_0x559916                     23
+#define Dem_DTC_0x551d00                     24
+#define Dem_DTC_0x551c00                     25
+#define Dem_DTC_0x5504fa                     26
+#define Dem_DTC_0x550496                     27
+#define Dem_DTC_0x5503fa                     28
+#define Dem_DTC_0x550396                     29
+#define Dem_DTC_0x5502fa                     30
+#define Dem_DTC_0x550296                     31
+#define Dem_DTC_0x5501fa                     32
+#define Dem_DTC_0x550196                     33
+#define Dem_DTC_0x164400                     34

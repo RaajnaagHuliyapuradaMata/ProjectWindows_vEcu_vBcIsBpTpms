@@ -8,8 +8,7 @@
 
 #define FAILURE_REASONS_NUMB 10U
 
-typedef struct
-{
+typedef struct{
   uint8 ucPrevPalResult;
   uint8 ucFullLocStatus;
   uint8 ucFullLocFailureCnt;
@@ -18,8 +17,7 @@ typedef struct
   uint8 ucPalFailureReasonsArray[FAILURE_REASONS_NUMB];
 }palLocateStats;
 
-typedef struct
-{
+typedef struct{
   uint8 ulRvsID[4];
     uint8 ucLocPassCnt;
   uint8 ucLocFailureCnt;
@@ -32,8 +30,7 @@ typedef struct
   uint8 ucCorrBlocksRatio;
 }palStatsLongTermWU;
 
-typedef struct
-{
+typedef struct{
   uint8 ulRvsID[4];
    uint8 ucAvgStdDevFL;
   uint8 ucAvgStdDevFR;

@@ -5,7 +5,7 @@
 /******************************************************************************/
 
 /******************************************************************************/
-/* #INCLUDES                                                                  */
+/*#includeS                                                                  */
 /******************************************************************************/
 #define FPA_INT
 #include "Std_Types.hpp"
@@ -151,26 +151,26 @@ uint8 ucConceptFixPos0(uint8 ucID, tRFTelType* ptInputWA){
          tZOM[ucID].ucABSComp[1] = FULLTURNINABSTICKS;
          tZOM[ucID].ucABSComp[2] = FULLTURNINABSTICKS;
          tZOM[ucID].ucABSComp[3] = FULLTURNINABSTICKS;
- #endif
+#endif
         return (0);
      }
      else if(ptInputWA->SchraderFP.ucPAL == 0x01){
- #ifdef Test_LOG_ENABLE
+#ifdef Test_LOG_ENABLE
         tZOM[ucID].ucABSComp[0] = FULLTURNINABSTICKS;
          tZOM[ucID].ucABSComp[1] = FULLTURNINABSTICKS;
          tZOM[ucID].ucABSComp[2] = FULLTURNINABSTICKS;
          tZOM[ucID].ucABSComp[3] = FULLTURNINABSTICKS;
- #endif
+#endif
         return 0;
 
      }
      else if(ptInputWA->SchraderFP.ucPAL == 0xFF){
- #ifdef Test_LOG_ENABLE
+#ifdef Test_LOG_ENABLE
          tZOM[ucID].ucABSComp[0] = FULLTURNINABSTICKS;
           tZOM[ucID].ucABSComp[1] = FULLTURNINABSTICKS;
           tZOM[ucID].ucABSComp[2] = FULLTURNINABSTICKS;
           tZOM[ucID].ucABSComp[3] = FULLTURNINABSTICKS;
- #endif
+#endif
          return 0;
      }
      fp2ushABSingleTick =  ushGetABSingleTickPAL;

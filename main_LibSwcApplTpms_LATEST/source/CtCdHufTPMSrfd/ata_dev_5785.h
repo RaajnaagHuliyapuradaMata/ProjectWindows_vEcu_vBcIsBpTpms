@@ -12,8 +12,7 @@
 #define RF_DAT_BUF_LEN 24
 #define RF_RS_BUF_LEN 24
 
-struct rfstruct
-{
+struct rfstruct{
    uint8 rom;
    uint8 level;
    uint8 rssilvl;
@@ -53,5 +52,4 @@ uint8 rf_ata5785_read_error_code( void );
 void rf_ata5785_OFF_command( void );
 void rf_ata5785_StartInitSM(void);
 uint8 rf_ata5785_InitSM(void);
-
 #endif

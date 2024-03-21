@@ -4,7 +4,7 @@
 #include "RH850F1L_dvf.h"
 #ifdef TestPin4WD
 #include "CtCdHufTPMSrfd.h"
- #endif
+#endif
 
 void ShowWDTrigger(void){
 #ifdef TestPin4WD
@@ -39,9 +39,9 @@ void InitLegacyWD0(void){
 #if 1
 #ifdef WDTime4sec
   WDTA0.MD = (uint8) 0x47;
- #else
+#else
   WDTA0.MD = (uint8) 0x07;
- #endif
+#endif
   WDTA0.WDTE = (uint8) 0xAC;
    ShowWDTrigger();
 #endif

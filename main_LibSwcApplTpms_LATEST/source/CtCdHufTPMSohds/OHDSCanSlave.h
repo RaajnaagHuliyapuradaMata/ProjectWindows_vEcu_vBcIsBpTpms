@@ -64,10 +64,8 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_MainFunction( void );
 #if(OHDSCANSLAVE_VERSION_INFO_API == STD_ON)
 
 FUNC(void, OHDS_CODE) OHDSCanSlave_GetVersionInfo( P2VAR(Std_VersionInfoType, AUTOMATIC, OHDS_APPL_VAR) versionInfo );
-
 #endif
 
 #define OHDS_STOP_SEC_CODE
 #include "MemMap.h"
-
 #endif

@@ -509,11 +509,10 @@ extern FUNC(Std_ReturnType, DCM_APPL_CODE) Appl_Dcm_ComControlService_CheckCondi
 extern FUNC(Std_ReturnType, DCM_APPL_CODE) Appl_Dcm_ResetService_EcuReset(uint8 resetType, P2VAR(Dcm_NegativeResponseCodeType, AUTOMATIC, DCM_VAR_NOINIT) ErrorCode);
 
 #ifndef SKIP_MAGIC_NUMBER
-  #ifdef APPL_DCM_MAGIC_NUMBER
+#ifdef APPL_DCM_MAGIC_NUMBER
     #error "APPL_DCM_MAGIC_NUMBER has already been defined outside of <C:\_TSS\DAG\MFA2\Target\SWC\Appl_Dcm.h>"
-  #else
+#else
 #define APPL_DCM_MAGIC_NUMBER 268053759
-  #endif
 #endif
-
+#endif
 #endif

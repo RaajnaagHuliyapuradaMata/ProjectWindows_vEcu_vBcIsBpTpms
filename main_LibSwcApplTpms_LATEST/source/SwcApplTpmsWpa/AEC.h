@@ -34,5 +34,4 @@ extern void BadWayCheck(uint8 ucPeaks, uint16 ushTime);
 extern void ResetBadWayCheck(void);
 extern void PutushMaxAxDist( uint16 ushVal);
 extern void PutushMinAxDist( uint16 ushVal);
-
 #endif

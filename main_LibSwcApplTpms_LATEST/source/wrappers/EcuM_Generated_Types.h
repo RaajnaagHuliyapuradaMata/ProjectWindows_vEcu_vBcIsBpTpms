@@ -1,19 +1,12 @@
-
-
-#if(!defined ECUM_GENERATED_TYPES_H)
-#define ECUM_GENERATED_TYPES_H
+#pragma once
 
 #define ECUM_GENERATED_TYPES_MAJOR_VERSION    (7u)
 #define ECUM_GENERATED_TYPES_MINOR_VERSION    (7u)
 #define ECUM_GENERATED_TYPES_PATCH_VERSION    (0u)
 
-#include "Std_Types.h"
-
- #include "Os.h"
-
- #include "ComStack_Types.h"
-
- #include "Rte_Type.h"
+#include "Os.h"
+#include "ComStack_Types.h"
+#include "Rte_Type.h"
 
 #define ECUM_COMM_USED                                               (0x01u)
 #define ECUM_WDGM_USED                                               (0x02u)
@@ -25,7 +18,6 @@
 #define ECUM_GEN_APPLICATION_MODE_PORT                                (STD_OFF)
 
 typedef uint8 EcuM_ChannelHandleType;
-
 typedef uint8 EcuM_ModeType;
 
 #define ECUM_MODE_POST_RUN                                           (0)
@@ -38,7 +30,6 @@ typedef uint8 EcuM_ModeType;
 typedef uint32 EcuM_WakeupSourceType;
 
 #define ECUM_WKSOURCE_NONE                                           (EcuM_WakeupSourceType)(0u)
-
 #define EcuM_ECUM_WKSOURCE_POWER (EcuM_WakeupSourceType)(1u)
 #define EcuM_ECUM_WKSOURCE_RESET (EcuM_WakeupSourceType)(2u)
 #define EcuM_ECUM_WKSOURCE_INTERNAL_RESET (EcuM_WakeupSourceType)(4u)
@@ -48,16 +39,14 @@ typedef uint32 EcuM_WakeupSourceType;
 
 #define ECUM_WKSOURCE_ALL_SOURCES                                    (EcuM_WakeupSourceType) (~((EcuM_WakeupSourceType)0u))
 
-typedef struct
-{
-  EcuM_WakeupSourceType wakeupSource;
-  uint8 mcuMode;
-  uint8 WatchdogMode_u8;
-} EcuM_SleepModeConfigType;
+typedef struct{
+   EcuM_WakeupSourceType wakeupSource;
+   uint8 mcuMode;
+   uint8 WatchdogMode_u8;
+}EcuM_SleepModeConfigType;
 
-# if((ECUM_GEN_SHUTDOWN_TARGET_PORT == STD_OFF) && (ECUM_GEN_STATE_REQUEST_PORT == STD_OFF))
-
-  typedef uint8 EcuM_StateType;
+#if((ECUM_GEN_SHUTDOWN_TARGET_PORT == STD_OFF) && (ECUM_GEN_STATE_REQUEST_PORT == STD_OFF))
+typedef uint8 EcuM_StateType;
 
 #define ECUM_SUBSTATE_MASK                                          (0x0Fu)
 #define ECUM_STATE_STARTUP                                          (0x10u)
@@ -82,7 +71,6 @@ typedef struct
 #define ECUM_STATE_RESET                                            (0x90u)
 #define ECUM_STATE_OFF                                              (0x80u)
 #define ECUM_STATE_ERROR                                            (0xFFu)
-
 #endif
 
 typedef uint8 EcuM_WakeupStatusType;
@@ -98,56 +86,44 @@ typedef uint8 EcuM_WakeupReactionType;
 #define ECUM_WKACT_TTII                                              (2u)
 #define ECUM_WKACT_SHUTDOWN                                          (3u)
 
-# if(ECUM_GEN_BOOT_TARGET_PORT == STD_OFF)
-
-  typedef uint8 EcuM_BootTargetType;
-
+#if(ECUM_GEN_BOOT_TARGET_PORT == STD_OFF)
+typedef uint8 EcuM_BootTargetType;
 #define ECUM_BOOT_TARGET_APP                                        (0u)
 #define ECUM_BOOT_TARGET_BOOTLOADER                                 (1u)
-
 #endif
 
-# if(ECUM_GEN_STATE_REQUEST_PORT == STD_OFF)
-
+#if(ECUM_GEN_STATE_REQUEST_PORT == STD_OFF)
 typedef uint8 EcuM_UserType;
-
 #endif
 
-# if(ECUM_GEN_APPLICATION_MODE_PORT == STD_OFF)
-
+#if(ECUM_GEN_APPLICATION_MODE_PORT == STD_OFF)
 typedef uint8 EcuM_AppModeType;
-
 #endif
 
 #define EcuM_EcuMUserConfig_FirstUser (1u)
-
 #define EcuM_EcuMSleepMode (0u)
-
 #define EcuM_TPMSAppMode (OsAppMode)
 
 typedef uint16 EcuM_TTII_DivisorType;
 typedef uint16 EcuM_SelfRequestPeriodType;
 typedef uint16 EcuM_WakeupTimeoutType;
 
-typedef struct
-{
-  EcuM_WakeupTimeoutType EcuM_WakeupTimeoutLeft_t;
-  EcuM_WakeupTimeoutType EcuM_CheckWakeupTimeoutLeft_t;
-  uint8 EcuM_WakeupValState_u8;
-  uint8 EcuM_WakeupChkState_u8;
-} EcuM_WakeupTimeoutCtrlType;
+typedef struct{
+   EcuM_WakeupTimeoutType EcuM_WakeupTimeoutLeft_t;
+   EcuM_WakeupTimeoutType EcuM_CheckWakeupTimeoutLeft_t;
+   uint8 EcuM_WakeupValState_u8;
+   uint8 EcuM_WakeupChkState_u8;
+}EcuM_WakeupTimeoutCtrlType;
 
 #define ECUM_WKS_TIMEOUT_STATE_STOPPED                               (0)
 #define ECUM_WKS_TIMEOUT_STATE_STARTED                               (1)
 
-typedef struct
-{
-  EcuM_StateType DefaultState_t;
-  uint8 DefaultSleepMode_u8;
-} EcuM_DefaultShutdownTargetType;
+typedef struct{
+   EcuM_StateType DefaultState_t;
+   uint8 DefaultSleepMode_u8;
+}EcuM_DefaultShutdownTargetType;
 
 typedef CONSTP2CONST(struct EcuM_WakeupSourceDefType, TYPEDEF, ECUM_APPL_CONFIG) EcuM_WakeupSourceDefPtrType;
-
 typedef uint8 EcuM_IntFunctionCallType;
 
 #define ECUM_CALL_MCU_PERFORM_RESET                                  (0u)
@@ -168,43 +144,31 @@ typedef uint8 EcuM_IntFunctionCallType;
 typedef P2FUNC (void, ECUM_CODE, EcuM_DriverInitListFuncType)(void);
 typedef P2FUNC (void, ECUM_CODE, EcuM_ModeSwitchEventFuncType)(uint8 modeEvent_u8);
 
-typedef struct
-{
-
-  uint32 EcuM_GeneratorVersion;
-
-  CONSTP2CONST(EcuM_SleepModeConfigType, ECUM_VAR_NOINIT, ECUM_APPL_CONFIG) SleepModeList_pt;
-
-  EcuM_WakeupSourceDefPtrType WakeupSourceList_pt;
-
-  CONSTP2CONST(uint8, ECUM_VAR_NOINIT, ECUM_APPL_CONFIG) WatchdogManagerModes_pau8;
-
-  CONSTP2CONST(uint8, ECUM_VAR_NOINIT, ECUM_APPL_CONFIG) CallId_au8;
-
-  CONSTP2CONST(uint8, ECUM_VAR_NOINIT, ECUM_APPL_CONFIG) TTII_DivisorList_pt;
-
-  CONSTP2CONST(uint8, ECUM_VAR_NOINIT, ECUM_APPL_CONFIG) TTII_SuccesorList_pt;
-  EcuM_ModeSwitchEventFuncType ModeEventFunction_pt;
-  EcuM_DriverInitListFuncType DriverInitListOne;
-  EcuM_DriverInitListFuncType DriverInitListTwo;
-  EcuM_DriverInitListFuncType DriverInitListThree;
-  EcuM_DriverInitListFuncType DriverRestart;
-  uint32 MaxWakeupSourceValue_u32;
-  EcuM_AppModeType DefaultAppMode_t;
-  EcuM_DefaultShutdownTargetType DefaultShutdownTarget_t;
-  EcuM_SelfRequestPeriodType  SelfRequestPeriod_t;
-  uint8 MaxNumberOfWakeupSources_u8;
-  uint8 MaxEcuMUsersCount_u8;
-  uint8 MaxUsersCount_u8;
-  uint8 MaxComMUsersCount_u8;
-  uint8 MaxSleepModes_u8;
-  uint8 Max_TTII_SleepModes_u8;
-  uint8 UsedModules_u8;
-} EcuM_PbcfgConfigType;
+typedef struct{
+   uint32 EcuM_GeneratorVersion;
+   CONSTP2CONST(EcuM_SleepModeConfigType, ECUM_VAR_NOINIT, ECUM_APPL_CONFIG) SleepModeList_pt;
+   EcuM_WakeupSourceDefPtrType WakeupSourceList_pt;
+   CONSTP2CONST(uint8, ECUM_VAR_NOINIT, ECUM_APPL_CONFIG) WatchdogManagerModes_pau8;
+   CONSTP2CONST(uint8, ECUM_VAR_NOINIT, ECUM_APPL_CONFIG) CallId_au8;
+   CONSTP2CONST(uint8, ECUM_VAR_NOINIT, ECUM_APPL_CONFIG) TTII_DivisorList_pt;
+   CONSTP2CONST(uint8, ECUM_VAR_NOINIT, ECUM_APPL_CONFIG) TTII_SuccesorList_pt;
+   EcuM_ModeSwitchEventFuncType ModeEventFunction_pt;
+   EcuM_DriverInitListFuncType DriverInitListOne;
+   EcuM_DriverInitListFuncType DriverInitListTwo;
+   EcuM_DriverInitListFuncType DriverInitListThree;
+   EcuM_DriverInitListFuncType DriverRestart;
+   uint32 MaxWakeupSourceValue_u32;
+   EcuM_AppModeType DefaultAppMode_t;
+   EcuM_DefaultShutdownTargetType DefaultShutdownTarget_t;
+   EcuM_SelfRequestPeriodType  SelfRequestPeriod_t;
+   uint8 MaxNumberOfWakeupSources_u8;
+   uint8 MaxEcuMUsersCount_u8;
+   uint8 MaxUsersCount_u8;
+   uint8 MaxComMUsersCount_u8;
+   uint8 MaxSleepModes_u8;
+   uint8 Max_TTII_SleepModes_u8;
+   uint8 UsedModules_u8;
+}EcuM_PbcfgConfigType;
 
 typedef EcuM_PbcfgConfigType EcuM_ConfigType;
-
 typedef P2VAR(EcuM_ConfigType, TYPEDEF, ECUM_APPL_CONFIG) EcuM_ConfigRefType;
-
-#endif
-

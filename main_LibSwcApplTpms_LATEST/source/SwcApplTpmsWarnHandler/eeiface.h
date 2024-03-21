@@ -10,5 +10,4 @@ extern void PutDataEE(uint8, const uint8 *, uint8);
 extern void ResetEEPROM(void);
 extern void PRINT_EepromUsage(void);
 #endif
-
 #endif

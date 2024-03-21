@@ -4,18 +4,18 @@
 #define _OSEKERR_H
 
 #if defined USE_QUOTE_INCLUDES
- #include "vrm.h"
+#include "vrm.h"
 #else
- #include <vrm.h>
+#include <vrm.h>
 #endif
 
 #define osdVrmMajRelNum 1
 #define osdVrmMinRelNum 1
 
 #if defined USE_QUOTE_INCLUDES
- #include "vrm.h"
+#include "vrm.h"
 #else
- #include <vrm.h>
+#include <vrm.h>
 #endif
 
 #define E_OS_ACCESS     1
@@ -602,11 +602,10 @@
 #define osSaveosGetISRMaxBlockingTime_BlockType(y)
 #define osSaveosGetISRMaxBlockingTime_ResourceID(z)
 #define osSaveosGetISRMaxBlockingTime_MaxTime(z1)
-
 #endif
 
- #if osdErrorHook
-  #if osdGetServiceIdMacros
+#if osdErrorHook
+#if osdGetServiceIdMacros
 
 #define OSServiceId_ActivateTask          0x1100U
 #define OSServiceId_TerminateTask         0x1200U
@@ -668,11 +667,11 @@
 
 #define OSErrorGetServiceId()       ((OSServiceIdType) (osOwnCcb->LockIsNotNeeded.ossLastError & 0xFF00U))
 
-  #endif
+#endif
 
 #define OSErrorGetosCANError()      osOwnCcb->LockIsNotNeeded.ossLastError
 
-  #if osdParameterAccessMacros
+#if osdParameterAccessMacros
 
 #define OSError_ActivateTask_TaskID()                      (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType)
 #define OSError_ChainTask_TaskID()                         (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osTaskType)
@@ -715,16 +714,16 @@
 #define OSError_GetScheduleTableStatus_ScheduleID()        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osScheduleTableType)
 #define OSError_GetScheduleTableStatus_ScheduleStatus()    (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osScheduleTableStatusRefType)
 
-   #if((osdSC== SC3) || (osdSC== SC4))
+#if((osdSC== SC3) || (osdSC== SC4))
 #define OSError_CallTrustedFunction_FunctionIndex()        (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osFunctionIndexType)
 #define OSError_CallTrustedFunction_FunctionParams()       (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTrustedFunctionParameterRefType)
 #define OSError_TerminateApplication_RestartOption()       (osOwnCcb->LockIsNotNeeded.ossAPIParam1.RestartType)
-   #endif
+#endif
 
-   #if((osdSC == SC3) || (osdSC == SC4))
+#if((osdSC == SC3) || (osdSC == SC4))
 #define OSError_GetApplicationState_Application()          (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osApplicationType)
 #define OSError_GetApplicationState_Value()                (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osApplicationStateRefType)
-   #endif
+#endif
 
 #define OSError_GetCounterValue_CounterID()                 (osOwnCcb->LockIsNotNeeded.ossAPIParam1.osCounterType)
 #define OSError_GetCounterValue_Value()                     (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickRefType)
@@ -733,8 +732,7 @@
 #define OSError_GetElapsedValue_Value()                     (osOwnCcb->LockIsNotNeeded.ossAPIParam2.osTickRefType)
 #define OSError_GetElapsedValue_ElapsedValue()              (osOwnCcb->LockIsNotNeeded.ossAPIParam3.osTickRefType)
 
-  #endif
- #endif
-
+#endif
+#endif
 #endif
 

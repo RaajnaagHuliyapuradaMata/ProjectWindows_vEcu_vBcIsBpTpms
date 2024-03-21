@@ -5,7 +5,7 @@
 /******************************************************************************/
 
 /******************************************************************************/
-/* #INCLUDES                                                                  */
+/*#includeS                                                                  */
 /******************************************************************************/
 #include "Std_Types.hpp"
 
@@ -223,7 +223,7 @@ static void GenDAGlobalWarningLevel(void){
     else if(((aucWarnAtPosTM[ucSumWEc] & ucAllDAGWarningBits) == (uint8) 0) || ((ui8MfdCalActive () == 1)))
       ucGlobalWarnStatus = cNORMAL;
     break;
-  
+
   default:
     ucGlobalWarnStatus = cNORMAL;
     break;

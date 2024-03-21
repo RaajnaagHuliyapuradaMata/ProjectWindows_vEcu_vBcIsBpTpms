@@ -4,18 +4,18 @@
 #define _OSEKASRT_H
 
 #if defined USE_QUOTE_INCLUDES
- #include "vrm.h"
+#include "vrm.h"
 #else
- #include <vrm.h>
+#include <vrm.h>
 #endif
 
 #define osdVrmMajRelNum 1
 #define osdVrmMinRelNum 1
 
 #if defined USE_QUOTE_INCLUDES
- #include "vrm.h"
+#include "vrm.h"
 #else
- #include <vrm.h>
+#include <vrm.h>
 #endif
 
 #define osd_FILE_Cast
@@ -48,6 +48,5 @@
 #else
 #define osAPIError(x, y)
 #endif
-
 #endif
 

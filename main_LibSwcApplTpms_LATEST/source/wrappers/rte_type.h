@@ -920,8 +920,7 @@ typedef UInt8 DT_ucGlobalWarnLevel[1];
 typedef UInt8 NvM_DestPtr[65535];
 
 #define Rte_TypeDef_DT_tData2Alloc
-typedef struct
-{
+typedef struct{
   UInt16 ushTimeStamp;
   UInt32 ulID;
   UInt8 ucTelType;
@@ -931,32 +930,29 @@ typedef struct
   UInt16 ushAbsStickFR;
   UInt16 ushAbsStickRL;
   UInt16 ushAbsStickRR;
-} DT_tData2Alloc;
+}DT_tData2Alloc;
 
 #define Rte_TypeDef_DT_tData2Warn
-typedef struct
-{
+typedef struct{
   UInt32 ulID;
   UInt8 ucP;
   UInt8 ucT;
   UInt8 ucZomPos;
   UInt8 ucTxTrigger;
-} DT_tData2Warn;
+}DT_tData2Warn;
 
 #define Rte_TypeDef_DT_tEnvData
-typedef struct
-{
+typedef struct{
   UInt8 ucKlState;
   UInt8 ucTempOut;
   UInt16 ushVehSpeed;
   UInt8 ucPressOut;
   UInt8 ucEngStat;
   UInt8 ucIgnOnStartProc;
-} DT_tEnvData;
+}DT_tEnvData;
 
 #define Rte_TypeDef_DT_tLogicalDataPalCod
-typedef struct
-{
+typedef struct{
   UInt8 ucMinWarnThreshold;
   UInt8 ucAutoFillDetectionOnOff;
   UInt8 ucT_Soft;
@@ -964,11 +960,10 @@ typedef struct
   UInt8 ucT_Hard;
   UInt8 ucPercent_Hard;
   UInt8 ucTempWarnOnOff;
-} DT_tLogicalDataPalCod;
+}DT_tLogicalDataPalCod;
 
 #define Rte_TypeDef_DT_tParaTempWarnCod
-typedef struct
-{
+typedef struct{
   UInt8 ucV1;
   UInt8 ucV2;
   UInt8 ucV3;
@@ -976,11 +971,10 @@ typedef struct
   SInt8 scT1;
   SInt8 scT2;
   UInt16 ushHC_MAX;
-} DT_tParaTempWarnCod;
+}DT_tParaTempWarnCod;
 
 #define Rte_TypeDef_REC_DateTm_AR2_f0ifkphxunpp94u3ro8qn5tdm
-typedef struct
-{
+typedef struct{
   c08_Days_1_31_1 DateTmDay;
   c08_h_0_23_1 DateTmHour;
   c08_min_0_59_1 DateTmMinute;
@@ -988,87 +982,76 @@ typedef struct
   c08_s_0_59_1 DateTmSecond;
   c03_DateTm_Stat DateTmStat;
   c08_Years_0_99_1 DateTmYear;
-} REC_DateTm_AR2_f0ifkphxunpp94u3ro8qn5tdm;
+}REC_DateTm_AR2_f0ifkphxunpp94u3ro8qn5tdm;
 
 #define Rte_TypeDef_REC_EVC_CfgBit_01_32_Pr2_d23bad5cnts3f65mtgoqoxmrz
-typedef struct
-{
+typedef struct{
   c02_EVC_Stat EVC_CfgBit_01_32_Stat;
   DC_BOOL EVC_1E_GuardLvl_B4_Avl;
   DC_BOOL EVC_1F_GuardLvl_B6_Avl;
   DC_BOOL EVC_20_GuardLvl_B7_Avl;
-} REC_EVC_CfgBit_01_32_Pr2_d23bad5cnts3f65mtgoqoxmrz;
+}REC_EVC_CfgBit_01_32_Pr2_d23bad5cnts3f65mtgoqoxmrz;
 
 #define Rte_TypeDef_REC_EVC_CfgList_01_0C_Pr2_ah3rxaqpfvlnju8848jpspm9p
-typedef struct
-{
+typedef struct{
   c05_EVC_BodyStyle EVC_List02_BodyStyle;
   c02_EVC_Stat EVC_CfgList_01_0C_Stat;
   c03_EVC_TPM_Style EVC_List0A_TPM_Style;
   c06_EVC_VehLine EVC_List0C_VehLine;
-} REC_EVC_CfgList_01_0C_Pr2_ah3rxaqpfvlnju8848jpspm9p;
+}REC_EVC_CfgList_01_0C_Pr2_ah3rxaqpfvlnju8848jpspm9p;
 
 #define Rte_TypeDef_REC_Eng_Rs_EngCtrl_Pr2_1j00gxu3p5exa8awg915k1zy
-typedef struct
-{
+typedef struct{
   c03_EngRun_Stat EngRun_Stat;
-} REC_Eng_Rs_EngCtrl_Pr2_1j00gxu3p5exa8awg915k1zy;
+}REC_Eng_Rs_EngCtrl_Pr2_1j00gxu3p5exa8awg915k1zy;
 
 #define Rte_TypeDef_REC_Ign_Stat_Pr2_71njeubj9ico1p8v4pmslfcno
-typedef struct
-{
+typedef struct{
   c03_ISw_Stat ISw_Stat;
   DC_BOOL Ign_On_StartProc_Inact;
-} REC_Ign_Stat_Pr2_71njeubj9ico1p8v4pmslfcno;
+}REC_Ign_Stat_Pr2_71njeubj9ico1p8v4pmslfcno;
 
 #define Rte_TypeDef_REC_Ign_Stat_Pr2_b0ko81o0x5jgvwtduf99gvzi0
-typedef struct
-{
+typedef struct{
   c03_ISw_Stat ISw_Stat;
-} REC_Ign_Stat_Pr2_b0ko81o0x5jgvwtduf99gvzi0;
+}REC_Ign_Stat_Pr2_b0ko81o0x5jgvwtduf99gvzi0;
 
 #define Rte_TypeDef_REC_PN14_SupBat_Stat_2is6fi0meeac78nkn35zc5ui3
-typedef struct
-{
+typedef struct{
   c02_BatCutSw_Stat PN14_SupBatCutSw_Stat;
   c08_V_0_25k4_0k1 PN14_SupBat_Volt;
-} REC_PN14_SupBat_Stat_2is6fi0meeac78nkn35zc5ui3;
+}REC_PN14_SupBat_Stat_2is6fi0meeac78nkn35zc5ui3;
 
 #define Rte_TypeDef_REC_ROE_XX
-typedef struct
-{
+typedef struct{
   c24_0_16777215_1_SNA_na ROE_DTC_XX;
   c08_0_255_1_SNA_na ROE_DTC_Stat_XX;
   c32_0_4294967295_1_SNA_na ROE_Header_XX;
-} REC_ROE_XX;
+}REC_ROE_XX;
 
 #define Rte_TypeDef_REC_RefPress
-typedef struct
-{
+typedef struct{
   c08_kPa_0_632d5_2d5 RefPress_Front;
   c08_kPa_0_632d5_2d5 RefPress_Rear;
-} REC_RefPress;
+}REC_RefPress;
 
 #define Rte_TypeDef_REC_TPM_Lmp_On_Rq_Pr2_cp6wyrd9cg7ec7y2w3khz1gyt
-typedef struct
-{
+typedef struct{
   c08_CRC_woSNA CRC_TPM_Lmp_On_Rq_Pr2;
   Rsrv02 Rsrv1_TPM_Lmp_On_Rq_Pr2;
   c04_0_15_1_SNA_na SQC_TPM_Lmp_On_Rq_Pr2;
   DC_BOOL TPM_IndLmp_On_Rq;
   DC_BOOL TPM_MalfLmp_On_Rq;
-} REC_TPM_Lmp_On_Rq_Pr2_cp6wyrd9cg7ec7y2w3khz1gyt;
+}REC_TPM_Lmp_On_Rq_Pr2_cp6wyrd9cg7ec7y2w3khz1gyt;
 
 #define Rte_TypeDef_REC_TPM_Lmp_On_Rq_old
-typedef struct
-{
+typedef struct{
   DC_BOOL TPM_IndLmp_On_Rq_old;
   DC_BOOL TPM_MalfLmp_On_Rq_old;
-} REC_TPM_Lmp_On_Rq_old;
+}REC_TPM_Lmp_On_Rq_old;
 
 #define Rte_TypeDef_REC_Tire_Stat_V2
-typedef struct
-{
+typedef struct{
   DC_BOOL Press_Disp_Avl;
   c08_kPa_0_632d5_2d5 TirePress_FL;
   c08_kPa_0_632d5_2d5 TirePress_FR;
@@ -1081,11 +1064,10 @@ typedef struct
   c04_TPM_MsgDisp_Rq TPM_MsgDisp_Rq;
   c03_TPM_Stat TPM_Stat;
   c03_TPM_WarnDisp_Rq TPM_WarnDisp_Rq;
-} REC_Tire_Stat_V2;
+}REC_Tire_Stat_V2;
 
 #define Rte_TypeDef_REC_Tire_Temp_V2
-typedef struct
-{
+typedef struct{
   c02_Tire_Temp Tire_Temp_Stat_FL;
   c02_Tire_Temp Tire_Temp_Stat_FR;
   c02_Tire_Temp Tire_Temp_Stat_RL;
@@ -1095,11 +1077,10 @@ typedef struct
   c08_degC_m50_204_1 TireTemp_FR;
   c08_degC_m50_204_1 TireTemp_RL;
   c08_degC_m50_204_1 TireTemp_RR;
-} REC_Tire_Temp_V2;
+}REC_Tire_Temp_V2;
 
 #define Rte_TypeDef_REC_WhlPlsCnt_TPM_Pr2_5hishd08ma5z1luev78umdwvx
-typedef struct
-{
+typedef struct{
   c08_CRC_woSNA CRC_WhlPlsCnt_TPM_Pr2;
   Rsrv08 Rsrv2_WhlPlsCnt_TPM_Pr2;
   c04_0_15_1_SNA_na SQC_WhlPlsCnt_TPM_Pr2;
@@ -1109,11 +1090,10 @@ typedef struct
   c08_Impulses_0_254_1 WhlPlsCnt_RR;
   c08_ms_0_254_1 WhlPlsCnt_TmStmp;
   Rsrv04 Rsrv1_WhlPlsCnt_TPM_Pr2;
-} REC_WhlPlsCnt_TPM_Pr2_5hishd08ma5z1luev78umdwvx;
+}REC_WhlPlsCnt_TPM_Pr2_5hishd08ma5z1luev78umdwvx;
 
 #define Rte_TypeDef_DT_tCalNvMBlock
-typedef struct
-{
+typedef struct{
   DT_aucPosComparePressure aucPosComparePressure;
   UInt32 ulLastCalMileage;
   UInt8 ucPrefFront;
@@ -1122,11 +1102,10 @@ typedef struct
   UInt8 ucCalNotAckState;
   UInt8 ucCalRequestState;
   DT_tNvMReservedBytes tCalReserved;
-} DT_tCalNvMBlock;
+}DT_tCalNvMBlock;
 
 #define Rte_TypeDef_DT_tCodNvMBlock
-typedef struct
-{
+typedef struct{
   DT_tLogicalDataPalCod tLogicalDataPalCod;
   DT_tParaTempWarnCod tParaTempWarnCod;
   UInt8 ucPcalMinVaRelativCod;
@@ -1136,11 +1115,10 @@ typedef struct
   UInt8 ucCoastModeCtrlCount;
   DT_ucKweight ucKweight;
   DT_tNvMReservedBytes tCodReserved;
-} DT_tCodNvMBlock;
+}DT_tCodNvMBlock;
 
 #define Rte_TypeDef_DT_tDiagNvMBlock0
-typedef struct
-{
+typedef struct{
   DT_aucSNRlongTerm aucSNRLongTerm;
   DT_aucReceptionStateWuDCM aucReceptionStateWuDCM;
   DT_tEvcCfgBits tEvcCfgBits;
@@ -1153,50 +1131,45 @@ typedef struct
   DT_aucStatusInfoWuCounts aucStatusInfoWuCounts;
   DT_aucStatusInfoWuFailReas aucStatusInfoWuFailReas;
   DT_aucStatusInfoWuSensFail aucStatusInfoWuSensFail;
-} DT_tDiagNvMBlock0;
+}DT_tDiagNvMBlock0;
 
 #define Rte_TypeDef_DT_tDiagNvMBlock1
-typedef struct
-{
+typedef struct{
   DT_tDiagTraceMem tDiagTraceMem;
   UInt8 ucUnexpectedEcuResetCnt;
   DT_tNvMReservedBytes tDiagReserved1;
-} DT_tDiagNvMBlock1;
+}DT_tDiagNvMBlock1;
 
 #define Rte_TypeDef_DT_tDiagNvMBlock2
-typedef struct
-{
+typedef struct{
   DT_tSensorBatInfo tSensorBatInfo;
   DT_aucMessageMemoryPAL aucMessageMemoryPAL;
   DT_aucTempWarnMessageMemory aucTempWarnMessageMemory;
-} DT_tDiagNvMBlock2;
+}DT_tDiagNvMBlock2;
 
 #define Rte_TypeDef_DT_tDiagNvMBlock3
-typedef struct
-{
+typedef struct{
   DT_aucActivationMemoryFD aucActivationMemoryFD;
   UInt8 ucAtaErrCnt;
   DT_tNvMReservedBytes tDiagReserved3;
-} DT_tDiagNvMBlock3;
+}DT_tDiagNvMBlock3;
 
 #define Rte_TypeDef_DT_tWallocNvMBlock
-typedef struct
-{
+typedef struct{
   DT_aucWAParam aucWAHistParam;
   DT_aucWAHistWP aucWAHistWP;
   DT_aucWAHistWP aucWAHistProvWP;
   DT_aulWAHistID aulWAHistID;
   UInt8 ucWAHistSensorState;
   DT_tNvMReservedBytes tWallocReserved;
-} DT_tWallocNvMBlock;
+}DT_tWallocNvMBlock;
 
 #define Rte_TypeDef_DT_tWarnHdlrNvMBlock
-typedef struct
-{
+typedef struct{
   DT_ucGlobalWarnLevel ucGlobalWarnLevel;
   DT_aucWheelStatus aucWheelStatus;
   DT_tNvMReservedBytes tWarnReserved;
-} DT_tWarnHdlrNvMBlock;
+}DT_tWarnHdlrNvMBlock;
 
 #ifndef RTE_SUPPRESS_UNUSED_DATATYPES
 
@@ -2476,8 +2449,7 @@ typedef UInt8 DT_aucStatInfoDCM[4];
 typedef UInt8 DT_tDiagStatusInfoWU[12];
 
 #define Rte_TypeDef_REC_DateTm_AR2
-typedef struct
-{
+typedef struct{
   c08_Days_1_31_1 DateTmDay;
   c08_h_0_23_1 DateTmHour;
   c08_min_0_59_1 DateTmMinute;
@@ -2486,11 +2458,10 @@ typedef struct
   c03_DateTm_Stat DateTmStat;
   c03_WeekDay_UA DateTmWeekday;
   c08_Years_0_99_1 DateTmYear;
-} REC_DateTm_AR2;
+}REC_DateTm_AR2;
 
 #define Rte_TypeDef_REC_EVC_CfgBit_01_32_Pr2
-typedef struct
-{
+typedef struct{
   c08_CRC_woSNA CRC_EVC_CfgBit_01_32_Pr2;
   c04_0_15_1_SNA_na SQC_EVC_CfgBit_01_32_Pr2;
   DC_BOOL EVC_27_HandsFreeAcc_Avl;
@@ -2544,11 +2515,10 @@ typedef struct
   DC_BOOL EVC_07_Ver_S_Korea_Avl;
   DC_BOOL EVC_01_Ver_USA_Avl;
   DC_BOOL EVC_2E_AddEquipBlock_Avl;
-} REC_EVC_CfgBit_01_32_Pr2;
+}REC_EVC_CfgBit_01_32_Pr2;
 
 #define Rte_TypeDef_REC_EVC_CfgList_01_0C_Pr2
-typedef struct
-{
+typedef struct{
   c08_CRC_woSNA CRC_EVC_CfgList_01_0C_Pr2;
   c05_EVC_BodyStyle EVC_List02_BodyStyle;
   c02_EVC_Stat EVC_CfgList_01_0C_Stat;
@@ -2564,11 +2534,10 @@ typedef struct
   c04_0_15_1_SNA_na SQC_EVC_CfgList_01_0C_Pr2;
   c05_EVC_HU_Style EVC_List09_HU_Style;
   c02_EVC_AddEquip EVC_List0B_AddEquip;
-} REC_EVC_CfgList_01_0C_Pr2;
+}REC_EVC_CfgList_01_0C_Pr2;
 
 #define Rte_TypeDef_REC_Eng_Rs_EngCtrl_Pr2
-typedef struct
-{
+typedef struct{
   c08_EngStyle EngStyle;
   c13_Nm_m500_1547k5_0k25 EngTrq;
   DC_BOOL AddPwrCnsmr_On_Rq;
@@ -2581,24 +2550,21 @@ typedef struct
   Rsrv01 Rsrv2_Eng_Rs_EngCtrl_Pr2;
   c02_OFC_Stat OFC_Stat_PT;
   DC_BOOL EngTrqLmtd_Misfire;
-} REC_Eng_Rs_EngCtrl_Pr2;
+}REC_Eng_Rs_EngCtrl_Pr2;
 
 #define Rte_TypeDef_REC_Eng_Rs_EngCtrl_Pr2_1ug7ce4nz8thso4to6nvxcc3e
-typedef struct
-{
+typedef struct{
   c08_EngStyle EngStyle;
   c03_EngRun_Stat EngRun_Stat;
-} REC_Eng_Rs_EngCtrl_Pr2_1ug7ce4nz8thso4to6nvxcc3e;
+}REC_Eng_Rs_EngCtrl_Pr2_1ug7ce4nz8thso4to6nvxcc3e;
 
 #define Rte_TypeDef_REC_Eng_Rs_EngCtrl_Pr2_b0ko81o0x5jgvwtduf99gvzi0
-typedef struct
-{
+typedef struct{
   c08_EngStyle EngStyle;
-} REC_Eng_Rs_EngCtrl_Pr2_b0ko81o0x5jgvwtduf99gvzi0;
+}REC_Eng_Rs_EngCtrl_Pr2_b0ko81o0x5jgvwtduf99gvzi0;
 
 #define Rte_TypeDef_REC_Ign_Stat_Pr2
-typedef struct
-{
+typedef struct{
   c03_ISw_Stat ISw_Stat;
   DC_BOOL Ign_On_StartProc_Inact;
   DC_BOOL KG_IgnCtrl_Actv;
@@ -2616,44 +2582,39 @@ typedef struct
   DC_BOOL EngSt_Enbl_Rq_KG;
   DC_BOOL RemSt_IgnCtrl_Actv;
   c02_RemSt_IgnCtrl_Info RemSt_IgnCtrl_Info;
-} REC_Ign_Stat_Pr2;
+}REC_Ign_Stat_Pr2;
 
 #define Rte_TypeDef_REC_PN14_SupBat_Stat
-typedef struct
-{
+typedef struct{
   c02_BatCutSw_Stat PN14_SupBatCutSw_Stat;
   c11_A_m102k4_102k2_0k1 PN14_SupBat_Curr;
   c08_V_0_25k4_0k1 PN14_SupBat_Volt;
-} REC_PN14_SupBat_Stat;
+}REC_PN14_SupBat_Stat;
 
 #define Rte_TypeDef_REC_PN14_SupBat_Stat_b0ko81o0x5jgvwtduf99gvzi0
-typedef struct
-{
+typedef struct{
   c02_BatCutSw_Stat PN14_SupBatCutSw_Stat;
-} REC_PN14_SupBat_Stat_b0ko81o0x5jgvwtduf99gvzi0;
+}REC_PN14_SupBat_Stat_b0ko81o0x5jgvwtduf99gvzi0;
 
 #define Rte_TypeDef_REC_PressureCal
-typedef struct
-{
+typedef struct{
   UInt8 RE_CalPressure1;
   UInt8 RE_CalPressure2;
   UInt8 RE_CalPressure3;
   UInt8 RE_CalPressure4;
-} REC_PressureCal;
+}REC_PressureCal;
 
 #define Rte_TypeDef_REC_TPM_Lmp_On_Rq_Pr2
-typedef struct
-{
+typedef struct{
   c08_CRC_woSNA CRC_TPM_Lmp_On_Rq_Pr2;
   Rsrv02 Rsrv1_TPM_Lmp_On_Rq_Pr2;
   c04_0_15_1_SNA_na SQC_TPM_Lmp_On_Rq_Pr2;
   DC_BOOL TPM_IndLmp_On_Rq;
   DC_BOOL TPM_MalfLmp_On_Rq;
-} REC_TPM_Lmp_On_Rq_Pr2;
+}REC_TPM_Lmp_On_Rq_Pr2;
 
 #define Rte_TypeDef_REC_WhlPlsCnt_TPM_Pr2
-typedef struct
-{
+typedef struct{
   c08_CRC_woSNA CRC_WhlPlsCnt_TPM_Pr2;
   Rsrv08 Rsrv2_WhlPlsCnt_TPM_Pr2;
   c04_0_15_1_SNA_na SQC_WhlPlsCnt_TPM_Pr2;
@@ -2663,8 +2624,7 @@ typedef struct
   c08_Impulses_0_254_1 WhlPlsCnt_RR;
   c08_ms_0_254_1 WhlPlsCnt_TmStmp;
   Rsrv04 Rsrv1_WhlPlsCnt_TPM_Pr2;
-} REC_WhlPlsCnt_TPM_Pr2;
-
+}REC_WhlPlsCnt_TPM_Pr2;
 #endif
 
 #define RTE_START_SEC_CONST_UNSPECIFIED
@@ -2738,7 +2698,6 @@ extern VAR(DT_tWallocNvMBlock, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSwpa
 
 #define RTE_STOP_SEC_VAR_DEFAULT_RTE_PIM_GROUP_UNSPECIFIED
 #include "MemMap.h"
-
 #endif
 
 typedef unsigned int Rte_BitType;
@@ -2775,8 +2734,7 @@ extern VAR(DT_auRfStruct, RTE_VAR_NOINIT) Rte_CpCdHufTPMSrfd_PP_RfStruct_DE_auRf
 #define RTE_STOP_SEC_VAR_NOINIT_UNSPECIFIED
 #include "MemMap.h"
 
-typedef struct
-{
+typedef struct{
   boolean Rte_RxTimeout_Com_AirPress_Outsd;
   boolean Rte_RxTimeout_Com_AirTemp_Outsd_Disp;
   boolean Rte_RxTimeout_Com_DidA_ExtTest_Pres;
@@ -2790,7 +2748,7 @@ typedef struct
   boolean Rte_RxTimeout_Com_RevGr_Engg;
   boolean Rte_RxTimeout_Com_TPM_Actv_Rq_V2;
   boolean Rte_RxTimeout_Com_VehSpd_Disp;
-} Rte_RxTimeoutFlagsType;
+}Rte_RxTimeoutFlagsType;
 
 #define RTE_START_SEC_VAR_ZERO_INIT_UNSPECIFIED
 #include "MemMap.h"
@@ -2855,7 +2813,6 @@ extern VAR(Boolean, RTE_VAR_NOINIT) Rte_Irv_CpApHufTPMSmgr_IRV_TpmActvRq_TpmMsgD
 
 #define RTE_STOP_SEC_VAR_NOINIT_UNSPECIFIED
 #include "MemMap.h"
-
 #endif
 
 #ifndef SKIP_MAGIC_NUMBER
@@ -2867,6 +2824,5 @@ extern VAR(Boolean, RTE_VAR_NOINIT) Rte_Irv_CpApHufTPMSmgr_IRV_TpmActvRq_TpmMsgD
 #define RTE_MAGIC_NUMBER 1513305418
 #endif
 #endif
-
 #endif
 

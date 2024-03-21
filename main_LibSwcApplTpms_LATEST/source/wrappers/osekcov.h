@@ -4,18 +4,18 @@
 #define _OSEKCOV_H
 
 #if defined USE_QUOTE_INCLUDES
- #include "vrm.h"
+#include "vrm.h"
 #else
- #include <vrm.h>
+#include <vrm.h>
 #endif
 
 #define osdVrmMajRelNum 1
 #define osdVrmMinRelNum 1
 
 #if defined USE_QUOTE_INCLUDES
- #include "vrm.h"
+#include "vrm.h"
 #else
- #include <vrm.h>
+#include <vrm.h>
 #endif
 
 #if defined osdEnableCoverage
@@ -57,6 +57,5 @@
 #define IF3ORCOVER(expr1,expr2,expr3,x1,x2,x3,x4)
 #define IF3ANDCOVER(expr1,expr2,expr3,x1,x2,x3,x4)
 #endif
-
 #endif
 

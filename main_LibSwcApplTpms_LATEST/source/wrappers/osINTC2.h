@@ -9,18 +9,18 @@ extern "C"
 #endif
 
 #if defined USE_QUOTE_INCLUDES
- #include "vrm.h"
+#include "vrm.h"
 #else
- #include <vrm.h>
+#include <vrm.h>
 #endif
 
 #define osdVrmMajRelNum 1
 #define osdVrmMinRelNum 1
 
 #if defined USE_QUOTE_INCLUDES
- #include "vrm.h"
+#include "vrm.h"
 #else
- #include <vrm.h>
+#include <vrm.h>
 #endif
 
 #define osdICR0MIN   (osdICRBASE0 + 0x0000UL)
@@ -40,8 +40,7 @@ extern "C"
 #define osdIMRxMAX16 (osdICRBASE1 + 0x0400UL + ((osdNumberOfInterrupts+7)>>3) - 2)
 #define osdIMRxMAX32 (osdICRBASE1 + 0x0400UL + ((osdNumberOfInterrupts+7)>>3) - 4)
 
-typedef union
-{
+typedef union{
    osuint16 UINT16;
    osuint8  UINT8[2];
 
@@ -56,7 +55,7 @@ typedef union
       osuint8  :2;
       osuint8  CTxxx:1;
    } SEMANTIC;
-} osICxxx_type;
+}osICxxx_type;
 
 typedef osICxxx_type osINTC1_ICxxx_type[32];
 typedef osICxxx_type osINTC2_ICxxx_type[osdNumberOfInterrupts-32];
@@ -67,6 +66,5 @@ typedef osICxxx_type osINTC2_ICxxx_type[osdNumberOfInterrupts-32];
 #if defined __cplusplus
 }
 #endif
-
 #endif
 

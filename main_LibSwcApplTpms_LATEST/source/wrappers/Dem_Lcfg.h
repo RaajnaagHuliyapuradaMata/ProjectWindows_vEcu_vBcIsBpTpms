@@ -33,7 +33,7 @@ typedef struct Dem_NvAdminDataTypeTag
 {
   uint32 activeVersion;
   uint16 cycleCounter[DEM_NUMBER_OF_OPERATION_CYCLES];
-} Dem_NvAdminDataType;
+}Dem_NvAdminDataType;
 typedef struct Dem_NvStatusDataTypeTag
 {
   uint8 statusTestFailed[(DEM_NUMBER_OF_EVENTS / 8) + 1];
@@ -43,7 +43,7 @@ typedef struct Dem_NvStatusDataTypeTag
   Dem_EventIdType firstConfirmedEvent;
   Dem_EventIdType mostRecentFailedEvent;
   Dem_EventIdType mostRecentConfirmedEvent;
-} Dem_NvStatusDataType;
+}Dem_NvStatusDataType;
 typedef VAR(uint8, TYPEDEF) Dem_NvPrimaryEntryType[2 + 4 + 2 + DEM_MAX_EXTDATA_RECORD_SIZE + (DEM_SNAPSHOTS_PER_DTC*DEM_MAX_SNAPSHOT_RECORD_SIZE) + 1];
 typedef struct Dem_NvMirrorMemoryTypeTag
 {
@@ -52,19 +52,19 @@ typedef struct Dem_NvMirrorMemoryTypeTag
   uint16 hirOdometer;
   uint8 hirReadCount;
   Dem_Mem_MirrorIndexType writeIndex;
-} Dem_NvMirrorMemoryType;
+}Dem_NvMirrorMemoryType;
 typedef struct Dem_DemConfigurationTypeTag
 {
   uint8 DTCTranslationFormat;
   Dem_GetCurrentOdometerFPtrType GetCurrentOdometerFPtr;
   Dem_GetExternalTesterStatusFPtrType GetExternalTesterStatusFPtr;
   Dem_OnControlDTCFPtrType OnControlDTCFPtr;
-} Dem_DemConfigurationType;
+}Dem_DemConfigurationType;
 typedef struct Dem_DIDLookupTableTypeTag
 {
   uint16 did;
   Dem_GetDataValueByDataIdentifierType pFunc;
-} Dem_DIDLookupTableType;
+}Dem_DIDLookupTableType;
 typedef VAR(uint8, TYPEDEF) Dem_DataRecordSizeType;
 
 #define DEM_START_SEC_VAR_SAVED_ZONE0_UNSPECIFIED
@@ -347,12 +347,11 @@ extern FUNC(uint8, DEM_CODE) DemCfg_GetIsEventTimeBasedDebounce(Dem_EventIdType 
 
 #ifndef SKIP_MAGIC_NUMBER
 #ifdef MAGIC_NUMBER
-  #if MAGIC_NUMBER != 268053767
+#if MAGIC_NUMBER != 268053767
       #error "The magic number of the generated file <C:\_TSS\DAG\MFA2\Target\Appl\GenData\Dem_Lcfg.h> is different. Please check time and date of generated files!"
-  #endif
+#endif
 #else
 #define MAGIC_NUMBER 268053767
 #endif
 #endif
-
 #endif

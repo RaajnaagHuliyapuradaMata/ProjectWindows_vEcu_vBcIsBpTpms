@@ -9,18 +9,18 @@ extern "C"
 #endif
 
 #if defined USE_QUOTE_INCLUDES
- #include "vrm.h"
+#include "vrm.h"
 #else
- #include <vrm.h>
+#include <vrm.h>
 #endif
 
 #define osdVrmMajRelNum 1
 #define osdVrmMinRelNum 1
 
 #if defined USE_QUOTE_INCLUDES
- #include "vrm.h"
+#include "vrm.h"
 #else
- #include <vrm.h>
+#include <vrm.h>
 #endif
 
 #define osdOSTMBaseAddr   0xFFEC0000UL
@@ -33,9 +33,9 @@ extern "C"
 #define osdMPUSupportInSVMode 0
 
 #if defined USE_QUOTE_INCLUDES
- #include "osINTC2.h"
+#include "osINTC2.h"
 #else
- #include <osINTC2.h>
+#include <osINTC2.h>
 #endif
 
 #define osSysGetCoreID()  0
@@ -44,6 +44,5 @@ extern "C"
 #if defined __cplusplus
 }
 #endif
-
 #endif
 

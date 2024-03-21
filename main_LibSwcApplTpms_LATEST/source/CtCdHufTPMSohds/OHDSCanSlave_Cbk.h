@@ -11,5 +11,4 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_TxConfirmation(PduIdType TxPduId);
 
 #define OHDS_STOP_SEC_CODE
 #include "MemMap.h"
-
 #endif

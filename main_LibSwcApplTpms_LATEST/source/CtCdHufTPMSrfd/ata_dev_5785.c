@@ -1,6 +1,5 @@
+#include "Std_Types.hpp"
 
-
-#include "Platform_Types.h"
 #include "Spi.h"
 #include "CtCdHufTPMSrfd.h"
 
@@ -202,7 +201,6 @@ uint8 rf_ata5785_read_version( void ){
     active_xfer_spi( 0x00 );
     active_xfer_spi( 0x00 );
     active_xfer_spi( 0x00 );
-
 #endif /*MCAL_F1L*/
     release_ata5785();
 
@@ -233,7 +231,6 @@ void rf_ata5785_get_events( uint8 buf[] ){
    buf[1] = active_xfer_spi(ptr);
    buf[2] = active_xfer_spi(ptr);
    buf[3] = active_xfer_spi(ptr);
-
 #endif
    release_ata5785();
 
@@ -262,7 +259,6 @@ void rf_ata5785_set_mode( uint8 mode, uint8 channel ){
    active_xfer_spi( 0x0D );
     active_xfer_spi( mode );
     active_xfer_spi( channel );
-
 #endif
    release_ata5785();
 
@@ -290,7 +286,7 @@ uint8 rtn;
    active_xfer_spi( 0x01 );
     active_xfer_spi( 0x00 );
     rtn = active_xfer_spi( 0x00 );
- #endif
+#endif
    release_ata5785();
 
    return rtn;
@@ -317,7 +313,7 @@ uint8 rtn;
    active_xfer_spi( 0x03 );
     active_xfer_spi( 0x00 );
     rtn = active_xfer_spi( 0x00 );
- #endif
+#endif
    release_ata5785();
 
    return rtn;
@@ -409,7 +405,6 @@ uint8 i;
     for(i=0; i<*len; i++){
       buf[i] = active_xfer_spi( 0x00 );
    }
-
 #endif
     release_ata5785();
 
@@ -447,7 +442,6 @@ uint8 i;
    for(i=0; i<len; i++){
       active_xfer_spi( buf[i] );
    }
-
 #endif
     release_ata5785();
 
@@ -557,7 +551,6 @@ void rf_ata5785_write_sram(const uint8 data[]){
       length -= SRAM_BUFFER_SIZE;
       offset += SRAM_BUFFER_SIZE;
     }
-
 #endif
 
   } while(length > 0);
@@ -579,7 +572,7 @@ uint8 ptr;
    Spi_WriteIB(0, (uint8 *) &ptr );
     ptr=data[0];
    Spi_WriteIB(0, (uint8 *) &ptr );
- #else
+#else
    ptr=0x10;
    active_xfer_spi(ptr);
    ptr=data[0];
@@ -725,7 +718,6 @@ uint8 check_sensor_type(void){
    }
    return (tmp);
 }
-
 #endif
 
 /***********************************************************************************************************************
@@ -760,7 +752,7 @@ uint8 ptr;
    ucMISOdata[0]=active_xfer_spi( ptr );
     ptr=0x00;
    ucMISOdata[1]=active_xfer_spi( ptr );
- #endif
+#endif
 
    ucMISOdata[3]=0x01; /*Transmit 2 V24 in main.c*/
    release_ata5785(); /*i.o. 4  ATA4StarterKit*/
@@ -818,7 +810,7 @@ uint8 ptr;
    Spi_WriteIB(0, (uint8 *) &ptr );
      ptr=0x00;
    rtn = Spi_WriteIB(0, (uint8 *) &ptr );
- #else
+#else
 
    ptr=0x08;
     active_xfer_spi( ptr );
@@ -832,7 +824,7 @@ uint8 ptr;
    active_xfer_spi( ptr );
      ptr=0x00;
    rtn = active_xfer_spi( ptr );
- #endif
+#endif
     release_ata5785();
     return rtn;
 }
@@ -858,7 +850,7 @@ uint8 ptr;
     Spi_WriteIB(0, (uint8 *) &ptr );
     ptr=0x00;
     rtn = Spi_WriteIB(0, (uint8 *) &ptr );
- #else
+#else
 
    ptr=0x08;
     active_xfer_spi( ptr );
@@ -872,7 +864,6 @@ uint8 ptr;
     active_xfer_spi( ptr );
     ptr=0x00;
     rtn = active_xfer_spi( ptr );
-
 #endif
     release_ata5785();
 
@@ -902,7 +893,6 @@ uint8 ptr;
     active_xfer_spi( ptr );
     ptr=0x00;
     active_xfer_spi( ptr );
-
 #endif
     release_ata5785();
 

@@ -16,5 +16,4 @@ FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_StartTimer( void );
 
 #define OHDS_STOP_SEC_CODE
 #include "MemMap.h"
-
 #endif

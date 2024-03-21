@@ -6,7 +6,7 @@
 
 #if defined(DEM_CFG_H) || defined(__DEM_CFG_H__)
 #else
-#error "Wrong #include sequence: Please include \"Dem_Cfg.h\" before including file \"Dem_Types.h\""
+#error "Wrong#include sequence: Please include \"Dem_Cfg.h\" before including file \"Dem_Types.h\""
 #endif
 
 #if(DEM_USE_RTE == STD_ON)
@@ -16,7 +16,7 @@
 #define DEM_NVDATA_PATTERN_SIZE                         4
 
 #if defined(RTE_VENDOR_ID)
-# if(RTE_VENDOR_ID == 0x1Eu)
+#if(RTE_VENDOR_ID == 0x1Eu)
 #define DEM_USE_RTE_FROM_VECTOR  STD_ON
 #else
 #define DEM_USE_RTE_FROM_VECTOR  STD_OFF
@@ -40,7 +40,7 @@ typedef uint8 Dem_DTCKindType;
 #endif
 
 #if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_EventIdType)))
-# if(DEM_MAX_NUMBER_OF_EVENTS <= 255)
+#if(DEM_MAX_NUMBER_OF_EVENTS <= 255)
 typedef uint8  Dem_EventIdType;
 #else
 typedef uint16 Dem_EventIdType;
@@ -98,7 +98,7 @@ typedef uint8 Dem_MaxExtendedDataRecordType[];
 #endif
 
 #if(DEM_SUPPORT_SUPPRESS_DTC == STD_ON)
-# if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_SuppressDTCStatusType)))
+#if(DEM_USE_RTE == STD_OFF) || ((DEM_USE_RTE == STD_ON) && (DEM_USE_RTE_FROM_VECTOR == STD_ON) && (! defined(Rte_TypeDef_Dem_SuppressDTCStatusType)))
 typedef uint8 Dem_SuppressDTCStatusType;
 #define DEM_SUPPRESS_DTC_OFF                              0u
 #define DEM_SUPPRESS_DTC_ON                               1u
@@ -145,7 +145,7 @@ typedef struct Dem_DTCGroupMappingTypeTag
 {
   Dem_DTCGroupKindType  GroupKind;
   Dem_DTCType           DTCnumber;
-} Dem_DTCGroupMappingType;
+}Dem_DTCGroupMappingType;
 
 typedef uint8 Dem_DTCRequestType;
 #define DEM_FIRST_FAILED_DTC                              0x01
@@ -294,8 +294,7 @@ typedef P2CONST(uint16, TYPEDEF, DEM_PBCFG) Dem_RecordDIDAddrType;
 
 typedef uint8 Dem_HistInterrogationRecordType[3];
 
-typedef struct
-{
+typedef struct{
   union
   {
     Dem_EventIdType           EventIdentifier;
@@ -307,14 +306,12 @@ typedef struct
     } dtc;
   } arg;
   uint8 Action;
-} Dem_AQElementType;
+}Dem_AQElementType;
 
 #if(DEM_SUPPORT_MULTIPLE_CONFIG == STD_ON) || (DEM_SUPPORT_VARIANT_HANDLING == STD_ON) || (DEM_PREINIT_HAS_CONFIG_PARAM == STD_ON)
 
-typedef struct
-{
+typedef struct{
   uint32 ConfigurationMask;
-} Dem_ConfigType;
+}Dem_ConfigType;
 #endif
-
 #endif

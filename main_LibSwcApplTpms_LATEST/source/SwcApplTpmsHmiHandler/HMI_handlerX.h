@@ -1,8 +1,5 @@
-#ifndef _HMI_HANDLER_X_H
-#define _HMI_HANDLER_X_H
+#pragma once
 
-#include "Platform_Types.h"
-#include "Compiler_Cfg.h"
 #include "rte_type.h"
 
 void UpdateTxBusMsg(void);
@@ -49,5 +46,3 @@ void    ClearTPM_StatSensorsMissing(void);
 void    ClearTPM_MsgDispRqSensorsMissing(void);
 void    ClearTPM_MsgDispRqNoSensors(void);
 uint8   GetCurUsedWPOfCol(uint8 ucCol);
-
-#endif

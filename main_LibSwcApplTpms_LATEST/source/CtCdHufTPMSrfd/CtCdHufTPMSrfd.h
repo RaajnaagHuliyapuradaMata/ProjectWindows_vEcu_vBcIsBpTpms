@@ -1,6 +1,6 @@
 
 
- #ifndef CtCdHufTPMSrfd_H
+#ifndef CtCdHufTPMSrfd_H
 #define CtCdHufTPMSrfd_H
 
 void RFD_CsAta(uint8 ucSet);
@@ -15,4 +15,4 @@ void TP3(uint8 ucSet);
 
 extern void ReInitAfterError(void);
 
- #endif
+#endif

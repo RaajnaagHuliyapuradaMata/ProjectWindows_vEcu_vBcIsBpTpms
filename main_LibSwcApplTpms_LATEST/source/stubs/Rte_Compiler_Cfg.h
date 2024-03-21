@@ -100,5 +100,4 @@
 #define RTE_MAGIC_NUMBER 1513305418
 #endif
 #endif
-
 #endif

@@ -59,12 +59,11 @@ typedef VAR(uint16, TYPEDEF) Dem_TimeBasedDebounceTimerType;
 
 #ifndef SKIP_MAGIC_NUMBER
 #ifdef MAGIC_NUMBER
-  #if MAGIC_NUMBER != 268053767
+#if MAGIC_NUMBER != 268053767
       #error "The magic number of the generated file <C:\_TSS\DAG\MFA2\Target\Appl\GenData\Dem_Cfg.h> is different. Please check time and date of generated files!"
-  #endif
+#endif
 #else
 #define MAGIC_NUMBER 268053767
 #endif
 #endif
-
 #endif

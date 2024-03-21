@@ -4,18 +4,18 @@
 #define _EMPTYMAC_H
 
 #if defined USE_QUOTE_INCLUDES
- #include "vrm.h"
+#include "vrm.h"
 #else
- #include <vrm.h>
+#include <vrm.h>
 #endif
 
 #define osdVrmMajRelNum 1
 #define osdVrmMinRelNum 1
 
 #if defined USE_QUOTE_INCLUDES
- #include "vrm.h"
+#include "vrm.h"
 #else
- #include <vrm.h>
+#include <vrm.h>
 #endif
 
 #define OS_AT_ENTRY()
@@ -240,6 +240,5 @@
 
 #define OS_INT_ENTRY(x)
 #define OS_INT_EXIT(x)
-
 #endif
 

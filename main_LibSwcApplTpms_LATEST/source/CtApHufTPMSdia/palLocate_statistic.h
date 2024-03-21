@@ -1,9 +1,4 @@
-
-
-#ifndef _PAL_LOCATE_STATISTIC_H
-#define _PAL_LOCATE_STATISTIC_H
-
-#include "Platform_Types.h"
+#pragma once
 
 void PutPalLocateStatistics2Ram(void);
 void PutPalStatsLastCycleWU2Ram(void);
@@ -16,5 +11,3 @@ void ClearStatsLastCycleWU(void);
 void ClearStatsLongTermWU(void);
 void ClearStatsLongTermWUx(uint8 j);
 void ClearStatsLastCycleWUx(uint8 j);
-
-#endif

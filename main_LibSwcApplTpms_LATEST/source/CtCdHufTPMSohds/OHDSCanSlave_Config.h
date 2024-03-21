@@ -21,5 +21,4 @@
 #define OHDSCANSLAVE_DEV_ERROR_DETECT        (STD_ON)
 
 #define OHDSCANSLAVE_E2E_AR322SUPPORT       (STD_ON)
-
 #endif

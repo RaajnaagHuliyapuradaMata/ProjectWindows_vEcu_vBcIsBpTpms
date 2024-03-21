@@ -8,5 +8,4 @@
 #define OHDS_VAR_NOINIT
 #define OHDS_VAR_ZERO_INIT
 #define OHDS_APPL_VAR
-
 #endif

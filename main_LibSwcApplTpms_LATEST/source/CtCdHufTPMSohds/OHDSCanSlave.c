@@ -8,7 +8,7 @@
 #include "OHDSCanSlave_Cbk.h"
 #include "SchM_OHDSCanSlave.h"
 #if(OHDSCANSLAVE_DEV_ERROR_DETECT == STD_ON)
-  #include "Det.h"
+#include "Det.h"
 #endif
 
 #define OHDSCANSLAVE_STATE_UNINITIALIZED                    (0x00u)

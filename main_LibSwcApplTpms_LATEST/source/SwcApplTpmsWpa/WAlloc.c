@@ -5,7 +5,7 @@
 /******************************************************************************/
 
 /******************************************************************************/
-/* #INCLUDES                                                                  */
+/*#includeS                                                                  */
 /******************************************************************************/
 #define WALLOC_INT
 #include "Std_Types.hpp"
@@ -339,19 +339,19 @@ static void Put2Slot(tRFTelType *ptInputWA, uint8 ucIx){
     if( (cTelTypeSELPAL  == (ptInputWA->Header.ucTType&0x0F)) ){
       tZOM[ucIx].ucFrameCounter = (uint8)((ptInputWA->SchraderFP.ushStatusField>>8)&0x1F);
       if(ptInputWA->SchraderFP.ucPAL == 0x0){
- #ifdef Test_LOG_ENABLE
+#ifdef Test_LOG_ENABLE
         tZOM[ucIx].ucToothTelCtNoLearnMode++;
- #endif
+#endif
       }
       else if(ptInputWA->SchraderFP.ucPAL == 0x01){
- #ifdef Test_LOG_ENABLE
+#ifdef Test_LOG_ENABLE
         tZOM[ucIx].ucToothTelCtNoCorr++;
- #endif
+#endif
       }
       else if(ptInputWA->SchraderFP.ucPAL == 0xFF){
- #ifdef Test_LOG_ENABLE
+#ifdef Test_LOG_ENABLE
         tZOM[ucIx].ucToothTelCtNoCorr++;
- #endif
+#endif
       }
       else{
 #ifdef Test_LOG_ENABLE
@@ -368,12 +368,12 @@ static void Put2Slot(tRFTelType *ptInputWA, uint8 ucIx){
 #endif
 #ifdef Test_LOG_ENABLE
                 tZOM[ucIx].ucToothTelCtNoLearnMode++;
- #endif
+#endif
     }
     else if(cTelTypeAK35def == ptInputWA->Header.ucTType){
 #ifdef Test_LOG_ENABLE
       tZOM[ucIx].ucToothTelCtNoLearnMode++;
- #endif
+#endif
     }
     else if( cTelTypeEdgeCnt == ptInputWA->Header.ucTType ){
        ucSpin = ptInputWA->EdgeCnt.ucSpin;
@@ -391,34 +391,34 @@ static void Put2Slot(tRFTelType *ptInputWA, uint8 ucIx){
 #endif
 #ifdef Test_LOG_ENABLE
                 tZOM[ucIx].ucToothTelCtNoLearnMode++;
- #endif
+#endif
     }
     else if(cTelTypeAK35BeruMed == ptInputWA->Header.ucTType){
       ucSpin = ptInputWA->AK35BeruMed .ucSpinDir;
 #ifdef AEC
       if( ucEarlyEnd(ucIx) > 0 )
         StartWATO( 1 );
- #endif
+#endif
 #ifdef Test_LOG_ENABLE
                 tZOM[ucIx].ucToothTelCtNoLearnMode++;
- #endif
+#endif
     }
     else if(cTelTypeAK35BeruL == ptInputWA->Header.ucTType){
       ucSpin = ptInputWA->AK35BeruL  .ucSpinDir;
 #ifdef Test_LOG_ENABLE
                 tZOM[ucIx].ucToothTelCtNoLearnMode++;
- #endif
+#endif
     }
     else if(cTelTypeAK35BeruS  == ptInputWA->Header.ucTType){
       ucSpin = ptInputWA->AK35BeruS  .ucSpinDir;
 #ifdef Test_LOG_ENABLE
           tZOM[ucIx].ucToothTelCtNoLearnMode++;
- #endif
+#endif
         }
     else{
 #ifdef Test_LOG_ENABLE
            tZOM[ucIx].ucToothTelCtNoLearnMode++;
- #endif
+#endif
     }
 
     if( (ucSpin > 0) &&

@@ -536,7 +536,6 @@
 # undef CtCdHufTPMSrfd_START_SEC_VAR_ZERO_INIT_UNSPECIFIED
 #define START_SEC_VAR_ZERO_INIT_UNSPECIFIED
 #endif
-
 #endif
 
 #if 0
@@ -545,7 +544,6 @@
 # undef CtCdHufTPMSrfd_STOP_SEC_VAR_NOINIT_UNSPECIFIED
 #define STOP_SEC_VAR
 #endif
-
 #endif
 
 #if 0
@@ -554,7 +552,6 @@
 # undef CtCdHufTPMSrfd_START_SEC_CODE
 #define START_SEC_CODE
 #endif
-
 #endif
 
 #if 0
@@ -563,7 +560,6 @@
 # undef CtCdHufTPMSrfd_STOP_SEC_CONST_UNSPECIFIED
 #define STOP_SEC_CONST
 #endif
-
 #endif
 
 #if 0
@@ -572,7 +568,6 @@
 # undef CtCdHufTPMSrfd_STOP_SEC_VAR_ZERO_INIT_UNSPECIFIED
 #define STOP_SEC_VAR
 #endif
-
 #endif
 
 #if 0
@@ -581,7 +576,6 @@
 # undef CtCdHufTPMSrfd_START_SEC_VAR_NOINIT_UNSPECIFIED
 #define START_SEC_VAR_NOINIT_UNSPECIFIED
 #endif
-
 #endif
 
 #if 0
@@ -590,7 +584,6 @@
 # undef CtCdHufTPMSrfd_START_SEC_VAR_INIT_UNSPECIFIED
 #define START_SEC_VAR_INIT_UNSPECIFIED
 #endif
-
 #endif
 
 #if 0
@@ -599,7 +592,6 @@
 # undef RTE_STOP_SEC_CTCDHUFTPMSRFD_APPL_CODE
 #define STOP_SEC_CODE
 #endif
-
 #endif
 
 #if 0
@@ -608,7 +600,6 @@
 # undef CtCdHufTPMSrfd_STOP_SEC_VAR_INIT_UNSPECIFIED
 #define STOP_SEC_VAR
 #endif
-
 #endif
 
 #if 0
@@ -617,7 +608,6 @@
 # undef CtCdHufTPMSrfd_STOP_SEC_CODE
 #define STOP_SEC_CODE
 #endif
-
 #endif
 
 #if 0
@@ -626,7 +616,6 @@
 # undef CtCdHufTPMSrfd_START_SEC_CONST_UNSPECIFIED
 #define START_SEC_CONST_UNSPECIFIED
 #endif
-
 #endif
 
 #if 0
@@ -635,7 +624,6 @@
 # undef RTE_START_SEC_CTCDHUFTPMSRFD_APPL_CODE
 #define START_SEC_CODE
 #endif
-
 #endif
 
 #if 0
@@ -644,7 +632,6 @@
 # undef CDD_OHDS_ClockSync_SlaveCAN_V1_STOP_SEC_VAR_NOINIT_UNSPECIFIED
 #define STOP_SEC_VAR
 #endif
-
 #endif
 
 #if 0
@@ -653,7 +640,6 @@
 # undef CDD_OHDS_ClockSync_SlaveCAN_V1_START_SEC_CONST_UNSPECIFIED
 #define START_SEC_CONST_UNSPECIFIED
 #endif
-
 #endif
 
 #if 0
@@ -662,7 +648,6 @@
 # undef CDD_OHDS_ClockSync_SlaveCAN_V1_START_SEC_VAR_INIT_UNSPECIFIED
 #define START_SEC_VAR_INIT_UNSPECIFIED
 #endif
-
 #endif
 
 #if 0
@@ -671,7 +656,6 @@
 # undef CDD_OHDS_ClockSync_SlaveCAN_V1_START_SEC_CODE
 #define START_SEC_CODE
 #endif
-
 #endif
 
 #if 0
@@ -680,7 +664,6 @@
 # undef CDD_OHDS_ClockSync_SlaveCAN_V1_STOP_SEC_VAR_ZERO_INIT_UNSPECIFIED
 #define STOP_SEC_VAR
 #endif
-
 #endif
 
 #if 0
@@ -689,7 +672,6 @@
 # undef CDD_OHDS_ClockSync_SlaveCAN_V1_START_SEC_VAR_NOINIT_UNSPECIFIED
 #define START_SEC_VAR_NOINIT_UNSPECIFIED
 #endif
-
 #endif
 
 #if 0
@@ -698,7 +680,6 @@
 # undef CDD_OHDS_ClockSync_SlaveCAN_V1_START_SEC_VAR_ZERO_INIT_UNSPECIFIED
 #define START_SEC_VAR_ZERO_INIT_UNSPECIFIED
 #endif
-
 #endif
 
 #if 0
@@ -707,7 +688,6 @@
 # undef CDD_OHDS_ClockSync_SlaveCAN_V1_STOP_SEC_CONST_UNSPECIFIED
 #define STOP_SEC_CONST
 #endif
-
 #endif
 
 #if 0
@@ -716,7 +696,6 @@
 # undef RTE_STOP_SEC_CDD_OHDS_CLOCKSYNC_SLAVECAN_V1_APPL_CODE
 #define STOP_SEC_CODE
 #endif
-
 #endif
 
 #if 0
@@ -725,7 +704,6 @@
 # undef CDD_OHDS_ClockSync_SlaveCAN_V1_STOP_SEC_CODE
 #define STOP_SEC_CODE
 #endif
-
 #endif
 
 #if 0
@@ -734,7 +712,6 @@
 # undef RTE_START_SEC_CDD_OHDS_CLOCKSYNC_SLAVECAN_V1_APPL_CODE
 #define START_SEC_CODE
 #endif
-
 #endif
 
 #if 0
@@ -743,7 +720,6 @@
 # undef CDD_OHDS_ClockSync_SlaveCAN_V1_STOP_SEC_VAR_INIT_UNSPECIFIED
 #define STOP_SEC_VAR
 #endif
-
 #endif
 
 #if 0
@@ -752,7 +728,6 @@
 # undef CtApHufTPMSrfd_STOP_SEC_VAR_ZERO_INIT_UNSPECIFIED
 #define STOP_SEC_VAR
 #endif
-
 #endif
 
 #if 0
@@ -761,7 +736,6 @@
 # undef CtApHufTPMSrfd_STOP_SEC_CONST_UNSPECIFIED
 #define STOP_SEC_CONST
 #endif
-
 #endif
 
 #if 0
@@ -770,7 +744,6 @@
 # undef CtApHufTPMSrfd_START_SEC_VAR_NOINIT_UNSPECIFIED
 #define START_SEC_VAR_NOINIT_UNSPECIFIED
 #endif
-
 #endif
 
 #if 0
@@ -779,7 +752,6 @@
 # undef RTE_START_SEC_CTAPHUFTPMSRFD_APPL_CODE
 #define START_SEC_CODE
 #endif
-
 #endif
 
 #if 0
@@ -788,7 +760,6 @@
 # undef CtApHufTPMSrfd_STOP_SEC_VAR_NOINIT_UNSPECIFIED
 #define STOP_SEC_VAR
 #endif
-
 #endif
 
 #if 0
@@ -797,7 +768,6 @@
 # undef CtApHufTPMSrfd_START_SEC_VAR_ZERO_INIT_UNSPECIFIED
 #define START_SEC_VAR_ZERO_INIT_UNSPECIFIED
 #endif
-
 #endif
 
 #if 0
@@ -806,7 +776,6 @@
 # undef RTE_STOP_SEC_CTAPHUFTPMSRFD_APPL_CODE
 #define STOP_SEC_CODE
 #endif
-
 #endif
 
 #if 0
@@ -815,7 +784,6 @@
 # undef CtApHufTPMSrfd_START_SEC_CONST_UNSPECIFIED
 #define START_SEC_CONST_UNSPECIFIED
 #endif
-
 #endif
 
 #if 0
@@ -824,7 +792,6 @@
 # undef CtApHufTPMSrfd_STOP_SEC_CODE
 #define STOP_SEC_CODE
 #endif
-
 #endif
 
 #if 0
@@ -833,7 +800,6 @@
 # undef CtApHufTPMSrfd_START_SEC_CODE
 #define START_SEC_CODE
 #endif
-
 #endif
 
 #if 0
@@ -842,7 +808,6 @@
 # undef CtApHufTPMSrfd_STOP_SEC_VAR_INIT_UNSPECIFIED
 #define STOP_SEC_VAR
 #endif
-
 #endif
 
 #if 0
@@ -851,7 +816,6 @@
 # undef CtApHufTPMSrfd_START_SEC_VAR_INIT_UNSPECIFIED
 #define START_SEC_VAR_INIT_UNSPECIFIED
 #endif
-
 #endif
 
 #if 0
@@ -860,7 +824,6 @@
 # undef CpCdHufTPMSrfd_START_SEC_CODE
 #define START_SEC_CODE
 #endif
-
 #endif
 
 #if 0
@@ -869,7 +832,6 @@
 # undef CpCdHufTPMSrfd_STOP_SEC_VAR_INIT_UNSPECIFIED
 #define STOP_SEC_VAR
 #endif
-
 #endif
 
 #if 0
@@ -878,7 +840,6 @@
 # undef RTE_START_SEC_CPCDHUFTPMSRFD_APPL_CODE
 #define START_SEC_CODE
 #endif
-
 #endif
 
 #if 0
@@ -887,7 +848,6 @@
 # undef CpCdHufTPMSrfd_START_SEC_CONST_UNSPECIFIED
 #define START_SEC_CONST_UNSPECIFIED
 #endif
-
 #endif
 
 #if 0
@@ -896,7 +856,6 @@
 # undef CpCdHufTPMSrfd_START_SEC_VAR_NOINIT_UNSPECIFIED
 #define START_SEC_VAR_NOINIT_UNSPECIFIED
 #endif
-
 #endif
 
 #if 0
@@ -905,7 +864,6 @@
 # undef CpCdHufTPMSrfd_STOP_SEC_VAR_ZERO_INIT_UNSPECIFIED
 #define STOP_SEC_VAR
 #endif
-
 #endif
 
 #if 0
@@ -914,7 +872,6 @@
 # undef CpCdHufTPMSrfd_STOP_SEC_CODE
 #define STOP_SEC_CODE
 #endif
-
 #endif
 
 #if 0
@@ -923,7 +880,6 @@
 # undef CpCdHufTPMSrfd_START_SEC_VAR_ZERO_INIT_UNSPECIFIED
 #define START_SEC_VAR_ZERO_INIT_UNSPECIFIED
 #endif
-
 #endif
 
 #if 0
@@ -932,7 +888,6 @@
 # undef CpCdHufTPMSrfd_STOP_SEC_CONST_UNSPECIFIED
 #define STOP_SEC_CONST
 #endif
-
 #endif
 
 #if 0
@@ -941,7 +896,6 @@
 # undef RTE_STOP_SEC_CPCDHUFTPMSRFD_APPL_CODE
 #define STOP_SEC_CODE
 #endif
-
 #endif
 
 #if 0
@@ -950,7 +904,6 @@
 # undef CpCdHufTPMSrfd_START_SEC_VAR_INIT_UNSPECIFIED
 #define START_SEC_VAR_INIT_UNSPECIFIED
 #endif
-
 #endif
 
 #if 0
@@ -959,7 +912,6 @@
 # undef CpCdHufTPMSrfd_STOP_SEC_VAR_NOINIT_UNSPECIFIED
 #define STOP_SEC_VAR
 #endif
-
 #endif
 
 #ifndef SKIP_MAGIC_NUMBER

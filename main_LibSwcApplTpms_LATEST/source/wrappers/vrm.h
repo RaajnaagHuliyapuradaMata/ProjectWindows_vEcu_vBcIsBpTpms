@@ -25,7 +25,6 @@
 #if osdVrmMinRelNum!=osdVrmMinRelNumRef
 #error "VRM: minor release number mismatch (Source)"
 #endif
-
 #endif
 
 #if defined osdVrmGenMajRelNum && defined osdVrmGenMinRelNum
@@ -37,7 +36,6 @@
 #if osdVrmGenMinRelNum!=osdVrmGenMinRelNumRef
 #error "VRM: minor release number mismatch (Generator)"
 #endif
-
 #endif
 
 #ifdef osdVrmMajRelNum
@@ -55,9 +53,7 @@
 #ifdef osdVrmGenMinRelNum
 #undef osdVrmGenMinRelNum
 #endif
-
 #endif
 #undef  __VRM__2__
-
 #endif
 

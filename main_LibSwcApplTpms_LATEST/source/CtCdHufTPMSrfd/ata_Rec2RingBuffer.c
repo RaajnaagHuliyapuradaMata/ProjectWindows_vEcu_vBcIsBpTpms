@@ -307,9 +307,9 @@ void ChkAtaRecive(void){
   }
   else{
     if((rf.events[0] & 0x80)
- #ifdef  RFChipTest_Instrument
+#ifdef  RFChipTest_Instrument
       || (0 < ui8ReIniAfterXTels)
- #endif
+#endif
       ){
 #ifdef RFChipTest_Instrument
       ui8ReIniAfterXTels = 0;

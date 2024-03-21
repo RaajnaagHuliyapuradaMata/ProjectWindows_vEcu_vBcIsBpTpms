@@ -15,5 +15,4 @@ void RestartAtaRec(uint8 ucPathNServNr);
 extern void PutRB(struct rfstruct * tRfBuf);
 uint8 ui8GetErrorCnt(void);
 extern void InitRFTelBufferW0x55ForWhatSoEver(void);
-
 #endif

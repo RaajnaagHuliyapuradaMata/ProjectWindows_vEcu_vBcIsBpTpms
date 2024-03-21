@@ -1,19 +1,16 @@
-
-
-#if ! defined __TCBPOST_H__
-#define __TCBPOST_H__
+#pragma once
 #if defined USE_QUOTE_INCLUDES
- #include "vrm.h"
+#include "vrm.h"
 #else
- #include <vrm.h>
+#include <vrm.h>
 #endif
 
 #define osdVrmGenMajRelNum 1
 #define osdVrmGenMinRelNum 1
 #if defined USE_QUOTE_INCLUDES
- #include "vrm.h"
+#include "vrm.h"
 #else
- #include <vrm.h>
+#include <vrm.h>
 #endif
 
 #define SystemTimer ((CounterType) 0)
@@ -58,22 +55,22 @@
 
 #if(osdNumberOfAlarms > 0)
       osqROM0 extern osqROM1 const osqROM2 TaskType osqROM3 oskAlarmTask[osdNumberOfAlarms];
-      #if(osdNumberOfAlarmSetEvent > 0)
+#if(osdNumberOfAlarmSetEvent > 0)
          osqROM0 extern osqROM1 const osqROM2 EventMaskType osqROM3 oskAlarmEvent[osdNumberOfAlarms];
-      #else
+#else
          osqROM0 extern osqROM1 const osqROM2 EventMaskType osqROM3 oskAlarmEvent[1];
-      #endif
+#endif
       osqROM0 extern osqROM1 const osqROM2 osuint8 osqROM3 oskAlarmAction[osdNumberOfAlarms];
-      #if(osdNumberOfAlarmCallback > 0)
+#if(osdNumberOfAlarmCallback > 0)
          osqROM0 extern osqROM1 const osqROM2 osAlarmCallbackType osqROM3 oskAlarmCallback[osdNumberOfAlarms];
-      #else
+#else
          osqROM0 extern osAlarmCallbackType osqROM1 const osqROM2 osqROM3 oskAlarmCallback[1];
-      #endif
-      #if(osdNumberOfAlarmIncrementCounter > 0)
+#endif
+#if(osdNumberOfAlarmIncrementCounter > 0)
          osqROM0 extern osqROM1 const osqROM2 CounterType osqROM3 oskAlarmIncrementCounterID[osdNumberOfAlarms];
-      #else
+#else
          osqROM0 extern osqROM1 const osqROM2 CounterType osqROM3 oskAlarmIncrementCounterID[1];
-      #endif
+#endif
 #else
       osqROM0 extern osqROM1 const osqROM2 TaskType osqROM3 oskAlarmTask[1];
       osqROM0 extern osqROM1 const osqROM2 EventMaskType osqROM3 oskAlarmEvent[1];
@@ -118,52 +115,35 @@ osqRAM0 extern osqRAM1 volatile osqRAM2 ScheduleTableType       osqRAM3 osSTNext
 #define OS_TICKS2US_SystemTimer(x) ((PhysicalTimeType)((((osTimeComputationType)(x)) * 1000.00)+0.5))
 
 extern osqTcbRAM1 volatile osqTcbRAM2 TickType osqTcbRAM3 osCounter[1];
-
 osqROM0 extern osqROM1 const osqROM2 TickType osqROM3 oskCounterMaxAllowedValue[1];
-
 osqROM0 extern osqROM1 const osqROM2 TickType osqROM3 oskCounterInternalMaximumValue[1];
-
 osqROM0 extern osqROM1 const osqROM2 TickType osqROM3 oskCounterHalfrange[1];
-
 osqROM0 extern osqROM1 const osqROM2 TickType osqROM3 oskCounterTicksPerBase[1];
-
 osqROM0 extern osqROM1 const osqROM2 TickType osqROM3 oskCounterMinCycle[1];
-
 osqROM0 extern osqROM1 const osqROM2 TickType osqROM3 oskCounterReloadValue[1];
-
 osqROM0 extern osqROM1 const osqROM2 CoreIdType osqROM3 oskCounterCoreId[1];
-
 osqROM0 extern osqROM1 const osqROM2 TickType osqROM3 oskCounterHiResMaxHardwareValueHalf[1];
-
 osqROM0 extern osqROM1 const osqROM2 TickType osqROM3 oskHiResTimerBitMask[1];
-
 osqROM0 extern osqROM1 const osqROM2 TickType osqROM3 oskHWTimerSemiCount[1];
-
 osqROM0 extern osqROM1 const osqROM2 TickType osqROM3 oskMinTimeBetweenTimerIrqs[1];
-
 extern osqTcbRAM1 volatile osqTcbRAM2 TickType osqTcbRAM3 osLastHighResTimerIrq[1];
-
 extern osqTcbRAM1 volatile osqTcbRAM2 TickType osqTcbRAM3 osNextAllowedTimerInt[1];
-
 osqROM0 extern osqROM1 const osqROM2 osuint8 osqROM3 oskAlarmCounterRef[9];
 
 #define osReleaseHiResTimerISR(counterId)
-
 #define osTriggerHiResTimerISR(counterId)
-
 #define osGetHWTimerCounterValue(counterId) 0
-
 #define osSetHWTimerDeltaValue(counterId,timeToSet)
 
 #define osSetHWTimerCompareValue(counterId,timeToSet)
 osqROM0 extern osqPTcbRAM1 volatile osqPTcbRAM2 TaskType osqPTcbRAM3 * osqROM1 const osqROM2 osqROM3 oskQActivationQueues[osdNumberOfPriorities];
 osqROM0 extern osqROM1 const osqROM2 osQEntryCountType osqROM3 oskQMaxActivations[osdNumberOfPriorities];
 #if((CC == BCC2) || (CC == ECC2))
-   #if(osdNumberOfAllTasks > 0)
+#if(osdNumberOfAllTasks > 0)
       extern volatile osqTcbRAM1 osqTcbRAM2 osActivationCountType osqTcbRAM3 osTcbActivationCount[osdNumberOfAllTasks];
-   #else
+#else
       extern volatile osqTcbRAM1 osqTcbRAM2 osActivationCountType osqTcbRAM3 osTcbActivationCount[1];
-   #endif
+#endif
 #endif
 
 extern osqTcbRAM1 osqTcbRAM2 osCtrlVarType osqTcbRAM3 osCtrlVarsCore0;
@@ -179,9 +159,9 @@ extern osqTcbRAM1 osqTcbRAM2 osCtrlVarType osqTcbRAM3 osCtrlVarsCore0;
    extern osqTcbRAM1 volatile osqTcbRAM2 EventMaskType osqTcbRAM3 osTcbSetEventMask[osdNumberOfExtendedTasks];
 #endif
 #else
-   #if STATUS_LEVEL == EXTENDED_STATUS
+#if STATUS_LEVEL == EXTENDED_STATUS
       osqROM0 extern osqROM1 const osqROM2 osTaskFlagType osqROM3 oskTcbTaskFlags[1];
-   #endif
+#endif
 #if(osdNumberOfExtendedTasks > 0) || osdLib
       extern osqTcbRAM1 volatile osqTcbRAM2 EventMaskType osqTcbRAM3 osTcbSetEventMask[1];
 #endif
@@ -189,90 +169,90 @@ extern osqTcbRAM1 osqTcbRAM2 osCtrlVarType osqTcbRAM3 osCtrlVarsCore0;
 
 #if(osdNumberOfAllTasks > 0)
    extern osqTcbRAM1 volatile osqTcbRAM2 osTaskStateType osqTcbRAM3 osTcbTaskState[osdNumberOfAllTasks];
-   #if osdORTIDebug
+#if osdORTIDebug
     extern osqTcbRAM1 osqTcbRAM2 osPrioType osqTcbRAM3 osTcbActualPrio[osdNumberOfAllTasks];
     extern osqTcbRAM1 osqTcbRAM2 osuint8 osqTcbRAM3 osTcbORTIServiceId[osdNumberOfAllTasks];
-   #endif
-   #if STATUS_LEVEL == EXTENDED_STATUS
-    #if(osdNumberOfInternalResources > 0) || (osdNumberOfInterruptResources > 0)
+#endif
+#if STATUS_LEVEL == EXTENDED_STATUS
+#if(osdNumberOfInternalResources > 0) || (osdNumberOfInterruptResources > 0)
      extern osqTcbRAM1 osqTcbRAM2 osuint8 osqTcbRAM3 osTcbResourceCounter[osdNumberOfAllTasks];
-    #endif
-   #endif
+#endif
+#endif
 
 #else
    extern osqTcbRAM1 volatile osqTcbRAM2 osTaskStateType osqTcbRAM3 osTcbTaskState[1];
-   #if osdORTIDebug
+#if osdORTIDebug
    extern osqTcbRAM1 osqTcbRAM2 osPrioType osqTcbRAM3 osTcbActualPrio[1];
    extern osqTcbRAM1 osqTcbRAM2 osuint8 osqTcbRAM3 osTcbORTIServiceId[1];
-   #endif
+#endif
 
-   #if STATUS_LEVEL == EXTENDED_STATUS
-   #if(osdNumberOfInternalResources > 0) || (osdNumberOfInterruptResources > 0)
+#if STATUS_LEVEL == EXTENDED_STATUS
+#if(osdNumberOfInternalResources > 0) || (osdNumberOfInterruptResources > 0)
    extern osqTcbRAM1 osqTcbRAM2 osuint8 osqTcbRAM3 osTcbResourceCounter[1];
-   #endif
-   #endif
+#endif
+#endif
 #endif
 
 #if(osdNumberOfAllResources > 0)
-   #if((!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed)))
+#if((!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed)))
       extern osqTcbRAM1 osqTcbRAM2 osPrioType osqTcbRAM3 osResSavedPrio[osdNumberOfAllResources];
-   #endif
-   #if STATUS_LEVEL == EXTENDED_STATUS && ((!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed)))
+#endif
+#if STATUS_LEVEL == EXTENDED_STATUS && ((!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed)))
       extern osqTcbRAM1 osqTcbRAM2 osResCounterType osqTcbRAM3 osResOccupationCounter[osdNumberOfAllResources];
-   #endif
-   #if((STATUS_LEVEL == EXTENDED_STATUS) && osdEnableAssertions && ((!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed)))) || osdORTIDebug
+#endif
+#if((STATUS_LEVEL == EXTENDED_STATUS) && osdEnableAssertions && ((!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed)))) || osdORTIDebug
       extern osqTcbRAM1 osqTcbRAM2 TaskType osqTcbRAM3 osResActualTask[osdNumberOfAllResources];
-   #endif
+#endif
 
-   #if(!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed))
+#if(!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed))
       extern osqROM0 osqROM1 const osqROM2 osPrioType osqROM3 oskResCeilingPrio[osdNumberOfAllResources];
-   #endif
+#endif
 #else
-   #if((!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed)))
+#if((!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed)))
       extern osqTcbRAM1 osqTcbRAM2 osPrioType osqTcbRAM3 osResSavedPrio[1];
-   #endif
-   #if STATUS_LEVEL == EXTENDED_STATUS && ((!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed)))
+#endif
+#if STATUS_LEVEL == EXTENDED_STATUS && ((!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed)))
       extern osqTcbRAM1 osqTcbRAM2 osResCounterType osqTcbRAM3 osResOccupationCounter[1];
-   #endif
-   #if((STATUS_LEVEL == EXTENDED_STATUS) && osdEnableAssertions && ((!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed)))) || osdORTIDebug
+#endif
+#if((STATUS_LEVEL == EXTENDED_STATUS) && osdEnableAssertions && ((!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed)))) || osdORTIDebug
       extern osqTcbRAM1 osqTcbRAM2 TaskType osqTcbRAM3 osResActualTask[1];
-   #endif
+#endif
 
-   #if(!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed))
+#if(!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed))
    extern osqROM0 osqROM1 const osqROM2 osPrioType osqROM3 oskResCeilingPrio[1];
-   #endif
+#endif
 #endif
 #if(!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed))
- #if(osdNumberOfTaskResources > 0)
-   #if(osdRTSize > 1)
+#if(osdNumberOfTaskResources > 0)
+#if(osdRTSize > 1)
       extern osqROM0 osqROM1 const osqROM2 osPrioOffsetType osqROM3 oskResCeilingPrioOffset[osdNumberOfTaskResources];
-   #endif
+#endif
    extern osqROM0 osqROM1 const osqROM2 osPrioFlagType osqROM3 oskResCeilingPrioMask[osdNumberOfTaskResources];
- #else
-   #if(osdRTSize > 1)
+#else
+#if(osdRTSize > 1)
       extern osqROM0 osqROM1 const osqROM2 osPrioOffsetType osqROM3 oskResCeilingPrioOffset[1];
-   #endif
+#endif
    extern osqROM0 osqROM1 const osqROM2 osPrioFlagType osqROM3 oskResCeilingPrioMask[1];
- #endif
+#endif
 #endif
 
 #if(osdNumberOfInternalResources > 0)
    extern osqROM0 osqROM1 const osqROM2 osPrioType osqROM3 oskResInternalCeilingPrio[osdNumberOfAllTasks];
    extern osqROM0 osqROM1 const osqROM2 osPrioFlagType osqROM3 oskResInternalCeilingPrioMask[osdNumberOfAllTasks];
-   #if(osdRTSize > 1)
+#if(osdRTSize > 1)
       extern osqROM0 osqROM1 const osqROM2 osPrioOffsetType osqROM3 oskResInternalCeilingPrioOffset[osdNumberOfAllTasks];
-   #endif
+#endif
 #endif
 #if(osdNumberOfSemaphores > 0)
    extern osqTcbRAM1 osqTcbRAM2 osuint8 osqTcbRAM3 osSemaphoreState[osdNumberOfSemaphores];
-   #if(osdNumberOfExtendedTasks == 0) && osdLib
+#if(osdNumberOfExtendedTasks == 0) && osdLib
    extern osqTcbRAM1 volatile osqTcbRAM2 osSemaphoreType osqTcbRAM3 osTcbWaitForSemaphore[1];
-   #else
+#else
    extern osqTcbRAM1 volatile osqTcbRAM2 osSemaphoreType osqTcbRAM3 osTcbWaitForSemaphore[osdNumberOfExtendedTasks];
-   #endif
-   #if(osdKillTaskIsrPossible || (osdSC== SC3) || (osdSC== SC4))
+#endif
+#if(osdKillTaskIsrPossible || (osdSC== SC3) || (osdSC== SC4))
       extern osqTcbRAM1 volatile osqTcbRAM2 TaskType osqTcbRAM3 osSemaOwner[osdNumberOfSemaphores];
-   #endif
+#endif
 #endif
 
 #if osdLib
@@ -291,31 +271,26 @@ extern osqTcbRAM1 osqTcbRAM2 osCtrlVarType osqTcbRAM3 osCtrlVarsCore0;
 #define osrSystemTimer                oskSystemTimer
 #define osrNumberOfCounters           oskNumberOfCounters
 
-   extern const osRTSizeType               oskRTSize;
-   extern const osAppModeIndexType         oskNumberOfAppModes;
-   extern const osTaskIndexType            oskNumberOfAllTasks;
-   extern const osTaskIndexType            oskNumberOfExtendedTasks;
-   extern const osPrioType                 oskNumberOfPriorities;
-   extern const osResourceIndexType        oskNumberOfAllResources;
-   extern const osResourceIndexType        oskNumberOfTaskResources;
-   extern const osResourceIndexType        oskNumberOfInterruptResources;
-   extern const osResourceIndexType        oskNumberOfInternalResources;
-
-   extern const osAlarmIndexType           oskNumberOfAlarms;
-
-   extern const ScheduleTableType          oskNumberOfScheduleTables;
-   extern const osSemaphoreType            oskNumberOfSemaphores;
-   extern const CounterType                oskSystemTimer;
-   extern const CounterType                oskNumberOfCounters;
-
-   extern const TickType oskMaxAllowedValue;
-   extern const TickType oskTicksPerBase;
-   extern const TickType oskMinCycle;
-   extern const osuint8 oskAlarmAutoStart[];
-
-   extern const osuint8 oskTcbAutoStart[];
-
-   extern const osVersionVariantCodingType oskLibVersionVariant;
+extern const osRTSizeType               oskRTSize;
+extern const osAppModeIndexType         oskNumberOfAppModes;
+extern const osTaskIndexType            oskNumberOfAllTasks;
+extern const osTaskIndexType            oskNumberOfExtendedTasks;
+extern const osPrioType                 oskNumberOfPriorities;
+extern const osResourceIndexType        oskNumberOfAllResources;
+extern const osResourceIndexType        oskNumberOfTaskResources;
+extern const osResourceIndexType        oskNumberOfInterruptResources;
+extern const osResourceIndexType        oskNumberOfInternalResources;
+extern const osAlarmIndexType           oskNumberOfAlarms;
+extern const ScheduleTableType          oskNumberOfScheduleTables;
+extern const osSemaphoreType            oskNumberOfSemaphores;
+extern const CounterType                oskSystemTimer;
+extern const CounterType                oskNumberOfCounters;
+extern const TickType oskMaxAllowedValue;
+extern const TickType oskTicksPerBase;
+extern const TickType oskMinCycle;
+extern const osuint8 oskAlarmAutoStart[];
+extern const osuint8 oskTcbAutoStart[];
+extern const osVersionVariantCodingType oskLibVersionVariant;
 
 #else
 #define osrRTSize                      osdRTSize
@@ -331,7 +306,6 @@ extern osqTcbRAM1 osqTcbRAM2 osCtrlVarType osqTcbRAM3 osCtrlVarsCore0;
 #define osrNumberOfScheduleTables      osdNumberOfScheduleTables
 #define osrNumberOfSemaphores          osdNumberOfSemaphores
 #define osrNumberOfCounters            osdNumberOfCounters
-
 #endif
 
 osqROM0 extern osStackPtrType osqROM1 const osqROM2 osqROM3  oskSystemStackTop;
@@ -500,11 +474,8 @@ osqROM0 extern osAlarmCallbackType osqROM1 const osqROM2 osqROM3 oskAlarmCallbac
 osqROM0 extern osqROM1 const osqROM2 CounterType osqROM3 oskAlarmIncrementCounterID[osdNumberOfAlarms];
 #endif
 
-#pragma ghs startdata
-
 extern osuint32 osExceptionVectorTable_c0[];
 extern osuint32 osEIINTVectorTable_c0[];
-#pragma ghs enddata
 
 #if(osdKillTaskIsrPossible || (osdSC== SC3) || (osdSC== SC4))
 #if(osdNumberOfAllTasks > 0)
@@ -517,10 +488,10 @@ extern osuint32 osEIINTVectorTable_c0[];
 #define RES_SCHEDULER ((ResourceType)0)
 
 #if(STATUS_LEVEL == EXTENDED_STATUS) && osdEnableAssertions
- #if((!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed)))
+#if((!defined(osdGetResourceNotUsed)) || (!defined(osdReleaseResourceNotUsed)))
 osqROM0 extern osqROM1 const osqROM2 osResAccessMaskType osqROM3 oskResAccessMask[osdNumberOfAllResources][1];
 
- #endif
+#endif
 #endif
 
 #if(osdKillTaskIsrPossible || (osdSC == SC3) || (osdSC == SC4))
@@ -535,11 +506,6 @@ osqROM0 extern osqROM1 const osqROM2 osResAccessMaskType osqROM3 oskResAccessMas
 #endif
 
 #define OSMAXALLOWEDVALUE_SystemTimer 0x7fffffffUL
-
 #define OSMINCYCLE_SystemTimer 1
-
 #define OSTICKSPERBASE_SystemTimer 40000
-
 #define OSSECONDSPERTICK_SystemTimer 0.00100000
-
-#endif

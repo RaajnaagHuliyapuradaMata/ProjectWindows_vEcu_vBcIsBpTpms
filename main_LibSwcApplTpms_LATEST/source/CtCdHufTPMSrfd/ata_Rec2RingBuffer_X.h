@@ -16,7 +16,7 @@
 #define cMODE2_TEL_IN_BUFFER   (uint8) 0x20
 #define cSAVE_MODE2_ONLY       (uint8) 0x40
 
-typedef struct {
+typedef struct{
     uint32 ulTimeInMsec;
     uint8  ucByte[RB_DATA_LEN];
      uint8  ucRssiNoise;
@@ -43,5 +43,4 @@ extern uint8 ui8GetComptoirRepare(void);
 extern uint8 ui8GetErrorCnt(void);
 extern uint8 ui8GetAtaErrRecNVM(void);
 extern void PutAtaErrRecNVM(uint8);
-
 #endif

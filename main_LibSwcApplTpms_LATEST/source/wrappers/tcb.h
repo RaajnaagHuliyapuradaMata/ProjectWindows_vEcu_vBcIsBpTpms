@@ -3,17 +3,17 @@
 #if ! defined __TCB_H__
 #define __TCB_H__
 #if defined USE_QUOTE_INCLUDES
- #include "vrm.h"
+#include "vrm.h"
 #else
- #include <vrm.h>
+#include <vrm.h>
 #endif
 
 #define osdVrmGenMajRelNum 1
 #define osdVrmGenMinRelNum 1
 #if defined USE_QUOTE_INCLUDES
- #include "vrm.h"
+#include "vrm.h"
 #else
- #include <vrm.h>
+#include <vrm.h>
 #endif
 
 #define osdNumberOfAlarmsOnHiResCounter 0
@@ -149,26 +149,25 @@
 
 #if osdProtectionHook
 
- #if(osdTimingProtectionUsed && osdProtReactKillTaskIsrAllowed)
+#if(osdTimingProtectionUsed && osdProtReactKillTaskIsrAllowed)
 #define osdKillTaskIsrPossible 1
- #endif
+#endif
 
- #if((osdSC == SC4) && (defined osdTimingProtectionUsed) && (osdProtReactKillApplAllowed || osdProtReactKillApplRestAllowed))
-  #ifndef osdKillTaskIsrPossible
+#if((osdSC == SC4) && (defined osdTimingProtectionUsed) && (osdProtReactKillApplAllowed || osdProtReactKillApplRestAllowed))
+#ifndef osdKillTaskIsrPossible
 #define osdKillTaskIsrPossible 1
-  #endif
+#endif
 #define osdKillApplPossible 1
- #endif
-
+#endif
 #endif
 
 #if((osdSC == SC3) || (osdSC == SC4)) && (!defined osdTerminateApplicationNotUsed)
- #ifndef osdKillTaskIsrPossible
+#ifndef osdKillTaskIsrPossible
 #define osdKillTaskIsrPossible 1
- #endif
- #ifndef osdKillApplPossible
+#endif
+#ifndef osdKillApplPossible
 #define osdKillApplPossible 1
- #endif
+#endif
 #endif
 
 #ifndef osdKillTaskIsrPossible
@@ -180,5 +179,4 @@
 #endif
 
 #define osdNumberOfProcesses (osdNumberOfAllTasks+osdNumberOfCat2ISRs)
-
 #endif

@@ -16,5 +16,4 @@ FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_GetOperatingHours( P2VAR(uint32, AU
 
 #define OHDS_STOP_SEC_CODE
 #include "MemMap.h"
-
 #endif
