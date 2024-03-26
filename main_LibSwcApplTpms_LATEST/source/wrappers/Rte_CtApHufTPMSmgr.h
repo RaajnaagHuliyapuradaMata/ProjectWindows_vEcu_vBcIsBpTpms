@@ -85,7 +85,7 @@ FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_P_WakeupRsn_TPM_WakeupRs
 #ifndef RTE_CORE
 #define Rte_Read_PP_RfStructIn_DE_auRfStruct Rte_Read_CtApHufTPMSmgr_PP_RfStructIn_DE_auRfStruct
 #define Rte_Read_PP_WAState_DE_ushWAState Rte_Read_CtApHufTPMSmgr_PP_WAState_DE_ushWAState
-#define Rte_Read_CtApHufTPMSmgr_PP_WAState_DE_ushWAState(data) (*(data) = Rte_CpApHufTPMSwpa_PP_WAState_DE_ushWAState, ((Std_ReturnType)RTE_E_OK))
+#define Rte_Read_CtApHufTPMSmgr_PP_WAState_DE_ushWAState(data) (*(data) = Rte_CpApHufTPMSwpa_PP_WAState_DE_ushWAState/*, ((Std_ReturnType)RTE_E_OK)*/)
 #define Rte_Read_PP_WarnOut_DE_ushWarnOut Rte_Read_CtApHufTPMSmgr_PP_WarnOut_DE_ushWarnOut
 #define Rte_Read_CtApHufTPMSmgr_PP_WarnOut_DE_ushWarnOut(data) (*(data) = Rte_CpApHufTPMSwnh_PP_WarnOut_DE_ushWarnOut, ((Std_ReturnType)RTE_E_OK))
 #define Rte_Read_R_AirPress_Outsd_AirPress_Outsd Rte_Read_CtApHufTPMSmgr_R_AirPress_Outsd_AirPress_Outsd
@@ -113,100 +113,99 @@ FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_P_WakeupRsn_TPM_WakeupRs
 #define Rte_Write_P_WakeupRsn_TPM_WakeupRsn_TPM Rte_Write_CtApHufTPMSmgr_P_WakeupRsn_TPM_WakeupRsn_TPM
 
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_ReceiveData2Alloc_Operation(P2CONST(DT_tData2Alloc, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_DATA) tData2Alloc);
+#define Rte_Call_PP_Data2Walloc_OP_SendData2Walloc(arg1) (RCtApHufTPMSwpa_ReceiveData2Alloc_Operation(arg1)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_Data2Walloc_OP_SendData2Walloc(arg1) (RCtApHufTPMSwpa_ReceiveData2Alloc_Operation(arg1), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWNH_APPL_CODE) RCtApHufTPMSwnh_ReceiveData2Warn_Operatation(P2CONST(DT_tData2Warn, AUTOMATIC, RTE_CTAPHUFTPMSWNH_APPL_DATA) tData2Warn);
+#define Rte_Call_PP_Data2Warn_OP_SendTelData2WarnHdlr(arg1) (RCtApHufTPMSwnh_ReceiveData2Warn_Operatation(arg1)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_Data2Warn_OP_SendTelData2WarnHdlr(arg1) (RCtApHufTPMSwnh_ReceiveData2Warn_Operatation(arg1), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetRecHistIDs_Operation(P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucRecHistID);
-
 #define Rte_Call_PP_GetRecHistIDs_OP_GetRecHistIDs(arg1) (RCtApHufTPMSwpa_GetRecHistIDs_Operation(arg1), ((Std_ReturnType)RTE_E_OK))
+
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetHistID_Operation(UInt8 ucCol, P2VAR(UInt32, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ulID);
-
 #define Rte_Call_PP_GetWANonVolatileData_OP_GetHistID(arg1, arg2) (RCtApHufTPMSwpa_GetHistID_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
+
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetHistWPOfID_Operation(UInt32 ulID, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucZomPos);
+#define Rte_Call_PP_GetWANonVolatileData_OP_GetHistWPOfID(arg1, arg2) (RCtApHufTPMSwpa_GetHistWPOfID_Operation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetWANonVolatileData_OP_GetHistWPOfID(arg1, arg2) (RCtApHufTPMSwpa_GetHistWPOfID_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetHistWPOfCol_Operation(UInt8 ucCol, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucWP);
-
 #define Rte_Call_PP_GetWANonVolatileData_OP_GetWPOfCol(arg1, arg2) (RCtApHufTPMSwpa_GetHistWPOfCol_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
+
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetWaTOErrorCode_Operation(P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucWaToErr, UInt8 ucColOfID);
-
 #define Rte_Call_PP_GetWaTOErrorCode_OP_GetWaTOErrorCode(arg1, arg2) (RCtApHufTPMSwpa_GetWaTOErrorCode_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
+
 FUNC(void, RTE_CTAPHUFTPMSWNH_APPL_CODE) RCtApHufTPMSwnh_GETaucWheelPosWarn_Operation(UInt8 pos, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWNH_APPL_VAR) ucWheelPosWarn);
-
 #define Rte_Call_PP_GetWarningVectors_OP_GETaucWheelPosWarn(arg1, arg2) (RCtApHufTPMSwnh_GETaucWheelPosWarn_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
+
 FUNC(void, RTE_CTAPHUFTPMSWNH_APPL_CODE) RCtApHufTPMSwnh_GETucHiWarnstatus1WN_Operation(P2VAR(UInt16, AUTOMATIC, RTE_CTAPHUFTPMSWNH_APPL_VAR) ushWarnOUtTM);
-
 #define Rte_Call_PP_GetWarningVectors_OP_GETushWarnstatus1WN(arg1) (RCtApHufTPMSwnh_GETucHiWarnstatus1WN_Operation(arg1), ((Std_ReturnType)RTE_E_OK))
+
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsSumCorrFL_Operation(UInt8 ucIdx, P2VAR(UInt16, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ushAbsSumCorr);
+#define Rte_Call_PP_GetZomData_OP_GetAbsSumCorrFL(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsSumCorrFL_Operation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetZomData_OP_GetAbsSumCorrFL(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsSumCorrFL_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsSumCorrFR_Operation(UInt8 ucIdx, P2VAR(UInt16, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ushAbsSumCorr);
+#define Rte_Call_PP_GetZomData_OP_GetAbsSumCorrFR(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsSumCorrFR_Operation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetZomData_OP_GetAbsSumCorrFR(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsSumCorrFR_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsSumCorrRL_Operation(UInt8 ucIdx, P2VAR(UInt16, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ushAbsSumCorr);
+#define Rte_Call_PP_GetZomData_OP_GetAbsSumCorrRL(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsSumCorrRL_Operation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetZomData_OP_GetAbsSumCorrRL(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsSumCorrRL_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsSumCorrRR_Operation(UInt8 ucIdx, P2VAR(UInt16, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ushAbsSumCorr);
+#define Rte_Call_PP_GetZomData_OP_GetAbsSumCorrRR(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsSumCorrRR_Operation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetZomData_OP_GetAbsSumCorrRR(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsSumCorrRR_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsCompFL_Operation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucAbsCompStick);
+#define Rte_Call_PP_GetZomData_OP_GetZomAbsCompFL(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsCompFL_Operation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetZomData_OP_GetZomAbsCompFL(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsCompFL_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsCompFR_Operation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucAbsCompStick);
+#define Rte_Call_PP_GetZomData_OP_GetZomAbsCompFR(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsCompFR_Operation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetZomData_OP_GetZomAbsCompFR(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsCompFR_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsCompRL_Operation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucAbsCompStick);
+#define Rte_Call_PP_GetZomData_OP_GetZomAbsCompRL(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsCompRL_Operation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetZomData_OP_GetZomAbsCompRL(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsCompRL_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsCompRR_Operation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucAbsCompStick);
+#define Rte_Call_PP_GetZomData_OP_GetZomAbsCompRR(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsCompRR_Operation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetZomData_OP_GetZomAbsCompRR(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsCompRR_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsLinFL_Operation(UInt8 ucIdx, P2VAR(UInt16, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ushAbsLinStick);
+#define Rte_Call_PP_GetZomData_OP_GetZomAbsLinFL(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsLinFL_Operation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetZomData_OP_GetZomAbsLinFL(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsLinFL_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsLinFR_Operation(UInt8 ucIdx, P2VAR(UInt16, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ushAbsLinStick);
+#define Rte_Call_PP_GetZomData_OP_GetZomAbsLinFR(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsLinFR_Operation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetZomData_OP_GetZomAbsLinFR(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsLinFR_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsLinRL_Operation(UInt8 ucIdx, P2VAR(UInt16, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ushAbsLinStick);
+#define Rte_Call_PP_GetZomData_OP_GetZomAbsLinRL(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsLinRL_Operation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetZomData_OP_GetZomAbsLinRL(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsLinRL_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomAbsLinRR_Operation(UInt8 ucIdx, P2VAR(UInt16, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ushAbsLinStick);
+#define Rte_Call_PP_GetZomData_OP_GetZomAbsLinRR(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsLinRR_Operation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetZomData_OP_GetZomAbsLinRR(arg1, arg2) (RCtApHufTPMSwpa_GetZomAbsLinRR_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomID_Operation(UInt8 ucIdx, P2VAR(UInt32, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucZomID);
-
 #define Rte_Call_PP_GetZomData_OP_GetZomID(arg1, arg2) (RCtApHufTPMSwpa_GetZomID_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
+
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomPosOfID_Operation(UInt32 ulID, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucPos);
+#define Rte_Call_PP_GetZomData_OP_GetZomPosOfID(arg1, arg2) (RCtApHufTPMSwpa_GetZomPosOfID_Operation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetZomData_OP_GetZomPosOfID(arg1, arg2) (RCtApHufTPMSwpa_GetZomPosOfID_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomStatisticTelCtr_Opetation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucRetVal);
+#define Rte_Call_PP_GetZomData_OP_GetZomStatisticTelCounter(arg1, arg2) (RCtApHufTPMSwpa_GetZomStatisticTelCtr_Opetation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetZomData_OP_GetZomStatisticTelCounter(arg1, arg2) (RCtApHufTPMSwpa_GetZomStatisticTelCtr_Opetation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomStatus_Operation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucZomStatus);
+#define Rte_Call_PP_GetZomData_OP_GetZomStatus(arg1, arg2) (RCtApHufTPMSwpa_GetZomStatus_Operation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetZomData_OP_GetZomStatus(arg1, arg2) (RCtApHufTPMSwpa_GetZomStatus_Operation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomToothTelCtCorrLearnBit_Opetation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucRetVal);
+#define Rte_Call_PP_GetZomData_OP_GetZomToothTelCtCorrLearnBit(arg1, arg2) (RCtApHufTPMSwpa_GetZomToothTelCtCorrLearnBit_Opetation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetZomData_OP_GetZomToothTelCtCorrLearnBit(arg1, arg2) (RCtApHufTPMSwpa_GetZomToothTelCtCorrLearnBit_Opetation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomToothTelCtCorrNoLearnBit_Opetation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucRetVal);
+#define Rte_Call_PP_GetZomData_OP_GetZomToothTelCtCorrNoLearnBit(arg1, arg2) (RCtApHufTPMSwpa_GetZomToothTelCtCorrNoLearnBit_Opetation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetZomData_OP_GetZomToothTelCtCorrNoLearnBit(arg1, arg2) (RCtApHufTPMSwpa_GetZomToothTelCtCorrNoLearnBit_Opetation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomToothTelCtNoCorr_Opetation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucRetVal);
+#define Rte_Call_PP_GetZomData_OP_GetZomToothTelCtrNoCorr(arg1, arg2) (RCtApHufTPMSwpa_GetZomToothTelCtNoCorr_Opetation(arg1, arg2)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PP_GetZomData_OP_GetZomToothTelCtrNoCorr(arg1, arg2) (RCtApHufTPMSwpa_GetZomToothTelCtNoCorr_Opetation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_CTAPHUFTPMSWPA_APPL_CODE) RCtApHufTPMSwpa_GetZomToothTelCtCorrNoLearnMode_Opetation(UInt8 ucIdx, P2VAR(UInt8, AUTOMATIC, RTE_CTAPHUFTPMSWPA_APPL_VAR) ucRetVal);
-
 #define Rte_Call_PP_GetZomData_OP_GetZomToothTelCtrNoLearnMode(arg1, arg2) (RCtApHufTPMSwpa_GetZomToothTelCtCorrNoLearnMode_Opetation(arg1, arg2), ((Std_ReturnType)RTE_E_OK))
+
 FUNC(void, RTE_NVM_APPL_CODE) NvM_GetErrorStatus(NvM_BlockIdType parg0, P2VAR(NvM_RequestResultType, AUTOMATIC, RTE_NVM_APPL_VAR) ErrorStatus);
+#define Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSmgr_Pim_tCalNvMBlock_GetErrorStatus(arg1) (NvM_GetErrorStatus((NvM_BlockIdType)17, arg1)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
-#define Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSmgr_Pim_tCalNvMBlock_GetErrorStatus(arg1) (NvM_GetErrorStatus((NvM_BlockIdType)17, arg1), ((Std_ReturnType)RTE_E_OK))
 FUNC(void, RTE_NVM_APPL_CODE) NvM_SetRamBlockStatus(NvM_BlockIdType parg0, Boolean RamBlockStatus);
-
-#define Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSmgr_Pim_tCalNvMBlock_SetRamBlockStatus(arg1) (NvM_SetRamBlockStatus((NvM_BlockIdType)17, arg1), ((Std_ReturnType)RTE_E_OK))
-#define Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSmgr_Pim_tCodNvMBlock_GetErrorStatus(arg1) (NvM_GetErrorStatus((NvM_BlockIdType)18, arg1), ((Std_ReturnType)RTE_E_OK))
-#define Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSmgr_Pim_tCodNvMBlock_SetRamBlockStatus(arg1) (NvM_SetRamBlockStatus((NvM_BlockIdType)18, arg1), ((Std_ReturnType)RTE_E_OK))
+#define Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSmgr_Pim_tCalNvMBlock_SetRamBlockStatus(arg1) (NvM_SetRamBlockStatus((NvM_BlockIdType)17, arg1)/*, ((Std_ReturnType)RTE_E_OK)*/)
+#define Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSmgr_Pim_tCodNvMBlock_GetErrorStatus(arg1) (NvM_GetErrorStatus((NvM_BlockIdType)18, arg1)/*, ((Std_ReturnType)RTE_E_OK)*/)
+#define Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSmgr_Pim_tCodNvMBlock_SetRamBlockStatus(arg1) (NvM_SetRamBlockStatus((NvM_BlockIdType)18, arg1)/*, ((Std_ReturnType)RTE_E_OK)*/)
 
 #ifdef RTE_PTR2ARRAYBASETYPE_PASSING
 FUNC(Std_ReturnType, RTE_NVM_APPL_CODE) NvM_WriteBlock(NvM_BlockIdType parg0, P2CONST(UInt8, AUTOMATIC, RTE_NVM_APPL_DATA) DstPtr);

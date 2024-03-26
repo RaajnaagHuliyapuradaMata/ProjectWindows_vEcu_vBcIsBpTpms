@@ -1,4 +1,4 @@
-
+#include "Std_Types.hpp"
 
 #include "Trace.h"
 #include "HMI_handlerX.h"
@@ -14,33 +14,36 @@
 #include "state_fdX.h"
 #include "internal_clockX.h"
 #include "Rte_CtApHufTPMSmgr.h"
- extern uint8 ucEspDelayTime;
+
+extern VAR(uint32, OHDS_VAR_NOINIT) OHDSCanSlave_OperatingHours_Low_t2s;
+extern VAR(uint32, OHDS_VAR_NOINIT) OHDSCanSlave_OperatingHours_t2s_us;
+extern VAR(uint8,  OHDS_VAR_NOINIT) OHDSCanSlave_StatusByte_t2s;
+extern VAR(uint8,  OHDS_VAR_NOINIT) OHDSCanSlave_OperatingHours_High_t2s;
+
 extern DT_tEnvData tEnvDataToSend;
-extern uint8 ucRvsGearCnt;
-extern uint8 ucNoiseLevel;
+extern uint8       ucEspDelayTime;
+extern uint8       ucRvsGearCnt;
+extern uint8       ucNoiseLevel;
 
-extern VAR(uint8, OHDS_VAR_NOINIT)                           OHDSCanSlave_StatusByte_t2s;
+debugTelStruct     tDebugTelStruct;
+debugEnvDataStruct tDebugEnvDataStruct;
+debugTelStructPos  tdebugTelStructPosFL;
+debugTelStructPos  tdebugTelStructPosFR;
+debugTelStructPos  tdebugTelStructPosRL;
+debugTelStructPos  tdebugTelStructPosRR;
 
-extern VAR(uint8, OHDS_VAR_NOINIT)                           OHDSCanSlave_OperatingHours_High_t2s;
+static DT_HufDisplay tHufDisplayMsgBuf[MAX_SIZE_DISP_BUF];
+static uint16        ushReadCounter  = 0;
+static uint16        ushWriteCounter = 0;
 
-extern VAR(uint32, OHDS_VAR_NOINIT)                          OHDSCanSlave_OperatingHours_Low_t2s;
+extern uint8 ui8GetAtaErrRecNVM (void);
+extern uint8 ui8GetErrorCnt     (void);
+static void  putData2Queue      (DT_HufDisplay tHufDisplay);
 
-extern VAR(uint32, OHDS_VAR_NOINIT)                          OHDSCanSlave_OperatingHours_t2s_us;
-
-debugTelStruct tDebugTelStruct;
- debugEnvDataStruct tDebugEnvDataStruct;
- debugTelStructPos tdebugTelStructPosFL;
-debugTelStructPos tdebugTelStructPosFR;
-debugTelStructPos tdebugTelStructPosRL;
-debugTelStructPos tdebugTelStructPosRR;
-
-extern uint8 ui8GetAtaErrRecNVM(void);
-extern uint8 ui8GetErrorCnt(void);
-
-void tracerInit(){
+void tracerInit(void){
    uint16 i;
    ushReadCounter = 0;
-  ushWriteCounter = 0;
+   ushWriteCounter = 0;
 
    for(i=0;i<sizeof(debugEnvDataStruct);i++){
       *((uint8*)&tDebugEnvDataStruct + i) = 0;
@@ -60,7 +63,6 @@ void tracerInit(){
 }
 
 void TracePutTelWallocData2Queue(debutTelWallocStruct* tDebugStruct){
-
    DT_HufDisplay tHufDisplay;
 
    tHufDisplay.Byte0 = (DT_HufDisplayByte) 20;

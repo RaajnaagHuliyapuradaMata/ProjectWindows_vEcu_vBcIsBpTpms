@@ -198,12 +198,6 @@ typedef struct{
   uint8 ucEcuLoBatCnt;
 }debugTelStructPos;
 
-static uint16   ushReadCounter=0;
-static uint16   ushWriteCounter=0;
-static DT_HufDisplay tHufDisplayMsgBuf[MAX_SIZE_DISP_BUF];
-
-static void putData2Queue(DT_HufDisplay tHufDisplay);
-
 void tracerInit(void);
 void GetDebugVar2beLogged(void);
 void TracePutEnvDataStr2Queue(debugEnvDataStruct* tDebugEnvDataStruct);

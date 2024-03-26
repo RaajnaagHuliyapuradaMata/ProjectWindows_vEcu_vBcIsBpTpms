@@ -158,9 +158,7 @@ void InitABS( void ){
   ushCumAbsStickDiffOffset = 0;
 }
 
-uint8 bCarAbsStickStandstill()
-
-{
+uint8 bCarAbsStickStandstill(void){
    if(ushAbsStickDiff200msOffset < 1)
       return 1;
 
@@ -169,9 +167,7 @@ uint8 bCarAbsStickStandstill()
 
 }
 
-uint8 bResetAbsRefPoint()
-
-{
+uint8 bResetAbsRefPoint(void){
    if(ushCumAbsStickDiffOffset < (8*20/cAbsSignalPeriodicity)){
       return 0;
    }

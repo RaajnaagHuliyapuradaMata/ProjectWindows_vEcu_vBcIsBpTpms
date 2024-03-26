@@ -67,7 +67,7 @@ extern FUNC(Std_ReturnType, ECUM_API_CODE) EcuM_GetState(P2VAR(EcuM_StateType, A
 
 extern void Dem_SetEventExData(uint8);
 
- void BuildTelStatistics(uint32 ulTelID, uint8 ucTelP, uint8 ucTelT, uint32 ulTime, boolean bSensorDefect){
+void BuildTelStatistics(uint32 ulTelID, uint8 ucTelP, uint8 ucTelT, uint32 ulTime, boolean bSensorDefect){
    if( !bSensorDefect){
      if(ucGetColOfID(&ulTelID) < cMaxLR){
        IncrementRxBlocksSum(ucGetColOfID(&ulTelID));
@@ -419,7 +419,7 @@ extern void Dem_SetEventExData(uint8);
    }
  }
 
- void ClearTelStatisticsStruct(uint8 ucPosMask){
+void ClearTelStatisticsStruct(uint8 ucPosMask){
    uint8 i;
    for(i=0; i<cMaxLR; i++){
      if(ucPosMask & (1<<i)){

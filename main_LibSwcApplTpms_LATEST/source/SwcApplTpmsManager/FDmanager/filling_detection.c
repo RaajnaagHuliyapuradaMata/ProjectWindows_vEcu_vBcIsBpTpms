@@ -597,12 +597,9 @@ uint8 ucTmpPiso4Cal;
 }
 
 void FD_AbortFillingDetection(uint8 ucNotAckState){
-
    if((bGetBitBetriebszustandBZ(cCAL_FINISH) != TRUE)){
-
       SetBitBetriebszustandBZ(cCAL_FINISH);
       ClearBitBetriebszustandBZ(cCAL_REQUEST);
-
         if(ucNotAckState == cCAL_P_MIN_TIRE_NAK){
          SetState2AbortReasonFD(cFD_P_MIN_TIRE);
          ClearKplNoCheckPmin4StopFD();
