@@ -49,7 +49,7 @@ void HufE2EWrapperInit(void){
     return ucRetVal;
  }
 
- uint8 ucHufE2EWrapperProtectTireState2(uint8* data){
+uint8 ucHufE2EWrapperProtectTireState2(uint8* data){
     uint8 ucRetVal;
     uint8 aucTempData[2];
 

@@ -1,3 +1,14 @@
+/******************************************************************************/
+/* File              : filling_detection.c                                    */
+/* Author            : Nagaraja HULIYAPURADA MATA                             */
+/* Copyright (c)2024 : All rights reserved.                                   */
+/******************************************************************************/
+
+/******************************************************************************/
+/*#includeS                                                                  */
+/******************************************************************************/
+#include "Std_Types.hpp"
+
 #include "filling_detection.h"
 #include "Rte_CtApHufTPMSmgr.h"
 #include "HMI_handlerX.h"
@@ -17,242 +28,281 @@
 #include "tel_statisticX.h"
 #include "CtCdHufTPMSdia.h"
 
+/******************************************************************************/
+/* #DEFINES                                                                   */
+/******************************************************************************/
 #define cFD_TIME_OUT  540
 #define cFD_MIN_TIME4RESTART_AFD 420
-void FillingDetectionMFD(uint8);
-void FillingDetectionAFDII(void);
-void FillingDetectionAFDIII(uint8);
 
-void FD_AbortFillingDetection(uint8);
+/******************************************************************************/
+/* MACROS                                                                     */
+/******************************************************************************/
+
+/******************************************************************************/
+/* TYPEDEFS                                                                   */
+/******************************************************************************/
+
+/******************************************************************************/
+/* CONSTS                                                                     */
+/******************************************************************************/
+
+/******************************************************************************/
+/* PARAMS                                                                     */
+/******************************************************************************/
+
+/******************************************************************************/
+/* OBJECTS                                                                    */
+/******************************************************************************/
+extern DT_tEnvData tEnvDataToSend;
+
+uint16 uiStoragePaverege4CompareValue[4];
+uint8  ucDpStabiPressure[4];
+uint8  ucIdCalPressure[4];
+sint8  scIdCalTemperatur[4];
+uint16 ushZomTioFreez;
+uint8  ucCnt4DP_FILL_DFL;
+uint8  ucCnt4DP_FILL_IFL;
+uint8  ucFDcheckP2PosOk;
+uint8  ucLockByt4DFL_LTS;
+uint8  ucNoCheckPmin4StopFD;
+uint8  ucPfillFront;
+uint8  ucPfillRear;
+uint8  ucReCntHL4FD;
+uint8  ucReCntHR4FD;
+uint8  ucReCntVL4FD;
+uint8  ucReCntVR4FD;
+uint8  ucRePosStorageHL4FD;
+uint8  ucRePosStorageHR4FD;
+uint8  ucRePosStorageVL4FD;
+uint8  ucRePosStorageVR4FD;
+uint8  ucStoreCompValueHL;
+uint8  ucStoreCompValueHR;
+uint8  ucStoreCompValueVL;
+uint8  ucStoreCompValueVR;
+sint8  scTfill;
+
+/******************************************************************************/
+/* FUNCTIONS                                                                  */
+/******************************************************************************/
+uint16 GETuiStoragePaverege4CompareValue(uint8);
+uint16 GETushZomTioFreeze(void);
+uint8  bGETucCalNotAckState(uint8);
+uint8  bGETucCalRequestState(uint8);
+uint8  FD_CheckCurrentPmin(void);
+uint8  FD_CheckFDpos2ZomPosAfterZOfinish(void);
+uint8  FD_CheckHistPos(void);
+uint8  FD_CheckP4AFDstartReason2_3FA( uint8, uint8, sint8, uint8);
+uint8  FD_CheckP4AFDstartReason2_3RA( uint8, uint8, sint8, uint8);
+uint8  FD_FlowChartFct1(void);
+uint8  FD_FlowChartFct1CheckMissingRE(void);
+uint8  FD_FlowChartFct1CheckPmin(void);
+uint8  FD_LoadIdValues4MFD(void);
+uint8  FD_LoadIdValues4UpdateCompareValue(void);
+uint8  FD_Plausibility_CheckP4DPLR_DPABS(uint8,uint8,uint8,uint8);
+uint8  FD_TimeoutHandle4AFD(void);
+uint8  FD_UpdateComparePressureAfterFBM(void);
+uint8  FD_UpdateIDvalue4MFD(void);
+uint8  GetP4NewTempAtCAL(uint8, sint8, sint8);
+uint8  GetPabs4NewTempAtCAL(uint8, sint8, sint8);
+uint8  GETucCalNotAckStateOfRam(void);
+uint8  GETucCalRequestStateOfRam(void);
+uint8  GETucCnt4DP_FILL_DFL(void);
+uint8  GETucCnt4DP_FILL_DFL4LTSlogged(void);
+uint8  GETucCnt4DP_FILL_DFLloggedFL(void);
+uint8  GETucCnt4DP_FILL_DFLloggedFR(void);
+uint8  GETucCnt4DP_FILL_DFLloggedRL(void);
+uint8  GETucCnt4DP_FILL_DFLloggedRR(void);
+uint8  GETucCnt4DP_FILL_IFL(void);
+uint8  GETucCnt4DP_FILL_IFLloggedFL(void);
+uint8  GETucCnt4DP_FILL_IFLloggedFR(void);
+uint8  GETucCnt4DP_FILL_IFLloggedRL(void);
+uint8  GETucCnt4DP_FILL_IFLloggedRR(void);
+uint8  GETucDFL_LTS3(void);
+uint8  GETucDpStabiPressure( uint8 i);
+uint8  GETucFDcheckP2PosOk(void);
+uint8  GETucIdCalPressure( uint8 i);
+uint8  GETucNoCheckPmin4StopFD(void);
+uint8  GETucPfillFront(void);
+uint8  GETucPfillRear(void);
+uint8  GETucPrefFront(void);
+uint8  GETucPrefRear(void);
+uint8  GETucStoragePaverege4CompareValue(uint8);
+uint8  ucCheckPminDPautoAFD(uint8);
+sint8  GETscIdCalTemperatur(uint8 i);
+sint8  GETscTfill(void);
+sint8  GETscTref(void);
+void   FD_CheckResetCondition4ImplausiMsg(uint8,uint8,uint8,uint8);
+void   BZ_FZZ_RQ_State4AFD_Finish(void);
+void   ClearBitCalNotAckState(uint8);
+void   ClearBitCalRequestState(uint8);
+void   ClearBitInNoCheckPmin4StopFD(uint8);
+void   ClearCalNotAckState(void);
+void   ClearCalNotAckState4MFD(void);
+void   ClearCalRequestStateAtMFDfinish(void);
+void   ClearFDcheckP2PosOk(void);
+void   ClearKplNoCheckPmin4StopFD(void);
+void   DECucFDcheckP2PosOk(void);
+void   FD_AbortFillingDetection(uint8);
+void   FD_AfdStopp4PWP(void);
+void   FD_Check3ReAndUpdatePifWarnLampOnOffDefOrInf2Re4FinishedAFD(void);
+void   FD_Check3RePlausiSetMilage4FinishedMFD(void);
+void   FD_HandleReceivedReRadPosHL4AFD(uint8,sint8,uint8,uint8);
+void   FD_HandleReceivedReRadPosHR4AFD(uint8,sint8,uint8,uint8);
+void   FD_HandleReceivedReRadPosVL4AFD(uint8,sint8,uint8,uint8);
+void   FD_HandleReceivedReRadPosVR4AFD(uint8,sint8,uint8,uint8);
+void   FD_PlausibilityCheckMFD( sint8);
+void   FD_UnplausibleMFD(void);
+void   FD_UpdateComparePressureAtWarning(uint8);
+void   FD_UpdatePressure4AfdWarnLampOFF(uint8 , uint8, sint8 );
+void   FD_UpdatePressure4AfdWarnLampON(uint8, sint8 );
+void   FillingDetectionAFDII(void);
+void   FillingDetectionAFDIII(uint8);
+void   FillingDetectionMFD(uint8);
+void   INCucCnt4DP_FILL_DFL(void);
+void   INCucCnt4DP_FILL_IFL(void);
+void   InitRePosStorage4FD(void);
+void   PUTscIdCalTemperatur(sint8 x, uint8 i);
+void   PUTscTfill(sint8);
+void   PUTscTref(sint8);
+void   PUTucCalNotAckState2Ram(uint8);
+void   PUTucCalRequestState2Ram(uint8);
+void   PUTucCnt4DP_FILL_DFL(uint8);
+void   PUTucCnt4DP_FILL_DFL4LTSlogged(void);
+void   PUTucCnt4DP_FILL_DFLloggedFL(void);
+void   PUTucCnt4DP_FILL_DFLloggedFR(void);
+void   PUTucCnt4DP_FILL_DFLloggedRL(void);
+void   PUTucCnt4DP_FILL_DFLloggedRR(void);
+void   PUTucCnt4DP_FILL_IFL(uint8);
+void   PUTucCnt4DP_FILL_IFLloggedFL(void);
+void   PUTucCnt4DP_FILL_IFLloggedFR(void);
+void   PUTucCnt4DP_FILL_IFLloggedRL(void);
+void   PUTucCnt4DP_FILL_IFLloggedRR(void);
+void   PUTucDpStabiPressure(uint8 x, uint8 i);
+void   PUTucFDcheckP2PosOk(uint8);
+void   PUTucIdCalPressure(uint8 x, uint8 i);
+void   PUTucLockByt4DFL_LTS(uint8 x);
+void   PUTucNoCheckPmin4StopFD(uint8);
+void   PUTucPfillFront(uint8);
+void   PUTucPfillRear(uint8);
+void   PUTucPrefFront(uint8);
+void   PUTucPrefRear(uint8);
+void   PUTuiStoragePaverege4CompareValue(uint16, uint8);
+void   PUTushZomTioFreeze(uint16);
+void   SetBitCalNotAckState2Ram(uint8);
+void   SetBitCalRequestState2Ram(uint8);
+
 #ifdef as_16BitP4Average
 void FD_CalcAverageP4MFD( uint8, uint8, uint8);
 #endif
-uint8 FD_CheckP4AFDstartReason2_3FA( uint8, uint8, sint8, uint8);
-uint8 FD_CheckP4AFDstartReason2_3RA( uint8, uint8, sint8, uint8);
- void FD_PlausibilityCheckMFD( sint8);
-void FD_UnplausibleMFD(void);
-void FD_Check3RePlausiSetMilage4FinishedMFD(void);
-void FD_Check3ReAndUpdatePifWarnLampOnOffDefOrInf2Re4FinishedAFD(void);
-void FD_UpdatePressure4AfdWarnLampON(uint8, sint8 );
-void FD_UpdatePressure4AfdWarnLampOFF(uint8 , uint8, sint8 );
-uint8 FD_UpdateComparePressureAfterFBM(void);
-void FD_UpdateComparePressureAtWarning(uint8);
-uint8 FD_UpdateIDvalue4MFD(void);
-uint8 FD_Plausibility_CheckP4DPLR_DPABS(uint8,uint8,uint8,uint8);
-void  FD_CheckResetCondition4ImplausiMsg(uint8,uint8,uint8,uint8);
-uint8 FD_CheckCurrentPmin(void);
-uint8 FD_FlowChartFct1CheckPmin(void);
-uint8 FD_FlowChartFct1CheckMissingRE(void);
-uint8 FD_FlowChartFct1(void);
-uint8 FD_CheckFDpos2ZomPosAfterZOfinish(void);
-uint8 FD_CheckHistPos(void);
-uint8 GetPabs4NewTempAtCAL(uint8, sint8, sint8);
-void FD_AfdStopp4PWP(void);
-void PUTuiStoragePaverege4CompareValue(uint16, uint8);
-uint16 GETuiStoragePaverege4CompareValue(uint8);
-uint8 GETucStoragePaverege4CompareValue(uint8);
-void PUTucDpStabiPressure(uint8 x, uint8 i);
-uint8 GETucDpStabiPressure( uint8 i);
-void PUTucIdCalPressure(uint8 x, uint8 i);
-uint8 GETucIdCalPressure( uint8 i);
-void PUTscIdCalTemperatur(sint8 x, uint8 i);
-sint8 GETscIdCalTemperatur(uint8 i);
-void PUTucPfillFront(uint8);
-uint8 GETucPfillFront(void);
-void PUTucPfillRear(uint8);
-uint8 GETucPfillRear(void);
-void PUTscTfill(sint8);
-sint8 GETscTfill(void);
-void PUTucCnt4DP_FILL_DFL(uint8);
-void PUTucCnt4DP_FILL_DFL4LTSlogged(void);
-uint8 GETucCnt4DP_FILL_DFL(void);
-uint8 GETucCnt4DP_FILL_DFL4LTSlogged(void);
-uint8 GETucDFL_LTS3(void);
-void INCucCnt4DP_FILL_DFL(void);
-void PUTucLockByt4DFL_LTS(uint8 x);
-void PUTucCnt4DP_FILL_DFLloggedFL(void);
-uint8 GETucCnt4DP_FILL_DFLloggedFL(void);
-void PUTucCnt4DP_FILL_DFLloggedFR(void);
-uint8 GETucCnt4DP_FILL_DFLloggedFR(void);
-void PUTucCnt4DP_FILL_DFLloggedRL(void);
-uint8 GETucCnt4DP_FILL_DFLloggedRL(void);
-void PUTucCnt4DP_FILL_DFLloggedRR(void);
-uint8 GETucCnt4DP_FILL_DFLloggedRR(void);
-void PUTucCnt4DP_FILL_IFL(uint8);
-void PUTucCnt4DP_FILL_IFLloggedFL(void);
-uint8 GETucCnt4DP_FILL_IFLloggedFL(void);
-void PUTucCnt4DP_FILL_IFLloggedFR(void);
-uint8 GETucCnt4DP_FILL_IFLloggedFR(void);
-void PUTucCnt4DP_FILL_IFLloggedRL(void);
-uint8 GETucCnt4DP_FILL_IFLloggedRL(void);
-void PUTucCnt4DP_FILL_IFLloggedRR(void);
-uint8 GETucCnt4DP_FILL_IFLloggedRR(void);
-uint8 GETucCnt4DP_FILL_IFL(void);
-void INCucCnt4DP_FILL_IFL(void);
-void InitRePosStorage4FD(void);
-void PUTucCalNotAckState2Ram(uint8);
-void SetBitCalNotAckState2Ram( uint8 );
-void ClearBitCalNotAckState( uint8 );
-void ClearCalNotAckState( void );
-void ClearCalNotAckState4MFD( void );
-uint8 GETucCalNotAckStateOfRam(void);
-uint8 bGETucCalNotAckState( uint8 );
-void PUTucCalRequestState2Ram(uint8);
-void SetBitCalRequestState2Ram( uint8 );
-void ClearBitCalRequestState( uint8 );
-void ClearCalRequestStateAtMFDfinish( void );
-uint8 GETucCalRequestStateOfRam(void);
-uint8 bGETucCalRequestState( uint8 );
-uint8 GETucPrefFront(void);
-uint8 GETucPrefRear(void);
-void PUTucPrefFront(uint8);
-void PUTucPrefRear(uint8);
-sint8 GETscTref(void);
-void PUTscTref(sint8);
-void BZ_FZZ_RQ_State4AFD_Finish(void);
-uint8 ucCheckPminDPautoAFD( uint8 );
-uint8 GetP4NewTempAtCAL(uint8, sint8, sint8);
-void PUTucNoCheckPmin4StopFD(uint8);
-uint8 GETucNoCheckPmin4StopFD(void);
-void ClearBitInNoCheckPmin4StopFD(uint8);
-void ClearKplNoCheckPmin4StopFD(void);
-void PUTucFDcheckP2PosOk(uint8);
-uint8 GETucFDcheckP2PosOk(void);
-void DECucFDcheckP2PosOk(void);
-void ClearFDcheckP2PosOk(void);
-void PUTushZomTioFreeze(uint16);
-uint16 GETushZomTioFreeze(void);
-void FD_HandleReceivedReRadPosVL4AFD(uint8,sint8,uint8,uint8);
-void FD_HandleReceivedReRadPosVR4AFD(uint8,sint8,uint8,uint8);
-void FD_HandleReceivedReRadPosHL4AFD(uint8,sint8,uint8,uint8);
-void FD_HandleReceivedReRadPosHR4AFD(uint8,sint8,uint8,uint8);
-uint8 FD_LoadIdValues4MFD(void);
-uint8 FD_TimeoutHandle4AFD(void);
-uint8 FD_LoadIdValues4UpdateCompareValue(void);
-
-uint8 ucStoreCompValueVL;
-uint8 ucStoreCompValueVR;
-uint8 ucStoreCompValueHL;
-uint8 ucStoreCompValueHR;
-uint8 ucIdCalPressure[4];
-uint8 ucDpStabiPressure[4];
-sint8 scIdCalTemperatur[4];
-uint16 uiStoragePaverege4CompareValue[4];
-uint8 ucPfillFront;
-uint8 ucPfillRear;
-sint8 scTfill;
-uint8 ucReCntVL4FD;
-uint8 ucReCntVR4FD;
-uint8 ucReCntHL4FD;
-uint8 ucReCntHR4FD;
-uint8 ucRePosStorageVL4FD;
-uint8 ucRePosStorageVR4FD;
-uint8 ucRePosStorageHL4FD;
-uint8 ucRePosStorageHR4FD;
-uint16 ushZomTioFreez;
-uint8 ucCnt4DP_FILL_DFL;
-uint8 ucCnt4DP_FILL_IFL;
-uint8 ucLockByt4DFL_LTS;
-uint8 ucNoCheckPmin4StopFD;
-uint8 ucFDcheckP2PosOk;
-
-extern DT_tEnvData tEnvDataToSend;
 
 void FillingDetectionMFD(uint8 ucRestartAnzeige){
   uint8 i;
+   if(
+         (bGetBitBetriebszustandBZ(cCAL_REQUEST) == FALSE)
+      || (
+               (bGetBitBetriebszustandBZ(cCAL_REQUEST) == TRUE)
+            && (bGETucCalRequestState(cCAL_AUTO_ACTIV))
+         )
+   ){
+      ClearCalNotAckState4MFD();
+      ClearAllReCnt4FD();
+      ClearFDcheckP2PosOk();
 
-   if((bGetBitBetriebszustandBZ(cCAL_REQUEST) == FALSE)
-   || ((bGetBitBetriebszustandBZ(cCAL_REQUEST) == TRUE) && (bGETucCalRequestState(cCAL_AUTO_ACTIV)))){
-         ClearCalNotAckState4MFD();
-          ClearAllReCnt4FD();
-         ClearFDcheckP2PosOk();
+#ifdef AVG_PRESS_ENABLED
+      ClearAvgPress4FD();
+#endif
+
+      SetBitBetriebszustandBZ(cCAL_REQUEST);
+      ClearBitBetriebszustandBZ(cCAL_FINISH | cCAL_MFD_PLAUSI_ERROR | cCAL_AFD_PLAUSI_ERROR);
+      ClearBitZustandskennungZK(cZK_ALLE_BITS);
+
+      for(i = 0; i < cAnzRad; i++){
+         PUTucIdCalPressure(FALSE,i);
+         PUTscIdCalTemperatur(FALSE,i);
+      }
+      ClearBitCalRequestState(cCAL_MANUAL_FINISH | cCAL_AUTO_ACTIV | cCAL_AUTO_ENABLE2 | cCAL_AUTO_ENABLE3 | cCAL_AUTO_NEW_ID);
+      SetBitCalRequestState2Ram(cCAL_MSG2DISP | cCAL_MANUAL_ACTIV);
+      ClearBitFahrzeugzustandFZZ(cKFZPARKING_START_AFD);
+      ClearKplNoCheckPmin4StopFD();
+      PUTucNoCheckPmin4StopFD(ucCheckLOW_PRESS_ReState());
+      ClearAbortReasonFD();
+      ClearPlausiFailureFD();
+      SetState2FillingDetectionStateFD(cMFD_RUNNING);
+
+      if(ucRestartAnzeige == TRUE){
+         PUTucTimer4MsgDispRq(5);
+      }
+      PUTushFDtimeout(cFD_TIME_OUT);
+      PUTushSupervisoryTimerFD(cFD_TIME_OUT);
+      PUTucFDtimerStop(FALSE);
+      PUTucOnceCheckMissingRE4FD(0);
+      DelWarnOfId(4);
+   }
+   else{
+      if(GETucTimer4MsgDispRq() == 0){
 
 #ifdef AVG_PRESS_ENABLED
          ClearAvgPress4FD();
 #endif
 
-        SetBitBetriebszustandBZ(cCAL_REQUEST);
-         ClearBitBetriebszustandBZ(cCAL_FINISH | cCAL_MFD_PLAUSI_ERROR | cCAL_AFD_PLAUSI_ERROR);
+         ClearAllReCnt4FD();
 
-        ClearBitZustandskennungZK(cZK_ALLE_BITS);
-
-      for(i = 0; i < cAnzRad; i++){
-          PUTucIdCalPressure(FALSE,i);
-          PUTscIdCalTemperatur(FALSE,i);
-        }
-          ClearBitCalRequestState(cCAL_MANUAL_FINISH | cCAL_AUTO_ACTIV | cCAL_AUTO_ENABLE2 | cCAL_AUTO_ENABLE3 | cCAL_AUTO_NEW_ID);
-         SetBitCalRequestState2Ram(cCAL_MSG2DISP | cCAL_MANUAL_ACTIV);
-         ClearBitFahrzeugzustandFZZ(cKFZPARKING_START_AFD);
-            ClearKplNoCheckPmin4StopFD();
-         PUTucNoCheckPmin4StopFD(ucCheckLOW_PRESS_ReState());
-
-         ClearAbortReasonFD();
-         ClearPlausiFailureFD();
-         SetState2FillingDetectionStateFD(cMFD_RUNNING);
-
+         for(i = 0; i < cAnzRad; i++){
+            PUTucIdCalPressure(FALSE,i);
+            PUTscIdCalTemperatur(FALSE,i);
+         }
          if( ucRestartAnzeige == TRUE){
             PUTucTimer4MsgDispRq(5);
          }
          PUTushFDtimeout(cFD_TIME_OUT);
          PUTushSupervisoryTimerFD(cFD_TIME_OUT);
-         PUTucFDtimerStop(FALSE);
          PUTucOnceCheckMissingRE4FD(0);
-         DelWarnOfId(4);
+         PUTucFDtimerStop(FALSE);
+         ClearAbortReasonFD();
+         SetBitCalRequestState2Ram(cCAL_MSG2DISP);
       }
-      else{
-
-         if(GETucTimer4MsgDispRq() == 0){
-
-#ifdef AVG_PRESS_ENABLED
-            ClearAvgPress4FD();
-#endif
-            ClearAllReCnt4FD();
-            for(i = 0; i < cAnzRad; i++){
-               PUTucIdCalPressure(FALSE,i);
-               PUTscIdCalTemperatur(FALSE,i);
-            }
-            if( ucRestartAnzeige == TRUE){
-               PUTucTimer4MsgDispRq(5);
-            }
-            PUTushFDtimeout(cFD_TIME_OUT);
-            PUTushSupervisoryTimerFD(cFD_TIME_OUT);
-            PUTucOnceCheckMissingRE4FD(0);
-            PUTucFDtimerStop(FALSE);
-
-            ClearAbortReasonFD();
-            SetBitCalRequestState2Ram(cCAL_MSG2DISP);
-         }
-      }
+   }
 }
 
 void FillingDetectionAFDII(void){
    uint8 ucTmp;
-
    if(Getui8ColPWPActive() == FALSE){
       if((GETucAutoFillDetectionOnOffOfRam() == TRUE) && (bGETucCalRequestState(cCAL_MANUAL_ACTIV) == FALSE)){
-         if(  bGETucCalNotAckState(cCAL_FBM_ACTIV_NAK) == FALSE){
-
-            if( (bGETucCalRequestState(cCAL_AUTO_FIRST) == FALSE) && (((GETulKmStand4AutoCAL() < c_100km) && (GETulKmStand4AutoCAL() > c_0km))
-            ||((GETulKmStand4AutoCAL() >= c_100km) && (GETulLastCalMileage() == c_FFFFkm)))){
-               if((bGetBitFahrzeugzustandFZZ(cKFZPARKING_START_AFD ) == FALSE) && (bGETucCalRequestState(cCAL_AUTO_ENABLE2) == TRUE)){
+         if(bGETucCalNotAckState(cCAL_FBM_ACTIV_NAK) == FALSE){
+            if(
+                  (bGETucCalRequestState(cCAL_AUTO_FIRST) == FALSE)
+               && (
+                        (
+                              (GETulKmStand4AutoCAL() < c_100km)
+                           && (GETulKmStand4AutoCAL() > c_0km)
+                        )
+                     || (
+                              (GETulKmStand4AutoCAL() >= c_100km)
+                           && (GETulLastCalMileage() == c_FFFFkm)
+                        )
+                  )
+            ){
+               if(
+                     (bGetBitFahrzeugzustandFZZ(cKFZPARKING_START_AFD ) == FALSE)
+                  && (bGETucCalRequestState(cCAL_AUTO_ENABLE2) == TRUE)
+               ){
                   SetState2FillingDetectionStateFD(cAFD_RUNNING2);
                   ClearAbortReasonFD();
+
 #ifdef AVG_PRESS_ENABLED
                   ClearAvgPress4FD();
 #endif
 
-                  if(bGetBitFahrzeugzustandFZZ( cFAHRZEUG_FAEHRT ) == TRUE ){
-                      PUTucCalRequestState2Ram(FALSE);
+                  if(bGetBitFahrzeugzustandFZZ( cFAHRZEUG_FAEHRT ) == TRUE){
+                     PUTucCalRequestState2Ram(FALSE);
                      SetBitFahrzeugzustandFZZ(cKFZPARKING_START_AFD );
                      SetBitCalRequestState2Ram(cCAL_AUTO_ACTIV | cCAL_AUTO_ENABLE2);
-                      InitRePosStorage4FD();
-
+                     InitRePosStorage4FD();
                      ClearBitCalRequestState(cCAL_MANUAL_FINISH);
                      PUTucOnceCheckMissingRE4FD(0);
                      ClearCalNotAckState();
                      ClearAllReCnt4FD();
                      ClearFDcheckP2PosOk();
-
                      ClearBitBetriebszustandBZ(cCAL_FINISH);
                      SetBitBetriebszustandBZ(cCAL_REQUEST);
                      for(ucTmp = 0; ucTmp < cAnzRad; ucTmp++){
@@ -262,77 +312,73 @@ void FillingDetectionAFDII(void){
                      PUTushFDtimeout(cFD_TIME_OUT);
                      PUTushSupervisoryTimerFD(cFD_TIME_OUT);
                      PUTucFDtimerStop(FALSE);
-
                   }
                }
             }
             else{
-
-               if(ushGetCurrentECUParkingTime() >= cT_STANBY ){
-                  if((bGetBitFahrzeugzustandFZZ(cKFZPARKING_START_AFD ) == FALSE) && (bGetBitFahrzeugzustandFZZ( cKL_15_EIN ) == TRUE)){
+               if(ushGetCurrentECUParkingTime() >= cT_STANBY){
+                  if(
+                        (bGetBitFahrzeugzustandFZZ(cKFZPARKING_START_AFD ) == FALSE)
+                     && (bGetBitFahrzeugzustandFZZ( cKL_15_EIN ) == TRUE)
+                  ){
                      SetState2FillingDetectionStateFD(cAFD_RUNNING2);
-                     if(bGETucCalRequestState(cCAL_AUTO_NEW_ID) == FALSE){
 
+                     if(bGETucCalRequestState(cCAL_AUTO_NEW_ID) == FALSE){
                         SetBitCalRequestState2Ram(cCAL_AUTO_ENABLE2);
                      }
-
                      ClearAbortReasonFD();
+
 #ifdef AVG_PRESS_ENABLED
                      ClearAvgPress4FD();
 #endif
+
                      SetBitFahrzeugzustandFZZ(cKFZPARKING_START_AFD );
                      ClearBitCalRequestState(cCAL_MANUAL_FINISH |cCAL_AUTO_NEW_ID | cCAL_AUTO_ENABLE3);
                      SetBitCalRequestState2Ram(cCAL_AUTO_ACTIV);
-
                      InitRePosStorage4FD();
                      PUTucOnceCheckMissingRE4FD(0);
-                      PUTucNoCheckPmin4StopFD(ucCheckLOW_PRESS_ReState());
+                     PUTucNoCheckPmin4StopFD(ucCheckLOW_PRESS_ReState());
                      ClearCalNotAckState();
                      ClearAllReCnt4FD();
                      ClearFDcheckP2PosOk();
-
                      ClearBitBetriebszustandBZ(cCAL_FINISH);
-
                      SetBitBetriebszustandBZ(cCAL_REQUEST);
-
                      for(ucTmp = 0; ucTmp < cAnzRad; ucTmp++){
                         PUTucIdCalPressure(FALSE,ucTmp);
                         PUTscIdCalTemperatur(FALSE,ucTmp);
                      }
-
                      PUTushFDtimeout(cFD_TIME_OUT);
                      PUTushSupervisoryTimerFD(cFD_TIME_OUT);
-
                      PUTucFDtimerStop(FALSE);
                      PUTushZomTioFreeze(0);
                   }
                }
                else{
-                  if(((bGetBitBetriebszustandBZ(cZO_FINISH) == TRUE ) || (bGetBitBetriebszustandBZ(cZO_TIMEOUT) == TRUE)) && (GETucFDcheckP2PosOk() >= 1)){
-
-                        if(GETucFDcheckP2PosOk() == 1){
-
-                           if(FD_CheckFDpos2ZomPosAfterZOfinish() != FALSE){
-                               PUTucFDcheckP2PosOk(0x0F);
-
-                           }
-                           else
-                           {
-                              ClearFDcheckP2PosOk();
-                           }
+                  if(
+                        (
+                              (bGetBitBetriebszustandBZ(cZO_FINISH) == TRUE)
+                           || (bGetBitBetriebszustandBZ(cZO_TIMEOUT) == TRUE)
+                        )
+                     && (GETucFDcheckP2PosOk() >= 1)
+                  ){
+                     if(GETucFDcheckP2PosOk() == 1){
+                        if(FD_CheckFDpos2ZomPosAfterZOfinish() != FALSE){
+                           PUTucFDcheckP2PosOk(0x0F);
                         }
-                        else
-                        {
-                           if(GETucFDcheckP2PosOk() == 0x0E){
-                              ReplayLastREvalue2Walgo();
-                              ReStart4SetValue2ActivationMemAFD();
-                              ClearFDcheckP2PosOk();
-                           }
-                           else
-                           {
-                              DECucFDcheckP2PosOk();
-                           }
+                        else{
+                           ClearFDcheckP2PosOk();
                         }
+                     }
+                     else{
+                        if(GETucFDcheckP2PosOk() == 0x0E){
+                           ReplayLastREvalue2Walgo();
+                           ReStart4SetValue2ActivationMemAFD();
+                           ClearFDcheckP2PosOk();
+                        }
+                        else{
+                           DECucFDcheckP2PosOk();
+                        }
+                     }
                   }
                }
             }
@@ -343,8 +389,11 @@ void FillingDetectionAFDII(void){
          }
       }
       else{
-
-         if((GETushFDtimeout()  == 0 ) && (bGetBitBetriebszustandBZ(cCAL_REQUEST) == TRUE) && (bGETucCalRequestState(cCAL_AUTO_ENABLE2) == TRUE) ){
+         if(
+               (GETushFDtimeout()  == 0)
+            && (bGetBitBetriebszustandBZ(cCAL_REQUEST) == TRUE)
+            && (bGETucCalRequestState(cCAL_AUTO_ENABLE2) == TRUE)
+         ){
             FillingDetectionMFD(FALSE);
          }
       }
@@ -356,16 +405,14 @@ void FillingDetectionAFDII(void){
 
 void FillingDetectionAFDIII(uint8 ucFastDeflation){
    uint8 ucTmp;
-
    if(Getui8ColPWPActive() == FALSE){
-      if(  bGETucCalNotAckState(cCAL_FBM_ACTIV_NAK) == FALSE){
-
+      if(bGETucCalNotAckState(cCAL_FBM_ACTIV_NAK) == FALSE){
          if(ucFastDeflation == ucDpTxTriggerc){
             if((GETucAutoFillDetectionOnOffOfRam() == TRUE) && (bGetBitFahrzeugzustandFZZ( cFAHRZEUG_FAEHRT ) == FALSE)){
                if((bGETucCalRequestState(cCAL_MANUAL_ACTIV) == FALSE) && (bGETucCalRequestState(cCAL_AUTO_ENABLE3) == FALSE)){
-
                   SetState2FillingDetectionStateFD(cAFD_RUNNING3);
                   ClearAbortReasonFD();
+
 #ifdef AVG_PRESS_ENABLED
                   ClearAvgPress4FD();
 #endif
@@ -376,11 +423,8 @@ void FillingDetectionAFDIII(uint8 ucFastDeflation){
                    ClearCalNotAckState();
                   ClearAllReCnt4FD();
                   ClearFDcheckP2PosOk();
-
                   ClearBitBetriebszustandBZ(cCAL_FINISH);
-
                   SetBitBetriebszustandBZ(cCAL_REQUEST);
-
                   PUTucCnt4DP_FILL_DFL(0);
                   PUTucCnt4DP_FILL_IFL(0);
                   PUTucLockByt4DFL_LTS(0);
@@ -414,20 +458,17 @@ void FillingDetectionAFDIII(uint8 ucFastDeflation){
             }
          }
          else{
-
             if((bGETucCalRequestState(cCAL_AUTO_ACTIV) == TRUE) && (bGETucCalRequestState(cCAL_AUTO_ENABLE2) == FALSE)){
                if((bGetBitFahrzeugzustandFZZ( cKFZFAEHRT_20KMH ) == TRUE ) && (bGETucCalRequestState(cCAL_AUTO_ENABLE3) == FALSE)){
                   SetBitCalRequestState2Ram(cCAL_AUTO_ENABLE3);
                }
             }
          }
-
       }
       else{
          ClearBitCalNotAckState(cCAL_FBM_ACTIV_NAK);
          FD_UpdateComparePressureAfterFBM();
       }
-
    }
    else{
       FD_AfdStopp4PWP();
@@ -435,8 +476,7 @@ void FillingDetectionAFDIII(uint8 ucFastDeflation){
 }
 
 void FD_HandleReceivedReRadPosVL4AFD(uint8 ucP,sint8 scT,uint8 ucColOfID, uint8 ucLTSmode){
-
-uint8 ucTmpPiso4Cal;
+   uint8 ucTmpPiso4Cal;
 
 #ifdef as_16BitP4Average
    if(bGetBitFahrzeugzustandFZZ( cKFZFAEHRT_20KMH ) == TRUE ){
@@ -477,8 +517,7 @@ uint8 ucTmpPiso4Cal;
 }
 
 void FD_HandleReceivedReRadPosVR4AFD(uint8 ucP,sint8 scT,uint8 ucColOfID, uint8 ucLTSmode){
-
-uint8 ucTmpPiso4Cal;
+   uint8 ucTmpPiso4Cal;
 
 #ifdef as_16BitP4Average
    if(bGetBitFahrzeugzustandFZZ( cKFZFAEHRT_20KMH ) == TRUE ){
@@ -517,8 +556,7 @@ uint8 ucTmpPiso4Cal;
 }
 
 void FD_HandleReceivedReRadPosHL4AFD(uint8 ucP,sint8 scT,uint8 ucColOfID, uint8 ucLTSmode){
-
-uint8 ucTmpPiso4Cal;
+   uint8 ucTmpPiso4Cal;
 
 #ifdef as_16BitP4Average
    if(bGetBitFahrzeugzustandFZZ( cKFZFAEHRT_20KMH ) == TRUE ){
@@ -557,8 +595,7 @@ uint8 ucTmpPiso4Cal;
 }
 
 void FD_HandleReceivedReRadPosHR4AFD(uint8 ucP,sint8 scT,uint8 ucColOfID, uint8 ucLTSmode){
-
-uint8 ucTmpPiso4Cal;
+   uint8 ucTmpPiso4Cal;
 
 #ifdef as_16BitP4Average
    if(bGetBitFahrzeugzustandFZZ( cKFZFAEHRT_20KMH ) == TRUE ){
@@ -612,12 +649,10 @@ void FD_AbortFillingDetection(uint8 ucNotAckState){
          }
       }
    }
-
    if(ucNotAckState == cCAL_RE_MISSING_NAK){
       SetState2AbortReasonFD(cFD_MISSING_SENSOR);
       SetState2FillingDetectionStateFD(cFILLING_DETECT_ABORTED);
    }
-
    if((ucNotAckState == cCAL_ABORT_REASON_2_3) && (Get_FD_ABORT_REASON() == FALSE)){
 
       if((FD_TimeoutHandle4AFD() == TRUE) && (bGETucCalRequestState(cCAL_AUTO_ACTIV))){
@@ -628,33 +663,24 @@ void FD_AbortFillingDetection(uint8 ucNotAckState){
          SetState2AbortReasonFD(cFD_TIMEOUT);
          SetState2FillingDetectionStateFD(cFILLING_DETECT_ABORTED);
       }
-
    }
-
    if(bGETucCalRequestState(cCAL_MANUAL_ACTIV)){
-
       ClearBitCalRequestState(cCAL_MANUAL_ACTIV);
       SetBitCalRequestState2Ram(cCAL_MANUAL_FINISH);
    }
-
    if(bGETucCalRequestState(cCAL_AUTO_ACTIV)){
       ClearBitCalRequestState(cCAL_AUTO_ENABLE3 | cCAL_AUTO_ENABLE2 | cCAL_AUTO_ACTIV);
-    }
-
+   }
 }
 
 #ifdef as_16bitP4Average
-
 void FD_CalcAverageP4MFD(uint8 ucREcnt4FD,uint8 ucLastReceivedP, uint8 ucColOfID){
    uint16 uiPaverage;
    uint16 uiPaverege4CompareValue;
-
    if(ucREcnt4FD != 0){
       if(ucREcnt4FD == 1){
-
          uiPaverage=(uint16)(ucLastReceivedP);
          uiPaverege4CompareValue=(uint16)(ucLastReceivedP);
-
          PUTucIdCalPressure(uiPaverage,ucColOfID);
          PUTuiStoragePaverege4CompareValue(uiPaverege4CompareValue,ucColOfID);
       }
@@ -662,10 +688,8 @@ void FD_CalcAverageP4MFD(uint8 ucREcnt4FD,uint8 ucLastReceivedP, uint8 ucColOfID
          if(ucREcnt4FD < 250){
             uiPaverage=(uint16)(GETucIdCalPressure(ucColOfID) * (ucREcnt4FD-1));
             uiPaverege4CompareValue=(GETuiStoragePaverege4CompareValue(ucColOfID) * (ucREcnt4FD-1));
-
             uiPaverage=(uint16)(ucLastReceivedP + uiPaverage );
             uiPaverege4CompareValue=((uint16)(ucLastReceivedP) + uiPaverege4CompareValue );
-
             PUTucIdCalPressure((uiPaverage/ucREcnt4FD),ucColOfID);
             PUTuiStoragePaverege4CompareValue((uiPaverege4CompareValue/ucREcnt4FD),ucColOfID);
          }
@@ -675,25 +699,24 @@ void FD_CalcAverageP4MFD(uint8 ucREcnt4FD,uint8 ucLastReceivedP, uint8 ucColOfID
 #endif
 
 uint8 FD_CheckP4AFDstartReason2_3FA( uint8 ucCurrentPressure,uint8 ucREcnt4FD, sint8 scCurrentTireTemp, uint8 ucColOfID){
-   uint8 ucRtn=TRUE;
-#ifdef as_16BitP4Average
+   uint8 ucRtn = TRUE;
+   #ifdef as_16BitP4Average
    uint16 uiPaverage;
    uint16 uiPaverege4CompareValue;
-#endif
+   #endif
 
-   if(( ucCurrentPressure < GETucMinWarnThresholdOfRam())
-   || (scCurrentTireTemp > GETscOutdoorTemperatureFZZ() + 30)
-   || (ucCurrentPressure < (GETucPcalMinVaRelativCodOfRam() - cDP_AUTO))){
-         if(GETucCalNotAckStateOfRam() == cCAL_VALID){
-
+   if(
+         (ucCurrentPressure < GETucMinWarnThresholdOfRam())
+      || (scCurrentTireTemp > GETscOutdoorTemperatureFZZ() + 30)
+      || (ucCurrentPressure < (GETucPcalMinVaRelativCodOfRam() - cDP_AUTO))
+   ){
+      if(GETucCalNotAckStateOfRam() == cCAL_VALID){
          if(ucCurrentPressure < GETucMinWarnThresholdOfRam()){
             SetBitCalNotAckState2Ram(cCAL_P_MIN_TIRE_NAK);
             SetState2AbortReasonFD(cFD_P_MIN_TIRE);
-
          }
          else{
-            if( ucCurrentPressure < (GETucPcalMinVaRelativCodOfRam() - cDP_AUTO)){
-
+            if(ucCurrentPressure < (GETucPcalMinVaRelativCodOfRam() - cDP_AUTO)){
                SetState2AbortReasonFD(cFD_DP_AUTO);
             }
             else{
@@ -703,15 +726,15 @@ uint8 FD_CheckP4AFDstartReason2_3FA( uint8 ucCurrentPressure,uint8 ucREcnt4FD, s
                }
             }
          }
-         ucRtn=FALSE;
+         ucRtn = FALSE;
          SetState2FillingDetectionStateFD(cFILLING_DETECT_ABORTED);
          ClearPlausiFailureFD();
       }
    }
-    else{
+   else{
       if(ucREcnt4FD == 1){
-
          PUTucDpStabiPressure(ucCurrentPressure,ucColOfID);
+
 #ifdef as_16BitP4Average
          PUTucIdCalPressure(ucCurrentPressure,ucColOfID);
          PUTuiStoragePaverege4CompareValue(ucCurrentPressure,ucColOfID);
@@ -720,34 +743,30 @@ uint8 FD_CheckP4AFDstartReason2_3FA( uint8 ucCurrentPressure,uint8 ucREcnt4FD, s
       }
       else{
          if(ucREcnt4FD != 0){
-
             if(ucREcnt4FD == 0xFF){
                if(ucCurrentPressure < (GETucDpStabiPressure(ucColOfID) - cDP_STABI)){
                   SetBitCalNotAckState2Ram(cCAL_DP_STABI_NAK );
                   SetState2AbortReasonFD(cFD_DP_STABI);
                   SetState2FillingDetectionStateFD(cFILLING_DETECT_ABORTED);
                   ClearPlausiFailureFD();
-                  ucRtn=FALSE;
+                  ucRtn = FALSE;
                }
             }
             else{
 #ifdef as_16BitP4Average
                uiPaverage=(uint16)(GETucIdCalPressure(ucColOfID) * (ucREcnt4FD-1));
                uiPaverege4CompareValue=(GETuiStoragePaverege4CompareValue(ucColOfID) * (ucREcnt4FD-1));
-
                uiPaverage=(uint16)(ucCurrentPressure + uiPaverage );
                uiPaverege4CompareValue=((uint16)(ucCurrentPressure) + uiPaverege4CompareValue );
-
                PUTucIdCalPressure((uiPaverage/ucREcnt4FD),ucColOfID);
                PUTuiStoragePaverege4CompareValue((uiPaverege4CompareValue/ucREcnt4FD),ucColOfID);
 #endif
-
                if(ucCurrentPressure < (GETucDpStabiPressure(ucColOfID) - cDP_STABI)){
                   SetBitCalNotAckState2Ram(cCAL_DP_STABI_NAK );
                   SetState2AbortReasonFD(cFD_DP_STABI);
                   SetState2FillingDetectionStateFD(cFILLING_DETECT_ABORTED);
                   ClearPlausiFailureFD();
-                  ucRtn=FALSE;
+                  ucRtn = FALSE;
                }
             }
          }
@@ -757,25 +776,24 @@ uint8 FD_CheckP4AFDstartReason2_3FA( uint8 ucCurrentPressure,uint8 ucREcnt4FD, s
 }
 
 uint8 FD_CheckP4AFDstartReason2_3RA( uint8 ucCurrentPressure,uint8 ucREcnt4FD, sint8 scCurrentTireTemp, uint8 ucColOfID){
-   uint8 ucRtn=TRUE;
+   uint8 ucRtn = TRUE;
 #ifdef as_16BitP4Average
    uint16 uiPaverage;
    uint16 uiPaverege4CompareValue;
 #endif
 
-   if(( ucCurrentPressure < GETucMinWarnThresholdOfRam())
-   || (scCurrentTireTemp > GETscOutdoorTemperatureFZZ() + 30)
-   || (ucCurrentPressure < (GETucPcalMinHaRelativCodOfRam() - cDP_AUTO))){
+   if(
+         (ucCurrentPressure < GETucMinWarnThresholdOfRam())
+      || (scCurrentTireTemp > GETscOutdoorTemperatureFZZ() + 30)
+      || (ucCurrentPressure < (GETucPcalMinHaRelativCodOfRam() - cDP_AUTO))
+   ){
       if(GETucCalNotAckStateOfRam() == cCAL_VALID){
-
          if(ucCurrentPressure < GETucMinWarnThresholdOfRam()){
             SetBitCalNotAckState2Ram(cCAL_P_MIN_TIRE_NAK);
             SetState2AbortReasonFD(cFD_P_MIN_TIRE);
-
          }
          else{
-            if( ucCurrentPressure < (GETucPcalMinHaRelativCodOfRam() - cDP_AUTO)){
-
+            if(ucCurrentPressure < (GETucPcalMinHaRelativCodOfRam() - cDP_AUTO)){
                SetState2AbortReasonFD(cFD_DP_AUTO);
             }
             else{
@@ -785,13 +803,13 @@ uint8 FD_CheckP4AFDstartReason2_3RA( uint8 ucCurrentPressure,uint8 ucREcnt4FD, s
                }
             }
          }
-         ucRtn=FALSE;
+         ucRtn = FALSE;
          SetState2FillingDetectionStateFD(cFILLING_DETECT_ABORTED);
          ClearPlausiFailureFD();
       }
    }
-    else{
-      if(ucREcnt4FD==1){
+   else{
+      if(ucREcnt4FD == 1){
          PUTucDpStabiPressure(ucCurrentPressure,ucColOfID);
 #ifdef as_16BitP4Average
          PUTucIdCalPressure(ucCurrentPressure,ucColOfID);
@@ -807,117 +825,86 @@ uint8 FD_CheckP4AFDstartReason2_3RA( uint8 ucCurrentPressure,uint8 ucREcnt4FD, s
                   SetState2AbortReasonFD(cFD_DP_STABI);
                   SetState2FillingDetectionStateFD(cFILLING_DETECT_ABORTED);
                   ClearPlausiFailureFD();
-                  ucRtn=FALSE;
+                  ucRtn = FALSE;
                }
             }
             else{
-
 #ifdef as_16BitP4Average
                uiPaverage=(uint16)(GETucIdCalPressure(ucColOfID) * (ucREcnt4FD-1));
                uiPaverege4CompareValue=(GETuiStoragePaverege4CompareValue(ucColOfID) * (ucREcnt4FD-1));
-
-               uiPaverage=(uint16)(ucCurrentPressure + uiPaverage );
-               uiPaverege4CompareValue=((uint16)(ucCurrentPressure) + uiPaverege4CompareValue );
-
+               uiPaverage=(uint16)(ucCurrentPressure + uiPaverage);
+               uiPaverege4CompareValue=((uint16)(ucCurrentPressure) + uiPaverege4CompareValue);
                PUTucIdCalPressure((uiPaverage/ucREcnt4FD),ucColOfID);
                PUTuiStoragePaverege4CompareValue((uiPaverege4CompareValue/ucREcnt4FD),ucColOfID);
 #endif
-
                if(ucCurrentPressure < (GETucDpStabiPressure(ucColOfID) - cDP_STABI)){
                   SetBitCalNotAckState2Ram(cCAL_DP_STABI_NAK );
                   SetState2AbortReasonFD(cFD_DP_STABI);
                   SetState2FillingDetectionStateFD(cFILLING_DETECT_ABORTED);
                   ClearPlausiFailureFD();
-                  ucRtn=FALSE;
+                  ucRtn = FALSE;
                }
             }
          }
       }
    }
- return ucRtn;
+   return ucRtn;
 }
 
 void FD_PlausibilityCheckMFD(sint8 scTemperaturOutside){
-
-   uint8 ucColOfIdVL,ucColOfIdVR,ucColOfIdHL, ucColOfIdHR;
-    uint8 i;
+   uint8 ucColOfIdVL, ucColOfIdVR, ucColOfIdHL, ucColOfIdHR;
+   uint8 i;
    sint8 scTfillVA;
    sint8 scTfillHA;
    sint8 scTfill_Tref;
    uint8 ucRtn=FALSE;
-
-   for( i = 0; i < cAnzRad; i++ ){
+   for( i = 0; i < cAnzRad; i++){
       switch (GETucWPorPWPofHistCol(i)){
-         case cRadPosVL:
-                  ucColOfIdVL=i;
-         break;
-         case cRadPosVR:
-                  ucColOfIdVR=i;
-         break;
-         case cRadPosHL:
-                  ucColOfIdHL=i;
-         break;
-         case cRadPosHR:
-                 ucColOfIdHR=i;
-         break;
-         default:
-         {
-            ucRtn = TRUE;
-         }
+         case cRadPosVL: ucColOfIdVL = i; break;
+         case cRadPosVR: ucColOfIdVR = i; break;
+         case cRadPosHL: ucColOfIdHL = i; break;
+         case cRadPosHR: ucColOfIdHR = i; break;
+         default: ucRtn = TRUE;
       }
    }
-
    if(ucRtn == FALSE){
-
       if(FD_Plausibility_CheckP4DPLR_DPABS(ucColOfIdVL,ucColOfIdVR,ucColOfIdHL,ucColOfIdHR) == TRUE){
-
          SetBitBetriebszustandBZ(cCAL_FINISH);
          ClearBitBetriebszustandBZ(cCAL_REQUEST);
          ClearPlausiFailureFD();
          ClearBitCalRequestState(cCAL_MANUAL_ACTIV);
-
          ClearCalRequestStateAtMFDfinish();
          SetBitCalRequestState2Ram(cCAL_MANUAL_FINISH);
          SetState2FillingDetectionStateFD(cFILLING_DETECTED);
-
          PUTucPrefFront((GETucIdCalPressure(ucColOfIdVL) + GETucIdCalPressure(ucColOfIdVR))/2);
          PUTucPrefRear((GETucIdCalPressure(ucColOfIdHL) + GETucIdCalPressure(ucColOfIdHR))/2);
-
          PUTucPfillFront(GETucPrefFront());
          PUTucPfillRear(GETucPrefRear());
-
          scTfillVA=((GETscIdCalTemperatur(ucColOfIdVL) + GETscIdCalTemperatur(ucColOfIdVR))/2);
          scTfillHA=((GETscIdCalTemperatur(ucColOfIdHL) + GETscIdCalTemperatur(ucColOfIdHR))/2);
-
          if(scTfillVA > cTfillLimitH){
             scTfillVA=cTfillLimitH;
          }
          if(scTfillHA > cTfillLimitH){
             scTfillHA=cTfillLimitH;
          }
-
-          scTfill_Tref=(scTfillVA + scTfillHA)/2;
+         scTfill_Tref=(scTfillVA + scTfillHA)/2;
          PUTscTfill(scTfill_Tref);
          scTfill_Tref=KweightCalculation(scTfill_Tref, scTemperaturOutside);
-
          PUTucPrefFront(GetP4NewTempAtCAL(GETucPrefFront(),scTfillVA, scTfill_Tref));
          if(GETucPrefFront() <= GETucPcalMinVaRelativCodOfRam()){
             PUTucPrefFront( GETucPcalMinVaRelativCodOfRam());
          }
-
          PUTucPrefRear(GetP4NewTempAtCAL(GETucPrefRear(),scTfillHA, scTfill_Tref));
          if(GETucPrefRear() <= GETucPcalMinHaRelativCodOfRam()){
             PUTucPrefRear( GETucPcalMinHaRelativCodOfRam());
          }
-
          PUTscTref(scTfill_Tref);
-
          PUTucPosComparePressure(GetP4NewTempAtCAL(((uint8)GETuiStoragePaverege4CompareValue(ucColOfIdVL)),GETscIdCalTemperatur(ucColOfIdVL), scTfill_Tref),cRadPosVL);
          PUTucPosComparePressure(GetP4NewTempAtCAL(((uint8)GETuiStoragePaverege4CompareValue(ucColOfIdVR)),GETscIdCalTemperatur(ucColOfIdVR), scTfill_Tref),cRadPosVR);
          PUTucPosComparePressure(GetP4NewTempAtCAL(((uint8)GETuiStoragePaverege4CompareValue(ucColOfIdHL)),GETscIdCalTemperatur(ucColOfIdHL), scTfill_Tref),cRadPosHL);
          PUTucPosComparePressure(GetP4NewTempAtCAL(((uint8)GETuiStoragePaverege4CompareValue(ucColOfIdHR)),GETscIdCalTemperatur(ucColOfIdHR), scTfill_Tref),cRadPosHR);
-          DelWarnOfId(4);
-
+         DelWarnOfId(4);
          ReplayLastREvalue2Walgo();
 
 #ifdef FD_CONTROLS_FALLBACK
@@ -1064,7 +1051,6 @@ void FD_Check3RePlausiSetMilage4FinishedMFD(void){
 
 void FD_Check3ReAndUpdatePifWarnLampOnOffDefOrInf2Re4FinishedAFD(void){
    uint8 ucDeflationLTS;
-
    if(bGETucCalRequestState(cCAL_AUTO_ACTIV) == TRUE){
       if(Get_FD_STATUS() == FALSE){
          if(bGETucCalRequestState(cCAL_AUTO_ENABLE2) == TRUE){
@@ -1680,7 +1666,6 @@ uint8 FD_UpdateComparePressureAfterFBM(void){
 }
 
 uint8 FD_UpdateIDvalue4MFD(void){
-
    uint8 i;
    uint8 ucColOfIdVL,ucColOfIdVR,ucColOfIdHL, ucColOfIdHR;
    uint32 ulTelID;
@@ -2054,7 +2039,6 @@ uint8 FD_TimeoutHandle4AFD(void){
 }
 
 uint8 FD_LoadIdValues4UpdateCompareValue(void){
-
    uint8 i;
    uint8 ucColOfIdVL,ucColOfIdVR,ucColOfIdHL, ucColOfIdHR;
    uint32 ulTelID;
@@ -3330,7 +3314,7 @@ void ClearBitCalRequestState( uint8 ucBitMask ){
   }
 }
 
-void ClearCalRequestStateAtMFDfinish( void ){
+void ClearCalRequestStateAtMFDfinish(void){
   uint8 ui8IsModified;
 
   ui8IsModified = Rte_Pim_Pim_tCalNvMBlock()->ucCalRequestState;
@@ -3433,3 +3417,8 @@ sint8 FD_CalculateTref(sint8 scTemperaturOutside){
    return scTfill_Tref;
 }
 #endif
+
+/******************************************************************************/
+/* EOF                                                                        */
+/******************************************************************************/
+

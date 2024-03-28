@@ -4,25 +4,21 @@
 #include "state_bzX.h"
 #include "wallocX.h"
 
-extern boolean GETbCalPminInvalidCAL( void );
-extern boolean GETbCalReqCAL( void );
-extern boolean GETbCalNotAck4PlausiCheckMFA( void );
+extern boolean GETbCalPminInvalidCAL(void);
+extern boolean GETbCalReqCAL(void);
+extern boolean GETbCalNotAck4PlausiCheckMFA(void);
 extern void CheckDTCInactiveERR(void);
 extern void InitIDOM(void);
 extern uint8 ucGetHistoryState(void);
 
-void InitBZ( void ){
+void InitBZ(void){
   uint8 ucWAState;
-
   if( GETbCalReqCAL() == TRUE ){
     SetBitBetriebszustandBZ(cCAL_REQUEST);
     InitIDOM();
   }
-
   (void) CheckDTCInactiveERR();
-
   ClearBitBetriebszustandBZ( cER_FINISH | cAL_RUNNING | cEIGENRAD | cZUGEORDNET | cHIST_PRELOAD | cZO_FINISH | cZO_TIMEOUT | cZO_ERROR | cTEILZUGEORDNET | cZO_Fallback2Hist);
-
   ucWAState =  ucGetHistoryState();
   if( (ucWAState & cHiStateZG) == cHiStateZG ){
     SetBitBetriebszustandBZ( cEIGENRAD | cZUGEORDNET | cHIST_PRELOAD );

@@ -37,6 +37,7 @@ add_executable(
    ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWpa/WAlloc.c
    ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsWpa/Walloc_IF.c
    ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsManager/SwcApplTpmsManager.c
+   ${PROJECT_SOURCE_DIR}/source/SwcApplTpmsManager/FDmanager/filling_detection.c
 
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSdia
 #  ${PROJECT_SOURCE_DIR}/source/CtApHufTPMSwnh

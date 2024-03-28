@@ -1,11 +1,9 @@
-
-
 #include "state_zk.h"
 #include "state_zkX.h"
 
-extern boolean GETbCalPminInvalidCAL( void );
+extern boolean GETbCalPminInvalidCAL(void);
 
-void InitZK( void ){
+void InitZK(void){
   ClearBitZustandskennungZK( cZK_ALLE_BITS );
 
   SetCalNotAckZK();
@@ -59,7 +57,7 @@ void SetChangedBit4WP( uint8 ucWP){
 
 }
 
-void SetCalNotAckZK( void ){
+void SetCalNotAckZK(void){
 #ifdef cal_plausi_axes_invalid_110606
   if( GETbCalVaInvalidCAL() == TRUE ){
     SetBitZustandskennungZK( cCAL_P_VA_INVALID );

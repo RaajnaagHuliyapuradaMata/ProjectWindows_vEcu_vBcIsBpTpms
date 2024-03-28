@@ -308,7 +308,7 @@ extern FUNC( void, NM_CODE ) Nm_GetVersionInfo( P2VAR( Std_VersionInfoType, AUTO
 #endif
 
 #if( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON )
-extern FUNC( void, NM_CODE ) Nm_MainFunction( void );
+extern FUNC( void, NM_CODE ) Nm_MainFunction(void);
 #endif
 
 extern FUNC( Nm_ReturnType, NM_CODE ) Nm_PassiveStartUp( CONST( NetworkHandleType, AUTOMATIC ) nmChannelHandle );
@@ -351,7 +351,7 @@ extern FUNC( Nm_ReturnType, NM_CODE ) Nm_DisableCommunication( CONST( NetworkHan
 #endif
 
 #if( NM_COORDINATOR_SUPPORT_ENABLED == STD_ON )
-extern FUNC( void, NM_CODE ) Nm_InitMemory( void );
+extern FUNC( void, NM_CODE ) Nm_InitMemory(void);
 #else
 #define Nm_InitMemory()
 #endif

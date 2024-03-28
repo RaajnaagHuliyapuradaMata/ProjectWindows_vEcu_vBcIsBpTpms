@@ -44,12 +44,12 @@
 #define cCAL_MSG2DISP                        ((uint8) 0x40)
 #define cCAL_MANUAL_FINISH               ((uint8) 0x80)
 
-extern void InitBZ( void );
+extern void InitBZ(void);
 
 extern void SetBitBetriebszustandBZ( uint16 );
 extern void ClearBitBetriebszustandBZ( uint16 );
 extern boolean bGetBitBetriebszustandBZ( uint16 );
 extern uint16 ushGetBetriebszustandBZ( uint16 );
-extern uint8 ucGetBetriebszustandLByte( void );
-extern uint8 ucGetBetriebszustandHByte( void );
+extern uint8 ucGetBetriebszustandLByte(void);
+extern uint8 ucGetBetriebszustandHByte(void);
 #endif

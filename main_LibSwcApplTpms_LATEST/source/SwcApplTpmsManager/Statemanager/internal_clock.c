@@ -74,7 +74,6 @@ void UpdateParkingTimer(uint16 ushVSpeed){
   if(ushVSpeed == 0){
     if(ushParkingTime<cT_STANBY){
       ushParkingTime++;
-
     }
   }
   else{
@@ -106,9 +105,7 @@ void ResetStanbyTimer(void){
 }
 
 void SkipStanbyTimer(void){
-
    ushStanbyTime = cT_STANBY;
-
 }
 
 uint16 ushGetCurrentECUStanbyTime(void){
@@ -129,20 +126,18 @@ uint8 ucGetCurrentECUParkingState(void){
 }
 
 uint16 ushGetCurrentECUParkingTime(void){
-
   return ushParkingTime;
 }
 
 boolean bStanbyTimerElapsed(void){
-
    return (ushStanbyTime >= cT_STANBY);
-
 }
 
 uint8  GetOpTimeMethodCurrent(void){
   return ucOpTimeMethodCurrent;
 }
- void SetOpTimeMethodTarget(uint8 ucTimeMethod, uint8 ucCstDelay){
+
+void SetOpTimeMethodTarget(uint8 ucTimeMethod, uint8 ucCstDelay){
   if(ucTimeMethod == OP_TIME_METHOD_CSTDELAY){
     Rte_Pim_Pim_tCodNvMBlock()->aucPalAbsDelayTimeParam[0] = OP_TIME_METHOD_CSTDELAY;
   }
@@ -155,10 +150,10 @@ uint8  GetOpTimeMethodCurrent(void){
   SetCodNvMBlockNewDataFlag(TRUE);
   Rte_Call_PS_Rte_NvmBlock_CpApHufTPMSmgr_Pim_tCodNvMBlock_SetRamBlockStatus(TRUE);
 }
- uint8 GetOpTimeMehodTarget(void){
+uint8 GetOpTimeMehodTarget(void){
   return Rte_Pim_Pim_tCodNvMBlock()->aucPalAbsDelayTimeParam[0];
 }
- uint8 GetPalAbsConstantDelay(void){
+uint8 GetPalAbsConstantDelay(void){
   return Rte_Pim_Pim_tCodNvMBlock()->aucPalAbsDelayTimeParam[1];
 }
 

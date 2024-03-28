@@ -10,10 +10,10 @@
 #define cWATO_BREAK_ALARM    ((uint8) 0x08)
 #define cWATO_RESTART_ALARM  ((uint8) 0x10)
 
-extern void InitWATCF( void );
+extern void InitWATCF(void);
 
-extern void StartWallocTOAlarm( uint8 );
-extern void StopWallocTOAlarm( void );
+extern void StartWallocTOAlarm(uint8);
+extern void StopWallocTOAlarm(void);
 
 extern void ControlWATO( uint8, uint8 );
 #endif

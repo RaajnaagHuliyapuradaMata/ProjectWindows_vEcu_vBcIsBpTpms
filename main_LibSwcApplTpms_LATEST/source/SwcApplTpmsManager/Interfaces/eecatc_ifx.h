@@ -51,34 +51,34 @@ typedef struct typedef_struct_tMirroredRamCatC5Decl
 
 }tMirroredRamCatC5Decl;
 
-extern void InitEECATC2( void );
+extern void InitEECATC2(void);
 
-extern void InitEECATC5( void );
+extern void InitEECATC5(void);
 
 extern void PUTushMissedCntEE( uint16 , uint8 );
-extern uint16 GETushMissedCntEE( uint8 );
+extern uint16 GETushMissedCntEE(uint8);
 
 extern void PUTushGutEmpfCntEE( uint16 , uint8 );
-extern uint16 GETushGutEmpfCntEE( uint8 );
+extern uint16 GETushGutEmpfCntEE(uint8);
 
 extern void PUTucFolgeAusfallCntEE( uint8 , uint8 );
-extern uint8 GETucFolgeAusfallCntEE( uint8 );
+extern uint8 GETucFolgeAusfallCntEE(uint8);
 
-extern uint8 GETucCalRequestEE( void );
-extern void PUTucCalRequestEE( uint8 );
+extern uint8 GETucCalRequestEE(void);
+extern void PUTucCalRequestEE(uint8);
 
-extern uint8 GETucCalNotAckEE( void );
-extern void PUTucCalNotAckEE( uint8 );
+extern uint8 GETucCalNotAckEE(void);
+extern void PUTucCalNotAckEE(uint8);
 
-extern uint8 GETucId1e( void );
-extern void PUTucId1e( uint8 );
-extern uint8 GETucId2e( uint8 );
+extern uint8 GETucId1e(void);
+extern void PUTucId1e(uint8);
+extern uint8 GETucId2e(uint8);
 extern void PUTucId2e( uint8, uint8 );
-extern uint8 GETucId3e( uint8 );
+extern uint8 GETucId3e(uint8);
 extern void PUTucId3e( uint8, uint8 );
-extern uint8 GETucId4e( void );
-extern void PUTucId4e( uint8 );
-extern uint8 GETucId5e( uint8 );
+extern uint8 GETucId4e(void);
+extern void PUTucId4e(uint8);
+extern uint8 GETucId5e(uint8);
 extern void PUTucId5e( uint8, uint8 );
 extern uint8 GETucId6e( uint8);
 extern void PUTucId6e( uint8, uint8 );

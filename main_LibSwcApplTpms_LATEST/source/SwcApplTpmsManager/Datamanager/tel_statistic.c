@@ -81,7 +81,7 @@ void BuildTelStatistics(uint32 ulTelID, uint8 ucTelP, uint8 ucTelT, uint32 ulTim
    }
  }
 
- void UpdateTelStatInfo(uint16 ushCurrentVehSpeed, uint8 ucMinPalSpeed){
+void UpdateTelStatInfo(uint16 ushCurrentVehSpeed, uint8 ucMinPalSpeed){
   uint8 i, ucWaToErr;
   EcuM_StateType  EcuM_State;
 
@@ -157,7 +157,7 @@ void BuildTelStatistics(uint32 ulTelID, uint8 ucTelP, uint8 ucTelT, uint32 ulTim
   }
  }
 
- void InitTelStatInfo(void){
+void InitTelStatInfo(void){
     uint16 i;
      for(i=0; i<cMaxLR; i++){
       tTelStatStruct[i].ushMuteCntr=0;
@@ -628,7 +628,7 @@ void ClearTelStatisticsStruct(uint8 ucPosMask){
     }
   }
 
-  uint8 ucTelStatGetLastRxBlocs(uint32 ulTelID){
+uint8 ucTelStatGetLastRxBlocs(uint32 ulTelID){
     uint8 i;
 
     for(i=0;i<cTableSize;i++){

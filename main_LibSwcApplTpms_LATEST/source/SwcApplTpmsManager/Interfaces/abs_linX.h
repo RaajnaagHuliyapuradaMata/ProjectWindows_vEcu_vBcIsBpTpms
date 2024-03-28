@@ -13,7 +13,7 @@
 #define cAbsOverflowValue (uint16)0xFFFFU
 #endif
 
-extern void InitABS( void );
+extern void InitABS(void);
 extern uint8 LinABS( uint16 ushRfTimeStamp);
 extern void  PutABS( uint16 ushTime, const uint16 ushCnt[] );
 extern uint8 GetLinABS( uint16 ushCnt[] );

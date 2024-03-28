@@ -683,13 +683,13 @@ osqFunc1 void osqFunc2 osUnrecoverableError(StatusType StdErrorCode, osuint16 os
 osqFunc1 StatusType osqFunc2 osActivateTask( TaskType taskIndex);
 #endif
 #ifndef osdTerminateTaskNotUsed
-osqFunc1 StatusType osqFunc2 osTerminateTask ( void );
+osqFunc1 StatusType osqFunc2 osTerminateTask (void);
 #endif
 #ifndef osdChainTaskNotUsed
 osqFunc1 StatusType osqFunc2 osChainTask ( TaskType taskIndex );
 #endif
 #ifndef osdScheduleNotUsed
-osqFunc1 StatusType osqFunc2 osSchedule ( void );
+osqFunc1 StatusType osqFunc2 osSchedule (void);
 #endif
 #ifndef osdGetTaskIDNotUsed
 osqFunc1 StatusType osqFunc2 osGetTaskID ( TaskRefType TaskId);

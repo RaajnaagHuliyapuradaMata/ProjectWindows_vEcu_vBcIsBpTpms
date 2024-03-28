@@ -67,7 +67,7 @@ extern void UpdateSensorStateAtClamp15Off(void);
 extern void InitTelStatInfoAtModeChange(void);
 extern void UpdateHMICurrentTireStat4MM(void);
 
-void InitFZZ( void ){
+void InitFZZ(void){
   ClearBitFahrzeugzustandFZZ( cFZZ_ALLE_BITS );
 
  ushVehicleSpeed=0;
@@ -95,7 +95,7 @@ uint16 ushGetFahrzeugzustandFZZ( uint16 ushBitMask ){
    return (ushFahrzeugzustand & ushBitMask);
 }
 
-void EvTerminal15OnFZZ( void ){
+void EvTerminal15OnFZZ(void){
   if( bGetBitFahrzeugzustandFZZ( cKL_15_EIN ) == FALSE ){
     SetBitFahrzeugzustandFZZ( cKL_15_EIN );
 
@@ -106,7 +106,7 @@ void EvTerminal15OnFZZ( void ){
   }
 }
 
-void EvTerminal15OffFZZ( void ){
+void EvTerminal15OffFZZ(void){
   if( bGetBitFahrzeugzustandFZZ( cKL_15_EIN ) == TRUE ){
     ClearBitFahrzeugzustandFZZ( cKL_15_EIN );
 
@@ -117,45 +117,45 @@ void EvTerminal15OffFZZ( void ){
   }
   }
 
-void EvVehicleRollingFZZ( void ){
+void EvVehicleRollingFZZ(void){
   if( bGetBitFahrzeugzustandFZZ( cFAHRZEUG_FAEHRT ) == FALSE ){
     SetBitFahrzeugzustandFZZ( cFAHRZEUG_FAEHRT );
   }
 }
 
-void EvVehicleSpeed4CalFZZ( void ){
+void EvVehicleSpeed4CalFZZ(void){
   if( bGetBitFahrzeugzustandFZZ( cKFZFAEHRT_20KMH ) == FALSE ){
     SetBitFahrzeugzustandFZZ( cKFZFAEHRT_20KMH );
   }
 }
 
-void EvVehicleStandsStillFZZ( void ){
+void EvVehicleStandsStillFZZ(void){
   if( bGetBitFahrzeugzustandFZZ( cFAHRZEUG_FAEHRT ) == TRUE ){
     ClearBitFahrzeugzustandFZZ( cFAHRZEUG_FAEHRT );
     ucEcuStopCntr++;
   }
 }
 
-void EvVehicleNoSpeed4CalFZZ( void ){
+void EvVehicleNoSpeed4CalFZZ(void){
   if( bGetBitFahrzeugzustandFZZ( cKFZFAEHRT_20KMH ) == TRUE ){
     ClearBitFahrzeugzustandFZZ( cKFZFAEHRT_20KMH );
 
   }
 }
 
-void EvReDiagActiveFZZ( void ){
+void EvReDiagActiveFZZ(void){
   if( bGetBitFahrzeugzustandFZZ( cRS_VTHRES ) == FALSE ){
     SetBitFahrzeugzustandFZZ( cRS_VTHRES );
   }
 }
 
-void EvReDiagInactiveFZZ( void ){
+void EvReDiagInactiveFZZ(void){
   if( bGetBitFahrzeugzustandFZZ( cRS_VTHRES ) == TRUE ){
     ClearBitFahrzeugzustandFZZ( cRS_VTHRES );
   }
 }
 
-void EvEngineRunningFZZ( void ){
+void EvEngineRunningFZZ(void){
   if( bGetBitFahrzeugzustandFZZ( cENG_STARTING ) == TRUE ){
     ucTimeSinceLastEngStart = 0;
    }
@@ -163,7 +163,7 @@ void EvEngineRunningFZZ( void ){
   ClearBitFahrzeugzustandFZZ( cENG_STARTING );
 }
 
-void EvEngineStopedFZZ( void ){
+void EvEngineStopedFZZ(void){
 
   if( bGetBitFahrzeugzustandFZZ( cENG_STARTING ) == TRUE ){
     ucTimeSinceLastEngStart = 0;
@@ -179,30 +179,30 @@ void EvEngineStartingFZZ(void){
    SetBitFahrzeugzustandFZZ( cENG_STARTING);
 }
 
-void EvDriveDirectionForwardFZZ( void ){
+void EvDriveDirectionForwardFZZ(void){
   ClearBitFahrzeugzustandFZZ( cRUECKWAERTSFAHRT );
 }
 
-void EvDriveDirectionBackwardFZZ( void ){
+void EvDriveDirectionBackwardFZZ(void){
   SetBitFahrzeugzustandFZZ( cRUECKWAERTSFAHRT );
 #ifdef FPA
   ReNewABSRef();
 #endif
 }
 
-void EvKl30DiagNoUnterSpgFZZ( void ){
+void EvKl30DiagNoUnterSpgFZZ(void){
   if( bGetBitFahrzeugzustandFZZ( cKL30_UNTERSPG ) == TRUE ){
     ClearBitFahrzeugzustandFZZ( cKL30_UNTERSPG );
   }
 }
 
-void EvKl30DiagUnterSpgFZZ( void ){
+void EvKl30DiagUnterSpgFZZ(void){
   if( bGetBitFahrzeugzustandFZZ( cKL30_UNTERSPG ) == FALSE ){
       SetBitFahrzeugzustandFZZ( cKL30_UNTERSPG );
   }
 }
 
-uint8 GetEvKl30DiagUnterSpgFZZ( void ){
+uint8 GetEvKl30DiagUnterSpgFZZ(void){
   if( bGetBitFahrzeugzustandFZZ( cKL30_UNTERSPG ) == TRUE ){
       return ( TRUE );
   }
@@ -211,19 +211,19 @@ uint8 GetEvKl30DiagUnterSpgFZZ( void ){
    }
 }
 
-void EvKl30DiagNoUeberSpgFZZ( void ){
+void EvKl30DiagNoUeberSpgFZZ(void){
   if( bGetBitFahrzeugzustandFZZ( cKL30_UEBERSPG ) == TRUE ){
     ClearBitFahrzeugzustandFZZ( cKL30_UEBERSPG );
   }
 }
 
-void EvKl30DiagUeberSpgFZZ( void ){
+void EvKl30DiagUeberSpgFZZ(void){
   if( bGetBitFahrzeugzustandFZZ( cKL30_UEBERSPG ) == FALSE ){
       SetBitFahrzeugzustandFZZ( cKL30_UEBERSPG );
   }
 }
 
-uint8 GetEvKl30DiagUeberSpgFZZ( void ){
+uint8 GetEvKl30DiagUeberSpgFZZ(void){
   if( bGetBitFahrzeugzustandFZZ( cKL30_UEBERSPG ) == TRUE ){
       return( TRUE );
   }
@@ -232,7 +232,7 @@ uint8 GetEvKl30DiagUeberSpgFZZ( void ){
    }
 }
 
-void EvTPMS433MhzFZZ( void ){
+void EvTPMS433MhzFZZ(void){
   if( bGetBitFahrzeugzustandFZZ( cTPMS433Mhz ) == FALSE ){
       SetBitFahrzeugzustandFZZ( cTPMS433Mhz );
   }
@@ -243,7 +243,7 @@ void EvTPMS433MhzFZZ( void ){
 
 }
 
-void EvTPMS315MhzFZZ( void ){
+void EvTPMS315MhzFZZ(void){
   if( bGetBitFahrzeugzustandFZZ( cTPMS315Mhz ) == FALSE ){
       SetBitFahrzeugzustandFZZ( cTPMS315Mhz );
   }
@@ -254,16 +254,16 @@ void EvTPMS315MhzFZZ( void ){
 
 }
 
-uint32 GETulKilometersFZZ( void ){
+uint32 GETulKilometersFZZ(void){
   uint32 ulKilometers=0;
    return ulKilometers;
 }
 
-sint8 GETscOutdoorTemperatureFZZ( void ){
+sint8 GETscOutdoorTemperatureFZZ(void){
   return scOutdoorTemperature;
 }
 
-uint16 GETushSpeedFZZ( void ){
+uint16 GETushSpeedFZZ(void){
 
   return ushVehicleSpeed;
 }
@@ -448,7 +448,6 @@ void InitFzzCanSignalMonitoring(void){
 
 void SetFzzSignalImplauState(uint16 ushBitMask){
     ushFzzCanSignalImplauState |= ushBitMask;
-
 }
 
 boolean bGetFzzCanSignalImplausibleState(uint16 ushBitMask){
@@ -651,7 +650,6 @@ void ClearFzzSignalTimeOutState(uint16 ushBitMask){
 
 void SetFzzSignalTimeOutState(uint16 ushBitMask){
     ushFzzCanSignalTimeOutState |= ushBitMask;
-
 }
 
 void SetFzzState4MM(uint8 state){

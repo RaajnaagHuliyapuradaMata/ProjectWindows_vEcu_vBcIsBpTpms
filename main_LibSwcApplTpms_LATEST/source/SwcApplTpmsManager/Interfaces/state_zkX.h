@@ -14,12 +14,12 @@
 #define cPOS_CHANGED_HR       ((uint16) 0x2000)
 #define cZK_ALLE_BITS         ((uint16) 0xffff)
 
-extern void InitZK( void );
+extern void InitZK(void);
 
 extern void SetBitZustandskennungZK( uint16 );
 extern void ClearBitZustandskennungZK( uint16 );
 extern boolean bGetBitZustandskennungZK( uint16 );
 extern uint16 ushGetZustandskennungZK( uint16 );
-extern void SetChangedBit4WP( uint8 );
-extern void SetCalNotAckZK( void );
+extern void SetChangedBit4WP(uint8);
+extern void SetCalNotAckZK(void);
 #endif

@@ -1,5 +1,3 @@
-
-
 #include "tel_time_filter.h"
 #include "tel_time_filterX.h"
 #include "tel_StatisticX.h"
@@ -11,8 +9,7 @@
 static uint16 ushTimeFilterInMilliSec = cTimeFilterLength;
 
 uint8 ucPassTimeFilter(uint32 ulID, uint8 ucTelType, uint32 ulSysTime){
-
-  uint8 ucIx,ucRet = 0;
+   uint8 ucIx,ucRet = 0;
    uint32 ulCurTimeDif = 0;
 
   if( (ucTelType == cTelTypeSELPAL) ||  (ucTelType == cTelTypeSELPAL1) || (ucTelType == 0x00) || (ucTelType == 0x20) || (ucTelType == 0x01) || (ucTelType == 0xC3) || (ucTelType == 0xC1) || (ucTelType == 0xCA)){

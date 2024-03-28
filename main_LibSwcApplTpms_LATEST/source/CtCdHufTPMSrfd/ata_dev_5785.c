@@ -9,7 +9,7 @@
 
 #include "RH850F1L_dvf.h"
 
-static void rf_ata5785_system_reset( void ) ;
+static void rf_ata5785_system_reset(void) ;
 uint8 active_xfer_spi(uint8 ucByteValue);
  static void ataIni1st(void);
 static void ataIniPwrOn(void);
@@ -176,7 +176,7 @@ uint8 rf_ata5785_init(void){
 * Arguments :       none
 * Return Value :    firmware version
 ***********************************************************************************************************************/
-uint8 rf_ata5785_read_version( void ){
+uint8 rf_ata5785_read_version(void){
    uint8 rtn=FALSE;
 
    select_ata5785();
@@ -271,7 +271,7 @@ void rf_ata5785_set_mode( uint8 mode, uint8 channel ){
 * Arguments :       none
 * Return Value :    rx buffer level
 ***********************************************************************************************************************/
-uint8 rf_ata5785_read_rx_level( void ){
+uint8 rf_ata5785_read_rx_level(void){
 uint8 rtn;
    select_ata5785();
 #ifdef MCAL_F1L
@@ -298,7 +298,7 @@ uint8 rtn;
 * Arguments :       none
 * Return Value :    rssi buffer level
 ***********************************************************************************************************************/
-uint8 rf_ata5785_read_rssi_level( void ){
+uint8 rf_ata5785_read_rssi_level(void){
 uint8 rtn;
     select_ata5785();
 #ifdef MCAL_F1L
@@ -726,7 +726,7 @@ uint8 check_sensor_type(void){
 * Arguments :       none
 * Return Value :    reset
 ***********************************************************************************************************************/
-static void rf_ata5785_system_reset( void ){
+static void rf_ata5785_system_reset(void){
 uint8 ptr;
 
     select_ata5785(); /*CS for ATA and wait 47µs */
@@ -794,7 +794,7 @@ void SetServNPath( uint8 ui8SrvNPath ){
 * Arguments :       none
 * Return Value :
 ***********************************************************************************************************************/
-uint8 rf_ata5785_read_error_code( void ){
+uint8 rf_ata5785_read_error_code(void){
 uint8 rtn;
 uint8 ptr;
     select_ata5785();
@@ -834,7 +834,7 @@ uint8 ptr;
 * Arguments :       none
 * Return Value :
 ***********************************************************************************************************************/
-uint8 rf_ata5785_read_SM_state( void ){
+uint8 rf_ata5785_read_SM_state(void){
 uint8 rtn;
 uint8 ptr;
     select_ata5785();
@@ -876,7 +876,7 @@ uint8 ptr;
 * Arguments :       none
 * Return Value :
 ***********************************************************************************************************************/
-void rf_ata5785_OFF_command( void ){
+void rf_ata5785_OFF_command(void){
 uint8 ptr;
 
     select_ata5785();

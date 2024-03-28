@@ -197,8 +197,8 @@ STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateOperatingHoursCounter( P2VAR(uin
 STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_MemCpy( P2CONST(uint8, AUTOMATIC, OHDS_APPL_VAR) src,
                                                   P2VAR(uint8, AUTOMATIC, OHDS_APPL_VAR) dest,
                                                   uint8 cnt );
-STATIC FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_HandleFUP( void );
-STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateSyncOffset( void );
+STATIC FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_HandleFUP(void);
+STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateSyncOffset(void);
 STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_Multiply( P2VAR(uint32, AUTOMATIC, OHDS_APPL_VAR) resultLow,
                                                     P2VAR(uint8, AUTOMATIC, OHDS_APPL_VAR) resultHigh,
                                                     uint32 a, uint16 b);
@@ -217,11 +217,11 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_GetVersionInfo( P2VAR(Std_VersionInfoType, AU
 }
 #endif
 
-FUNC(void, OHDS_CODE) OHDSCanSlave_InitMemory( void ){
+FUNC(void, OHDS_CODE) OHDSCanSlave_InitMemory(void){
   OHDSCanSlave_State = OHDSCANSLAVE_STATE_UNINITIALIZED;
 }
 
-FUNC(void, OHDS_CODE) OHDSCanSlave_Init( void ){
+FUNC(void, OHDS_CODE) OHDSCanSlave_Init(void){
 
   OHDSCanSlave_State = OHDSCANSLAVE_STATE_UNINITIALIZED;
 
@@ -277,7 +277,7 @@ FUNC(void, OHDS_CODE) OHDSCanSlave_Init( void ){
   }
 }
 
-FUNC(void, OHDS_CODE) OHDSCanSlave_MainFunction( void ){
+FUNC(void, OHDS_CODE) OHDSCanSlave_MainFunction(void){
   if( OHDSCanSlave_State == OHDSCANSLAVE_STATE_UNINITIALIZED ){
     OHDSCanSlave_ReportError( OHDSCANSLAVE_MAINFUNCTION_SID, OHDSCANSLAVE_E_UNINIT);
   }
@@ -403,7 +403,7 @@ STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_MemCpy( P2CONST(uint8, AUTOMATIC, OHDS
   }
 }
 
-STATIC FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_HandleFUP( void ){
+STATIC FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_HandleFUP(void){
   VAR(Std_ReturnType, AUTOMATIC) retVal = E_NOT_OK;
 
   if( OHDSCanSlave_GetCanSignal_SQC(OHDSCanSlave_FupMsg) == OHDSCanSlave_GetCanSignal_SQC(OHDSCanSlave_SyncMsg) ){
@@ -459,7 +459,7 @@ STATIC FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_HandleFUP( void ){
   return retVal;
 }
 
-STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateSyncOffset( void ){
+STATIC FUNC(void, OHDS_CODE) OHDSCanSlave_UpdateSyncOffset(void){
   VAR(uint32, AUTOMATIC) timerValue;
   VAR(uint32, AUTOMATIC) deltaTNS;
 

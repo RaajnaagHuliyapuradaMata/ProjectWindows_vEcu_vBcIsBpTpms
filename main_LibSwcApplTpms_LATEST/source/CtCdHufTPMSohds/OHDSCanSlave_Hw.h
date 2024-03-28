@@ -10,9 +10,9 @@
 #define OHDS_START_SEC_CODE
 #include "MemMap.h"
 
-FUNC(uint32, OHDS_CODE) OHDSCanSlave_GetTimerValue( void );
+FUNC(uint32, OHDS_CODE) OHDSCanSlave_GetTimerValue(void);
 
-FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_StartTimer( void );
+FUNC(Std_ReturnType, OHDS_CODE) OHDSCanSlave_StartTimer(void);
 
 #define OHDS_STOP_SEC_CODE
 #include "MemMap.h"

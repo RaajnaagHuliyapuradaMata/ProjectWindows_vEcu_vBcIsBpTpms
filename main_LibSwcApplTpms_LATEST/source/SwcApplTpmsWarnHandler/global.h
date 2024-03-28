@@ -6,7 +6,7 @@
 
 extern uint8 bGETucCalRequestState( uint8 ucBitMask );
 extern void ClearBitCalRequestState( uint8 ucBitMask );
-extern void ClearCalRequestStateAtMFDfinish( void );
+extern void ClearCalRequestStateAtMFDfinish(void);
 extern uint8 GETucPrefFront(void);
 extern uint8 GETucPrefRear(void);
 extern void PUTucPrefFront(uint8 x);

@@ -138,7 +138,7 @@ VAR(uint8, RTE_VAR_ZERO_INIT) Rte_InitState = RTE_STATE_UNINIT; /* PRQA S 0850, 
 #define RTE_START_SEC_VAR_NOINIT_UNSPECIFIED
 #include "MemMap.h" /* PRQA S 5087 */ /* MD_MSR_19.1 */
 
-VAR(DT_tEnvData, RTE_VAR_NOINIT) Rte_CpApHufTPMSmgr_PP_EnvData_DE_tEnvData; /* PRQA S 0850, 3408, 1504 */ /* MD_MSR_19.8, MD_Rte_3408, MD_MSR_8.10 */
+VAR(DT_tEnvData,   RTE_VAR_NOINIT) Rte_CpApHufTPMSmgr_PP_EnvData_DE_tEnvData; /* PRQA S 0850, 3408, 1504 */ /* MD_MSR_19.8, MD_Rte_3408, MD_MSR_8.10 */
 VAR(DT_auRfStruct, RTE_VAR_NOINIT) Rte_CpApHufTPMSmgr_PP_RfStructOut_DE_auRfStruct; /* PRQA S 0850, 3408, 1504 */ /* MD_MSR_19.8, MD_Rte_3408, MD_MSR_8.10 */
 VAR(DT_ushWarnOut, RTE_VAR_NOINIT) Rte_CpApHufTPMSwnh_PP_WarnOut_DE_ushWarnOut; /* PRQA S 0850, 3408, 1504 */ /* MD_MSR_19.8, MD_Rte_3408, MD_MSR_8.10 */
 VAR(DT_ushWAState, RTE_VAR_NOINIT) Rte_CpApHufTPMSwpa_PP_WAState_DE_ushWAState; /* PRQA S 0850, 3408, 1504 */ /* MD_MSR_19.8, MD_Rte_3408, MD_MSR_8.10 */

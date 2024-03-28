@@ -108,9 +108,7 @@ void TracePutTelWallocData2Queue(debutTelWallocStruct* tDebugStruct){
    }
 
 void TracePutTelStr2Queue(debugTelStruct* tDebugStruct){
-
    DT_HufDisplay tHufDisplay;
-
    tHufDisplay.Byte0 = (DT_HufDisplayByte) 11;
    tHufDisplay.Byte1 = (DT_HufDisplayByte) tDebugStruct->ECU_C_RecBlocks;
    tHufDisplay.Byte2 = (DT_HufDisplayByte) 0xFF;

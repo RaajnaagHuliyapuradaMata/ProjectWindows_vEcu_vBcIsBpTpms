@@ -12,7 +12,7 @@ uint8 ucGetAbsOverflowCtrFR(void);
 uint8 ucGetAbsOverflowCtrRL(void);
 uint8 ucGetAbsOverflowCtrRR(void);
 
-void PutABS(uint16 ushTime, const uint16 ushCnt[] ){
+void PutABS(uint16 ushTime, const uint16 ushCnt[]){
    uint8 ucAbsIndexPrev;
    uint8 ucTempDiff;
    uint8 ucAbsIndex200msOffset;
@@ -125,7 +125,7 @@ uint8 GetLinABS(uint16 ushCnt[]){
   return ucRet;
 }
 
-void InitABS( void ){
+void InitABS(void){
   uint8 ucLoop;
 
   for( ucLoop = 0; ucLoop < cAbsBufferSize; ucLoop++ ){
@@ -179,7 +179,7 @@ uint8 bResetAbsRefPoint(void){
 
 }
 
-uint8 LinABS( uint16 ushRfTimeStamp){
+uint8 LinABS(uint16 ushRfTimeStamp){
   uint8 ucRet;
 
   uint8 ucABSIndex1, ucABSIndex2, ucLoop;

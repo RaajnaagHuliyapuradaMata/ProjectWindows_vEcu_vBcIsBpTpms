@@ -46,44 +46,44 @@ typedef enum HufEngStat
   cEngStat_RUNNING,
 }HufEngStat;
 
-extern void InitFZZ( void );
+extern void InitFZZ(void);
 
 extern void SetBitFahrzeugzustandFZZ( uint16 );
 extern void ClearBitFahrzeugzustandFZZ( uint16 );
 extern boolean bGetBitFahrzeugzustandFZZ( uint16 );
 extern uint16 ushGetFahrzeugzustandFZZ( uint16 );
 
-extern void EvTerminal15OnFZZ( void );
-extern void EvTerminal15OffFZZ( void );
+extern void EvTerminal15OnFZZ(void);
+extern void EvTerminal15OffFZZ(void);
 
-extern void EvVehicleRollingFZZ( void );
-extern void EvVehicleSpeed4CalFZZ( void );
-extern void EvVehicleStandsStillFZZ( void );
-extern void EvVehicleNoSpeed4CalFZZ( void );
+extern void EvVehicleRollingFZZ(void);
+extern void EvVehicleSpeed4CalFZZ(void);
+extern void EvVehicleStandsStillFZZ(void);
+extern void EvVehicleNoSpeed4CalFZZ(void);
 
-extern void EvKl30DiagUeberSpgFZZ( void );
-extern void EvKl30DiagNoUeberSpgFZZ( void );
+extern void EvKl30DiagUeberSpgFZZ(void);
+extern void EvKl30DiagNoUeberSpgFZZ(void);
 
-extern void EvKl30DiagUnterSpgFZZ( void );
-extern void EvKl30DiagNoUnterSpgFZZ( void );
+extern void EvKl30DiagUnterSpgFZZ(void);
+extern void EvKl30DiagNoUnterSpgFZZ(void);
 
-extern void EvTPMS433MhzFZZ( void );
-extern void EvTPMS315MhzFZZ( void );
+extern void EvTPMS433MhzFZZ(void);
+extern void EvTPMS315MhzFZZ(void);
 
-extern void EvReDiagActiveFZZ( void );
-extern void EvReDiagInactiveFZZ( void );
+extern void EvReDiagActiveFZZ(void);
+extern void EvReDiagInactiveFZZ(void);
 
-extern void EvEngineRunningFZZ( void );
-extern void EvEngineStopedFZZ( void );
+extern void EvEngineRunningFZZ(void);
+extern void EvEngineStopedFZZ(void);
 extern void EvEngineStartingFZZ(void);
 
-extern void EvDriveDirectionForwardFZZ( void );
-extern void EvDriveDirectionBackwardFZZ( void );
+extern void EvDriveDirectionForwardFZZ(void);
+extern void EvDriveDirectionBackwardFZZ(void);
 
-extern uint32 GETulKilometersFZZ( void );
-extern uint32 GETulSysTimeFZZ( void );
-extern sint8 GETscOutdoorTemperatureFZZ( void );
-extern uint16 GETushSpeedFZZ( void );
+extern uint32 GETulKilometersFZZ(void);
+extern uint32 GETulSysTimeFZZ(void);
+extern sint8 GETscOutdoorTemperatureFZZ(void);
+extern uint16 GETushSpeedFZZ(void);
 
 extern uint8 ucGetEcuStopCntr(void);
 extern void SendEnvData2VehStateMgr(uint8*);

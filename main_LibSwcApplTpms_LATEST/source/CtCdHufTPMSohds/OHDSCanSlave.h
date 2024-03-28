@@ -55,11 +55,11 @@
 #define OHDS_START_SEC_CODE
 #include "MemMap.h"
 
-FUNC(void, OHDS_CODE) OHDSCanSlave_InitMemory( void );
+FUNC(void, OHDS_CODE) OHDSCanSlave_InitMemory(void);
 
-FUNC(void, OHDS_CODE) OHDSCanSlave_Init( void );
+FUNC(void, OHDS_CODE) OHDSCanSlave_Init(void);
 
-FUNC(void, OHDS_CODE) OHDSCanSlave_MainFunction( void );
+FUNC(void, OHDS_CODE) OHDSCanSlave_MainFunction(void);
 
 #if(OHDSCANSLAVE_VERSION_INFO_API == STD_ON)
 

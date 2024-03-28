@@ -182,11 +182,69 @@ FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSwpa_PP_WAState_DE_ushWAState
 /******************************************************************************/
 /* Wrappers for SwcApplTpmsManager.c                                          */
 /******************************************************************************/
+Error - Faster solution is to replace with wrappers from Filling detection!
+Error - Faster solution is to replace with wrappers from Rte!
+
+VAR(DT_tCalNvMBlock, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSmgr_Pim_tCalNvMBlock;
+VAR(DT_tCodNvMBlock, RTE_VAR_DEFAULT_RTE_PIM_GROUP) Rte_CpApHufTPMSmgr_Pim_tCodNvMBlock;
+VAR(DT_ushWAState, RTE_VAR_NOINIT) Rte_CpApHufTPMSwpa_PP_WAState_DE_ushWAState;
+debugTelStruct    tDebugTelStruct;
+debugTelStructPos tdebugTelStructPosFL;
+debugTelStructPos tdebugTelStructPosFR;
+debugTelStructPos tdebugTelStructPosRL;
+debugTelStructPos tdebugTelStructPosRR;
+boolean bSensorDefect(uint32 ui32ID, uint8 ui8TT, uint8 ui8P, uint8 ui8T){return FALSE;}
+boolean bStanbyTimerElapsed(void){return FALSE;}
+FUNC(Std_ReturnType, ECUM_API_CODE) EcuM_ReleasePOST_RUN (EcuM_UserType User_t){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Read_CtApHufTPMSmgr_PP_RfStructIn_DE_auRfStruct(P2VAR(DT_auRfStruct, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_VAR) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Read_CtApHufTPMSmgr_R_AirPress_Outsd_AirPress_Outsd(P2VAR(c08_hPa_0_1980_7k8, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_VAR) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Read_CtApHufTPMSmgr_R_AirTemp_Outsd_Disp_AirTemp_Outsd_Disp(P2VAR(c08_degC_m40_85_0k5, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_VAR) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Read_CtApHufTPMSmgr_R_Eng_Rs_EngCtrl_Pr2_Eng_Rs_EngCtrl_Pr2(P2VAR(REC_Eng_Rs_EngCtrl_Pr2_1j00gxu3p5exa8awg915k1zy, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_VAR) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Read_CtApHufTPMSmgr_R_Ign_Stat_Pr2_Ign_Stat_Pr2(P2VAR(REC_Ign_Stat_Pr2_71njeubj9ico1p8v4pmslfcno, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_VAR) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Read_CtApHufTPMSmgr_R_Odo_Odo(P2VAR(c24_km_0_999999k9_0k1, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_VAR) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Read_CtApHufTPMSmgr_R_PN14_EOL_Disp_Rq_PN14_EOL_Disp_Rq(P2VAR(c03_EOL_Disp_Rq, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_VAR) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Read_CtApHufTPMSmgr_R_RevGr_Engg_RevGr_Engg(P2VAR(c02_Disengg_Engg, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_VAR) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Read_CtApHufTPMSmgr_R_TPM_Actv_Rq_V2_TPM_Actv_Rq_V2(P2VAR(c02_TPM_Actv_Rq_V2, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_VAR) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Read_CtApHufTPMSmgr_R_VehSpd_Disp_VehSpd_Disp(P2VAR(c12_km_p_h_0_409k4_0k1, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_VAR) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Read_CtApHufTPMSmgr_R_WhlPlsCnt_TPM_Pr2_WhlPlsCnt_TPM_Pr2(P2VAR(REC_WhlPlsCnt_TPM_Pr2_5hishd08ma5z1luev78umdwvx, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_VAR) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_P_Awake_Diag_Actv_Awake_Diag_Actv(DC_BOOL data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_P_Awake_Ignition_On_Awake_Ignition_On(DC_BOOL data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_P_Awake_NwSt_Awake_NwSt(DC_BOOL data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_P_Awake_Warn_Actv_Awake_Warn_Actv(DC_BOOL data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_P_Meas_TPM_1_Meas_XX(P2CONST(ARR_08_UInt_noSNA_8, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_DATA) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_P_RefPress_RefPress(P2CONST(REC_RefPress, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_DATA) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_P_Tire_Stat_V2_Tire_Stat_V2(P2CONST(REC_Tire_Stat_V2, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_DATA) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_P_Tire_Temp_V2_Tire_Temp_V2(P2CONST(REC_Tire_Temp_V2, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_DATA) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_P_TPM_Lmp_On_Rq_old_TPM_Lmp_On_Rq_old(P2CONST(REC_TPM_Lmp_On_Rq_old, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_DATA) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_P_TPM_Lmp_On_Rq_Pr2_TPM_Lmp_On_Rq_Pr2(P2CONST(REC_TPM_Lmp_On_Rq_Pr2_cp6wyrd9cg7ec7y2w3khz1gyt, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_DATA) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_P_WakeupRsn_TPM_WakeupRsn_TPM(c08_WakeupRsn_TPM data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_PP_EnvData_DE_tEnvData(P2CONST(DT_tEnvData, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_DATA) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_CODE) Rte_Write_CtApHufTPMSmgr_PP_RfStructOut_DE_auRfStruct(P2CONST(DT_auRfStruct, AUTOMATIC, RTE_CTAPHUFTPMSMGR_APPL_DATA) data){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_COMM_APPL_CODE) ComM_GetCurrentComMode(ComM_UserHandleType parg0, P2VAR(ComM_ModeType, AUTOMATIC, RTE_COMM_APPL_VAR) ComMode){return E_NOT_OK;}
+FUNC(Std_ReturnType, RTE_COMM_APPL_CODE) ComM_RequestComMode(ComM_UserHandleType parg0, ComM_ModeType ComMode){return E_NOT_OK;}
+FUNC(void, COM_CODE) Com_IpduGroupStart(Com_PduGroupIdType IpduGroupId, boolean Initialize){}
+FUNC(void, COM_CODE) Com_IpduGroupStop(Com_PduGroupIdType IpduGroupId){}
+FUNC(void, RTE_CTAPHUFTPMSWNH_APPL_CODE) RCtApHufTPMSwnh_ReceiveData2Warn_Operatation(P2CONST(DT_tData2Warn, AUTOMATIC, RTE_CTAPHUFTPMSWNH_APPL_DATA) tData2Warn){}
+uint16 ushGetCurrentECUParkingTime(void){return 0;}
 uint8 bCarAbsStickStandstill(void){return 0;}
-uint8 bGETucCalRequestState(uint8 ucBitMask){}
-uint8 bResetAbsRefPoint(void){}
-boolean bSensorDefect(uint32 ui32ID, uint8 ui8TT, uint8 ui8P, uint8 ui8T){}
-boolean bStanbyTimerElapsed(void){}
+uint8 bGETucCalRequestState(uint8 ucBitMask){return 0;}
+uint8 bResetAbsRefPoint(void){return 0;}
+uint8 FD_FlowChartFct1(void){return 0;}
+uint8 FD_FlowChartFct1CheckMissingRE(void){return 0;}
+uint8 FD_FlowChartFct1CheckPmin(void){return 0;}
+uint8 FD_LoadIdValues4UpdateCompareValue(void){return 0;}
+uint8 FD_UpdateIDvalue4MFD(void){return 0;}
+uint8 GetOpTimeMethodCurrent(void){return 0;}
+uint8 GetPalAbsConstantDelay(void){return 0;}
+uint8 GETucStoragePaverege4CompareValue(uint8 i){return 0;}
+uint8 LinABS(uint16 ushRfTimeStamp){return 0;}
+uint8 ucGetAvgCntr4FD(uint32 ulTelID){return 0;}
+uint8 ucGetAvgPress4FD(uint32 ulTelID){return 0;}
+uint8 ucHufE2EWrapperProtectTireState2(uint8* data){return 0;}
+uint8 ucPassTimeFilter(uint32 ulID, uint8 ucTelType, uint32 ulSysTime){return 0;}
+uint8 ucTelStatGetLastRxBlocs(uint32 ulTelID){return 0;}
+uint8 ucTraceGetDataFromQueue(DT_HufDisplay* tHufDisplay){return 0;}
+uint8 ui8GetComptoirRepare(void){return 0;}
 void BuildTelStatistics(uint32 ulTelID, uint8 ucTelP, uint8 ucTelT, uint32 ulTime, boolean bSensorDefect){}
 void ClearBitBetriebszustandBZ(uint16 ushBitMask){}
 void ClearBitCalRequestState(uint8 ucBitMask){}
@@ -195,108 +253,53 @@ void ClearBitInNoCheckPmin4StopFD(uint8 ucBitMask){}
 void ClearFzzSignalTimeOutState(uint16 ushBitMask){}
 void ClearFzzSignalUnplausibleState(uint16 ushBitMask){}
 void ClearTelStatisticsStruct(uint8 ucPosMask){}
-FUNC(void, COM_CODE) Com_IpduGroupStart(Com_PduGroupIdType IpduGroupId, boolean Initialize){}
-FUNC(void, COM_CODE) Com_IpduGroupStop(Com_PduGroupIdType IpduGroupId){}
-FUNC(Std_ReturnType, RTE_COMM_APPL_CODE) ComM_GetCurrentComMode(ComM_UserHandleType parg0, P2VAR(ComM_ModeType, AUTOMATIC, RTE_COMM_APPL_VAR) ComMode){}
-FUNC(Std_ReturnType, RTE_COMM_APPL_CODE) ComM_RequestComMode(ComM_UserHandleType parg0, ComM_ModeType ComMode){}
-FUNC(Std_ReturnType, ECUM_API_CODE) EcuM_ReleasePOST_RUN (EcuM_UserType User_t){}
 void FD_AbortFillingDetection(uint8 ucNotAckState){}
-FD_Check3ReAndUpdatePifWarnLampOnOffDefOrInf2Re4FinishedAFD
-FD_Check3RePlausiSetMilage4FinishedMFD
-FD_FlowChartFct1
-FD_FlowChartFct1CheckMissingRE
-FD_FlowChartFct1CheckPmin
-FD_HandleReceivedReRadPosHL4AFD
-FD_HandleReceivedReRadPosHR4AFD
-FD_HandleReceivedReRadPosVL4AFD
-FD_HandleReceivedReRadPosVR4AFD
-FD_LoadIdValues4UpdateCompareValue
-FD_UpdateComparePressureAtWarning
-FD_UpdateIDvalue4MFD
-FillingDetectionAFDII
-FillingDetectionAFDIII
-FillingDetectionMFD
-GetDebugVar2beLogged
-GetInternMSTime
-GetOpTimeMethodCurrent
-GetPalAbsConstantDelay
-GetSystemOperatingTime
-GETucStoragePaverege4CompareValue
-HufE2EWrapperInit
-IncrInternMsTimer
-InitABS
-InitBZ
-InitFilterTime
-InitTelStatInfo
-InitZK
-LinABS
-PutABS
-PUTscIdCalTemperatur
-PUTucIdCalPressure
-PUTuiStoragePaverege4CompareValue
-RCtApHufTPMSwnh_ReceiveData2Warn_Operatation
-ResetStanbyTimer
-Rte_CpApHufTPMSmgr_Pim_tCalNvMBlock
-Rte_CpApHufTPMSmgr_Pim_tCodNvMBlock
-Rte_CpApHufTPMSwpa_PP_WAState_DE_ushWAState
-Rte_Read_CtApHufTPMSmgr_PP_RfStructIn_DE_auRfStruct
-Rte_Read_CtApHufTPMSmgr_R_AirPress_Outsd_AirPress_Outsd
-Rte_Read_CtApHufTPMSmgr_R_AirTemp_Outsd_Disp_AirTemp_Outsd_Disp
-Rte_Read_CtApHufTPMSmgr_R_Eng_Rs_EngCtrl_Pr2_Eng_Rs_EngCtrl_Pr2
-Rte_Read_CtApHufTPMSmgr_R_Ign_Stat_Pr2_Ign_Stat_Pr2
-Rte_Read_CtApHufTPMSmgr_R_Odo_Odo
-Rte_Read_CtApHufTPMSmgr_R_PN14_EOL_Disp_Rq_PN14_EOL_Disp_Rq
-Rte_Read_CtApHufTPMSmgr_R_RevGr_Engg_RevGr_Engg
-Rte_Read_CtApHufTPMSmgr_R_TPM_Actv_Rq_V2_TPM_Actv_Rq_V2
-Rte_Read_CtApHufTPMSmgr_R_VehSpd_Disp_VehSpd_Disp
-Rte_Read_CtApHufTPMSmgr_R_WhlPlsCnt_TPM_Pr2_WhlPlsCnt_TPM_Pr2
-Rte_Write_CtApHufTPMSmgr_P_Awake_Diag_Actv_Awake_Diag_Actv
-Rte_Write_CtApHufTPMSmgr_P_Awake_Ignition_On_Awake_Ignition_On
-Rte_Write_CtApHufTPMSmgr_P_Awake_NwSt_Awake_NwSt
-Rte_Write_CtApHufTPMSmgr_P_Awake_Warn_Actv_Awake_Warn_Actv
-Rte_Write_CtApHufTPMSmgr_P_Meas_TPM_1_Meas_XX
-Rte_Write_CtApHufTPMSmgr_P_RefPress_RefPress
-Rte_Write_CtApHufTPMSmgr_P_Tire_Stat_V2_Tire_Stat_V2
-Rte_Write_CtApHufTPMSmgr_P_Tire_Temp_V2_Tire_Temp_V2
-Rte_Write_CtApHufTPMSmgr_P_TPM_Lmp_On_Rq_old_TPM_Lmp_On_Rq_old
-Rte_Write_CtApHufTPMSmgr_P_TPM_Lmp_On_Rq_Pr2_TPM_Lmp_On_Rq_Pr2
-Rte_Write_CtApHufTPMSmgr_P_WakeupRsn_TPM_WakeupRsn_TPM
-Rte_Write_CtApHufTPMSmgr_PP_EnvData_DE_tEnvData
-Rte_Write_CtApHufTPMSmgr_PP_RfStructOut_DE_auRfStruct
-SendEnvData2VehStateMgr
-SetBitBetriebszustandBZ
-SetBitCalNotAckState2Ram
-SetBitCalRequestState2Ram
-SetBitFahrzeugzustandFZZ
-SetBitFillingDetectionStateFD
-SetFzzSignalImplauState
-SetFzzSignalTimeOutState
-SetState2AbortReasonFD
-SetState2FillingDetectionStateFD
-SkipStanbyTimer
-tDebugTelStruct
-tdebugTelStructPosFL
-tdebugTelStructPosFR
-tdebugTelStructPosRL
-tdebugTelStructPosRR
-TPMS_NVM_ActivateWriteAll
-TracePutTelStr2Queue
-TracePutTelWallocData2Queue
-tracerInit
-ucGetAvgCntr4FD
-ucGetAvgPress4FD
-ucHufE2EWrapperProtectTireState2
-ucPassTimeFilter
-ucTelStatGetLastRxBlocs
-ucTraceGetDataFromQueue
-ui8GetComptoirRepare
-UpdateFzzCurrentLearnMode
-UpdateFzzDTcEnableCond
-UpdateParkingTimer
-UpdateStanbyTimer
-UpdateTelStatInfo
-ushGetCurrentECUParkingTime
-ZomChangedWuInfoDcm
+void FD_Check3ReAndUpdatePifWarnLampOnOffDefOrInf2Re4FinishedAFD(void){}
+void FD_Check3RePlausiSetMilage4FinishedMFD(void){}
+void FD_HandleReceivedReRadPosHL4AFD(uint8 ucP, sint8 scT,uint8 ucColOfID, uint8 ucLTSmode){}
+void FD_HandleReceivedReRadPosHR4AFD(uint8 ucP, sint8 scT,uint8 ucColOfID, uint8 ucLTSmode){}
+void FD_HandleReceivedReRadPosVL4AFD(uint8 ucP, sint8 scT,uint8 ucColOfID, uint8 ucLTSmode){}
+void FD_HandleReceivedReRadPosVR4AFD(uint8 ucP, sint8 scT,uint8 ucColOfID, uint8 ucLTSmode){}
+void FD_UpdateComparePressureAtWarning(uint8 ucTPM_WarnDisp_Rq4CmpP){}
+void FillingDetectionAFDII(void){}
+void FillingDetectionAFDIII(uint8 ucFastDeflation){}
+void FillingDetectionMFD(uint8 ucRestartAnzeige){}
+void GetDebugVar2beLogged(){}
+void GetInternMSTime(uint32* ulInternalTime){}
+void GetSystemOperatingTime(uint32* ulOpTime){}
+void HufE2EWrapperInit(void){}
+void IncrInternMsTimer(void){}
+void InitABS(void){}
+void InitBZ(void){}
+void InitFilterTime(void){}
+void InitTelStatInfo(void){}
+void InitZK(void){}
+void PutABS(uint16 ushTime, const uint16 ushCnt[]){}
+void PUTscIdCalTemperatur(sint8 x, uint8 i){}
+void PUTucIdCalPressure(uint8 x, uint8 i){}
+void PUTuiStoragePaverege4CompareValue(uint16 x, uint8 i){}
+void ResetStanbyTimer(void){}
+void SendEnvData2VehStateMgr(uint8* data){}
+void SetBitBetriebszustandBZ(uint16 ushBitMask){}
+void SetBitCalNotAckState2Ram(uint8 ucBitMask){}
+void SetBitCalRequestState2Ram(uint8 ucBitMask){}
+void SetBitFahrzeugzustandFZZ(uint16 ushBitMask){}
+void SetBitFillingDetectionStateFD(uint8 ucBitMask){}
+void SetFzzSignalImplauState(uint16 ushBitMask){}
+void SetFzzSignalTimeOutState(uint16 ushBitMask){}
+void SetState2AbortReasonFD(uint8 ucState){}
+void SetState2FillingDetectionStateFD(uint8 ucState){}
+void SkipStanbyTimer(void){}
+void TPMS_NVM_ActivateWriteAll (void){}
+void TracePutTelStr2Queue(debugTelStruct* tDebugStruct){}
+void TracePutTelWallocData2Queue(debutTelWallocStruct* tDebugStruct){}
+void tracerInit(void){}
+void UpdateFzzCurrentLearnMode(void){}
+void UpdateFzzDTcEnableCond(void){}
+void UpdateParkingTimer(uint16 ushVSpeed){}
+void UpdateStanbyTimer(boolean bIgnState, uint16 ushVSpeed, uint8 ucVmin){}
+void UpdateTelStatInfo(uint16 ushCurrentVehSpeed, uint8 ucMinPalSpeed){}
+void ZomChangedWuInfoDcm(uint16 ushWaState){}
 
 /******************************************************************************/
 /* EOF                                                                        */
