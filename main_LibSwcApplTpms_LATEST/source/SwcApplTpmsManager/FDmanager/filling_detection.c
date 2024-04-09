@@ -858,13 +858,13 @@ void FD_PlausibilityCheckMFD(sint8 scTemperaturOutside){
    sint8 scTfillHA;
    sint8 scTfill_Tref;
    uint8 ucRtn=FALSE;
-   for( i = 0; i < cAnzRad; i++){
+   for(i = 0; i < cAnzRad; i++){
       switch (GETucWPorPWPofHistCol(i)){
          case cRadPosVL: ucColOfIdVL = i; break;
          case cRadPosVR: ucColOfIdVR = i; break;
          case cRadPosHL: ucColOfIdHL = i; break;
          case cRadPosHR: ucColOfIdHR = i; break;
-         default: ucRtn = TRUE;
+         default:        ucRtn = TRUE;
       }
    }
    if(ucRtn == FALSE){
@@ -908,101 +908,82 @@ void FD_PlausibilityCheckMFD(sint8 scTemperaturOutside){
          ReplayLastREvalue2Walgo();
 
 #ifdef FD_CONTROLS_FALLBACK
-
          if(bGETucCalNotAckState(cCAL_FBM_ACTIV_NAK) == TRUE){
-
-          ClearPWP();
-          Check4PWP();
+            ClearPWP();
+            Check4PWP();
          }
 #endif
-
       }
       else{
-
          SetState2FillingDetectionStateFD(cFILLING_UNPLAUSIBLE);
-
-         if((bGetBitBetriebszustandBZ(cCAL_FINISH) != TRUE) && (bGETucCalRequestState(cCAL_MANUAL_ACTIV)== TRUE)){
-
+         if(
+               (bGetBitBetriebszustandBZ(cCAL_FINISH) != TRUE)
+            && (bGETucCalRequestState(cCAL_MANUAL_ACTIV)== TRUE)
+         ){
             SetBitBetriebszustandBZ(cCAL_FINISH | cCAL_MFD_PLAUSI_ERROR);
             ClearBitBetriebszustandBZ(cCAL_REQUEST);
             ClearBitCalRequestState(cCAL_MANUAL_ACTIV | cCAL_AUTO_NEW_ID);
             SetBitCalRequestState2Ram(cCAL_MANUAL_FINISH);
-
             PUTucPosComparePressure(GetP4NewTempAtCAL(((uint8)GETuiStoragePaverege4CompareValue(ucColOfIdVL)),GETscIdCalTemperatur(ucColOfIdVL), GETscTref()),cRadPosVL);
             PUTucPosComparePressure(GetP4NewTempAtCAL(((uint8)GETuiStoragePaverege4CompareValue(ucColOfIdVR)),GETscIdCalTemperatur(ucColOfIdVR), GETscTref()),cRadPosVR);
             PUTucPosComparePressure(GetP4NewTempAtCAL(((uint8)GETuiStoragePaverege4CompareValue(ucColOfIdHL)),GETscIdCalTemperatur(ucColOfIdHL), GETscTref()),cRadPosHL);
             PUTucPosComparePressure(GetP4NewTempAtCAL(((uint8)GETuiStoragePaverege4CompareValue(ucColOfIdHR)),GETscIdCalTemperatur(ucColOfIdHR), GETscTref()),cRadPosHR);
-
-          }
+         }
          else{
             if((bGetBitBetriebszustandBZ(cCAL_FINISH) != TRUE) && (bGETucCalRequestState(cCAL_AUTO_ACTIV)== TRUE)){
                SetBitBetriebszustandBZ(cCAL_AFD_PLAUSI_ERROR);
                BZ_FZZ_RQ_State4AFD_Finish();
-             }
+            }
          }
       }
    }
    else{
       SetState2PlausiFailureFD(cFD_FALL_BACK_NOPOS);
-      if((bGetBitBetriebszustandBZ(cCAL_FINISH) != TRUE) && (bGETucCalRequestState(cCAL_MANUAL_ACTIV)== TRUE)){
-
+      if(
+            (bGetBitBetriebszustandBZ(cCAL_FINISH) != TRUE)
+         && (bGETucCalRequestState(cCAL_MANUAL_ACTIV)== TRUE)
+      ){
          SetBitBetriebszustandBZ(cCAL_FINISH | cCAL_MFD_PLAUSI_ERROR);
          ClearBitBetriebszustandBZ(cCAL_REQUEST);
          SetBitCalRequestState2Ram(cCAL_MANUAL_FINISH);
          ClearBitCalRequestState(cCAL_MANUAL_ACTIV | cCAL_AUTO_NEW_ID);
       }
    }
-
 }
 
 void FD_UnplausibleMFD(void){
    uint8 ucColOfIdVL,ucColOfIdVR,ucColOfIdHL, ucColOfIdHR;
    uint8 i;
    uint8 ucRtn=FALSE;
-
-   for( i = 0; i < cAnzRad; i++ ){
-      switch (GETucWPorPWPofHistCol(i)){
-         case cRadPosVL:
-                  ucColOfIdVL=i;
-         break;
-         case cRadPosVR:
-                  ucColOfIdVR=i;
-         break;
-         case cRadPosHL:
-                  ucColOfIdHL=i;
-         break;
-         case cRadPosHR:
-                 ucColOfIdHR=i;
-         break;
-         default:
-         {
-            ucRtn = TRUE;
-         }
+   for(i = 0; i < cAnzRad; i++ ){
+      switch(GETucWPorPWPofHistCol(i)){
+         case cRadPosVL: ucColOfIdVL = i; break;
+         case cRadPosVR: ucColOfIdVR = i; break;
+         case cRadPosHL: ucColOfIdHL = i; break;
+         case cRadPosHR: ucColOfIdHR = i; break;
+         default:        ucRtn = TRUE;
       }
    }
-
    if(ucRtn == FALSE){
-
       SetState2FillingDetectionStateFD(cFILLING_UNPLAUSIBLE);
       SetBitCalNotAckState2Ram(cCAL_P_MIN_X_MINUS_DP_MANUAL);
       SetState2PlausiFailureFD(cFD_DP_MANUAL);
       ClearAbortReasonFD();
-
       SetBitBetriebszustandBZ(cCAL_FINISH | cCAL_MFD_PLAUSI_ERROR);
       ClearBitBetriebszustandBZ(cCAL_REQUEST);
       ClearBitCalRequestState(cCAL_MANUAL_ACTIV | cCAL_AUTO_NEW_ID);
       SetBitCalRequestState2Ram(cCAL_MANUAL_FINISH);
-
       PUTucPosComparePressure(GetP4NewTempAtCAL(((uint8)GETuiStoragePaverege4CompareValue(ucColOfIdVL)),GETscIdCalTemperatur(ucColOfIdVL), GETscTref()),cRadPosVL);
       PUTucPosComparePressure(GetP4NewTempAtCAL(((uint8)GETuiStoragePaverege4CompareValue(ucColOfIdVR)),GETscIdCalTemperatur(ucColOfIdVR), GETscTref()),cRadPosVR);
       PUTucPosComparePressure(GetP4NewTempAtCAL(((uint8)GETuiStoragePaverege4CompareValue(ucColOfIdHL)),GETscIdCalTemperatur(ucColOfIdHL), GETscTref()),cRadPosHL);
       PUTucPosComparePressure(GetP4NewTempAtCAL(((uint8)GETuiStoragePaverege4CompareValue(ucColOfIdHR)),GETscIdCalTemperatur(ucColOfIdHR), GETscTref()),cRadPosHR);
-
    }
    else{
       SetState2PlausiFailureFD(cFD_FALL_BACK_NOPOS);
-      if((bGetBitBetriebszustandBZ(cCAL_FINISH) != TRUE) && (bGETucCalRequestState(cCAL_MANUAL_ACTIV)== TRUE)){
-
+      if(
+            (bGetBitBetriebszustandBZ(cCAL_FINISH) != TRUE)
+         && (bGETucCalRequestState(cCAL_MANUAL_ACTIV)== TRUE)
+      ){
          SetBitBetriebszustandBZ(cCAL_FINISH | cCAL_MFD_PLAUSI_ERROR);
          ClearBitBetriebszustandBZ(cCAL_REQUEST);
          ClearBitCalRequestState(cCAL_MANUAL_ACTIV | cCAL_AUTO_NEW_ID);
@@ -1017,20 +998,18 @@ void FD_Check3RePlausiSetMilage4FinishedMFD(void){
          SetState2FillingDetectionStateFD(cMFD_RUNNING);
       }
    }
-
-   if(( GETucRErecCounter4FDVL() <3) && ( GETucRErecCounter4FDVR() <3) && ( GETucRErecCounter4FDHL() <3) &&( GETucRErecCounter4FDHR() <3)){
+   if(( GETucRErecCounter4FDVL() <3) && ( GETucRErecCounter4FDVR() <3) && ( GETucRErecCounter4FDHL() <3) &&( GETucRErecCounter4FDHR() <3)
+   ){
       if((bGetBitBetriebszustandBZ(cZO_TIMEOUT) == TRUE ) || (bGetBitBetriebszustandBZ(cZO_FINISH) == TRUE )){
          FD_LoadIdValues4MFD();
       }
    }
-
    if(( GETucRErecCounter4FDVL() >=3) && ( GETucRErecCounter4FDVR() >=3) && ( GETucRErecCounter4FDHL() >=3) &&( GETucRErecCounter4FDHR() >=3)
       && (((bGetBitBetriebszustandBZ(cZO_FINISH) == TRUE)
       || ((bGetBitBetriebszustandBZ(cZO_TIMEOUT) == TRUE ) && (ui8GetALState() == cAL_Stored))
       || ((bGetBitBetriebszustandBZ(cZO_TIMEOUT) == TRUE ) && (ui8GetALState() == cAL_OK))
       || (Getui8ColPWPActive() != FALSE) ))){
       if(ucCheckAllRePcalMinDPmanualMFD() == TRUE){
-
          FD_UnplausibleMFD();
       }
       else{
@@ -1039,7 +1018,6 @@ void FD_Check3RePlausiSetMilage4FinishedMFD(void){
       }
       PUTushFDtimeout(0);
       PUTucFDtimerStop(TRUE);
-
       if(Get_FD_STATUS() == cFILLING_DETECTED){
          PUTulLastCalMileage(GETulKmStand4AutoCAL());
       }
